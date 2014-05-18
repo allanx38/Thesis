@@ -1,0 +1,61 @@
+% Chapter 5
+
+\chapter{Time Series} % Main chapter title
+
+\label{Chapter5} % For referencing the chapter elsewhere, use \ref{Chapter5} 
+
+\lhead{Chapter 5. \emph{Time Series}} % This is for the header on each page - perhaps a shortened title
+
+%----------------------------------------------------------------------------------------
+
+This chapter will use time series analysis to generate models to make forecasts for futures prices in various national stock market indices. Firstly three base systems will be considered, these are simple concepts and will be used as a bench mark against which the following time series models will be compared, and if they can't produce superior results won't be considered further. the base systems are the naive method which simply uses the previous value for the forecast of the next value, the average method in which the forecast is simply the mean of the pervious values and the drift method. The drift method is the average change encountered in the historical data and is equivalent to drawing a striaght line between the first and last observation. Subsequent time series models are developed using exponential smoothing methods, ARIMA techniques and finally hybrid methods.
+
+\section{Base results}
+Three base systems - mean, naive and drift were used to generate results as a starting point from which subsequent time series models can be compared. 
+
+Figure \ref{fig:chp5_ts_dax} shows the three methods being applied to a data set derived from the German Dax. The models were trained on the first 3000 observations and tested on the remaining 528. The results of applying these simple models against the test data can be seen in Table \ref{tab:chp_ts:sma}.
+
+%label - tab:chp_ts:sma
+\input{Tables/chp_ts_sma.tex}
+
+Figure \ref{fig:chp5_ts_dax} is a plot of the forecast from these models generated against the training set and forecasting the closing price at the end of the test period. The Naive and Drift algorithms forecast similar values while the Mean method produces a markedly lower value.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics{Figures/chp_ts_dax1}
+\caption[Results of simple modelling methods.]{Results of simple modelling methods.}
+\label{fig:chp5_ts_dax}
+\end{figure}
+
+Figure \ref{fig:chp5_ts_dax_act} is the same as Figure \ref{fig:chp5_ts_dax} except the actual data encountered during the foecast period has been added.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics{Figures/chp_ts_dax1_plus_act_data}
+\caption[Results of simple modelling methods and actual data.]{Results of simple modelling methods with actual data in forecast period added.}
+\label{fig:chp5_ts_dax_act}
+\end{figure}
+
+\section{Exponential Smoothing}
+
+Using Rob J Hyndman's forecast package and the ets() function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
+
+\begin{table}[ht]
+\centering
+\caption[Taxonomy of exponential smoothing methods.]{of exponential smoothing methods.} 
+\label{tab:tax_em}
+\begin{tabular}{lccc}
+  \toprule 
+            & \multicolumn{3}{c}{Seasonal Component} \\
+  \cmidrule(r){2-4}
+  Trend     & N      & A          & M       \\ 
+  Component &(None)  &(Additive)  & (Multiplicative)  \\
+  \midrule 
+  N (None) & (N,N)&(N,A)&(N,M)  \\ 
+  A (Additive) & (A,N)&	(A,A)&(A,M)  \\ 
+  Ad (Additive damped) &(Ad,N)&(Ad,A)&(Ad,M) \\ 
+  M (Multiplicative) &(M,N)&(M,A)&(M,M)  \\ 
+  Md (Multiplicative damped) &(Md,N)&(Md,A)&(Md,M) \\ 
+   \bottomrule \end{tabular}
+\end{table}
+

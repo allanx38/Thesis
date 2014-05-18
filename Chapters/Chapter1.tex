@@ -1,0 +1,239 @@
+% Chapter 1
+
+\chapter{Introduction} % Main chapter title
+
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+\lhead{Chapter 1. \emph{Inroduction}} % This is for the header on each page - perhaps a shortened title
+
+%----------------------------------------------------------------------------------------
+
+\section{Background}
+%Broad overview of your area of study, and more specific background to the problem under investigation
+
+
+For hundreds of years speculators have tried to make an monetary profit in financial markets by predicting the future price of commodities, stocks, foreign exchange rates and more recently futures and options. Over the last few decades these efforts have increased markedly, using a variety of techniques \citep{Hsu201114026}, which can be broadly classified into three categories:
+
+\begin{itemize}
+\item fundamental analysis
+\item technical analysis
+\item traditional time series forecasting
+\end{itemize}
+
+\subsection{Fundamental Analysis}
+Fundamental analysis makes use of basic market information in order to predict future movements of an asset. If an investor was looking at a particular stock's fundamental data they would consider information such as revenue, profit forecasts, supply, demand and operating margins etc. Speculators looking at commodities might consider weather patterns, political aspects, government legislation and so on. Effectively fundamental analysis is concerned with macro economic and political factors that might affect the future price of a financial asset. Fundamental analysis is not considered further in this study.
+
+%%(\cite{Hsu201114026}) - \te (Thomsett, 1998). 
+
+\subsection{Technical Analysis}
+\label{chp1:ta}
+Technical analysis is the study of historical prices and patterns with the aim of predicting future prices. Practitioners of technical analysis in the past were referred to as chartists, as they believed all that was needed to know about a particular market was contained in its pricing chart. \cite{murphy1999technical} defines technical analysis as:
+
+%(\cite{Hsu201114026}) - \textquotedblleft technical analysis studies the stock prices and related issues,
+%including analysis of recent and historical price trends, cycles
+%and factors beyond the stock price, such as dividend payments,
+%trading volume, index trends, industry group trends and popularity,
+%and volatility of a stock (Thomsett, 1999). Technical analysis, rather than relying solely upon historical financial information,
+%analysts will surmise upon recent trends in stock price changes,
+%prices and earnings relationships, the activity volume of a particular
+%stock or industry, and other similar indicators in order to determine
+%changes in stocks, and in the market itself (Thomsett, 1999). \textquotedblright
+
+\textit{\textquotedblleft Technical analysis is the study of market action, primarily through the use of charts for the purpose of forecasting future price trends.\textquotedblright}
+
+Technical analysis (TA) is interesting as it tends to polarise opinion as to its scientific basis and effectiveness. To many people and particularly scholars in academia it is considered little more than Black Magic. Consider the words of \cite{malkiel1999random}:
+
+\textit{\textquotedblleft Obviously I am biased against the chartist. This is not only a personal predilection, but a professional one as well. Technical Analysis is anathema to the academic world. We love to pick on it. Our bullying tactics are prompted by two considerations: (1) the method is patently false; and (2) it's easy to pick on. And while it may seem a bit unfair to pick on such a sorry target, just remember: it is your money we are trying to save.\textquotedblright}
+
+However in world of finance technical analysis is ubiquitous and widely used \cite{Menkhoff20102573}. In support of TA a plethora of so-called indicators have been developed over the years from simple moving averages to much more exotic offerings. Today every piece of software or on-line analysis tool provides the ability to place a multitude of technical indicators on a graph of stock, commodity or any financial instrument.
+
+Most technical indicators essentially fall into one of two main categories, ones attempting to detect the start and direction of trends and those trying to identify market reversals generally called oscillators. Trend analysis indicators include Average Direction Index (ADX), Aroon, Moving Averages and Commodity Channel Indexes (CCI). Price oscillator indicators include, Moving Average Convergence Divergence (MACD - \citep{appel2007understanding}), Stochastics, Relative Strength Index (RSI) and the Chande Momentum Oscillator (CMO).
+
+\subsection{Time Series Forecasting}
+The study of forecasting time series data has been an active area of study for several decades \citep{DeGooijer2006443}. Series data is ordered such that the ordering is an important if not critical aspect of the data, with the requirement to maintain this ordering enforcing certain requirements on any processing. Series data can be ordered by factors such as distance or height but typically time is the ordering encountered. Financial data is an important category of series data and a variety of well known time series forecasting methods have been applied to the problem of predicting price movements in the financial markets. These have included, exponential smoothing, auto-regressive moving average (ARMA)
+and auto-regressive integrated moving average (ARIMA).
+
+A variety of smoothing algorithms have been applied to series data in general and financial data in particular. Moving averages, including simple, weighted and exponential, are widely employed by participants in financial markets to both predict future movements and quantify current conditions. Classical time series analysis such as so-called Holt-Winters exponential smoothing, the auto-regressive moving average (ARMA or Box-Jenkins model) and auto-regressive integrated moving average (ARIMA) methods have been widely employed. In more recent years data mining techniques have been applied to the problem of financial time series prediction, for example with the use of artificial neural networks (ANNs) and support vector machines (SVM) as well as an hybrid approach of combining the classic time series techniques with the data mining methods in an attempt to leverage the strengths of each technique.
+
+%(\cite{Hsu201114026}) - \textquotedblleft In addition, traditional time series forecasting techniques, such as
+%autoregressive integrated moving average (ARIMA) (Box & Jenkins,
+%1970), 
+%generalized autoregressive conditional heteroskedasticity (GARCH) (Bollerslev, 1986), and 
+% multivariate regression have been
+%applied to the prediction of stock price movements. 
+
+%In recent years,
+%data mining/computational intelligence techniques have become
+%another important approach to predict stock prices. For example,
+%Kim and Han (2000) utilized genetic algorithms (GAs) to discretize
+%features and determine the connection weights of artiﬁcial neural
+%networks (ANNs), thus, predicting the stock price index. \textquotedblright
+
+
+\section{Statement of the Problem}
+The problem under study in this thesis is that of predicting the movement of financial markets. Financial markets include:
+\begin{itemize}
+\item Indices e.g.\ Dow Jones Index, FTSE100 etc.
+\item Commodities e.g.\ gold, oil etc.
+\item Foreign exchange rates (also known as Forex or FX) e.g.\ GBP\\USD (price of British pounds divided by US dollars).
+\item Stocks e.g.\ Google, Apple, Barclays Bank etc.
+\end{itemize}
+The goal of financial traders is to detect the movement of the markets and buy instruments expected to rise in price \textquotedblleft going long" and sell those predicted to fall in price \textquotedblleft going short". The markets are a neutral sum process, for every participant who gains there are those who lose.
+
+\section{Purpose of Study}
+The purpose of this study is to investigate and establish the usefulness and accuracy of a selection of technical indicators and time series analysis on the ability to predict future data movements in a group of financial markets including national indices, Forex, commodities and stocks.
+
+\subsection{Study Objectives}
+The objective of this study is three fold:
+
+\begin{enumerate}
+\item Determine if a group of popular and widely used technical indicators can be used to predict the direction of movement in a range of financial markets.
+\item Investigate if traditional time series models can predict the direction of movement in a range of financial markets.
+\item Use traditional time series models to identify when a financial market moves into the \textquotedblleft trending" phase.
+\end{enumerate}
+
+%Arima vs Holt Winters - ID trend - trad tools
+
+%Are there any other - Neural Nets
+
+\section{Research Questions or Hypothesis}
+The hypothesis of the study is that the use of technical indicators or time series analysis can help to predict the future direction and movement of financial markets.
+
+\section{Methodology}
+%Outline what will be done to answer the research question
+
+\begin{enumerate}
+\item Review current research in the field.
+\item Collect data, primarily from freely available sources on the internet such as Yahoo and Google.
+\item Pre-process the data and perform initial data investigations and analysis.
+\item Establish \textquotedblleft base line" systems based on initial analysis.
+\item Apply Technical Indicators to these \textquotedblleft base line" systems to determine if they have a role to play in predicting the movement of a particular financial market.
+\item Apply traditional times series modelling methods to evaluate their suitability in predicting future price movements of financial market.
+\end{enumerate}
+
+
+\section{Limitations of the Study}
+%Are there factors outside your control, technical or non-technical, which may limit this study? 
+Limitations in this study include:
+\begin{enumerate}
+\item Choice of Technical Indicators - a small selection of the huge number available was selected. The selected group represent widely used examples and are drawn from the various categories available.
+\item Availability of financial data - Daily data in the format of open, high, low and close prices (OHLC) is readily and freely available and is thus used in this study. Data in time frames other than daily are generally only commercially available and beyond the resources of this study.
+\item Forex data -  Frequently Forex is provided as a single daily value as these markets are traded all 24 hours of the day. This may have impacts on the suitability of this data for various algorithms used in this study. 
+%NOTE - have three years of OHLC data for the majors.
+\end{enumerate}
+
+
+\section{Scope of the Study }
+%Are the aspects of your problem statement that cannot be addressed in the time available? Clarify what will / will not be addressed by this project.
+There are a huge choice of financial data sets from which to choose and likewise many dozens of technical indicators. This study will employ daily data from major national indices such as the German Dax, US Dow and Japanese Nikkei. Commodity data will cover gold and US Crude Oil and forex will include GBP/USD, EUR/USD, EUR/GBP, USD/JPN exchange pairs. Technical Indicators used will include examples from each of the primary categories trend detection and market reversal oscillators.
+
+\section{Structure of Project}
+Chapter \ref{Chapter2} is a literature review and introduction to time series analysis and financial market trading with systems and technical indicators. The classical time series methods of Holt-Winters exponential smoothing, auto-regressive moving average (ARMA or Box-Jenkins model) and auto-regressive integrated moving average (ARIMA) are introduced and explained. Their adoption and use in predicting financial markets is discussed.
+
+Chapter \ref{Chapter3} introduces the methodology used in this study. It includes a description of the data sets employed, software and programming languages levered and the general methodology and approach taken.
+
+Chapter \ref{Chapter4} details the implementation and experimentation.
+
+Chapter \ref{Chapter5} is an analysis of the results generated and conclusions.
+
+Appendix \ref{AppendixA}
+
+\section{Project schedule}
+
+%\begin{center}
+%\begin{tabular}{cc}
+%Friday, Feb 14th 2014 & final project proposal \\ 
+%March 14th 2014 & Complete literary review \\
+%May 9th 2014 & Interim project review \\ 
+%Week of June 9th 2014 & Project Presentation \\ 
+%June 13th 2014 & Draft project finalised \\ 
+%September 1st 2014 & Final HARD deadline \\
+%\end{tabular} 
+%\end{center}
+
+\begin{table}[htbp]
+  \centering
+  \caption[Project Schedule]{Project Schedule.}
+    \begin{tabular}{@{\extracolsep{5pt}}ccccc}
+    \\[-1.8ex]\hline 
+    \hline \\[-1.8ex] 
+    \textbf{Date} & \textbf{ Milestone} \\
+    \hline \\[-1.8ex] 
+    Friday, Feb 14th 201 & Final project proposal  \\
+    March 14th 2014 & Complete literary review  \\
+    May 9th 2014 & Interim project review \\
+    Week of June 9th 2014 & Project Presentation \\
+    September 1st 2014 & Final submission \\
+    \hline \\[-1.8ex] 
+    \normalsize 
+    \end{tabular}%
+  \label{tab:tsmodelsummary}%
+\end{table}
+
+
+
+
+% Table created by stargazer v.4.5.3 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Thu, Jan 23, 2014 - 11:33:41
+% Requires LaTeX packages: dcolumn 
+%\begin{table}[!htbp] \centering 
+%  \caption{Regression Results} 
+%  \label{} 
+%\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+%\\[-1.8ex]\hline 
+%\hline \\[-1.8ex] 
+% & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+%\cline{2-4} 
+%\\[-1.8ex] & \multicolumn{2}{c}{Overall Rating} & \multicolumn{1}{c}{High Rating} \\ 
+%\\[-1.8ex] & \multicolumn{2}{c}{\textit{OLS}} & \multicolumn{1}{c}{\textit{probit}} \\ 
+%\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}\\ 
+%\hline \\[-1.8ex] 
+% Handling of Complaints & 0.692^{***} & 0.682^{***} &  \\ 
+%  & (0.149) & (0.129) &  \\ 
+%  No Special Privileges & -0.104 & -0.103 &  \\ 
+%  & (0.135) & (0.129) &  \\ 
+%  Opportunity to Learn & 0.249 & 0.238^{*} & 0.164^{***} \\ 
+%  & (0.160) & (0.139) & (0.053) \\ 
+%  Performance-Based Raises & -0.033 &  &  \\ 
+%  & (0.202) &  &  \\ 
+%  Too Critical & 0.015 &  & -0.001 \\ 
+%  & (0.147) &  & (0.044) \\ 
+%  Advancement &  &  & -0.062 \\ 
+%  &  &  & (0.042) \\ 
+%  Constant & 11.011 & 11.258 & -7.476^{**} \\ 
+%  & (11.704) & (7.318) & (3.570) \\ 
+% \hline \\[-1.8ex] 
+%Observations & \multicolumn{1}{c}{30} & \multicolumn{1}{c}{30} & \multicolumn{1}{c}{30} \\ 
+%R$^{2}$ & \multicolumn{1}{c}{0.715} & \multicolumn{1}{c}{0.715} &  \\ 
+%Adjusted R$^{2}$ & \multicolumn{1}{c}{0.656} & \multicolumn{1}{c}{0.682} &  \\ 
+%Akaike Inf. Crit. &  &  & \multicolumn{1}{c}{26.175} \\ 
+%\hline 
+%\hline \\[-1.8ex] 
+%\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+%\normalsize 
+%\end{tabular} 
+%\end{table} 
+%
+%% Table created by stargazer v.4.5.3 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+%% Date and time: Thu, Jan 23, 2014 - 11:36:45
+%\begin{table}[!htbp] \centering 
+%  \caption{} 
+%  \label{} 
+%\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+%\\[-1.8ex]\hline 
+%\hline \\[-1.8ex] 
+%Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+%\hline \\[-1.8ex] 
+%rating & 30 & 64.633 & 12.173 & 40 & 85 \\ 
+%complaints & 30 & 66.600 & 13.315 & 37 & 90 \\ 
+%privileges & 30 & 53.133 & 12.235 & 30 & 83 \\ 
+%learning & 30 & 56.367 & 11.737 & 34 & 75 \\ 
+%raises & 30 & 64.633 & 10.397 & 43 & 88 \\ 
+%critical & 30 & 74.767 & 9.895 & 49 & 92 \\ 
+%advance & 30 & 42.933 & 10.289 & 25 & 72 \\ 
+%high.rating & 30 & 0.333 & 0.479 & 0 & 1 \\ 
+%\hline \\[-1.8ex] 
+%\normalsize 
+%\end{tabular} 
+%\end{table} 
+%

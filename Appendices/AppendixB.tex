@@ -1,0 +1,93 @@
+% Appendix B
+
+\chapter{Technical Indicators} % Main appendix title
+
+\label{AppendixB} % For referencing this appendix elsewhere, use \ref{AppendixB}
+
+\lhead{Appendix B. \emph{Technical Indicators}} % This is for the header on each page - perhaps a shortened title
+
+
+\section{Moving Average Convergence Divergence (MACD)}
+\label{appB:MACD}
+MACD is a widely used technical indicator which attempts to detect the early stage of a market trend. It is calculated by subtracting a long exponential moving average (EMA) from a shorter one. The EMA is calculated as follows:
+
+\[ EMA(n)_{t} = \dfrac{2}{n+1}(P_{t}-EMA_{t-1}) + EMA_{t-1}\]
+
+Where $ P_{t} $ is the closing price of a market on day $ t $ and $ n $ is the number of periods used in calculating the moving average. MACD itself is calculated as:
+
+\[ MACD_{t} = EMA(s)_{t} - EMA(l)_{t} \]
+
+where $ EMA(s)_{t} $ is the short moving average and $ EMA(l)_{t} $ is the long one. In addition an EMA of the MACD itself is calculated in order to generate trade signals and is often referred to as the \textquotedblleft trigger line". Thus a particular MACD trading rule is often expressed in the form $ MACD(s,l,k) $ where $ s $ is the number of periods of the short EMA, $ l $ the number of periods of the long EMA and $ k $ the period used to average the MACD for the trigger line.
+
+\section{Aroon Indicator}
+\label{appB:aroon}
+
+TTR:
+Aroon up (down) is the elapsed time, expressed as a percentage, between today and the highest (lowest) price in the last n periods. If today’s price is a new high (low) Aroon up (down) will be 100. Each subsequent period without another new high (low) causes Aroon up (down) to decrease by (1 / n) x 100.
+
+http://www.fmlabs.com/reference/default.htm?url=Aroon.htm:
+The word aroon is Sanskrit for "dawn's early light." The Aroon indicator attempts to show when a new trend is dawning. The indicator consists of two lines (Up and Down) that measure how long it has been since the highest high/lowest low has occurred within an n period range.
+
+When the Aroon Up is staying between 70 and 100 then it indicates an upward trend. When the Aroon Down is staying between 70 and 100 then it indicates an downward trend. A strong upward trend is indicated when the Aroon Up is above 70 while the Aroon Down is below 30. Likewise, a strong downward trend is indicated when the Aroon Down is above 70 while the Aroon Up is below 30. Also look for crossovers. When the Aroon Down crosses above the Aroon Up, it indicates a weakening of the upward trend (and vice versa).
+
+http://www.linnsoft.com/tour/techind/aroon.htm:
+Chande states that when AroonUp and AroonDown are moving lower in close proximity, it signals a consolidation phase is under way and no strong trend is evident. When AroonUp dips below 50, it indicates that the current trend has lost its upwards momentum. Similarly, when AroonDown dips below 50, the current downtrend has lost its momentum. Values above 70 indicate a strong trend in the same direction as the Aroon (up or down) is under way. Values below 30 indicate that a strong trend in the opposite direction is underway.
+
+The Aroon Oscillator signals an upward trend is underway when it is above zero and a downward trend is underway when it falls below zero. The farther away the oscillator is from the zero line, the stronger the trend.
+
+
+\[ Aroon Up = 100 * \left( \dfrac{n - PeriodSinceHighestHigh}{n} \right) \]
+
+\[ Aroon Down = 100 * \left( \dfrac{n - PeriodSinceLowestLow}{n} \right) \]
+
+%\cite{aroon_stockcharts}
+
+\section{Parabolic Stop-and-Reverse (SAR)}
+\label{appB:sar}
+%http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:parabolic_sar
+The Parabolic Stop-and-Reverse (SAR) is a quite complex indicator developed by Welles Wilder in 1978 \citep{wilder1978new}. The calculation for SAR in rising and falling markets are different and are usually presented separately.
+
+If the market is rising SAR is calculated as:
+\begin{center}
+Current SAR = Prior SAR + Prior AF(Prior EP - Prior SAR)
+\end{center}
+
+where:\\
+\begin{itemize}
+\item Prior SAR is the SAR value for the previous time period, for example the previous day's value.
+\item Extreme Point (EP) is the highest high of the current trend.
+\item Acceleration Factor (AF) starts at 0.02, and increases by 0.02 each time the market makes a new high (Extreme Point). The maximum value the AF can reach is 0.20, at which point it is capped.
+\end{itemize}
+Note:  SAR can never be greater than the value of the previous two periods' lows. Should SAR be above one of those lows, it is set to the lowest of the two.
+
+If the market is falling SAR is calculated as:
+\begin{center}
+Current SAR = Prior SAR - Prior AF(Prior SAR - Prior EP)
+\end{center}
+Note:  SAR can never be less than the value of the previous two periods' highs. Should SAR be less than one of those highs, it is set to the lowest of the two.
+
+\section{Stochastic}
+\label{appB:stoch}
+The stochastic oscillator measures where a particular close price is in relation to the highest high and lowest low in the range under study. It is usually drawn on a chart as two lines, one is \%K and the other is its moving average usually called \%D.
+
+The calculation of the stochastic involves four variables:
+\begin{enumerate}
+\item \%K Period - the number of periods used in the calculation (see below).
+\item \%K Slowing Period - smoothing period applied to \%K.
+\item \%D Period - the number of time periods used in the moving average of \%K to generate \%D.
+\item \%D Method - the moving average method used to calculate \%D.
+\end{enumerate}
+
+\%K is calculated as follows: 
+
+\[ \%K = 100 * \left( \dfrac{\text{Today's Close} - \text{Lowest Low in n Periods}}{\text{Highest High in n Periods} - \text{Lowest Low in n Periods}} \right) \]
+
+The stochastic is used in a variety of ways. One popular method is to buy when the stochastic falls below a particular level then rises back above that level (and vice versa for a short trade). An alternative technique is to buy when the \%K rises above \%D and sell when it falls under \%K.
+
+\section{Rate of Change(ROC)}
+\label{appB:roc}
+The Rate of Change or ROC indicator highlights the difference between a particular price (e.g. closing price) and the same price a number of periods previously. This value can be expressed in absolute terms or a percentage rise or fall. The calculation is as follows: 
+
+\[ ROC = 100 * \left( \dfrac{ \text{Today's Close} - \text{Today's Close n Periods Ago}}{\text{Today's Close n Periods Ago}} \right) \]
+
+The ROC can be calculated from a wide range of time periods, with 12 and 25 days being the most common. The ROC is typically used as an over-bought / over-sold indicator to provide evidence for when a market turn maybe expected.

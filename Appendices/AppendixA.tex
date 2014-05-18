@@ -1,0 +1,84 @@
+% Appendix A
+
+\chapter{R Code} % Main appendix title
+
+\label{AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
+\lhead{Appendix A. \emph{R Code}} % This is for the header on each page - perhaps a shortened title
+
+\section{Chapter 4}
+
+\section{Naive Systems}
+\subsection{Naive Long}
+\label{appA:NaiveLong}
+\lstinputlisting{RCode/NaiveLongSystem.R}
+
+\subsection{Naive Long - Close to Close}
+\label{appA:NaiveLong_2}
+\lstinputlisting{RCode/NaiveLongSystem2.R}
+
+\subsection{Naive Follow Prev}
+\label{appA:NaiveFollowPrev}
+\lstinputlisting{RCode/NaiveFollowPrev.R}
+
+\section{Trend Detection Systems}
+\subsection{SMA}
+\label{appA:SMA_sys}
+
+\lstinputlisting{RCode/SMA_sys.R}
+
+\subsection{MACD - trend indicator}
+
+\lstinputlisting{RCode/MACD_XO.R}
+\label{appA:macd_xo}
+
+\subsection{Aroon trend indicator}
+\label{appA:aroon}
+\lstinputlisting{RCode/Aroon.R}
+
+\section{Market Reversal Indicator}
+\subsection{SAR reversal indicator}
+\label{appA:sar}
+\lstinputlisting{RCode/SAR.R}
+
+\subsection{MACD as Reversal Indicator}
+\lstinputlisting{RCode/MACD_OB.R} % MACD as over-bought indicator
+\label{appA:macd_ob}
+
+\subsection{Stochastic reversal indicator}
+\label{appA:stoch}
+\lstinputlisting{RCode/Stoch.R}
+
+\subsection{Rate of Change(ROC)}
+\label{appA:roc}
+\lstinputlisting{RCode/ROC.R}
+
+\section{Break Out Systems}
+\subsection{Break Out}
+\label{appA:bout_sys}
+\lstinputlisting{RCode/Bout_sys.R}
+
+\subsection{90\% Quantile}
+
+\lstinputlisting{RCode/Quant90_sys.R}
+\label{appA:bout_Quant90}
+
+\section{Candlestick Systems}
+\subsection{Hammer and Inverted Hammer}
+\lstinputlisting{RCode/Candle_Hammer.R}
+\label{appA:Hammer}
+
+\lstinputlisting{RCode/Candle_Hammer_aroon.R}
+\label{appA:Hammer_aroon}
+
+\lstinputlisting{RCode/Candle_Engulf.R}
+\label{appA:Engulf}
+
+\lstinputlisting{RCode/Candle_Engulf_aroon.R}
+\label{appA:Engulf_aroon}
+
+\lstinputlisting{RCode/Candle_Doji_aroon.R}
+\label{appA:Doji_aroon}
+
+\section{Utility Code}
+\label{appA:utility}
+\lstinputlisting{RCode/Utils.R}
