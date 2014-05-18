@@ -139,7 +139,8 @@ for(i in 1:length(fil)){
   a <- BaseSystem1SMA(Dax, 5, 0, nm[i])
   b <- BaseSystem1SMA(Dax, 25, 0, nm[i])
   c <- BaseSystem1SMA(Dax, 50, 0, nm[i])
-  d <- BaseSystem1SMA(Dax, 100, 0, nm[i])
+  d <- BaseSystem1
+  (Dax, 100, 0, nm[i])
   e <- BaseSystem1SMA(Dax, 200, 0, nm[i])
   df10 <- rbind(df10, a, b, c, d, e)
 }

@@ -133,12 +133,15 @@ Technical analysis via candlesticks is reputed to have been developed by Munelus
 \label{fig:Candlestick_Patterns}
 \end{figure}
 
+Candlestick patterns are essentially visualisation tools providing an easy to comprehend view of the market movements in a particular day. However there is some vital information which is not conveyed in a candlestick. In particular the order of events isn't displayed. Figure \ref{fig:chp2_candle_order} shows how two days can produce the same candlestick but in actuality the price movements and volatility in them was very different. Depending upon the type of trading system being employed this could have important effects.
 
-\subsubsection{Candlesticks Are visualisations}
-\label{candle.todo1}
+\begin{figure}[tbph!]
+\centering
+\includegraphics[width=7cm]{chp2_candle_order}
+\caption[Candlesticks and market movement.]{Candlesticks don't provide information regarding the order of price movements. Both these daily price movements would be represented with the same candlestick pattern.}
+\label{fig:chp2_candle_order}
+\end{figure}
 
-\subsubsection{What Candlesticks Don't Say}
-\label{candle.todo2}
 
 %11. Candlestick technical trading strategies Can they create value for investors - \cite{Marshall20062303}
 As always with technical analysis there is doubt as to the validity of the methods despite its almost universal employment. An in depth study of the predictive power of a range of candlestick patterns on stock prices between 1992 and 2002 from the Dow Jones Industrial Average (DJIA) was carried out by \citep{Marshall20062303} in which doubt was cast on the validity of candlestick patterns to predict market movements. The workers used a range of bullish (signals that indicate a trader should buy) and bearish (signals that indicate a trader should sell) candlestick patterns to initiate trades on the various stocks. Trades were held for ten days as it was assumed that these patterns reflect short terms trends and thus have a predictive power in a similar time frame. In order to quantify the results generated from the use candlestick patterns they were compared to results observed from four alternative null models. Simulated stock data was generated using a bootstrapping methodology \citep{EfronBootstrapping} and then four null models were applied to the data, random walk, an autoregressive process of order one (AR(1)), a GARCH in-Mean (GARCH-M) model and an Exponential GARCH (EGARCH) model.

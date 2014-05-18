@@ -59,13 +59,29 @@ Using Rob J Hyndman's forecast package and the ets() function, a variety of expo
    \bottomrule \end{tabular}
 \end{table}
 
+% ------ NEW PAGE --------------------------
+\newpage
 \section{ARIMA}
 
-Rapid miner base file
+Figure \ref{fig:chp_ts_rm_arima} shows the Rapid Miner process used to generate Arima models. The various components are as follows:
 
-\begin{figure}[tbph]
+\begin{itemize}
+\item Read CSV - reads in the appropriate data set.
+\item Select Attribute (1) - selects the attribute that will be processed in the following steps.
+\item Rename - renames the attribute selected in Select Attribute (1) to \textquotedblleft attr1" which is then used in the est of the steps. This component is used to make it easy to change the attribute without having to rename all the subsequent steps.
+\item Moving Average - calculates a moving average of the time series (see section \ref{sec:chp2_sma} for details.) This provides the q in ARIMA(p,d,q) models.
+\item Differentiate - calculates the difference in the time series and provides the d in ARIMA(p,d,q) models.
+\item Lag - creates lag variables which are values of the attribute (the attribute itself, the moving average or the difference value) at earlier points in the time series.
+\item Select Attribute (2) - selects the attributes that will be passed to the validation block. Attributes regaring today's values are removed because we are building a model to calculate them and don't want to \textquotedblleft peak" at them before the model is built.
+\item Set Role - sets an attribute as the label to be predicted.
+
+\end{itemize}
+
+\begin{figure}[!tbh]
 \centering
-\includegraphics[width=10cm]{../Figures/chp_ts_rm_arima}
-\caption[rwrew]{fgggdgf gdgfdgdgfd}
+\includegraphics[width=12cm]{../Figures/chp_ts_rm_arima}
+\caption[Rapid Miner Arima Process]{Rapid Miner Arima Process.}
 \label{fig:chp_ts_rm_arima}
 \end{figure}
+
+Questions - should we pass the diff values ot the model - just to flatten the series?
