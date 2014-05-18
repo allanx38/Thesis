@@ -93,7 +93,7 @@ legend("bottomright",lty=1,col=c(4,2,3),
 lines(Mkt_act, col=6)
 dev.off() #savepdf end
 
-# ---------------------------------
+# --------------- NOT USED AT MO -------------------
 # plot diff range
 Mkt_test2 <- window(Mkt_ts, start=1510, end=1600)
 Mkt_train2 <- window(Mkt_ts, start=1000, end=1500)
