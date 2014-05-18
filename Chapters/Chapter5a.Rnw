@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{booktabs}
+
+\begin{document}
+
+<<echo=FALSE>>=
+library(forecast)
+library(xtable)
+@
+
+This chapter will use time series analysis to generate models to make forecasts for futures prices in various national stock market indices. Firstly three base systems will be considered, these are simple concepts and will be used as a bench mark against which the following time series models will be compared, and if they can't produce superior results won't be considered further. the base systems are the naive method which simply uses the previous value for the forecast of the next value, the average method in which the forecast is simply the mean of the pervious values and the drift method. The drift method is the average change encountered in the historical data and is equivalent to drawing a striaght line between the first and last observation. Subsequent time series models are developed using exponential smoothing methods, ARIMA techniques and finally hybrid methods.
+
+\section{Base results}
+
+<<echo=FALSE>>=
+Mkt <- read.csv("../Data/Dax_2000_d.csv")
+#create time series, start yr 2000 period 1
+Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
+Mkt_train <- window(Mkt_ts, start=2000, end=2009.99)
+Mkt_test <- window(Mkt_ts, start=2010)
+@
+
+Three base systems - mean, naive and drift were used to generate results as a starting point from which subsequent time series models can be compared. Figure \ref{fig:chp4:base_sys} shows the three methods being applied to a data set derived from the German Dax for a period of 300 days.
+
+% % -----------------------------------------------------
+% \setkeys{Gin}{width=0.6\textwidth}
+% \begin{figure}[tbph]
+% \centering
+% <<fig=TRUE, echo=FALSE >>=
+% Mkt_pl <- window(Mkt_ts, start=2006, end=2006.75)
+% plot.ts(Mkt_pl,
+%         main="Dax in 2006",
+%         xlab="Day", ylab="",
+%         xlim=c(2006, 2006.9))
+% lines(meanf(Mkt_pl, h=40) $mean, col=4)
+% lines(rwf(Mkt_pl,h=40)$mean,col=2)
+% lines(rwf(Mkt_pl,drift=TRUE,h=40)$mean,col=3)
+% legend("bottomright",lty=1,col=c(4,2,3),
+%   legend=c("Mean method","Naive method","Drift method"))
+% @
+% \caption[Base models.]{Base models.}
+% \label{fig:chp4:base_sys}
+% \end{figure}
+% \setkeys{Gin}{width=0.8\textwidth} %back to default
+% % -------------- END -------------------------------------
+
+% -----------------------------------------------------
+\setkeys{Gin}{width=0.8\textwidth}
+\begin{figure}[tbph]
+\centering
+<<fig=TRUE, echo=FALSE>>=
+Mkt_ts <- ts(Mkt$Close)
+Mkt_pl <- window(Mkt_ts, start=200, end=500)
+plot.ts(Mkt_pl,
+        main="Dax over 300 Days",
+        xlab="Day", ylab="",
+        xlim=c(220, 540))
+lines(meanf(Mkt_pl, h=50) $mean, col=4)
+lines(rwf(Mkt_pl,h=50)$mean,col=2)
+lines(rwf(Mkt_pl,drift=TRUE,h=50)$mean,col=3)
+legend("bottomleft",lty=1,col=c(4,2,3),
+       legend=c("Mean method","Naive method","Drift method"))
+@
+\caption[Simple Modelling Methods.]{Results of simple modelling methods.}
+\label{fig:chp4:base_sys}
+\end{figure}
+\setkeys{Gin}{width=0.8\textwidth} %back to default
+% -------------- END -------------------------------------
+
+\subsection{Simple Mean Model}
+Forecast errors for a simple model based on the mean of the previous observations can be seen in Table 
+
+
+<<echo=FALSE>>=
+mean_model <- meanf(Mkt_train, h=5)
+a <- accuracy(mean_model, Mkt_test) #out of sample
+@
+
+<<results=tex,echo=FALSE>>=
+xt <- xtable(a[, c(2,3,4,5,6)],
+             caption=c("Accuracy of results from a simple forecasting system using the mean of the previous obsevations.","Accuracy of mean forecasting system."),
+             label = 'tab:chp4:mean_acc')
+align(xt) <- c('l','l','c','c','c','c')
+print(
+  xt, 
+  include.rownames=T, 
+  caption.placement = "top",
+  hline.after=NULL,
+  add.to.row=list(pos=list(-1,0, nrow(xt)),
+  command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+\subsection{Naive Method}
+
+
+\subsection{Drift Method}
+
+
+
+\section{Exponential Smoothing}
+
+<<echo=FALSE>>=
+Mkt_ts <- ts(Mkt$Close)
+Mkt_train <- window(Mkt_ts, end=2500)
+Mkt_test <- window(Mkt_ts, start=2501)
+@
+
+<<>>=
+tr_mod <- ets(Mkt_train)
+fc_train <- forecast(tr_mod, h=10)
+head(fc_train$fitted)
+head(fc_train$x)
+a <- fc_train$fitted
+b <- fc_train$x
+c <- cbind(a,b)
+
+test_mod <- ets(Mkt_test, model=tr_mod)
+d <- test_mod$fitted
+e <- test_mod$x
+f <- cbind(e,d)
+@
+
+
+
+\end{document}
+

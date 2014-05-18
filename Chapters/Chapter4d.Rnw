@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{listings}
+
+\begin{document}
+\SweaveOpts{concordance=FALSE}
+
+<<echo=FALSE>>=
+library(xtable)
+library(TTR)
+@
+
+<<echo=FALSE>>=
+source("../RCode//Utils.R")
+source("../RCode//Bout_sys.R")
+source("../RCode//Quant90_sys.R")
+@
+
+<<echo=FALSE>>=
+fil <- c("../Data//Dax_2000_d.csv",
+         "../Data//CAC_2000_d.csv", 
+         "../Data//F100_2000_d.csv",
+         "../Data//Dow_2000_d.csv",
+         "../Data//N225_2000_d.csv",
+         "../Data//Oz_2000.csv")
+nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+@
+
+\section{Break-out systems}
+\label{sec:bout}
+This section explores some trading systems that use a particular price as the indicator to place a trade. The first system uses the simple idea of trading when the previous day's high or low is passed. The second idea is related to the results generated in Chapter \ref{Chapter3}, where the 90\% quantile for the day's minor move was calculated. The system tested here is to simply trade long or short when this point is reached in a day.
+
+%----------------------------------------------------------------
+% ---------------------------  Break Out ------------------------
+\subsection{Daily High / Low Breakout System}
+\label{sec:chp5:bout_sys}
+Table \ref{tab:hl_bout_sys} lists the results from a trading system based around the idea of trading after the previous day's high or low price has been breached. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:bout_sys}.
+
+<<echo=FALSE>>=
+for(i in 1:length(fil)){
+Dax <- read.csv(fil[i])
+a <- BaseSystem2Bout(Dax, 0, nm[i])
+df10 <- rbind(df10, a)
+}
+df.name <- names(a)
+names(df10) <- df.name    # Prev section muddles up names ...
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(
+  df10[-1,c(1,3,4,5,6,8,9)], 
+  digits = 2,
+  caption = c('Results from Daily High / Low Breakout System.',
+              'Daily High / Low Breakout System'),
+  label = 'tab:hl_bout_sys')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, 
+      include.rownames=FALSE, 
+      caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+Referring to Table \ref{tab:hl_bout_sys} we can see that this system produces good results, with the exception of the US Dow. This ties in with the data in Chapter \ref{Chapter3} Table \ref{tab:closeHL} which shows that the Dow only closes outside of the previous low or high price a relatively low number of times. Likewise good results are seen with the Japanese Nikkei from the breakout system andthis tallies with the high proportion of the time in which it closes above or below the previous day's high or low.
+
+% Table \ref{tab:hl_bout_sys_sloss} lists the results of running the break-out algorithm with a stop loss of 100 points. Doesn't make any sense!!! 
+% 
+% <<echo=FALSE>>=
+% ln <- nrow(df10)
+% for(i in 1:length(fil)){
+% Dax <- read.csv(fil[i])
+% a <- BaseSystem2Bout(Dax, -100, nm[i])
+% df10 <- rbind(df10, a)
+% }
+% df10 <- df10[-c(1:ln-1),]
+% @
+% 
+% <<results=tex, echo=FALSE>>=
+% xt <- xtable(
+%   df10[-1,c(1,3,4,5,6,8,9)], 
+%   digits = 2,
+%   caption = c('Results from Daily High / Low Breakout System SLoss.',
+%               'Daily High / Low Breakout System'),
+%   label = 'tab:hl_bout_sys_sloss')
+% align(xt) <- c('l','l','c','c','c','c','c','c')
+% print(xt, 
+%       include.rownames=FALSE, 
+%       caption.placement = "top")
+% @
+
+%----------------------------------------------------------------
+% ---------------------------  90% Quant ------------------------
+\subsection{Break Out 90\% Quantile}
+A second system utilising the break-out concept is presented in this section. In Chapter \ref{Chapter3} one characteristic of the markets was noted, namely that each day the market moves from its opening price to a low price and then to a high price (not necessarily in any particular order). One of these moves (O-H vs O-L) is greater than the other was termed the major move and the smaller move was called the minor move. The algorithm generating the results in this section (see Appendix \ref{AppendixA} section \ref{appA:bout_Quant90}) makes a long or short trade after the market has passed the 90\% quantile of the minor move. Table \ref{tab:q_90_results} lists the results from this algorithm.
+
+<<echo=FALSE>>=
+ln <- nrow(df10)
+for(i in 1:length(fil)){
+Dax <- read.csv(fil[i])
+a <- BaseSystem3Quant902(Dax, 0, nm[i])
+#names(df10) <- names(a)
+df10 <- rbind(df10, a)
+}
+df10 <- df10[-c(1:ln-1),]
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+             caption = c('Base System 3 - 90 Quantile.','Base System 3'),
+             label = 'tab:q_90_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, include.rownames=FALSE, caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+\end{document}

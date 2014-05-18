@@ -1,0 +1,192 @@
+% COMMENT OUT 
+\documentclass{article}
+\usepackage{booktabs}
+
+\begin{document}
+\SweaveOpts{concordance=FALSE}
+
+<<echo=FALSE>>=
+library(xtable)
+library(TTR)
+@
+
+<<echo=FALSE>>=
+source("../RCode//Utils.R")
+source("../RCode//NaiveLongSystem.R")
+source("../RCode//NaiveLongSystem2.R")
+source("../RCode//NaiveFollowPrev.R")
+@
+
+<<echo=FALSE>>=
+fil <- c("../Data//Dax_2000_d.csv",
+         "../Data//CAC_2000_d.csv", 
+         "../Data//F100_2000_d.csv",
+         "../Data//Dow_2000_d.csv",
+         "../Data//N225_2000_d.csv",
+         "../Data//Oz_2000.csv")
+nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11)) # to hold results
+@
+
+% -------------- TTR Package ----------------------
+% --------- Trend
+% - ADX - trend / momentum
+% - Aroon - trend
+% - BBands -> not signals
+% - Donchian Channel
+% - KST
+% - TDI
+% 
+% -----------Oscilator
+% - TRIX - triple ema oscillator
+% 
+% -------------Momentum
+% - CMO
+% - ROC
+% 
+% -----------Reversal
+% - Chaikin Vol
+% - SAR
+% 
+% -------------Stochastic
+% - CLV
+% - stoch
+% - RSI
+
+
+\section{Introduction}
+This chapter investigates whether technical analysis can provide a positive expectanacy for financial traders. A variety of technical analysis indicators are employed including MACD, Aroon, Stochastics Oscillator and Rate of Change (ROC) indicator. The experimental reslts from using these indicators are presented in groupings based on the general category of indicator such as trend identification or market reversal indicators. Some technical indicators have a role to play in more than one area, such as MACD, and as such the categorisation is quite general.
+
+The effectiveness of a particular indicator or system is measured in terms of \textquotedblleft points" gained, which is also referred to as \textquotedblleft PL" (which stands for to profit/loss). The results presented in this chapter are mainly based around systems in which a trade is opened and closed each day, producing a daily PL either positive or negative. The sum of all the individual days produces the total system PL and these values are reported in the results tables. For example, if the market moved from 6000 to 6200 in any one day a PL of either 200 (6200 - 6000) or -200 (6000 - 6200) depending upon which way the trade was placed, would be added to the overall system results. 
+
+In addition the results are presented such that returns from \textquotedblleft going Long" (expecting the market to rise) are presented seperately from the opposite scenario of \textquotedblleft going Short". This is because  market behaviour is often diffrent while it is rising than it is while falling and systems may be more adept at predicitng price movements in one of the directions. Further, transactions costs are not taken into account in the results and these would typically be 1 point per trade for the European markets, 2 points for the Dow and 10 for the Nikkei.  Thus if a system made a PL of 1000 but it required 2000 trades at 2 points per trade, in reality the system would have lost money. 
+
+% --------------------------------------------------------------------------------------
+\section{Base Systems - Naive Methods}
+Initially two very simple ideas were explored in order for the results to be used as baseline against which the technical indicators explored in the rest of the chapter can be compared. There is an expectation that the use of technical indicators will produce systems that provide much better results than these two so-called naive systems.
+
+The first system simply uses the idea that markets tend to increase in value over time. The algorithm applies a naive approach and simply enters a trade each day expecting the market to rise. The well-known method of "Buy and Hold" applies the same principles. The total PL of the resulting system is the the sum of all the daily close minus open prices. This approach has been named a (\textquotedblleft Naive Long System").
+
+The second approach is equally simplistic, and again is based around opening and closing a trade each day. A notable difference from the first naive system is that the algorithm can result in either a buy or a sell (expecting the market to decline in value) occurring. If a market increased in price the previous day the algorithm \textquotedblleft follows" it and expects the market to also rise today. Likewise if the market had fallen the previous day the system sells the market. This idea has been named (\textquotedblleft Naive Following System").
+
+%-----------------------------------------------------------------
+% ---------------------------  Naive Long ------------------------
+\subsection{Naive Long System}
+The results of the naive long system can be seen in Table \ref{tab:nlng_results}. The R code for the algorithm which generates the results shown in Table \ref{tab:nlng_results} can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong}. The opening prices of the indices in January 2000 along with the closing prices in 2013 can be seen in \ref{tab:ind_start_stop}. In this period three of them increased in value (Dax, Dow and AORD) and three decreased (FTSE, CAC and Nikkei).
+
+Interestingly the PL produced from this simple system doesn't match the price differentials seen in Table \ref{tab:ind_start_stop}.  The German Dax indice produced a marked loss in the naive system even though it increased 37\% during this period. The Japanese Nikkei declined by over 2600 points in this period, whereas the system reported a loss of over 18000 points in the same period. On the other hand the US Dow increased by around 5000 points during the period of the study but the trading algorithm produced a positive result of almost 10000. These discrepancies can be explained by the fact that the system was using prices from the market's opening to closing times, which represents approximately  eight hours of trading between 8am and 4pm local time. These price movements don't account for the rest of the hours, the so-called out of market hours, when the market prices also change. Clearly the markets show different characteristics in the amount they move during market hours compared to out of market hours. The Nikkei, Dax and CAC have a tendency to fall during market hours and rise during out of market hours. The opposite situation occurs for the Dow.
+
+<<echo=FALSE>>=
+for(i in 1:length(fil)){
+Dax <- read.csv(fil[i])
+a <- NaiveLongSystem(Dax, 0, nm[i])
+df.name <- names(a)
+names(df10) <- df.name
+df10 <- rbind(df10, a)
+}
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(
+  df10[-1,c(1,3,5,6)],
+  digits = 2,
+  caption = c('Naive Long System. A very simple system in which the algorithm assumes the market will rise and enters a long trade each day.',
+             'Naive Long System'),
+  label = 'tab:nlng_results'
+  )
+  align(xt) <- c('l','l','c','c','c')
+print(
+  xt, 
+  include.rownames=FALSE,  
+  caption.placement = "top",
+  hline.after=NULL,
+  add.to.row=list(pos=list(-1,0, nrow(xt)),
+  command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+
+% -----------------------------------
+\begin{table}[!htbp] \centering  
+\caption[Indice Prices 2000 and 2013.]{Prices of six national indices in January 2000 and December 2013.}
+\label{tab:ind_start_stop}
+\begin{tabular}{lcccc}
+\toprule
+Date & Start 2000 & End 2013 & Difference & \% Change  \\
+\midrule
+Dax & 6961 & 9552   & +2591 & +37 \\
+CAC & 6024 & 4250   & -1774 & -29 \\
+FTSE & 6930 & 6749  & -181  & +-3 \\
+Dow & 11501 & 16576 & +5075 & +44 \\
+Nik & 18937 & 16291 & -2646 & -14 \\
+AORD & 3152 & 5353  & +2201 & +70 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Altering the system slightly so that the a trade represents the difference between the previous close and today's close affects the results markedly. A full 24 hour period is now accounted for and the system reflects the overall market movement during this period. These results can be seen in Table \ref{tab:nlng_results_2} and the amended R code can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong_2}.
+
+<<echo=FALSE>>=
+ ln <- nrow(df10)
+ for(i in 1:length(fil)){
+ Dax <- read.csv(fil[i])
+ a <- NaiveLongSystem2(Dax, 0, nm[i])
+ df.name <- names(a)
+ names(df10) <- df.name
+ df10 <- rbind(df10, a)
+}
+df10 <- df10[-c(1:ln-1),]
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(
+  df10[-1,c(1,3,5,6)], 
+  digits = 2, 
+  caption = c('Naive Long System changed such that the trading period is the previous close price minus today\'s close.',
+              'Naive Long System - - Close to Close'),
+  label = 'tab:nlng_results_2'
+)
+align(xt) <- c('l','l','c','c','c')
+print(xt, 
+      include.rownames=FALSE, 
+      caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+%----------------------------------------------------------------------
+% ---------------------------  Follow Previous ------------------------
+
+\subsection{Naive Follow Previous}
+The second naive method is to follow the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading long for the current day (the R code for this algorithm can be see in \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}.
+
+<<echo=FALSE>>=
+ln <- nrow(df10)
+for(i in 1:length(fil)){
+Dax <- read.csv(fil[i])
+a <- NaiveFollowPrev(Dax, 0, nm[i])
+df10 <- rbind(df10, a)
+}
+df10 <- df10[-c(1:ln-1),]        #NOTE ln -1
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(
+  df10[-1,c(1,3,4,5,6,8,9)], 
+  digits = 2, 
+  caption = c('Naive system which repeats the previous day\'s trade direction.',
+              'Naive Following System.'),
+  label = 'tab:ntfresults')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(
+  xt, 
+  include.rownames=FALSE, 
+  caption.placement = "top",
+  hline.after=NULL,
+  add.to.row=list(pos=list(-1,0, nrow(xt)),
+  command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+For all the markets tested, this second naive system produces negative results. The results are particularly marked for Nikkei and CAC trading long and the Dow trading short. These results demonstrate that markets have a tendency to reverse direction each day, they move up one day then down the next. This behaviour is also observed in trending markets, and market \textquotedblleft pull-backs" are a well-known phenomena.
+
+
+\end{document}

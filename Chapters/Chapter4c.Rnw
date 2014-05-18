@@ -1,0 +1,235 @@
+% COMMENT OUT 
+\documentclass{article}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\begin{document}
+\SweaveOpts{concordance=FALSE}
+
+<<echo=FALSE>>=
+library(xtable)
+library(TTR)
+@
+
+<<echo=FALSE>>=
+source("../RCode//Utils.R")
+source("../RCode//SAR.R")
+source("../RCode//Stoch.R")
+source("../RCode//ROC.R")
+source("../RCode//MACD_OB.R")
+@
+
+<<echo=FALSE>>=
+fil <- c("../Data//Dax_2000_d.csv",
+         "../Data//CAC_2000_d.csv", 
+         "../Data//F100_2000_d.csv",
+         "../Data//Dow_2000_d.csv",
+         "../Data//N225_2000_d.csv",
+         "../Data//Oz_2000.csv")
+nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+@
+
+\section{Market Reversal Indicators}
+The alternative to trend detection indicators are market reversal indicators, designed to identify when a trend may be ending and the market will start to move in the opposite direction. Many traders advocate that this type of trading should be avoided and cite the old phrase \textquotedblleft never try to catch a falling knife". Nevertheless a variety of market reversal technical indicators are explored and their effectiveness noted.
+
+%----------------------------------------------------------
+% ---------------------------  SAR ------------------------
+\subsection{Parabolic Stop-and-Reverse  (SAR)}
+The parabolic stop-and-reverse (SAR) is a method to calculate a trailing stop. This technical indicator was developed by J. Welles Wilder and is detialed in his book New Concepts in Technical Trading Systems \cite{?}. A trailing stop is related to the stop loss explored previously but differs in that it is adjusted as the market moves. If the market rises it is adjusted upwards, for example being set a certain distance from the highest high of a particular period. The parabolic SAR calculates the point at which a long trade would be closed and a short position entered, the assumption being that the market participant is always in the market either short or long. More details on the theory and calculations to generate the parabolic SAR can be found in Appendix \ref{AppendixB} section \ref{appB:sar}.  
+
+Table \ref{tab:sar_results} lists the results from passing a variety of national index data sets to an algorithm using the parabolic SAR. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:sar}. On the whole the results from these initial tests are very disappointing. Only the three of the national indices generated positive results and only the Japanese Nikkei provided reasonable returns.
+
+<<echo=FALSE>>=
+for(i in 1:length(fil)){
+ Dax <- read.csv(fil[i])
+ sar <- SAR(Dax[c(3,4)]) #HL
+ Dax <- cbind(Dax,sar)
+ a <- sar_sys(Dax,0, nm[i])
+ df10 <- rbind(df10, a)
+}
+df.name <- names(a)
+names(df10) <- df.name
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5, 6, 9)], digits = 2, 
+             caption = c('Results from SAR system.','SAR Base System'),
+             label = 'tab:sar_results')
+align(xt) <- c('l','l','c','c','c','c','c')
+print(xt, include.rownames=FALSE,caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+
+%----------------------------------------------------------
+% ---------------------------  MACD OB ------------------------
+\subsection{MACD as reversal Indicator}
+MACD can also be used as a reversal indicator. Recalling that the MACD is formed from the relationship of two moving averages, when the faster one moves sharply away from the slower one (i.e.the value of MACD rises) this could be an indication of an \textquotedblleft over-bought" market and that a reversal is approaching. In this situation the trader would place a sell trade. The opposite is true for a large negative MACD, and it is postulated that the market may well reverse upwards. 
+
+Table \ref{tab:mac_ob_results} shows the results of applying the algorithm shown in Appendix \ref{AppendixA} section \ref{appA:macd_ob} on the data of the national indices. In the algorithm the 15\% and 85\% quantile of the MACD value is calculated and this is used to decide on the reversal point. Once the 85\% value is exceeded the algorithm predicts a reversal will occur and trades short, the opposite is true for the 15\% level which triggers a long trade. Overall the results are very modest, with small positive gains being seen in 5 of the 6 national indices. 
+
+<<echo=FALSE>>=
+ln <- nrow(df10)
+for(i in 1:length(fil)){
+ Dax <- read.csv(fil[i])                             #read data 
+ ma <- MACD( Dax[,"Open"], 12, 26, 9, maType="EMA" ) #calc MACD values
+ Dax <- cbind(Dax, ma)                               #Add MACD values to orig data set
+ lw <- quantile(Dax$macd, na.rm=T, probs=0.15)       #Calc low val for algo
+ up <- quantile(Dax$macd, na.rm=T, probs=0.85)       #Calc up val for algo
+ a <- MACD_OB(Dax, 0, nm[i], lw, up)                 #Call fnc
+ df10 <- rbind(df10, a)                  #add results
+}
+#df.name <- names(a)
+#names(df10) <- df.name
+df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5, 6, 8,9)], digits = 2, 
+              caption = c('MACD can also be used as a trend reveral indicator.',
+                          'MACD as Trend Reversal Indicator'),
+              label = 'tab:mac_ob_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, include.rownames=FALSE, caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+\section{Momentum Indicators}
+
+%----------------------------------------------------------
+% ---------------------------  stoch ------------------------
+\subsection{Stochastic Oscillator}
+The stochastic indicator is one of the oldest in widespread use today having been developed by George Lane in the 1950s \citep{lane1986using}. It measures the relative position of a market's closing price in the range between the low and high of the period of interest. This is of intrest as some market participants believe that financial markets essentially swing between price boundaries marked by where the market closes in this range \citep{williams2011long}. Thus markets increase until the close is at the top of this range before changing direction and moving down until it is at the bottom of the high low range.
+
+
+The stochastic is usually represented by two lines \%K which is the position of the price wihtin this high low envelope described above, and \%D a moving average of \%K (see Appendix \ref{appB:stoch} for more details). It can be used a number of ways and one popular technique is to go long when the \%Kcrosses above \%D and to go short in the opposite situation. Table \ref{tab:stoch_results} lists the results from passing a variety of national index data sets to an algorithm which uses the relative position of \%K and \%D to decide which way to trade. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:stoch}.
+
+
+<<echo=FALSE>>=
+ln <- nrow(df10)
+for(i in 1:length(fil)){
+ Dax <- read.csv(fil[i])
+ st <- stoch(Dax[c(3,4,5)]) #HL
+ Dax <- cbind(Dax,st)
+ a <- stoch_sys(Dax, 0, nm[i])
+ df10 <- rbind(df10, a)
+}
+df10 <- df10[-c(1:ln-1),]
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+             caption = c('Results from Stochastics system.',
+                         'Stochastics system'),
+                          label = 'tab:stoch_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, include.rownames=FALSE, caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+The results from Table \ref{tab:stoch_results} for this system are very modest with only the Austrialian ORD showing positive values for both long and short trades. Adding a stop loss of 100 points increases the PL across the board except for the case of the Dow where again the stop loss has had a detrimental affect. The results from using a stochastic based system with a stop loss can be seen in Table \ref{tab:stoch_results_sloss}.
+
+<<echo=FALSE>>=
+ln <- nrow(df10)
+for(i in 1:length(fil)){
+ Dax <- read.csv(fil[i])
+ st <- stoch(Dax[c(3,4,5)]) #HL
+ Dax <- cbind(Dax,st)
+ a <- stoch_sys(Dax, -100, nm[i])
+ df10 <- rbind(df10, a)
+}
+df10 <- df10[-c(1:ln-1),]
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+             caption = c('Results from Stochastics system and using a Stop Loss.',
+                         'Stochastics system with stop loss'),
+                          label = 'tab:stoch_results_sloss')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, include.rownames=FALSE, caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+%----------------------------------------------------------
+% ---------------------------  ROC ------------------------
+\subsection{Rate of Change(ROC)}
+
+
+The R code used to generate these results can be seen in
+Appendix \ref{AppendixA} section \ref{appA:roc}.
+
+Table \ref{tab:stoch_results} lists the results from passing a variety of national index data sets (see Appendix \ref{AppendixB} \ref{appB:roc} for details)
+
+
+<<echo=FALSE>>=
+ln <- nrow(df10)
+#df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=10))
+results <- 1:11
+for(i in 1:length(fil)){
+ Mkt <- read.csv(fil[i])                          #read data 
+ roc <- ROC( Mkt$Close )                          #calc MACD values
+ Mkt <- cbind(Mkt, roc)                           #Add MACD values to orig data set
+ lw <- quantile(Mkt$roc, na.rm=T, probs=0.15)     #Calc low val for algo
+ up <- quantile(Mkt$roc, na.rm=T, probs=0.85)     #Calc up val for algo
+ a <- roc_sys(Mkt, 0, nm[i], lw, up)              #Call fnc
+ df10 <- rbind(df10, a)               #add results
+}
+#df.name <- names(a)
+#names(df10) <- df.name
+df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+              caption = c('ROC.',
+                          'ROC'),
+              label = 'tab:mac_ob_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, include.rownames=FALSE, caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+If previous ROC was greater or smaller than 0:
+
+
+<<echo=FALSE>>=
+source("../RCode//ROC2.R")
+ln <- nrow(df10)
+results <- 1:11
+for(i in 1:length(fil)){
+ Mkt <- read.csv(fil[i])                          #read data 
+ roc <- ROC( Mkt$Close )                          #calc MACD values
+ Mkt <- cbind(Mkt, roc)                           #Add MACD values to orig data set
+ lw <- quantile(Mkt$roc, na.rm=T, probs=0.15)     #Calc low val for algo
+ up <- quantile(Mkt$roc, na.rm=T, probs=0.85)     #Calc up val for algo
+ a <- roc_sys2(Mkt, 0, nm[i])              #Call fnc
+ df10 <- rbind(df10, a)               #add results
+}
+df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
+@
+
+<<results=tex, echo=FALSE>>=
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+              caption = c('ROC2.',
+                          'ROC2'),
+              label = 'tab:mac_ob_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, include.rownames=FALSE, caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+@
+
+\end{document}

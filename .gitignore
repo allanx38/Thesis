@@ -213,3 +213,41 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+Allan Steel MSc Dissertation.aux
+Allan Steel MSc Dissertation.synctex.gz
+*.bbl
+Allan Steel MSc Dissertation.blg
+Allan Steel MSc Dissertation.lof
+Allan Steel MSc Dissertation.lot
+Allan Steel MSc Dissertation.out
+Appendices/AppendixTemplate.tex
+Chapters/Chapter4b.pdf
+Allan Steel MSc Dissertation.toc
+Chapters/Chapter5a-003.pdf
+Figures/Chapter5/Stop Loss.pptx
+Chapters/Chapter44a.tex
+Chapters/Chapter4a.tex
+Chapters/Chapter4b.tex
+Chapters/Chapter4c.blg
+Chapters/Chapter4c.tex
+Chapters/Chapter4d.tex
+Chapters/Chapter4e.tex
+Chapters/Chapter4e_TEST.Rnw
+Chapters/Chapter5a.pdf
+Chapters/Chapter5a.tex
+Chapters/Chapter5c.blg
+Chapters/ChapterTemplate.tex
+Figures/Chapter2/Additive_ts.jpg
+Figures/Chapter2/Candlestick_Patterns.jpg
+Figures/Chapter2/acf120.jpeg
+Figures/Chapter2/acf80_old.jpeg
+Figures/Chapter2/correlogram.jpeg
+Figures/Chapter3/Dax_2013a.jpeg
+Figures/Chapter4/Dax2006.jpeg
+Figures/Chapter5/candle_5e_shoot_star_apr_dax.png
+Data/candlestick_dax.csv
+Data/Dax_2000_t.xlsx
+Data/Dax_2000_ts.csv
+Data/Dax_2010_13_ts.csv
+Data/Dax_2013_ts.csv
+Data/Dax_2010_ts.csv
