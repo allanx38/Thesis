@@ -35,7 +35,7 @@ Mkt_test <- window(Mkt_ts, start=3000)
 # dev.off() #savepdf end
 
 # ---------------- Base System 1
-
+?accuracy
 # build the  mean model
 mean_model <- meanf(Mkt_train, h=5)
 a <- accuracy(mean_model, Mkt_test) #out of sample
@@ -127,6 +127,30 @@ lines(Mkt_test2,col=6)
 
 # ------------ ARIMA ----------------------
 # -----------------------------------------
+setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
+library(forecast)
+Mkt <- read.csv("../Data/Dax_2000_d.csv");nrow(Mkt)
+Mkt_ts <- ts(Mkt$Close)
+Mkt_train <- window(Mkt_ts, end=2999.99)
+Mkt_test <- window(Mkt_ts, start=3000)
+tail(Mkt_test)
+length(Mkt_test)
 
+arima_train_mod <- auto.arima(Mkt_train)
+arima_fcast <- forecast.Arima(arima_train_mod,Mkt_test)
+# accuracy(fcast,Mkt_test)
+arima_test_mod <- Arima(Mkt_test, model = arima_train_mod) # 1 step fcast on future data ...
+arima_test_fcast <- forecast(arima_test_mod)
+fitted.data <- as.data.frame(arima_test_fcast$fitted); nrow(fitted.data)
 
+ln <- nrow(Mkt)
+lw <- nrow(fitted.data) ;lw
+Mkt_test_df <- Mkt[(ln-lw+1):ln,]  ;nrow(Mkt_test_df)
+#Mkt_test_df <- as.data.frame(Mkt_test) ;nrow(Mkt_test_df)
+Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
+colnames(Mkt_test_df) <- c("Date","Open", "High","Low","Close","p")
+tail(Mkt_test_df)
 
+source("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode/ts_1.R")
+source("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode/Utils.R")
+res <- ts_1(Mkt_test_df,0,"Dax")
