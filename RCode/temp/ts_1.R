@@ -35,9 +35,11 @@ ts_1 <- function(Mkt, SLoss, MktName){
                         Mkt$Short)
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   }
-  
+  #browser()
   Stats <- calcStats2(Mkt$Long)
   results[5:7] <- Stats
+  
+  #wins <- Mkt$Long>0
   
   Stats <- calcStats2(Mkt$Short)
   results[8:10] <- Stats

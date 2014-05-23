@@ -34,7 +34,7 @@ calcStats <- function(x){
   #
   # Returns:
   #   results vector.
-  
+  browser()
   results <- 1:3
   v <- na.omit(x)
   
