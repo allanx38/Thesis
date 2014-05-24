@@ -129,9 +129,13 @@ dev.off() #savepdf end
 # -----------------------------------------
 setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 
-#1. Plot the data. Identify any unusual observations.
 Mkt <- read.csv("../Data/F100_2000_d.csv")
 Mkt_ts <- ts(Mkt$Close)
+Mkt_train <- window(Mkt_ts, end=2999.99)
+Mkt_test <- window(Mkt_ts, start=3000)
+
+#1. Plot the data. Identify any unusual observations.
+
 savepdf("chp_ts_ftse_2000-13")
 plot.ts(Mkt_ts,
         main="FTSE 2000 - 2013",
@@ -163,8 +167,82 @@ tsdisplay(diff(Mkt_ts),main="FTSE 100 between 2000 and 2013",
 dev.off()
 
 #5. Try your chosen model(s), and use the AICc to search for a better model.
+       
+mod_ar <- function(Mkt, ord, nm){
+  res <- t(as.data.frame(rep(0,4)))
+  mod <- Arima(Mkt_ts, order=ord)
+  res[1,1] <- nm
+  res[1,2] <- round(mod$aic,1)
+  res[1,3] <- round(mod$aicc,1)
+  res[1,4] <- round(mod$bic,1)
+  return(res)
+}
 
-#6. Check the residuals from your chosen model by plotting the ACF of the residuals, and doing a portmanteau test of the residuals. If they do not look like white noise, try a modified model.
+results <- t(as.data.frame(rep(0,4)))
+colnames(results) <- c('Model','aic','aicc','bic')
+
+r2 <- mod_ar(Mkt_ts, c(3,1,1), 'Arima(3,1,1)')
+results <- rbind(results,r2)
+r2 <- mod_ar(Mkt_ts, c(3,1,2), 'Arima(3,1,2)')
+results <- rbind(results,r2)
+r2 <- mod_ar(Mkt_ts, c(3,1,3), 'Arima(3,1,3)')
+results <- rbind(results,r2)
+results <- results[-1,]
+
+# model_311 <- Arima(Mkt_ts, order=c(3,1,1))
+# results[1,1] <- model_311$aic
+# results[2,1] <- model_311$aicc
+# results[3,1] <- model_311$bic
+# 
+# model_313 <- Arima(Mkt_ts, order=c(3,1,3))
+# results_313 <- as.data.frame(rep(0,3))
+# results_313[1,1] <- model_313$aic
+# results_313[2,1] <- model_313$aicc
+# results_313[3,1] <- model_313$bic
+# 
+# rr <- cbind(results, results_313)
+# colnames(rr) <- c('Arima(311)', 'Arima(313)')
+# rownames(rr) <- c('aic','aicc','bic')
+# rr <- t(rr)
+
+# produce latex table
+dat <- results
+dig <- c(0,0,2,2,2)
+cap <- c("Arima results.","Arima results.")
+lab = 'tab:chp_ts:arima_res_r'
+filname ='../Tables/chp_ts_arima_res_r.tex'
+inclrnam=F
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+
+#6. Check the residuals from your chosen model by plotting the ACF of the residuals, 
+#and doing a portmanteau test of the residuals. 
+#If they do not look like white noise, try a modified model.
+
+savepdf("chp_ts_ftse_2000-13_acf_residuals")
+Acf(residuals(model_311),main= paste("ACF of Residuals of",forecast(model_311)$method) )
+dev.off()
+
+
+bb <- Box.test(residuals(model_311), lag=24, fitdf=4, type="Ljung")
+results_bc <- as.data.frame(rep(0,3))
+results_bc[1,1] <- round(bb$p.value,4)
+results_bc[2,1] <- round(bb$parameter)
+results_bc[3,1] <- round(bb$statistic)
+#colnames(results_bc) <- c(paste(bb$method,forecast(model_311)$method))
+colnames(results_bc) <- c(forecast(model_311)$method)
+rownames(results_bc) <- c('p-value','x-squared','df')
+#results_bc[1,1]
+results_bc_t <- t(results_bc)
+
+dat <- results_bc_t
+dig <- c(0,4,0,0)
+cap <- c("Box Ljung test.","Box Ljung test.")
+lab = 'tab:chp_ts:arima_res_rbox_l'
+filname ='../Tables/chp_ts_arima_res_r_box_l.tex'
+inclrnam=TRUE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
 
 #7. Once the residuals look like white noise, calculate forecasts.
 

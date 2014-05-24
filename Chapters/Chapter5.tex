@@ -64,63 +64,97 @@ Note - Hymndman: hard to beat the ets model, 37 mins.
 
 % ------ NEW PAGE --------------------------
 \newpage
-\section{ARIMA}
+\section{ARIMA Models}
 
-Steps:
-\begin{itemize}
-\item Plot the data
-\item If necessary, transform the data (using a Box-Cox transformation) to stabilize the variance.
-\item If the data are non-stationary: take first differences of the data until the data are stationary
-\item Examine the ACF/PACF: Is an AR(p) or MA(q) model appropriate?
-\item Try your chosen model(s), and use the AICc to search for a better model.
-\item Check the residuals from your chosen model by plotting the ACF of the residuals, and doing a portmanteau test of the residuals. If they do not look like white noise, try a modified model.
-\item Once the residuals look like white noise, calculate forecasts.
-\end{itemize}
+The process of fitting an ARIMA model to a time series involves the following general steps:
 
-\subsection{Explore the data}
+\begin{enumerate}
+\item Plot the data to get a general feel for the time series and to establish if it is stationary.
+\item Stabilize any variance in the data with a transformation process such as the Box-Cox method.
+\item Arima models work with stationary data, so if necessary, take differences of the data until it is stationary.
+\item Examine the autocorrelation and partial auto-correlation (ACF/PACF) plots in order to determine if an AR(p) or MA(q) model is appropriate.
+\item Test the chosen model(s), using the AICc to determine if a better model is available.
+\item Check the residuals from the best model by plotting the ACF, and doing a portmanteau test on them. If the results from these tests do not look like white noise, a modified model may be required.
+\item Finally, once the residuals have a similar pattern to white noise, the model can be used to generate forecasts.
+\end{enumerate}
 
-Figure \ref{fig:chp_ts_ftse_2000_13} shows FTSE 2000 to 2013
+
+In recent years automatic forecasting algorithms have become available and widely used \citep{Hyndman08automatictime}. These are necessary in a variety of circumstances, especially when organisations are faced with the need to repeatedly carry out a large number of forecasts and the human effort required renders manual means impractical. The auto.arima() function found in R's \textquotedblleft forecast" package is an example of an automatic algorithm for arima models. This function automates steps 3, 4, and 5 of those outlined previously in the general steps required for arima modelling. In the following sections, the general steps are followed in order to generate an arima model manually then the automatic algorithm is used for comparison purposes.
+
+\subsection{Data Exploration}
+
+The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_2000_13} shows the UK's FTSE 100 index between the years 2000 to 2013.
 
 \begin{figure}[tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13}
-\caption[FTSE 2000-13.]{FTSE 2000-13.}
+\caption[FTSE 2000-13.]{UK's FTSE 100 index between the years 2000 to 2013.}
 \label{fig:chp_ts_ftse_2000_13}
 \end{figure}
 
 \subsection{Box Cox Transformation}
-stabilize the variance.
+The variance within the time series is relatively uniform and thus this data set doesn't need stabilizing with regard to this. 
 
 \subsection{Difference}
+Clearly the FTSE 100 over this time period exhibits marked non-stationariness and requires adjusting accordingly. The top plot in Figure \ref{fig:chp_ts_ftse_2000_13_diff_acf} shows the FTSE data set after the first differences have been taken.  The resulting data set is now stationary.
 
-Figure \ref{fig:chp_ts_ftse_2000_13_diff} shows first diff - now stationary.
-
-\begin{figure}[tbh]
-\centering
-\includegraphics{Figures/chp_ts_ftse_2000-13_diff}
-\caption[FTSE 2000-13 Diff.]{FTSE 2000-13 Diff.}
-\label{fig:chp_ts_ftse_2000_13_diff}
-\end{figure}
+%\begin{figure}[tbh]
+%\centering
+%\includegraphics{Figures/chp_ts_ftse_2000-13_diff}
+%\caption[FTSE 2000-13 Diff.]{FTSE 2000-13 Diff.}
+%\label{fig:chp_ts_ftse_2000_13_diff}
+%\end{figure}
 
 \subsection{Examine ACF / PACF}
+After generating a stationary data set the next stage is to plot the ACF and PACF in order to help in the model selection process. The ACF and PACF for the FTSE data set can be seen in the lower part of Figure \ref{fig:chp_ts_ftse_2000_13_diff_acf}. 
 
-Figure \ref{fig:chp_ts_ftse_2000_13_diff_acf} is the ACF / PACF
+WHAT CAN WE CONCLUDE?
 
 \begin{figure}[tbh]
 \centering
-\includegraphics{Figures/chp_ts_ftse_2000-13_diff_acf}
+%\includegraphics[width=15cm]{Figures/chp_ts_ftse_2000-13_diff_acf}
+\includegraphics[width=14cm, height=12cm]{Figures/chp_ts_ftse_2000-13_diff_acf}
 \caption[FTSE 2000-13 ACF / PACF.]{FTSE 2000-13 Diff and ACF / PACF.}
 \label{fig:chp_ts_ftse_2000_13_diff_acf}
 \end{figure}
 
+\subsection{Try the chosen model(s)}
+The next step is to try the chosen model along with a few viable alternatives. The Aic value is typically used as a measure of how well the model fits the data. Table \ref{tab:chp_ts:arima_res_r} shows the accuracy measures from a selection of arima models.
 
-\subsection{Try your chosen model(s)}
-
-See Table \ref{tab:chp_ts:arima_res_r}
 %label - tab:chp_ts:arima_res_r
 \input{Tables/chp_ts_arima_res_r.tex}
 
-\section{Rapid Miner Arima}
+\subsection{Residuals from the chosen model}
+The residuals from good arima models don't display autocorrelation. To check this the ACF plot from the chosen arima model is shown in Figure \ref{fig:chp_ts_ftse_2000_13_acf_residuals}.
+
+\begin{figure}[!tbh]
+\centering
+\includegraphics{Figures/chp_ts_ftse_2000-13_acf_residuals}
+\caption[FTSE 2000-13 ACF of residuals.]{FTSE 2000-13 ACF of residuals.}
+\label{fig:chp_ts_ftse_2000_13_acf_residuals}
+\end{figure}
+
+% Box Ljung test
+Table \ref{tab:chp_ts:arima_res_rbox_l} lists the results of the Box-Ljung portmanteau test. A large p-value is indicative of white noise and is the desirable situation for a good arima model.
+
+%label - tab:chp_ts:arima_res_rbox_l
+\input{Tables/chp_ts_arima_res_r_box_l.tex}
+
+
+
+\subsection{Calculate forecast}
+
+
+\subsection{Automatic Arima Modelling}
+
+Explain how it is done.
+
+Table \ref{tab:chp_ts:arima1} results from from ts1 code - Arima1 - ARIMA(3,1,3)
+%label - tab:chp_ts:arima1
+\input{Tables/chp_ts_arima1.tex}
+
+% ---------------------------------------------------------------
+\section{Hybrid Arima Models}
 Figure \ref{fig:chp_ts_rm_arima} shows the Rapid Miner process used to generate Arima models. The various components are as follows:
 
 \begin{itemize}
@@ -146,8 +180,3 @@ Questions - should we pass the diff values ot the model - just to flatten the se
 
 TO DO - auto forecast - on window - does model change? prediction any good? ets and arima ...
 
-\subsection{auto arima R}
-
-Table \ref{tab:chp_ts:arima1} results from from ts1 code - Arima1 - ARIMA(3,1,3)
-%label - tab:chp_ts:arima1
-\input{Tables/chp_ts_arima1.tex}

@@ -103,14 +103,30 @@ savepdf <- function(file, width=16, height=10)
   par(mgp=c(2.2,0.45,0), tcl=-0.4, mar=c(3.3,3.6,1.1,1.1))
 }
 
-#savepdf("filename")
-# Plotting commands here
-#dev.off()
 
 print_xt <- function(dat,dig,cap,lab,al,filname,inclrnam){
   xt <- xtable(
     dat, 
     digits = dig, 
+    caption = cap,
+    label = lab
+  )
+  al <- c('l','l')
+  al <- c(al, rep('c',ncol(dat)-1))
+  align(xt) <- al
+  print(xt, 
+        file=filname,
+        include.rownames=inclrnam, 
+        caption.placement = "top",
+        hline.after=NULL,
+        add.to.row=list(pos=list(-1,0, nrow(xt)),
+                        command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+  
+}
+
+print_xt2 <- function(dat,cap,lab,al,filname,inclrnam){
+  xt <- xtable(
+    dat, 
     caption = cap,
     label = lab
   )
