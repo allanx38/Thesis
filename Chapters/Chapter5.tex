@@ -66,6 +66,17 @@ Note - Hymndman: hard to beat the ets model, 37 mins.
 \newpage
 \section{ARIMA}
 
+Steps:
+\begin{itemize}
+\item Plot the data
+\item If necessary, transform the data (using a Box-Cox transformation) to stabilize the variance.
+\item If the data are non-stationary: take first differences of the data until the data are stationary
+\item Examine the ACF/PACF: Is an AR(p) or MA(q) model appropriate?
+\item Try your chosen model(s), and use the AICc to search for a better model.
+\item Check the residuals from your chosen model by plotting the ACF of the residuals, and doing a portmanteau test of the residuals. If they do not look like white noise, try a modified model.
+\item Once the residuals look like white noise, calculate forecasts.
+\end{itemize}
+
 \subsection{Explore the data}
 
 Figure \ref{fig:chp_ts_ftse_2000_13} shows FTSE 2000 to 2013
@@ -91,7 +102,25 @@ Figure \ref{fig:chp_ts_ftse_2000_13_diff} shows first diff - now stationary.
 \label{fig:chp_ts_ftse_2000_13_diff}
 \end{figure}
 
-\subsection{Rapid Miner}
+\subsection{Examine ACF / PACF}
+
+Figure \ref{fig:chp_ts_ftse_2000_13_diff_acf} is the ACF / PACF
+
+\begin{figure}[tbh]
+\centering
+\includegraphics{Figures/chp_ts_ftse_2000-13_diff_acf}
+\caption[FTSE 2000-13 ACF / PACF.]{FTSE 2000-13 Diff and ACF / PACF.}
+\label{fig:chp_ts_ftse_2000_13_diff_acf}
+\end{figure}
+
+
+\subsection{Try your chosen model(s)}
+
+See Table \ref{tab:chp_ts:arima_res_r}
+%label - tab:chp_ts:arima_res_r
+\input{Tables/chp_ts_arima_res_r.tex}
+
+\section{Rapid Miner Arima}
 Figure \ref{fig:chp_ts_rm_arima} shows the Rapid Miner process used to generate Arima models. The various components are as follows:
 
 \begin{itemize}

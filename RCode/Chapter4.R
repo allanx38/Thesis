@@ -139,8 +139,7 @@ for(i in 1:length(fil)){
   a <- BaseSystem1SMA(Dax, 5, 0, nm[i])
   b <- BaseSystem1SMA(Dax, 25, 0, nm[i])
   c <- BaseSystem1SMA(Dax, 50, 0, nm[i])
-  d <- BaseSystem1
-  (Dax, 100, 0, nm[i])
+  d <- BaseSystem1SMA(Dax, 100, 0, nm[i])
   e <- BaseSystem1SMA(Dax, 200, 0, nm[i])
   df10 <- rbind(df10, a, b, c, d, e)
 }
@@ -419,7 +418,7 @@ df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
              caption = c('ROC.',
                          'ROC'),
-             label = 'tab:mac_ob_results')
+             label = 'tab:mac_roc_results')
 align(xt) <- c('l','l','c','c','c','c','c','c')
 print(xt, 
       file='../Tables/chp_ta_roc.tex',
@@ -448,7 +447,7 @@ df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
              caption = c('ROC2.',
                          'ROC2'),
-             label = 'tab:mac_ob_results')
+             label = 'tab:mac_roc2_results')
 align(xt) <- c('l','l','c','c','c','c','c','c')
 print(xt, 
       file='../Tables/chp_ta_roc2.tex',

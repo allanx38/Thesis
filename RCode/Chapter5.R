@@ -127,7 +127,7 @@ dev.off() #savepdf end
 
 # ------------ ARIMA ----------------------
 # -----------------------------------------
-
+setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 
 #1. Plot the data. Identify any unusual observations.
 Mkt <- read.csv("../Data/F100_2000_d.csv")
@@ -156,7 +156,11 @@ dev.off()
 
 #4. Examine the ACF/PACF: Is an AR(p) or MA(q) model appropriate?
 
-tsdisplay(diff(Mkt_ts),main="")
+savepdf("chp_ts_ftse_2000-13_diff_acf")
+tsdisplay(diff(Mkt_ts),main="FTSE 100 between 2000 and 2013",
+          xlab="Days since 2000", 
+          ylab="FTSE Daily Price Movement")
+dev.off()
 
 #5. Try your chosen model(s), and use the AICc to search for a better model.
 
