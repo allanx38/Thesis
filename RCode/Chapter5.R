@@ -1,11 +1,21 @@
 # Chapter 5 - test
 setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 
+# libraries
 library(forecast)
 library(xtable)
 
-source("../RCode//Utils.R")
+#source
+source("../RCode/Utils.R")
+source("../RCode/ts_1.R")
+source("../RCode/ts_2.R")
+#source("ts_1.R")
+#source("ts_2.R")
+#source("Utils.R")
 
+
+# -----------------------------------------------------------
+# ---------- Base Systems
 Mkt <- read.csv("../Data/Dax_2000_d.csv")
 nrow(Mkt)
 Mkt$Date[2999]
@@ -15,38 +25,17 @@ Mkt_ts <- ts(Mkt$Close)
 Mkt_train <- window(Mkt_ts, end=2999.99)
 Mkt_test <- window(Mkt_ts, start=3000)
 
-
-# -----------------------------------------------------
-# ------------ intro section
-#plot for a look
-# savepdf("chp_ts_dax1")
-# 
-# # Plotting commands here
-# Mkt_pl <- window(Mkt_ts, start=200, end=500)
-# plot.ts(Mkt_pl,
-#         main="Dax over 300 Days",
-#         xlab="Day", ylab="",
-#         xlim=c(220, 540))
-# lines(meanf(Mkt_pl, h=50) $mean, col=4)
-# lines(rwf(Mkt_pl,h=50)$mean,col=2)
-# lines(rwf(Mkt_pl,drift=TRUE,h=50)$mean,col=3)
-# legend("bottomleft",lty=1,col=c(4,2,3),
-#        legend=c("Mean method","Naive method","Drift method"))
-# dev.off() #savepdf end
-
-# ---------------- Base System 1
-?accuracy
-# build the  mean model
+# a.build the  mean model
 mean_model <- meanf(Mkt_train, h=5)
 a <- accuracy(mean_model, Mkt_test) #out of sample
 rownames(a) <- c('Mean Training Set', 'Mean Test Set')
 
-# build the mean model
+# b. build the mean model
 naive_model <- naive(Mkt_train, h=5)
 b <- accuracy(naive_model, Mkt_test) #out of sample
 rownames(b) <- c('Naive Training Set', 'Naive Test Set')
 
-# build the drift model
+# c. build the drift model
 drift_model <- rwf(Mkt_train,drift=TRUE,h=5)
 c <- accuracy(drift_model, Mkt_test) #out of sample
 rownames(c) <- c('Drift Training Set', 'Drift Test Set')
@@ -125,17 +114,16 @@ dev.off() #savepdf end
 
 # ----------------------------------------
 
-# ------------ ARIMA ----------------------
-# -----------------------------------------
-setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 
+# -----------------------------------------
+# 2. ARIMA ----------------------
 Mkt <- read.csv("../Data/F100_2000_d.csv")
 Mkt_ts <- ts(Mkt$Close)
 Mkt_train <- window(Mkt_ts, end=2999.99)
 Mkt_test <- window(Mkt_ts, start=3000)
 
-#1. Plot the data. Identify any unusual observations.
-
+# -------------------------------
+# 2.1. Plot the data. Identify any unusual observations.
 savepdf("chp_ts_ftse_2000-13")
 plot.ts(Mkt_train,
         main="FTSE 2000 - 2013",
@@ -144,10 +132,10 @@ plot.ts(Mkt_train,
         xlim=c(100, 3000))
 dev.off()
 
-#2. If necessary, transform the data (using a Box-Cox transformation) 
+# 2.2. If necessary, transform the data (using a Box-Cox transformation) 
 #to stabilize the variance.
 
-#3. If the data are non-stationary: take first differences of the 
+# 2.3. If the data are non-stationary: take first differences of the 
 #data until the data are stationary.
 savepdf("chp_ts_ftse_2000-13_diff")
 plot(diff(Mkt_train),
@@ -157,15 +145,32 @@ plot(diff(Mkt_train),
           xlim=c(100, 3000))
 dev.off()
 
-#4. Examine the ACF/PACF: Is an AR(p) or MA(q) model appropriate?
+# -------------------------------------
+# 2.4. Examine the ACF/PACF: Is an AR(p) or MA(q) model appropriate?
 
-savepdf("chp_ts_ftse_2000-13_diff_acf")
+# all 3 incl diff
+savepdf("chp_ts_ftse_2000-13_diff_acf_tsd")
 tsdisplay(diff(Mkt_train),main="FTSE 100 between 2000 and 2013",
           xlab="Days since 2000", 
           ylab="FTSE Daily Price Movement")
 dev.off()
 
-#5. Try your chosen model(s), and use the AICc to search for a better model.
+# a ACF
+savepdf("chp_ts_ftse_2000-13_diff_acf")
+plot(Acf(diff(Mkt_train)),
+     main="ACF of FTSE 100 between 2000 and 2013",
+     ,ylim=c(-0.08, 0.08))
+dev.off()
+
+# a PACF
+savepdf("chp_ts_ftse_2000-13_diff_pacf")
+plot(Pacf(diff(Mkt_train)),
+     main="PACF of FTSE 100 between 2000 and 2013",
+     ylim=c(-0.08, 0.08))
+dev.off()
+
+# ----------------------------------------------------
+# 2.5. Try your chosen model(s), and use the AICc to search for a better model.
        
 mod_ar <- function(Mkt, ord, nm){
   res <- t(as.data.frame(rep(0,4)))
@@ -202,17 +207,35 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # results[2,1] <- model_311$aicc
 # results[3,1] <- model_311$bic
 
-
-#6. Check the residuals from your chosen model by plotting the ACF of the residuals, 
+# ----------------------------------------------------
+# 2.6. Check the residuals from your chosen model by plotting the ACF of the residuals, 
 #and doing a portmanteau test of the residuals. 
 #If they do not look like white noise, try a modified model.
 
-model_used_for_res <- Arima(Mkt_ts, order=c(3,1,1))
-savepdf("chp_ts_ftse_2000-13_acf_residuals")
-Acf(residuals(model_311),main= paste("ACF of Residuals of",forecast(model_used_for_res)$method) )
+model_used_for_res <- Arima(Mkt_ts, order=c(3,1,2))
+model_name <- forecast(model_used_for_res)$method
+
+# a mean of residual
+residual <- model_used_for_res$residuals
+savepdf("chp_ts_ftse_2000-13_mean_residuals")
+plot(residual, main = paste("Residuals from model of", model_name), 
+     ylab="", xlab="Day")
 dev.off()
 
+# b. acf of residual
+savepdf("chp_ts_ftse_2000-13_acf_residuals")
+Acf(residuals(model_used_for_res),
+    main= paste("ACF of Residuals of", model_name))
+dev.off()
 
+# c. variance - use plot from a
+
+# d. histogram of residuals - normal distribution
+savepdf("chp_ts_ftse_2000-13_hist_residuals")
+hist(residual, nclass="FD", main="Histogram of residuals")
+dev.off()
+
+# e. portmanteau tests
 bb <- Box.test(residuals(model_used_for_res), lag=24, fitdf=4, type="Ljung")
 results_bc <- as.data.frame(rep(0,3))
 results_bc[1,1] <- round(bb$p.value,4)
@@ -233,17 +256,18 @@ inclrnam=TRUE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-#7. Once the residuals look like white noise, calculate forecasts.
-arima_man_fcast <- forecast.Arima(arima_train_mod,Mkt_test)
+# 2.7 Once the residuals look like white noise, calculate forecasts.
+arima_man_fcast <- forecast.Arima(model_used_for_res,Mkt_test)
+arima_man_fcast$x
+arima_man_fcast$fitted
 
 
+# 2.8 auto.arima
+arima_train_mod <- auto.arima(Mkt_train)
 
 
-# 2. Modelling
-#setwd("F:/Allan/R Stuff/MSc/Chp5")
-# setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
-# 
-# library(forecast)
+# 3. Modelling on Indice Data
+
 Mkt <- read.csv("../Data/Dax_2000_d.csv");nrow(Mkt)
 #Mkt <- read.csv("Dax_2000.csv");nrow(Mkt)
 Mkt_ts <- ts(Mkt$Close)
@@ -267,16 +291,6 @@ fitted.data <- as.data.frame(arima_test_fcast$fitted); nrow(fitted.data)
 # colnames(Mkt_test_df) <- c("Date","Open", "High","Low","Close","p")
 
 
-source("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode/ts_1.R")
-source("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode/ts_2.R")
-source("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode/Utils.R")
-#source("ts_1.R")
-#source("ts_2.R")
-#source("Utils.R")
-
-#res <- ts_1(Mkt_test_df,0,"Dax");res
-#res2 <- ts_2(Mkt_test_df,0,"Dax");res2
-
 # ----------------------------------------------------
 fil <- c("../Data//Dax_2000_d.csv",
          "../Data//CAC_2000_d.csv", 
@@ -287,7 +301,7 @@ fil <- c("../Data//Dax_2000_d.csv",
 nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
-testfnc <- function(fil,nm){
+ts_1_fnc <- function(fil,nm,ts1){
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i])
     Mkt_ts <- ts(Mkt$Close)
@@ -303,7 +317,12 @@ testfnc <- function(fil,nm){
     Mkt_test_df <- Mkt[(ln-lw+1):ln,] 
     Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
     colnames(Mkt_test_df) <- c("Date","Open", "High","Low","Close","p")
-    a <- ts_1(Mkt_test_df, 0, nm[i])
+    if(ts1 = TRUE){
+      a <- ts_1(Mkt_test_df, 0, nm[i])
+    } else {
+      a <- ts_2(Mkt_test_df, 0, nm[i])
+    }
+    
     df.name <- names(a)
     names(df10) <- df.name
     df10 <- rbind(df10, a)
@@ -313,9 +332,10 @@ testfnc <- function(fil,nm){
   return(df10)
 }
 
-res <- testfnc(fil,nm)
+# run the fnc
+res <- ts_1_fnc(fil,nm,TRUE)
 
-# produce latex table
+# produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
 cap <- c("ts1 arima.","arima.")
