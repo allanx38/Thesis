@@ -72,7 +72,7 @@ The process of fitting an ARIMA model to a time series involves the following ge
 \item Plot the data to get a general feel for the time series and to establish if it is stationary.
 \item Stabilize any variance in the data with a transformation process such as the Box-Cox method.
 \item Arima models work with stationary data, so if necessary, take differences of the data until it is stationary.
-\item Examine the autocorrelation and partial auto-correlation (ACF/PACF) plots in order to determine if an AR(p) or MA(q) model is appropriate.
+\item Examine the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to determine if an AR(p) or MA(q) model is appropriate.
 \item Test the chosen model(s), using the AICc to determine if a better model is available.
 \item Check the residuals from the best model by plotting the ACF, and doing a portmanteau test on them. If the results from these tests do not look like white noise, a modified model may be required.
 \item Finally, once the residuals have a similar pattern to white noise, the model can be used to generate forecasts.
@@ -83,7 +83,7 @@ In recent years automatic forecasting algorithms have become available and widel
 
 \subsection{Data Exploration}
 
-The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_2000_13} shows the UK's FTSE 100 index between the years 2000 to 2013.
+The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_2000_13} shows the UK's FTSE 100 index between the years 2000 to 2013. Over this time period the series has shown strong trends to move up and down and a uniform variance. Because the time series is non-stationary it will need to be transformed into a stationary series before arima modelling can be undertaken.
 
 \begin{figure}[tbh]
 \centering
@@ -92,31 +92,40 @@ The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_20
 \label{fig:chp_ts_ftse_2000_13}
 \end{figure}
 
-\subsection{Box Cox Transformation}
-The variance within the time series is relatively uniform and thus this data set doesn't need stabilizing with regard to this. 
-
-\subsection{Difference}
-Clearly the FTSE 100 over this time period exhibits marked non-stationariness and requires adjusting accordingly. The top plot in Figure \ref{fig:chp_ts_ftse_2000_13_diff_acf} shows the FTSE data set after the first differences have been taken.  The resulting data set is now stationary.
-
-%\begin{figure}[tbh]
-%\centering
-%\includegraphics{Figures/chp_ts_ftse_2000-13_diff}
-%\caption[FTSE 2000-13 Diff.]{FTSE 2000-13 Diff.}
-%\label{fig:chp_ts_ftse_2000_13_diff}
-%\end{figure}
-
-\subsection{Examine ACF / PACF}
-After generating a stationary data set the next stage is to plot the ACF and PACF in order to help in the model selection process. The ACF and PACF for the FTSE data set can be seen in the lower part of Figure \ref{fig:chp_ts_ftse_2000_13_diff_acf}. 
-
-WHAT CAN WE CONCLUDE?
+\subsection{Adjusting for non-uniform variance and non-stationariness}
+The variance within the FTSE time series is relatively uniform and thus this data set doesn't need stabilizing with regard to this. If it did a Box-Cox transformation could be used. However, the FTSE 100 over this time period exhibits marked non-stationariness and requires adjusting accordingly. Differencing is a technique to make a data set stationary. Instead of using the actual observations the differences between two adjacent points are used and this is known as the first difference. If the data set still isn't stationary the difference between consecutive points in the differenced data set can used, this is the difference of the differences and is known as the second difference. Figure \ref{fig:chp_ts_ftse_2000_13_diff} shows the FTSE data set after the first differences have been taken.  The resulting data set is now stationary.
 
 \begin{figure}[tbh]
 \centering
-%\includegraphics[width=15cm]{Figures/chp_ts_ftse_2000-13_diff_acf}
-\includegraphics[width=14cm, height=12cm]{Figures/chp_ts_ftse_2000-13_diff_acf}
-\caption[FTSE 2000-13 ACF / PACF.]{FTSE 2000-13 Diff and ACF / PACF.}
-\label{fig:chp_ts_ftse_2000_13_diff_acf}
+\includegraphics{Figures/chp_ts_ftse_2000-13_diff}
+\caption[FTSE 2000-13 Diff.]{FTSE 2000-13 Diff.}
+\label{fig:chp_ts_ftse_2000_13_diff}
 \end{figure}
+
+\subsection{Examine ACF / PACF}
+With a stationary data set, the next stage is to investigate the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to help in the model selection process. The ACF and PACF for the FTSE data set can be seen in Figure \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}. WHAT CAN WE CONCLUDE? \label{todo-Examine ACF / PACF}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics{Figures/chp_ts_ftse_2000-13_diff_acf}
+\caption[FTSE 2000-13 Diff.]{ACF of Diff FTSE 2000-13.}
+\label{fig:chp_ts_ftse_2000-13_diff_acf}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics{Figures/chp_ts_ftse_2000-13_diff_pacf}
+\caption[FTSE 2000-13 Diff.]{PACF of Diff FTSE 2000-13.}
+\label{fig:chp_ts_ftse_2000-13_diff_pacf}
+\end{figure}
+
+%\begin{figure}[tbh]
+%\centering
+%%\includegraphics[width=15cm]{Figures/chp_ts_ftse_2000-13_diff_acf}
+%\includegraphics[width=14cm, height=12cm]{Figures/chp_ts_ftse_2000-13_diff_acf_tsd}
+%\caption[FTSE 2000-13 ACF / PACF.]{Difference, ACF and PACF plots for the FTSE 2000-13.}
+%\label{fig:chp_ts_ftse_2000_13_diff_acf_tsd}
+%\end{figure}
 
 \subsection{Try the chosen model(s)}
 The next step is to try the chosen model along with a few viable alternatives. The Aic value is typically used as a measure of how well the model fits the data. Table \ref{tab:chp_ts:arima_res_r} shows the accuracy measures from a selection of arima models.
@@ -124,23 +133,41 @@ The next step is to try the chosen model along with a few viable alternatives. T
 %label - tab:chp_ts:arima_res_r
 \input{Tables/chp_ts_arima_res_r.tex}
 
-\subsection{Residuals from the chosen model}
-The residuals from good arima models don't display autocorrelation. To check this the ACF plot from the chosen arima model is shown in Figure \ref{fig:chp_ts_ftse_2000_13_acf_residuals}.
+\subsection{Model Residuals}
+A so-called residual is the difference between an observation and its forecast. In forecasting a time series, residuals are calculated from a one-step forecast.  A one-step forecast is based on all observations from the start of the series until the previous observation to which the forecast applies to. Thus the number of data points used to calculate the one-step forecast increases as the forecast proceeds through the time series.  An alternative is cross-sectional forecasting which uses all the points in the data set except the observation being predicted.
+
+Knowledge of the residuals from the application of a model is important in establishing the validity of the model. There are two essential and two valuable properties that can be established by inspecting the model residuals. A good method of forecasting will produce a model in which the residuals are uncorrelated and have a zero mean. If a forecasting method doesn't comply with these two properties it can be improved upon. Correlation in residuals means that information is present in them that the model has missed and a non-mean is evidence of bias in the forecast. Adjusting for bias is straight forward, the mean value observed in the residuals can simply be added to all forecasts. Looking at Figure \ref{fig:chp_ts_ftse_2000_13_mean_residuals} it can be seen that the mean of the residuals is close to zero and this model doesn't have any bias.
+
+\begin{figure}[!tbh]
+\centering
+\includegraphics{Figures/chp_ts_ftse_2000-13_mean_residuals}
+\caption[FTSE 2000-13 residuals.]{The residuals from applying the arima model to the FTSE data set.}
+\label{fig:chp_ts_ftse_2000_13_mean_residuals}
+\end{figure}
+
+Figure \ref{fig:chp_ts_ftse_2000_13_acf_residuals} is the plot of the residuals of the arima model applied to the FTSE data set. WHAT DOES IT SHOW \label{(todo-acf)}
 
 \begin{figure}[!tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_acf_residuals}
-\caption[FTSE 2000-13 ACF of residuals.]{FTSE 2000-13 ACF of residuals.}
+\caption[FTSE 2000-13 ACF of residuals.]{ACF plot of the residuals from applying the arima model to the FTSE data set.}
 \label{fig:chp_ts_ftse_2000_13_acf_residuals}
 \end{figure}
 
+Two additional properties of the residuals that are desirable, though not necessary, are constant variance and normal distribution. If these two conditions are met, the calculation of the prediction interval inthe forecast step is easier. From Figure \ref{fig:chp_ts_ftse_2000_13_mean_residuals} it can be seen that the residuals have relatively constant variance and from Figure \ref{fig:chp_ts_ftse_2000_13_hist_residuals} it can be seen that they are normally distributed.
+
+\begin{figure}[!tbh]
+\centering
+\includegraphics{Figures/chp_ts_ftse_2000-13_hist_residuals}
+\caption[FTSE 2000-13 - Histogram of residuals.]{Histogram of the residuals from applying the arima model to the FTSE data set.}
+\label{fig:chp_ts_ftse_2000_13_hist_residuals}
+\end{figure}
+
 % Box Ljung test
-Table \ref{tab:chp_ts:arima_res_rbox_l} lists the results of the Box-Ljung portmanteau test. A large p-value is indicative of white noise and is the desirable situation for a good arima model.
+Consideration of the ACF plots provides evidence for auto-correlation. However a more formal approach is to consider auto-correlation values together as a group as opposed to individually. The Box-Ljung portmanteau test is just one such approach and Table \ref{tab:chp_ts:arima_res_rbox_l} lists the results of the Box-Ljung portmanteau test being applied to the residuals of the arima model. A large p-value is indicative of white noise and is the desirable situation for a good arima model.
 
 %label - tab:chp_ts:arima_res_rbox_l
 \input{Tables/chp_ts_arima_res_r_box_l.tex}
-
-
 
 \subsection{Calculate forecast}
 

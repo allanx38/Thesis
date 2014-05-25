@@ -251,3 +251,10 @@ Data/Dax_2000_ts.csv
 Data/Dax_2010_13_ts.csv
 Data/Dax_2013_ts.csv
 Data/Dax_2010_ts.csv
+Figures/chp_ts_ftse_2000-13_diff_acf_tsd.pdf
+Figures/chp_ts_ftse_2000-13_diff_pacf.pdf
+Figures/chp_ts_ftse_2000-13_hist_residuals.pdf
+Figures/chp_ts_ftse_2000-13_mean_residuals.pdf
+Figures/chp_ts_ftse_2000-13_diff_acf.pdf
+Data/Dax_ta.csv
+Figures/chp_ts_ftse_2000-13_diff_acf.pdf
