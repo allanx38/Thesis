@@ -170,16 +170,27 @@ Consideration of the ACF plots provides evidence for auto-correlation. However a
 \input{Tables/chp_ts_arima_res_r_box_l.tex}
 
 \subsection{Calculate forecast}
+Finally, after developing a model that meets the previous criteria a forecast can be generated. Table \ref{tab:chp_ts:ftse_100_fcast} shows the one-step forecast produced when the arima(3,1,2) model developed in the previous section is applied to the FTSE data set.
+ 
+%label - tab:chp_ts:ftse_100_fcast
+\input{Tables/chp_ts_ftse_100_fcast.tex}
 
 
 \subsection{Automatic Arima Modelling}
 
 Explain how it is done.
 
+\section{Trading Systems}
+Having developed forecasts based on arima models these can be passed into a trading system.
+
 Table \ref{tab:chp_ts:arima1} results from from ts1 code - Arima1 - ARIMA(3,1,3)
 %label - tab:chp_ts:arima1
 \input{Tables/chp_ts_arima1.tex}
 
+
+Table \ref{tab:chp_ts:arima2} results from from ts1 code - Arima1 - ARIMA(3,1,3)
+%label - tab:chp_ts:arima2
+\input{Tables/chp_ts_arima2.tex}
 % ---------------------------------------------------------------
 \section{Hybrid Arima Models}
 Figure \ref{fig:chp_ts_rm_arima} shows the Rapid Miner process used to generate Arima models. The various components are as follows:

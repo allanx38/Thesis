@@ -212,7 +212,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 #and doing a portmanteau test of the residuals. 
 #If they do not look like white noise, try a modified model.
 
-model_used_for_res <- Arima(Mkt_ts, order=c(3,1,2))
+model_used_for_res <- Arima(Mkt_train, order=c(3,1,2))
 model_name <- forecast(model_used_for_res)$method
 
 # a mean of residual
@@ -258,40 +258,28 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # 2.7 Once the residuals look like white noise, calculate forecasts.
 arima_man_fcast <- forecast.Arima(model_used_for_res,Mkt_test)
-arima_man_fcast$x
-arima_man_fcast$fitted
+fitted.data <- as.data.frame(arima_man_fcast$fitted); 
+ln <- nrow(Mkt)
+lw <- nrow(fitted.data)
+Mkt_test_df <- Mkt[(ln-lw+1):ln,] 
+Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
+colnames(Mkt_test_df) <- c('Date','Open','High','Low','Close','Forecast')
 
+# plot the results
+dat <- tail(Mkt_test_df)
+dig <- 0
+cap <- c("FTSE 100 foecast.","FTSE 100 foecast.")
+lab = 'tab:chp_ts:ftse_100_fcast'
+filname ='../Tables/chp_ts_ftse_100_fcast.tex'
+inclrnam=F
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # 2.8 auto.arima
 arima_train_mod <- auto.arima(Mkt_train)
 
-
-# 3. Modelling on Indice Data
-
-Mkt <- read.csv("../Data/Dax_2000_d.csv");nrow(Mkt)
-#Mkt <- read.csv("Dax_2000.csv");nrow(Mkt)
-Mkt_ts <- ts(Mkt$Close)
-Mkt_train <- window(Mkt_ts, end=2999.99)
-Mkt_test <- window(Mkt_ts, start=3000)
-tail(Mkt_test)
-length(Mkt_test)
-
-arima_train_mod <- auto.arima(Mkt_train)
-arima_fcast <- forecast.Arima(arima_train_mod,Mkt_test)
-# accuracy(fcast,Mkt_test)
-arima_test_mod <- Arima(Mkt_test, model = arima_train_mod) # 1 step fcast on future data ...
-arima_test_fcast <- forecast(arima_test_mod)
-fitted.data <- as.data.frame(arima_test_fcast$fitted); nrow(fitted.data)
-# 
-# ln <- nrow(Mkt)
-# lw <- nrow(fitted.data) ;lw
-# Mkt_test_df <- Mkt[(ln-lw+1):ln,]  ;nrow(Mkt_test_df)
-# #Mkt_test_df <- as.data.frame(Mkt_test) ;nrow(Mkt_test_df)
-# Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
-# colnames(Mkt_test_df) <- c("Date","Open", "High","Low","Close","p")
-
-
 # ----------------------------------------------------
+# 3. Trading System
+
 fil <- c("../Data//Dax_2000_d.csv",
          "../Data//CAC_2000_d.csv", 
          "../Data//F100_2000_d.csv",
@@ -303,6 +291,7 @@ df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 ts_1_fnc <- function(fil,nm,ts1){
   for(i in 1:length(fil)){
+    
     Mkt <- read.csv(fil[i])
     Mkt_ts <- ts(Mkt$Close)
     Mkt_train <- window(Mkt_ts, end=2999.99)
@@ -317,22 +306,22 @@ ts_1_fnc <- function(fil,nm,ts1){
     Mkt_test_df <- Mkt[(ln-lw+1):ln,] 
     Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
     colnames(Mkt_test_df) <- c("Date","Open", "High","Low","Close","p")
-    if(ts1 = TRUE){
+    if(ts1 == TRUE){
       a <- ts_1(Mkt_test_df, 0, nm[i])
     } else {
       a <- ts_2(Mkt_test_df, 0, nm[i])
     }
-    
-    df.name <- names(a)
-    names(df10) <- df.name
+    #browser()
     df10 <- rbind(df10, a)
   }
+  df.name <- names(a)
+  names(df10) <- df.name
   df10 <- df10[-c(1),]
-  browser()
+  #browser()
   return(df10)
 }
 
-# run the fnc
+# run the fnc ts_1
 res <- ts_1_fnc(fil,nm,TRUE)
 
 # produce latex table from ts_1
@@ -341,5 +330,17 @@ dig <- 0
 cap <- c("ts1 arima.","arima.")
 lab = 'tab:chp_ts:arima1'
 filname ='../Tables/chp_ts_arima1.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# run the fnc ts_2
+res <- ts_1_fnc(fil,nm,FALSE) # F = ts_2
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("ts2 arima.","ts2 arima.")
+lab = 'tab:chp_ts:arima2'
+filname ='../Tables/chp_ts_arima2.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)

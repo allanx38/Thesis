@@ -8,7 +8,6 @@ ts_1 <- function(Mkt, SLoss, MktName){
   # Returns:
   #   results vector.
   
-  #browser()
   results <- createResultsVector(MktName, SLoss)
   
   Mkt$p_p <- c( NA, Mkt$p_p[ - length(Mkt$p_p) ] ) # prev prediction
