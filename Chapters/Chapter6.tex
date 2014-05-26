@@ -9,11 +9,55 @@
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
+In chapters 4 and 5 a wide variety of analytical techniques were applied to a variety of time series data sets. In Chapter 4 a range of trading algorithms were developed based on technical analysis indicators.  The intention was to automate the decision of whether to buy or sell a market based on the value of the indicator. For comparison purposes, two simple so called "naive" systems were explored to set a base line against which the technical analysis indicators could be compared.  The technical indicators were grouped together in their general area of applicability, namely trend detection indicators, reversal, momentum and candlestick indicators.
+
+Chapter 5 continued the exploration of financial time series through the use of exponential smoothing, ARIMA and hybrid ARIMA techniques. The generated models were used to create one-step forecasts which were then combined with the original data set. These data sets were then fed into trading algorithms which used the forecast values to make trading decisions. Again a series of simple forecast techniques were used as a baseline against which the trading system algorithms could be compared.
+
+\subsection{Technical Analysis}
+Initially two simple, naive systems were explored to set a baseline for further analysis. These systems were the Naive Long System which mirrors a buy and hold strategy and a Naive Follow Previous system which simply repeats the previous days market direction.
+
+\subsubsection{Naive Systems}
+The first base line system tried was the Naive Long system in which a market buy is placed each day and is similar to the so-called "Buy and Hold" technique. The assumption here is that the market rises over time and if an investor simply holds a security it will eventually generate a profit.  The total profit is simply the price at the start, in this case the data set started in 2000, subtracted from the price at the end of the period which in this case was the end of 2013.
+
+The first iteration of the algorithm placed a buy at the start of the trading session and closed it at the end and thus the system was out of the market overnight. This resulted in significant discrepancies from the returns expected from a buy and hold system. With a buy and hold system the returns would have been as follows:
+
+\begin{itemize}
+\item Dax: +2591
+\item CAC:-1774
+\item FTSE: -181
+\item Dow: +11501
+\item Nikkei: -2649
+\item AORD: +2201
+\end{itemize}
+
+From simply trading long during market hours the Dax generated a loss as opposed to the 2591 profit expected, likewise the CAC showed a much larger loss than expected and the Nikkei resulted in a large loss when a small loss was expected. The Dow, FTSE and AORD were similar to the expected values. Changing the algorithm such that the trades ran close to close and covered the full 24 hour period resulted in system results that matched the expected results from a buy and hold approach.  Clearly the discrepancies from the first algorithm were due to the relative amounts the markets moved during the day as opposed to during the \textquotedblleft out of hours" trading. There is a slight bias for the markets to move upwards overnight and over the course of the study (14 years) adds up to significant values.  
+
+TO DO - Mkt naming consistency: FTSE, AORD, Nikkei 
+TO DO - PL per trade - L / S
+
+The second naive system was termed "Naive Follow Previous" and simply places a trade today consistent with the market direction from the previous day. This idea produced very poor results, with every market losing money. Clearly if the trades were reversed so that the algorithm traded in the opposite direction to the previous day the exact opposite results would have occurred (in a real scenario this wouldn't be true because of trading charges).  From these results it can be concluded that the markets have a tendency to "flip flop" and reverse back on themselves, and the phenomena of market reverses is well understood.   
+
+\subsubsection{Trend Detection}
+The first group of the technical analysis indicators studied were the trend detection indicators. identification of trend direction and strength is very important in the world of financial trading and one of the most widely encountered phrases is "the trend is your friend" as most authorities advocate trading in the direction of the trend. (In fact on a recent webinar it was claimed that 80\% of all money made is made trading in the direction of the trend.)  Well known indicators that purport to assist the trader in identifying trends are the simple moving average (SMA), the moving average convergence/divergence indicator (MACD) and the Aroon indicator.
+
+The use of simple moving average is wide-spread in the financial markets. Market participants track moving averages or even more than one and make a decision which way to trade based on the position of the current price relative to it. Popular values to use in the SMA are 25, 50 and 200. The results of a trading based on SMA is presented in table \ref{}. The algorithm places a buy trade if the current price is above the SMA and a sell trade if it is below it. The results from this algorithm an be seen in 
+
+\subsubsection{Market Reversal Indicators}
 
 
-\section{Time Series}
+\subsubsection{Momentum Indicators}
 
-\section{Technical Analysis}
+\subsubsection{Break-out systems}
+
+
+\subsubsection{Candlestick Patterns}
+
+
+\subsection{Time Series Analysis}
+
+
+
+\subsection{Conclusion}
 
 
 

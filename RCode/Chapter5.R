@@ -13,6 +13,13 @@ source("../RCode/ts_2.R")
 #source("ts_2.R")
 #source("Utils.R")
 
+fil <- c("../Data/Dax_2000_d.csv",
+         "../Data/CAC_2000_d.csv", 
+         "../Data/F100_2000_d.csv",
+         "../Data/Dow_2000_d.csv",
+         "../Data/N225_2000_d.csv",
+         "../Data/Oz_2000.csv")
+nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
 
 # -----------------------------------------------------------
 # ---------- Base Systems
@@ -183,13 +190,19 @@ mod_ar <- function(Mkt, ord, nm){
 }
 
 results <- t(as.data.frame(rep(0,4)))
-colnames(results) <- c('Model','aic','aicc','bic')
+colnames(results) <- c('Model','AIC','AICc','BIC')
 
 r2 <- mod_ar(Mkt_train, c(3,1,1), 'Arima(3,1,1)')
 results <- rbind(results,r2)
 r2 <- mod_ar(Mkt_train, c(3,1,2), 'Arima(3,1,2)')
 results <- rbind(results,r2)
 r2 <- mod_ar(Mkt_train, c(3,1,3), 'Arima(3,1,3)')
+results <- rbind(results,r2)
+r2 <- mod_ar(Mkt_train, c(2,1,1), 'Arima(2,1,1)')
+results <- rbind(results,r2)
+r2 <- mod_ar(Mkt_train, c(2,1,2), 'Arima(2,1,2)')
+results <- rbind(results,r2)
+r2 <- mod_ar(Mkt_train, c(2,1,3), 'Arima(2,1,3)')
 results <- rbind(results,r2)
 results <- results[-1,]
 
@@ -212,7 +225,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 #and doing a portmanteau test of the residuals. 
 #If they do not look like white noise, try a modified model.
 
-model_used_for_res <- Arima(Mkt_train, order=c(3,1,2))
+model_used_for_res <- Arima(Mkt_train, order=c(2,1,3))
 model_name <- forecast(model_used_for_res)$method
 
 # a mean of residual
@@ -275,18 +288,42 @@ inclrnam=F
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # 2.8 auto.arima
-arima_train_mod <- auto.arima(Mkt_train)
+
+arim_mod_fnc <- function(fil,nm){
+  #browser()
+  dfres <- dfres <- t(c('a','b'))
+  for(i in 1:length(fil)){
+    Mkt <- read.csv(fil[i])
+    Mkt_train <- ts(Mkt$Close)
+    #Mkt_train <- window(Mkt_ts, end=2999.99)
+    #Mkt_test <- window(Mkt_ts, start=3000)
+    arima_train_mod <- auto.arima(Mkt_train)
+    #arima_fcast <- forecast.Arima(arima_train_mod)
+    dfres <- rbind(dfres,c(nm[i], forecast(arima_train_mod)$method))
+  }
+  return(dfres)
+}
+
+fg <- arim_mod_fnc(fil,nm)
+fg <- fg[-1,]
+colnames(fg) <- c('Market','Arima Model')
+
+# plot the results
+dat <- fg
+dig <- 0
+cap <- c("Arima models  from national indices.","Arima models.")
+lab = 'tab:chp_ts_arima_models'
+filname ='../Tables/chp_ts_arima_models.tex'
+inclrnam=F
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+
+
 
 # ----------------------------------------------------
 # 3. Trading System
 
-fil <- c("../Data//Dax_2000_d.csv",
-         "../Data//CAC_2000_d.csv", 
-         "../Data//F100_2000_d.csv",
-         "../Data//Dow_2000_d.csv",
-         "../Data//N225_2000_d.csv",
-         "../Data//Oz_2000.csv")
-nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
+
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 ts_1_fnc <- function(fil,nm,ts1){
@@ -336,7 +373,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # run the fnc ts_2
 res <- ts_1_fnc(fil,nm,FALSE) # F = ts_2
 
-# produce latex table from ts_1
+# produce latex table from ts_2
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
 cap <- c("ts2 arima.","ts2 arima.")
@@ -344,3 +381,41 @@ lab = 'tab:chp_ts:arima2'
 filname ='../Tables/chp_ts_arima2.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+
+# ----------------------------------------------------------------------
+# --------- RM Generated Files -----------------------------------------
+source("../RCode/ts_1.R")
+source("../RCode/ts_2.R")
+Mkt <- read.csv("../Data/rm_ar334_reg.csv",stringsAsFactors=F)
+
+fil <- c("../Data/rm_ar334_reg.csv")
+nm <- c("Dax")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+
+ts_1_fnc_ar <- function(fil,nm,ts1){
+  for(i in 1:length(fil)){
+    Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
+    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
+    a <- ts_1(Mkt_p, 0, 'Dax')
+    df10 <- rbind(df10, a)
+  }
+  df.name <- names(a)
+  names(df10) <- df.name
+  df10 <- df10[-c(1),]
+  return(df10)
+}
+
+res <- ts_1_fnc_ar(fil,nm)
+  
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("ts1 arima hybrid reg.","ts1 arima hybrid reg.")
+lab = 'tab:chp_ts:arima_hybrid_reg'
+filname ='../Tables/chp_ts_arima_hybrid_reg.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+  
+  
+  

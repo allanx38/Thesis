@@ -27,7 +27,7 @@ Figure \ref{fig:chp5_ts_dax} is a plot of the forecast from these models generat
 \label{fig:chp5_ts_dax}
 \end{figure}
 
-Figure \ref{fig:chp5_ts_dax_act} is the same as Figure \ref{fig:chp5_ts_dax} except the actual data encountered during the foecast period has been added.
+Figure \ref{fig:chp_ts_dax_act} is the same as Figure \ref{fig:chp5_ts_dax} except the actual data encountered during the foecast period has been added.
 
 \begin{figure}[tbh]
 \centering
@@ -65,6 +65,7 @@ Note - Hymndman: hard to beat the ets model, 37 mins.
 % ------ NEW PAGE --------------------------
 \newpage
 \section{ARIMA Models}
+\label{arima_models}
 
 The process of fitting an ARIMA model to a time series involves the following general steps:
 
@@ -103,7 +104,9 @@ The variance within the FTSE time series is relatively uniform and thus this dat
 \end{figure}
 
 \subsection{Examine ACF / PACF}
-With a stationary data set, the next stage is to investigate the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to help in the model selection process. The ACF and PACF for the FTSE data set can be seen in Figure \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}. WHAT CAN WE CONCLUDE? \label{todo-Examine ACF / PACF}
+With a stationary data set, the next stage is to investigate the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to help in the model selection process (see section \ref{sec:acf} for details of ACF and PACF). The ACF and PACF for the FTSE data set can be seen in Figures \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}. 
+
+If ultimately the arima model is of the form ARIMA(p,d,0) or ARIMA(0,d,q) then the ACF and PACF plots are useful in helping to define values for p or q. In the event that both p and q are positive, the ACF and PACF are not helpful in deducing the values for p and q. An ARIMA(p,d,0) model may be appropriate if the ACF and PACF plots of the stationary data exhibit an exponentially decaying pattern in the ACF and a large spike at lag p in PACF plot. Conversely an ARIMA(0,d,q) model may be appropriate if the PACF is decaying exponentially and there is there is a significant spike in the ACF plot at lag q. Considering the ACF and PACF plots in Figures \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}, neither of the two patterns are observed and thus an arima model where both p and q are positive is likely.
 
 \begin{figure}[tbh]
 \centering
@@ -128,7 +131,22 @@ With a stationary data set, the next stage is to investigate the auto-correlatio
 %\end{figure}
 
 \subsection{Try the chosen model(s)}
-The next step is to try the chosen model along with a few viable alternatives. The Aic value is typically used as a measure of how well the model fits the data. Table \ref{tab:chp_ts:arima_res_r} shows the accuracy measures from a selection of arima models.
+The next step is to try the chosen model along with a few viable alternatives. 
+
+%Akaike’s Information Criterion (AIC) and Bayesian Information Criterion (BIC) are useful for determining the optimum order of an ARIMA model, and are typically used as a measure of how well the model fits the data. 
+%\[ AIC = -2 log (L) + 2 (p+q+k+1) \]
+%where:\\
+%$ L $ is the likelihood of the data\\ 
+%$ k = 1$ if $c != 0 $ and $ k=0$ if $c != 0$\\
+%Note that the last term in parentheses is the number of parameters in the model, the variance of the residuals.
+%
+%For ARIMA models, the corrected AIC can be written as:
+%\[ AIC_{c} = AIC + \dfrac{2 (p+q+k+1)(p+q+k+2)}{T-p-q-k-2} \]
+%
+%The Bayesian Information Criterion can be expressed as:
+%\[ BIC = AIC + log(T)(p+q+k+1) \]
+%
+%Table \ref{tab:chp_ts:arima_res_r} shows the AIC, AICc and BIC accuracy measures for a selection of arima models applied to the FTSE data set. On all three measures the arima(2,1,3) model has the lowest value.
 
 %label - tab:chp_ts:arima_res_r
 \input{Tables/chp_ts_arima_res_r.tex}
@@ -177,8 +195,14 @@ Finally, after developing a model that meets the previous criteria a forecast ca
 
 
 \subsection{Automatic Arima Modelling}
+As explained previously the automatic arima modelling algorithm in the R forecast package automates steps 3 to 5 in the general steps used in the modelling process as outlined in section \ref{arima_models}. The function uses a variation of the Hyndman and Khandakar algorithm which obtains an arima model by the minimisation of the AICc and combination with unit root tests. KPSS tests are used to establish the number of differences, d, required to get a stationary time series. The p and q values are then obtained by choosing the model that minimises the AICc for the differenced data. 
 
-Explain how it is done.
+
+Table \ref{tab:chp_ts_arima_models} 
+%label - tab:chp_ts_arima_models
+\input{Tables/chp_ts_arima_models.tex}
+
+
 
 \section{Trading Systems}
 Having developed forecasts based on arima models these can be passed into a trading system.
@@ -214,7 +238,11 @@ Figure \ref{fig:chp_ts_rm_arima} shows the Rapid Miner process used to generate 
 \label{fig:chp_ts_rm_arima}
 \end{figure}
 
-Questions - should we pass the diff values ot the model - just to flatten the series?
+Questions - should we pass the diff values to the model - just to flatten the series?
 
 TO DO - auto forecast - on window - does model change? prediction any good? ets and arima ...
+
+Table \ref{tab:chp_ts:arima_hybrid_reg} are the results of using the output of the arima-hybrid in a trading system.
+%label - tab:chp_ts:arima_hybrid_reg
+\input{Tables/chp_ts_arima_hybrid_reg.tex}
 
