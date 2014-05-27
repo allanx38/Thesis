@@ -181,7 +181,7 @@ A time series is typically made up of time components as shown in Figure \ref{fi
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=12cm]{chp2_TimeSeriesComponents}
+\includegraphics[height=12cm]{chp2_TimeSeriesComponents}
 \caption[Time series decomposed into primary components]{A time series decomposed into its three primary components \citep{CoghlanR}.}
 \label{fig:TimeSeriesComponents}
 \end{figure}
@@ -194,7 +194,7 @@ There are three primary types of time series, stationary, additive and multiplic
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=8cm]{chp2_Stationary_ts}
+\includegraphics{chp2_Stationary_ts}
 \caption[A stationary time series]{Example of a stationary time series which can be made up from noise and/or a seasonal component.}
 \label{fig:Stationary_ts}
 \end{figure}
@@ -207,7 +207,7 @@ The second type of time series is the additive type. In this type all three comp
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=8cm]{chp2_Add2_ts}
+\includegraphics{chp2_Add2_ts}
 \caption[An additive time series]{Example of an additive time series which results from all three components trend, noise and seasonality.}
 \label{fig:Add2_ts}
 \end{figure}
@@ -220,7 +220,7 @@ The third type of time series, as seen in Figure \ref{fig:Multi_ts} is multiplic
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=8cm]{chp2_Multi_ts}
+\includegraphics{chp2_Multi_ts}
 \caption[A multiplicative time series]{Example of a multiplicative time series resulting from the effects of trend, noise and seasonality.}
 \label{fig:Multi_ts}
 \end{figure}
@@ -299,48 +299,48 @@ Moving averages are widely used in the financial world to predict the start of t
 \label{sec:holtwinters}
 The exponential smoothing of a time series containing noise, trend and seasonality was developed by \cite{Winters1960} who as a student of Holt, built upon his previous work, and is today called the Holt-Winters method. This method defines three parameters alpha, beta and gamma which define the degree of smoothing to be applied to the three components of the time series. Firstly, a value of alpha is used to dictate the amount of smoothing to apply, with high smoothing factors placing more emphasis on recent data points at the expense of those further away. In a data set with trend this simple exponential moving average doesn't perform well and a second order of smoothing is needed, so called \textquotedblleft double exponential smoothing". The parameter beta in Holt-Winters defines this second order smoothing. Finally if a seasonal component is also present in the data set a third level of smoothing is introduced making the process a triple exponential smoothing. It is this third level of smoothing that the parameter gamma refers to. Depending upon the nature of the time series one, two or all three of the parameters may be defined in the Holt-Winters methodology.
 
-If researching a time series with no seasonality or trend use of the Holt-Winters model with the beta and gamma parameters set to false, in other words not used, is appropriate. Figure \ref{fig:HW1} shows a time series without seasonality or trend. Figure \ref{fig:HW1a} is the same plot with the addition of the smoothing line.
+If researching a time series with no seasonality or trend use of the Holt-Winters model with the beta and gamma parameters set to false, in other words not used, is appropriate. Figure \ref{fig:HW1a} shows the addition of an exponential smoothing line to the stationary data set introduced in Figure \ref{fig:Stationary_ts}.
+
+%\begin{figure}[tbph!]
+%\centering
+%\includegraphics[width=8cm]{chp2_HW1}
+%\caption[A time series with no seasonality or trend]{For a time series with no seasonality or trend, the use of Holt-Winters exponential smoothing with the beta and gamma parameters set to false is appropriate.}
+%\label{fig:HW1}
+%\end{figure}
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=8cm]{chp2_HW1}
-\caption[A time series with no seasonality or trend]{For a time series with no seasonality or trend, the use of Holt-Winters exponential smoothing with the beta and gamma parameters set to false is appropriate.}
-\label{fig:HW1}
-\end{figure}
-
-\begin{figure}[tbph!]
-\centering
-\includegraphics[width=8cm]{chp2_HW1a}
+\includegraphics{chp2_HW1a}
 \caption[A time series with no seasonality or trend plus exponential smoothing]{A time series with no seasonality or trend, showing the fitted line generated from Holt-Winters exponential smoothing with the beta and gamma parameters set to false.}
 \label{fig:HW1a}
 \end{figure}
 
-If the time series is additive with a trend but without seasonality the use of Holt-Winters with values used for alpha and beta but with the gamma parameter set to false is appropriate. Such a time series can be seen in Figure \ref{fig:HW2}. Likewise Figure \ref{fig:HW3} is an example of a time series with both trend and seasonality and Figure \ref{fig:HW3a} shows the Holt-Winters smoothing.
+If the time series is additive with a trend but without seasonality the use of Holt-Winters with values used for alpha and beta but with the gamma parameter set to false is appropriate. Such a time series can be seen in Figure \ref{fig:HW2a} with the exponential smoothing. Figure \ref{fig:HW3a} is an example of a time series with both trend and seasonality and overlaid with Holt-Winters smoothing.
+
+%\begin{figure}[tbph!]
+%\centering
+%\includegraphics[width=8cm]{chp2_HW2}
+%\caption[A time series with trend though no seasonality]{For a time series with trend but no seasonality, the use of Holt-Winters exponential smoothing with the gamma parameter set to false is appropriate.}
+%\label{fig:HW2}
+%\end{figure}
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=8cm]{chp2_HW2}
-\caption[A time series with trend though no seasonality]{For a time series with trend but no seasonality, the use of Holt-Winters exponential smoothing with the gamma parameter set to false is appropriate.}
-\label{fig:HW2}
-\end{figure}
-
-\begin{figure}[tbph!]
-\centering
-\includegraphics[width=8cm]{chp2_HW2a}
+\includegraphics{chp2_HW2a}
 \caption[A time series with trend though no seasonality plus exponential smoothing.]{A time series with trend though no seasonality, showing the fitted Holt-Winters exponential smoothing with the gamma parameter set to false.}
 \label{fig:HW2a}
 \end{figure}
 
-\begin{figure}[tbph!]
-\centering
-\includegraphics[width=8cm]{chp2_HW3}
-\caption[A time series with trend and seasonality]{For a time series with trend and seasonality, the use of Holt-Winters exponential smoothing is appropriate.}
-\label{fig:HW3}
-\end{figure}
+%\begin{figure}[tbph!]
+%\centering
+%\includegraphics[width=8cm]{chp2_HW3}
+%\caption[A time series with trend and seasonality]{For a time series with trend and seasonality, the use of Holt-Winters exponential smoothing is appropriate.}
+%\label{fig:HW3}
+%\end{figure}
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=8cm]{chp2_HW3a}
+\includegraphics{chp2_HW3a}
 \caption[A time series with trend and seasonality plus exponential smoothing]{A time series with trend and seasonality, showing the fitted Holt-Winters exponential smoothing.}
 \label{fig:HW3a}
 \end{figure}

@@ -395,6 +395,7 @@ df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 ts_1_fnc_ar <- function(fil,nm,ts1){
   for(i in 1:length(fil)){
+    Mkt <- read.csv(fil[i],stringsAsFactors=F)
     Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
     colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
     a <- ts_1(Mkt_p, 0, 'Dax')
@@ -417,5 +418,19 @@ filname ='../Tables/chp_ts_arima_hybrid_reg.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
   
-  
-  
+# --------------------------------------------------------------
+# ---------- ARIMA / ANN Hybrid --------------------------------
+Mkt <- read.csv("../Data/dax_ar334_ann.csv",stringsAsFactors=F)
+fil <- c("../Data/dax_ar334_ann.csv")
+nm <- c("Dax")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+res <- ts_1_fnc_ar(fil,nm)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("ts1 arima hybrid ANN.","ts1 arima hybrid ANN.")
+lab = 'tab:chp_ts:arima_hybrid_ann'
+filname ='../Tables/chp_ts_arima_hybrid_ann.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
