@@ -128,6 +128,17 @@ dev.off()                   #end
 # --------- END
 
 
+# ------------------------
+# ACF
+# \label{fig:acf80}
+# -----------------------
+savepdf('chp2_acf80')     #start
+plot(acf(rainseries),
+     main="ACF of the Rainseries Data",
+     ylab="Auto-correlation (ACF)")
+dev.off()                   #end
+# --------- END
+
 
 apseries <- ts(AirPassengers, frequency=12, start=c(1949))
 plot.ts(apseries)
