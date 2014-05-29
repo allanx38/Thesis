@@ -1,0 +1,16 @@
+% latex table generated in R 3.1.0 by xtable 1.7-3 package
+% Wed May 28 17:32:03 2014
+\begin{table}[ht]
+\centering
+\caption[First 6 rows of the Dax data set.]{First 6 rows of the Dax data set} 
+\label{tab:daxhead}
+\begin{tabular}{lcccc}
+  \toprule Date & Open & High & Low & Close \\ 
+  \midrule 13/12/2013 & 9017 & 9047 & 8991 & 9006 \\ 
+  16/12/2013 & 9005 & 9188 & 8998 & 9164 \\ 
+  17/12/2013 & 9143 & 9162 & 9085 & 9085 \\ 
+  18/12/2013 & 9145 & 9191 & 9122 & 9182 \\ 
+  19/12/2013 & 9280 & 9352 & 9257 & 9336 \\ 
+  20/12/2013 & 9371 & 9413 & 9353 & 9400 \\ 
+   \bottomrule \end{tabular}
+\end{table}

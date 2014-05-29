@@ -13,10 +13,10 @@ In chapters 4 and 5 a wide variety of analytical techniques were applied to a va
 
 Chapter 5 continued the exploration of financial time series through the use of exponential smoothing, ARIMA and hybrid ARIMA techniques. The generated models were used to create one-step forecasts which were then combined with the original data set. These data sets were then fed into trading algorithms which used the forecast values to make trading decisions. Again a series of simple forecast techniques were used as a baseline against which the trading system algorithms could be compared.
 
-\subsection{Technical Analysis}
+\section{Technical Analysis}
 Initially two simple, naive systems were explored to set a baseline for further analysis. These systems were the Naive Long System which mirrors a buy and hold strategy and a Naive Follow Previous system which simply repeats the previous days market direction.
 
-\subsubsection{Naive Systems}
+\subsection{Naive Systems}
 The first base line system tried was the Naive Long system in which a market buy is placed each day and is similar to the so-called "Buy and Hold" technique. The assumption here is that the market rises over time and if an investor simply holds a security it will eventually generate a profit.  The total profit is simply the price at the start, in this case the data set started in 2000, subtracted from the price at the end of the period which in this case was the end of 2013.
 
 The first iteration of the algorithm placed a buy at the start of the trading session and closed it at the end and thus the system was out of the market overnight. This resulted in significant discrepancies from the returns expected from a buy and hold system. With a buy and hold system the returns would have been as follows:
@@ -37,27 +37,81 @@ TO DO - PL per trade - L / S
 
 The second naive system was termed "Naive Follow Previous" and simply places a trade today consistent with the market direction from the previous day. This idea produced very poor results, with every market losing money. Clearly if the trades were reversed so that the algorithm traded in the opposite direction to the previous day the exact opposite results would have occurred (in a real scenario this wouldn't be true because of trading charges).  From these results it can be concluded that the markets have a tendency to "flip flop" and reverse back on themselves, and the phenomena of market reverses is well understood.   
 
-\subsubsection{Trend Detection}
+\subsection{Trend Detection}
 The first group of the technical analysis indicators studied were the trend detection indicators. identification of trend direction and strength is very important in the world of financial trading and one of the most widely encountered phrases is "the trend is your friend" as most authorities advocate trading in the direction of the trend. (In fact on a recent webinar it was claimed that 80\% of all money made is made trading in the direction of the trend.)  Well known indicators that purport to assist the trader in identifying trends are the simple moving average (SMA), the moving average convergence/divergence indicator (MACD) and the Aroon indicator.
 
 The use of simple moving average is wide-spread in the financial markets. Market participants track moving averages or even more than one and make a decision which way to trade based on the position of the current price relative to it. Popular values to use in the SMA are 25, 50 and 200. The results of a trading based on SMA is presented in table \ref{}. The algorithm places a buy trade if the current price is above the SMA and a sell trade if it is below it. The results from this algorithm an be seen in 
 
-\subsubsection{Market Reversal Indicators}
-a test ...
+Results are mixed with some markets producing positive results when trades are directed by the SMA values and some result in losses. The German Dax produces positive results across all the SMA values with values from trading short (predictng the market will decline doing best).  The French CAC displays different results all the SMA values produce negative results in trying to  predict long trades but positive results when trying to predict short results.  The UK's FTSE 100 displays different behaviour again, producing negative results accross the board. The Dow produces a different set of results again, trades on the long side prodce a profit whereas trading short results in losses.  The Japanese Nikkei exhibits similar results to the CAC in that short trades are profiatable whereas long trades aren't and finally the Australian AORD is similar to the DAX in producing positive results across the board. DOES this reflect on how these markets move? - smooth trends would be profitable ...
 
-\subsubsection{Momentum Indicators}
+NOTE - worth analysing "trending" behaviour?  Amount of time >70 in aroon?   
 
-\subsubsection{Break-out systems}
-
-
-\subsubsection{Candlestick Patterns}
+27/05
+General – how about a “random” system, random buys and sells, and random with SLoss …
 
 
-\subsection{Time Series Analysis}
+SMA cont:
+The results from this algorithm can be seen in Table ref{} and are mixed
+
+b. applied SL – winners and losers, need to assess ….  Do we want the SLoss discussion moved here?
+
+MACD – no SL applied here
+The results from a system based on the moving average convergence/divergence (MACD) indicator can be seen in Table \ref{}. The results are not very impressive, only the Nikkei producing reasonable profits – though wouldn’t beat the flip flop system.
+
+Aroon – alone and SL
+Alone – promising results on short side, long side CAC and Nik show loss
+With SL – results improve, except Dow -> results get worse!!  See diff table.
+
+
+\subsection{Market Reversal Indicators} – no SL used
+1.	SAR
+Q – what is the algorithm doing? 
+Very poor results
+
+2.	MACD
+V modest results, but we are deffo not in trend at this point …  Cross-ref to a trend indicator?
+
+
+\subsection{Momentum Indicators}
+1.	Stoch – plus SL
+NB – written “of interest” twice …
+a.	Alone – results v. modest
+
+
+2.	ROC
+-	Needs finishing in Chp 4
+-	Roc1 and 2 – what’s diff ?
+
+
+\subsection{Break-out systems}
+1.	Daily high -> no SL …
+-	Error “seen in See Appendix A section A.1.4.1”
+-	Good results – except Dow, reference to Chp3
+
+2.	90% Q system – no SL
+-	Good results, not as good as b/out system … Dow poor again … Oz v. good given price of mkt, almost as good as b/out sys …
+
+\subsection{Candlestick Patterns}
+1.	Hammer
+2.	Hammer plus aroon
+
+3.	Engulfing
+4.	Engulfing plus aroon
+To Do – name of tables are the same …
+
+5.	Doji
+
+
+Summary
+SL – sma, aroon and stoch – why these?  Add to b/out and naïve systems
 
 
 
-\subsection{Conclusion}
+\section{Time Series Analysis}
+
+
+
+\section{Conclusion}
 
 
 

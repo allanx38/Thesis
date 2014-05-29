@@ -476,7 +476,7 @@ Auto-correlation is the correlation between an attributes value now and the same
 
 A correlogram is a matrix plot of auto-correlations over a series of time lags.  Correlograms are used in checking data for randomness and in the model identification stage of the ARMA methodology (see section \ref{sec:arma}). Data is considered random if the auto-correlation value is close to zero.  In general a data set's randomness needs to be checked in order to confirm the validity of many statistical tests. Thus a correlogram helps to determine if data is random or if an observation is related to an earlier one, thereby helping in the determination of an appropriate ARMA model. 
 
-Figure \ref{fig:acf80} is the correlogram of a data set built-in to R, called AirPassenger, over a range of lags from 1 to 80 and Figure \ref{fig:correlogram} is the correlogram of the seasonal component of this data set.
+Figure \ref{fig:acf80} is the correlogram of a data set built-in to R, called AirPassenger, over a range of lags from 1 to 80 and Figure \ref{fig:pacf} is the correlogram of the seasonal component of this data set.
 
 \begin{figure}[tbph!]
 \centering
@@ -487,9 +487,9 @@ Figure \ref{fig:acf80} is the correlogram of a data set built-in to R, called Ai
 
 \begin{figure}[tbph!]
 \centering
-\includegraphics[width=10cm]{chp2_p_correlogram}
+\includegraphics{chp2_p_pacf}
 \caption[Correlogram of a seasonal component]{Correlogram of the seasonal component of the AirPassenger data, a built-in data set of R, over a range of time lags from 1 to 80.}
-\label{fig:correlogram}
+\label{fig:pacf}
 \end{figure}
 
 The partial correlation is defined as the degree of correlation not already explained by the correlations previously measured. If the regression of variable A on variables B1, B2 and B3 is considered the partial correlation between variables A and B3 is the degree of correlation not accounted for by their common correlations with variables B1 and B2. In a similar manner the partial autocorrelation is the unexplained correlation after considering the variable and itself at an earlier time period. In a series, if a variable A at time t is correlated with an earlier lag at time t-1 it follows that the variable at t-1 itself is correlated with the previous variable at lag t-2. By extension the variable at time t should also be correlated with the variable at lag t-2, as the correlation will propagate through the series. The partial autocorrelation is the difference the expected correlations due the propagating factors and the actual correlation measured.

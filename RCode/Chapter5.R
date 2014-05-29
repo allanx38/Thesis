@@ -322,7 +322,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # ----------------------------------------------------
 # 3. Trading System
-
+# using the models generated from the auto.arima function
 
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
@@ -344,39 +344,41 @@ ts_1_fnc <- function(fil,nm,ts1){
     Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
     colnames(Mkt_test_df) <- c("Date","Open", "High","Low","Close","p")
     if(ts1 == TRUE){
-      a <- ts_1(Mkt_test_df, 0, nm[i])
+      a <- ts_1(Mkt_test_df, 0, nm[i]) # System 1
     } else {
-      a <- ts_2(Mkt_test_df, 0, nm[i])
+      a <- ts_2(Mkt_test_df, 0, nm[i]) # System 2
     }
-    #browser()
     df10 <- rbind(df10, a)
   }
   df.name <- names(a)
   names(df10) <- df.name
   df10 <- df10[-c(1),]
-  #browser()
   return(df10)
 }
 
 # run the fnc ts_1
+# apply Sys 1 to the auto.arima data
 res <- ts_1_fnc(fil,nm,TRUE)
 
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("ts1 arima.","arima.")
+cap <- c("Auto.arima models passed to the System 1 trading algorithm",
+         "Sysytem 1 and auto.arima models")
 lab = 'tab:chp_ts:arima1'
 filname ='../Tables/chp_ts_arima1.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # run the fnc ts_2
+# apply system 2 to auto.arima data
 res <- ts_1_fnc(fil,nm,FALSE) # F = ts_2
 
 # produce latex table from ts_2
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("ts2 arima.","ts2 arima.")
+cap <- c("Auto.arima models passed to the System 2 trading algorithm",
+         "Sysytem 1 and auto.arima models.")
 lab = 'tab:chp_ts:arima2'
 filname ='../Tables/chp_ts_arima2.tex'
 inclrnam=FALSE
@@ -385,20 +387,22 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # ----------------------------------------------------------------------
 # --------- RM Generated Files -----------------------------------------
+# --------- HYBRID ARIMA SYSTEMS ---------------------------------------
+
 source("../RCode/ts_1.R")
 source("../RCode/ts_2.R")
 Mkt <- read.csv("../Data/rm_ar334_reg.csv",stringsAsFactors=F)
 
-fil <- c("../Data/rm_ar334_reg.csv")
-nm <- c("Dax")
-df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-
-ts_1_fnc_ar <- function(fil,nm,ts1){
+ts_1_2_fnc_ar <- function(fil,nm,ts1){
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i],stringsAsFactors=F)
     Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
     colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
-    a <- ts_1(Mkt_p, 0, 'Dax')
+    if(ts1 == TRUE){
+      a <- ts_1(Mkt_p, 0, nm[i])
+    } else {
+      a <- ts_2(Mkt_p, 0, nm[i])
+    }
     df10 <- rbind(df10, a)
   }
   df.name <- names(a)
@@ -407,30 +411,35 @@ ts_1_fnc_ar <- function(fil,nm,ts1){
   return(df10)
 }
 
-res <- ts_1_fnc_ar(fil,nm)
+# 1. ------ Arima Ann -----------------
+fil <- c("../Data/ARIMA/ar_Ann/ar334_ann_DAX.csv",
+         "../Data/ARIMA/ar_Ann/ar334_ann_CAC.csv")
+nm <- c("Dax","CAC")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+
+# a. System 1
+res <- ts_1_2_fnc_ar(fil,nm,TRUE)
   
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("ts1 arima hybrid reg.","ts1 arima hybrid reg.")
-lab = 'tab:chp_ts:arima_hybrid_reg'
-filname ='../Tables/chp_ts_arima_hybrid_reg.tex'
+cap <- c("Arima/ANN predictions passed to System 1",
+         "Arima/ANN predictions passed to System 1.")
+lab = 'tab:chp_ts:arima_ann_sys1'
+filname ='../Tables/chp_ts_arima_ann_sys1.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-  
-# --------------------------------------------------------------
-# ---------- ARIMA / ANN Hybrid --------------------------------
-Mkt <- read.csv("../Data/dax_ar334_ann.csv",stringsAsFactors=F)
-fil <- c("../Data/dax_ar334_ann.csv")
-nm <- c("Dax")
-df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-res <- ts_1_fnc_ar(fil,nm)
+
+# a. System 2
+res <- ts_1_2_fnc_ar(fil,nm,FALSE)
 
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("ts1 arima hybrid ANN.","ts1 arima hybrid ANN.")
-lab = 'tab:chp_ts:arima_hybrid_ann'
-filname ='../Tables/chp_ts_arima_hybrid_ann.tex'
+cap <- c("Arima/ANN predictions passed to System 2",
+         "Arima/ANN predictions passed to System 2.")
+lab = 'tab:chp_ts:arima_ann_sys2'
+filname ='../Tables/chp_ts_arima_ann_sys2.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+  

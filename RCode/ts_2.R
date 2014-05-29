@@ -11,7 +11,7 @@ ts_2 <- function(Mkt, SLoss, MktName){
   results <- createResultsVector(MktName, SLoss)
   
   Mkt$p_p <- c( NA, Mkt$p[ - length(Mkt$p) ] ) # prev prediction
-  Mkt$p_c <- c( NA, Mkt$Close[ - length(Mkt$Close) ] ) # prev close
+  #Mkt$p_c <- c( NA, Mkt$Close[ - length(Mkt$Close) ] ) # prev close
   
   # Trade Long
   Mkt$Long <- ifelse(Mkt$p > Mkt$p_p, Mkt$Close - Mkt$Open, NA)
