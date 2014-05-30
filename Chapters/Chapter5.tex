@@ -265,10 +265,18 @@ A categorical variable taking values "Up" and "Dn" was introduced.
 \subsection{Arima / knn}
 
 \section{Predicting Up or Down - 01}
-\subsection{Arima / Artificial Neural Networks (ANN)}
-An additional attribute was introduced into the national indice data sets which indicated whether the market moved up or down over the course of the day. 1 was used to indicate the market rose and 0 that it fell. A hybrid ARMA / ANN model was used to predict the Up/Down attribute. 
+\subsection{Arima / knn}
+An additional attribute was introduced into the national indice data sets which indicated whether the market moved up or down over the course of the day. 1 was used to indicate the market rose and 0 that it fell. A hybrid ARMA / knn model was used to predict the Up/Down attribute. 
 
 %label - tab:chp_ts:pUD_01_arima_ann_sys
 \input{Tables/chp_ts_predUpDn_01_arima_ann_sys.tex}
 
-\subsection{Arima / knn}
+
+\subsection{Arima / Artificial Neural Networks (ANN)}
+
+
+\subsection{Arima / Regression}
+Using ARIMA with regression to predict 0/1 to represent up and down
+
+%label - tab:chp_ts:01_arima_reg_sys
+\input{Tables/chp_ts_predUpDn_01_arima_reg_sys.tex}

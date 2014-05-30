@@ -667,25 +667,16 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-# latex table
-dat <- df10[-1,c(1,3,5, 6)]
-dig <- 2
-caption = c('Results from Hammer / Inverted Hammer.','Hammer System')
-lab = 'tab:hammer_results'
-filname ='../Tables/chp_ta_hammer.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# xt <- xtable(df10[-1,c(1,3,5, 6)], digits = 2, 
-#              caption = c('Results from Hammer / Inverted Hammer.','Hammer System'),
-#              label = 'tab:hammer_results')
-# align(xt) <- c('l','l','c','c','c')
-# print(xt, 
-#       file='../Tables/chp_ta_hammer.tex',
-#       include.rownames=FALSE,caption.placement = "top",
-#       hline.after=NULL,
-#       add.to.row=list(pos=list(-1,0, nrow(xt)),
-#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+xt <- xtable(df10[-1,c(1,3,5, 6)], digits = 2, 
+             caption = c('Results from Hammer / Inverted Hammer.','Hammer System'),
+             label = 'tab:hammer_results')
+align(xt) <- c('l','l','c','c','c')
+print(xt, 
+      file='../Tables/chp_ta_hammer.tex',
+      include.rownames=FALSE,caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 ln <- nrow(df10)
@@ -705,27 +696,17 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-# latex table
-dat <- df10[-1,c(1,3,5, 6)]
-dig <- 2
-caption = caption = caption = c('Results from Hammer / Inverted Hammer occurring in a downtrend as defined by the aroon value.',
-                                'Hammer System in downtrend.')
-lab = 'tab:hammer_aroon_results'
-filname ='../Tables/chp_ta_hammer_d_trend.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# xt <- xtable(df10[-1,c(1,3,5, 6)], digits = 2, 
-#              caption = c('Results from Hammer / Inverted Hammer occurring in a downtrend as defined by the aroon value.',
-#                          'Hammer System in downtrend.'),
-#              label = 'tab:hammer_aroon_results')
-# align(xt) <- c('l','l','c','c','c')
-# print(xt, 
-#       file='../Tables/chp_ta_hammer_d_trend.tex',
-#       include.rownames=FALSE,caption.placement = "top",
-#       hline.after=NULL,
-#       add.to.row=list(pos=list(-1,0, nrow(xt)),
-#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+xt <- xtable(df10[-1,c(1,3,5, 6)], digits = 2, 
+             caption = c('Results from Hammer / Inverted Hammer occurring in a downtrend as defined by the aroon value.','Hammer System in downtrend.'),
+             label = 'tab:hammer_aroon_results')
+align(xt) <- c('l','l','c','c','c')
+print(xt, 
+      file='../Tables/chp_ta_hammer_d_trend.tex',
+      include.rownames=FALSE,caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 # -------------------------------------------------------------
@@ -748,27 +729,17 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-# latex table
-dat <- df10[-1,c(1,3,4,5,6,8,9)]
-dig <- 2
-caption = caption = caption = c('Results from Engulfing Candlestick.',
-                                'Engulfing Candlestick System')
-lab = 'tab:engulf_results'
-filname ='../Tables/chp_ta_englf.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-#              caption = c('Results from Engulfing Candlestick.',
-#                          'Engulfing Candlestick System'),
-#              label = 'tab:engulf_results')
-# align(xt) <- c('l','l','c','c','c','c','c','c')
-# print(xt, 
-#       file='../Tables/chp_ta_englf.tex',
-#       include.rownames=FALSE,caption.placement = "top",
-#       hline.after=NULL,
-#       add.to.row=list(pos=list(-1,0, nrow(xt)),
-#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+             caption = c('Results from Engulfing Candlestick.','Engulfing Candlestick System'),
+             label = 'tab:engulf_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, 
+      file='../Tables/chp_ta_englf.tex',
+      include.rownames=FALSE,caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 ln <- nrow(df10)
@@ -788,27 +759,17 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-# latex table
-dat <- df10[-1,c(1,3,4,5,6,8,9)]
-dig <- 2
-caption = caption = caption = c('Results from Engulfing Candlestick with Aroon.',
-                                'Engulfing Candlestick System with Aroon')
-lab = 'tab:engulf_aroon_results'
-filname ='../Tables/chp_ta_englf_aroon.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-#              caption = c('Results from Engulfing Candlestick.',
-#                          'Engulfing Candlestick System'),
-#              label = 'tab:engulf_aroon_results')
-# align(xt) <- c('l','l','c','c','c','c','c','c')
-# print(xt, 
-#       file='../Tables/chp_ta_englf_aroon.tex',
-#       include.rownames=FALSE,caption.placement = "top",
-#       hline.after=NULL,
-#       add.to.row=list(pos=list(-1,0, nrow(xt)),
-#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+             caption = c('Results from Engulfing Candlestick.','Engulfing Candlestick System'),
+             label = 'tab:engulf_aroon_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, 
+      file='../Tables/chp_ta_englf_aroon.tex',
+      include.rownames=FALSE,caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 # ----------------------------------------------------------
@@ -831,25 +792,14 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-# latex table
-dat <- df10[-1,c(1,3,4,5,6,8,9)]
-dig <- 2
-caption = caption = caption = c('Results from Doji Candlestick.',
-                                'Doji Candlestick System')
-lab = 'tab:doji_aroon_results'
-filname ='../Tables/chp_ta_doji.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 #Print table
-# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-#              caption = c('Results from Doji Candlestick.',
-#                          'Doji Candlestick System'),
-#              label = 'tab:doji_aroon_results')
-# align(xt) <- c('l','l','c','c','c','c','c','c')
-# print(xt, 
-#       file='../Tables/chp_ta_doji.tex',
-#       include.rownames=FALSE,caption.placement = "top",
-#       hline.after=NULL,
-#       add.to.row=list(pos=list(-1,0, nrow(xt)),
-#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+             caption = c('Results from Doji Candlestick.','Doji Candlestick System'),
+             label = 'tab:doji_aroon_results')
+align(xt) <- c('l','l','c','c','c','c','c','c')
+print(xt, 
+      file='../Tables/chp_ta_doji.tex',
+      include.rownames=FALSE,caption.placement = "top",
+      hline.after=NULL,
+      add.to.row=list(pos=list(-1,0, nrow(xt)),
+                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
