@@ -245,8 +245,9 @@ Questions - should we pass the diff values to the model - just to flatten the se
 
 TO DO - auto forecast - on window - does model change? prediction any good? ets and arima ...
 
-\section{Arima / Artificial Neural Networks (ANN)}
-\subsection{Predicting Closing Price}
+
+\section{Predicting Closing Price}
+\subsection{Arima / Artificial Neural Networks (ANN)}
 An Arima / ANN method was used to generate predictions for the closing price of the indices. Table \ref{tab:chp_ts:arima_ann_sys1} are the results of passing the output of the arima / ANN models to trading system 1.
 
 %label - tab:chp_ts:arima_hybrid_reg
@@ -257,5 +258,17 @@ Table \ref{tab:chp_ts:arima_ann_sys2} are the results of passing the output of t
 %label - tab:chp_ts:arima_hybrid_reg
 \input{Tables/chp_ts_arima_ann_sys2.tex}
 
-\subsection{Predicting Up or Down}
+
+\section{Predicting Up or Down - Categorical}
+A categorical variable taking values "Up" and "Dn" was introduced.
+
+\subsection{Arima / knn}
+
+\section{Predicting Up or Down - 01}
+\subsection{Arima / Artificial Neural Networks (ANN)}
 An additional attribute was introduced into the national indice data sets which indicated whether the market moved up or down over the course of the day. 1 was used to indicate the market rose and 0 that it fell. A hybrid ARMA / ANN model was used to predict the Up/Down attribute. 
+
+%label - tab:chp_ts:pUD_01_arima_ann_sys
+\input{Tables/chp_ts_predUpDn_01_arima_ann_sys.tex}
+
+\subsection{Arima / knn}

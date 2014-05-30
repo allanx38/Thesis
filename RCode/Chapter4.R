@@ -48,24 +48,34 @@ for(i in 1:length(fil)){
   df10 <- rbind(df10, a)
 }
 
-# Print a table
-xt <- xtable(
-  df10[-1,c(1,3,5,6)],
-  digits = 2,
-  caption = c('Naive Long System. A very simple system in which the algorithm assumes the market will rise and enters a long trade each day.',
-              'Naive Long System'),
-  label = 'tab:nlng_results'
-)
+# produce latex table
+dat <- df10[-1,c(1,3,5,6)]
+dig <- 2
+cap = c('Naive Long System. A very simple system in which the algorithm assumes the market will rise and enters a long trade each day.',
+            'Naive Long System')
+lab = 'tab:nlng_results'
+filname ='../Tables/chp_ta_naive_long.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-align(xt) <- c('l','l','c','c','c')
-print(
-  xt, 
-  file='../Tables/chp_ta_naive_long.tex',
-  include.rownames=FALSE,  
-  caption.placement = "top",
-  hline.after=NULL,
-  add.to.row=list(pos=list(-1,0, nrow(xt)),
-                  command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# # Print a table
+# xt <- xtable(
+#   df10[-1,c(1,3,5,6)],
+#   digits = 2,
+#   caption = c('Naive Long System. A very simple system in which the algorithm assumes the market will rise and enters a long trade each day.',
+#               'Naive Long System'),
+#   label = 'tab:nlng_results'
+# )
+# 
+# align(xt) <- c('l','l','c','c','c')
+# print(
+#   xt, 
+#   file='../Tables/chp_ta_naive_long.tex',
+#   include.rownames=FALSE,  
+#   caption.placement = "top",
+#   hline.after=NULL,
+#   add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                   command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # ---------------------------------------------
 # ---------- previous close and today's close
@@ -80,22 +90,32 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
+# produce latex table
+dat <- df10[-1,c(1,3,5,6)]
+dig <- 2
+cap = c('Naive Long System changed such that the trading period is the previous close price minus today\'s close.',
+            'Naive Long System - Close to Close')
+lab = 'tab:nlng_results_2'
+filname ='../Tables/chp_ta_naive_long_ctoc.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(
-  df10[-1,c(1,3,5,6)], 
-  digits = 2, 
-  caption = c('Naive Long System changed such that the trading period is the previous close price minus today\'s close.',
-              'Naive Long System - - Close to Close'),
-  label = 'tab:nlng_results_2'
-)
-align(xt) <- c('l','l','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_naive_long_ctoc.tex',
-      include.rownames=FALSE, 
-      caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+
+# xt <- xtable(
+#   df10[-1,c(1,3,5,6)], 
+#   digits = 2, 
+#   caption = c('Naive Long System changed such that the trading period is the previous close price minus today\'s close.',
+#               'Naive Long System - - Close to Close'),
+#   label = 'tab:nlng_results_2'
+# )
+# align(xt) <- c('l','l','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_naive_long_ctoc.tex',
+#       include.rownames=FALSE, 
+#       caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # -----------------------------------------------------------------------------
 # ------------ Follow Previous ------------------------------------------------
@@ -109,23 +129,32 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]        #NOTE ln -1
 
+# produce latex table
+dat <- df10[-1,c(1,3,4,5,6,8,9)]
+dig <- 2
+caption = caption = c('Naive system which repeats the previous day\'s trade direction.',
+                      'Naive Following System.')
+lab = 'tab:ntfresults'
+filname ='../Tables/chp_ta_naive_follow_prev.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(
-  df10[-1,c(1,3,4,5,6,8,9)], 
-  digits = 2, 
-  caption = c('Naive system which repeats the previous day\'s trade direction.',
-              'Naive Following System.'),
-  label = 'tab:ntfresults')
-
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(
-  xt, 
-  file='../Tables/chp_ta_naive_follow_prev.tex',
-  include.rownames=FALSE, 
-  caption.placement = "top",
-  hline.after=NULL,
-  add.to.row=list(pos=list(-1,0, nrow(xt)),
-                  command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# xt <- xtable(
+#   df10[-1,c(1,3,4,5,6,8,9)], 
+#   digits = 2, 
+#   caption = c('Naive system which repeats the previous day\'s trade direction.',
+#               'Naive Following System.'),
+#   label = 'tab:ntfresults')
+# 
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(
+#   xt, 
+#   file='../Tables/chp_ta_naive_follow_prev.tex',
+#   include.rownames=FALSE, 
+#   caption.placement = "top",
+#   hline.after=NULL,
+#   add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                   command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 # -------------------------------------------------------------------------------
@@ -145,16 +174,24 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9,11)], digits = 2, 
-             caption = c('Results from SMA system.','SMA Base System'),
-             label = 'tab:sma_results')
-align(xt) <- c('l','l','c','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_sma.tex',
-      include.rownames=FALSE,caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5,6,8,9,11)]
+dig <- 2
+caption = caption = c('Results from SMA system.','SMA Base System')
+lab = 'tab:sma_results'
+filname ='../Tables/chp_ta_sma.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9,11)], digits = 2, 
+#              caption = c('Results from SMA system.','SMA Base System'),
+#              label = 'tab:sma_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_sma.tex',
+#       include.rownames=FALSE,caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 # SMA with SLoss
@@ -170,22 +207,30 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
+dat <- df10[-1,c(1,2,3,4,5,6,8,9,11)]
+dig <- 2
+caption = caption = c('Results from SMA system with Stop Loss.',
+                      'SMA Base System with Stop Loss')
+lab = 'tab:sma_results_Sloss'
+filname ='../Tables/chp_ta_sma_sloss.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(
-  df10[-1,c(1,2,3,4,5,6,8,9,11)], 
-  digits = 2,
-  caption = c('Results from SMA system with Stop Loss.',
-              'SMA Base System with Stop Loss'),
-  label = 'tab:sma_results_Sloss')
-align(xt) <- c('l','l','c','c','c','c','c','c','c','c')
-print(
-  xt, 
-  file='../Tables/chp_ta_sma_sloss.tex',
-  include.rownames=FALSE, 
-  caption.placement = "top",
-  hline.after=NULL,
-  add.to.row=list(pos=list(-1,0, nrow(xt)),
-                  command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# xt <- xtable(
+#   df10[-1,c(1,2,3,4,5,6,8,9,11)], 
+#   digits = 2,
+#   caption = c('Results from SMA system with Stop Loss.',
+#               'SMA Base System with Stop Loss'),
+#   label = 'tab:sma_results_Sloss')
+# align(xt) <- c('l','l','c','c','c','c','c','c','c','c')
+# print(
+#   xt, 
+#   file='../Tables/chp_ta_sma_sloss.tex',
+#   include.rownames=FALSE, 
+#   caption.placement = "top",
+#   hline.after=NULL,
+#   add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                   command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # ----------------------------------------------------------------------
 # subsection{Moving Average Convergence/Divergence (MACD)}
@@ -201,19 +246,25 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
+dat <- df10[-1,c(1,3,4,5,6,8,9)]
+dig <- 2
+caption = caption = c('MACD used a trend indicator.','MACD as Trend Indicator')
+lab = 'tab:mac_trend_results'
+filname ='../Tables/chp_ta_macd.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-  xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], 
-               digits = 2, 
-               caption = c('MACD used a trend indicator.','MACD as Trend Indicator'),
-               label = 'tab:mac_trend_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_macd.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
-
+#   xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], 
+#                digits = 2, 
+#                caption = c('MACD used a trend indicator.','MACD as Trend Indicator'),
+#                label = 'tab:mac_trend_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_macd.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # ----------------------------------------------------------
 # ---------------------------  Aroon ------------------------
@@ -228,18 +279,26 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 
+dat <- df10[-1,c(1,3,4,5,6,8,9)]
+dig <- 2
+caption = caption = c('Aroon trend indicator.',
+                      'Aroon trend indicator')
+lab = 'tab:aroon_results'
+filname ='../Tables/chp_ta_aroon.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('Aroon trend indicator.',
-                         'Aroon trend indicator'),
-             label = 'tab:aroon_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_aroon.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('Aroon trend indicator.',
+#                          'Aroon trend indicator'),
+#              label = 'tab:aroon_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_aroon.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 # Aroon with SLoss
@@ -254,19 +313,27 @@ for(i in 1:length(fil)){
 df.name <- names(a)
 names(aroondfsl) <- df.name
 
+dat <- df10[-1,c(1,3,4,5,6,8,9)]
+dig <- 2
+caption = caption = c('Aroon trend indicator with stop loss.',
+                      'Aroon trend indicator with Stop Loss')
+lab = 'tab:aroon_results_sloss'
+filname ='../Tables/chp_ta_aroon_sloss.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(aroondfsl[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('Aroon trend indicator with stop loss.',
-                         'Aroon trend indicator with Stop Loss'),
-             label = 'tab:aroon_results_sloss')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_aroon_sloss.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
-
+# xt <- xtable(aroondfsl[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('Aroon trend indicator with stop loss.',
+#                          'Aroon trend indicator with Stop Loss'),
+#              label = 'tab:aroon_results_sloss')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_aroon_sloss.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# 
 
 # Diffs
 
@@ -283,18 +350,26 @@ df.name <- c("Market", "Long Difference", "Short Difference")
 names(aroondfsldf) <- df.name
 aroondfsldf <- aroondfsldf[-1,] 
 
+dat <- aroondfsldf[-1,c(1,2,3)]
+dig <- 2
+caption = caption = c('Impact of stop loss on Aroon.',
+                      'Impact of using stop loss with Aroon trend indicator.')
+lab = 'tab:aroon_results_sloss_diff'
+filname ='../Tables/chp_ta_aroon_diff.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(aroondfsldf[-1,c(1,2,3)], digits = 2, 
-             caption = c('Impact of stop loss on Aroon.',
-                         'Impact of using stop loss with Aroon trend indicator.'),
-             label = 'tab:aroon_results_sloss_diff')
-align(xt) <- c('l','l','c','c')
-print(xt, 
-      file='../Tables/chp_ta_aroon_diff.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# xt <- xtable(aroondfsldf[-1,c(1,2,3)], digits = 2, 
+#              caption = c('Impact of stop loss on Aroon.',
+#                          'Impact of using stop loss with Aroon trend indicator.'),
+#              label = 'tab:aroon_results_sloss_diff')
+# align(xt) <- c('l','l','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_aroon_diff.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # -------------------------------------------------------------------------
 # ------------ Trend REversal -------------------------
@@ -310,16 +385,24 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-xt <- xtable(df10[-1,c(1,3,4,5, 6, 9)], digits = 2, 
-             caption = c('Results from SAR system.','SAR Base System'),
-             label = 'tab:sar_results')
-align(xt) <- c('l','l','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_sar.tex',
-      include.rownames=FALSE,caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5, 6, 9)]
+dig <- 2
+caption = caption = c('Results from SAR system.','SAR Base System')
+lab = 'tab:sar_results'
+filname ='../Tables/chp_ta_sar.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# xt <- xtable(df10[-1,c(1,3,4,5, 6, 9)], digits = 2, 
+#              caption = c('Results from SAR system.','SAR Base System'),
+#              label = 'tab:sar_results')
+# align(xt) <- c('l','l','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_sar.tex',
+#       include.rownames=FALSE,caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # ----------------------------------------------------------
 # ---------------------------  MACD OB ------------------------
@@ -336,19 +419,26 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = c('MACD can also be used as a trend reveral indicator.',
+                      'MACD as Trend Reversal Indicator')
+lab = 'tab:mac_ob_results'
+filname ='../Tables/chp_ta_macd_ob.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(df10[-1,c(1,3,4,5, 6, 8,9)], digits = 2, 
-             caption = c('MACD can also be used as a trend reveral indicator.',
-                         'MACD as Trend Reversal Indicator'),
-             label = 'tab:mac_ob_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_macd_ob.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
-
+# xt <- xtable(df10[-1,c(1,3,4,5, 6, 8,9)], digits = 2, 
+#              caption = c('MACD can also be used as a trend reveral indicator.',
+#                          'MACD as Trend Reversal Indicator'),
+#              label = 'tab:mac_ob_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_macd_ob.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 #----------------------------------------------------------
 # ---------------------------  stoch ------------------------
@@ -363,17 +453,26 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('Results from Stochastics system.',
-                         'Stochastics system'),
-             label = 'tab:stoch_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_stoch.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = c('Results from Stochastics system.',
+                      'Stochastics system')
+lab = 'tab:stoch_results'
+filname ='../Tables/chp_ta_stoch.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('Results from Stochastics system.',
+#                          'Stochastics system'),
+#              label = 'tab:stoch_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_stoch.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 ln <- nrow(df10)
@@ -386,17 +485,26 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('Results from Stochastics system and using a Stop Loss.',
-                         'Stochastics system with stop loss'),
-             label = 'tab:stoch_results_sloss')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_stoch_sloss.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = c('Results from Stochastics system and using a Stop Loss.',
+                      'Stochastics system with stop loss')
+lab = 'tab:stoch_results_sloss'
+filname ='../Tables/chp_ta_stoch_sloss.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('Results from Stochastics system and using a Stop Loss.',
+#                          'Stochastics system with stop loss'),
+#              label = 'tab:stoch_results_sloss')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_stoch_sloss.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 #----------------------------------------------------------
 # ---------------------------  ROC ------------------------
@@ -414,18 +522,26 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = caption = c('ROC.',
+                                'ROC')
+lab = 'tab:mac_roc_results'
+filname ='../Tables/chp_ta_roc.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('ROC.',
-                         'ROC'),
-             label = 'tab:mac_roc_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_roc.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('ROC.',
+#                          'ROC'),
+#              label = 'tab:mac_roc_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_roc.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 
 #If previous ROC was greater or smaller than 0:
@@ -444,18 +560,27 @@ for(i in 1:length(fil)){
 }
 df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('ROC2.',
-                         'ROC2'),
-             label = 'tab:mac_roc2_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_roc2.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = caption = c('ROC2.',
+                                'ROC2')
+lab = 'tab:mac_roc2_results'
+filname ='../Tables/chp_ta_roc2.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('ROC2.',
+#                          'ROC2'),
+#              label = 'tab:mac_roc2_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_roc2.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+# 
 
 # -----------------------------------------------------------------
 # -------------section{Break-out systems}
@@ -470,20 +595,29 @@ df10 <- rbind(df10, a)
 }
 df10 <- df10[-c(1:ln-1),]
 
-xt <- xtable(
-  df10[-1,c(1,3,4,5,6,8,9)], 
-  digits = 2,
-  caption = c('Results from Daily High / Low Breakout System.',
-              'Daily High / Low Breakout System'),
-  label = 'tab:hl_bout_sys')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_b_out.tex',
-      include.rownames=FALSE, 
-      caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = caption = c('Results from Daily High / Low Breakout System.',
+                                'Daily High / Low Breakout System')
+lab = 'tab:hl_bout_sys'
+filname ='../Tables/chp_ta_b_out.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# xt <- xtable(
+#   df10[-1,c(1,3,4,5,6,8,9)], 
+#   digits = 2,
+#   caption = c('Results from Daily High / Low Breakout System.',
+#               'Daily High / Low Breakout System'),
+#   label = 'tab:hl_bout_sys')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_b_out.tex',
+#       include.rownames=FALSE, 
+#       caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 #----------------------------------------------------------------
 # ---------------------------  90% Quant ------------------------
@@ -496,16 +630,24 @@ df10 <- rbind(df10, a)
 }
 df10 <- df10[-c(1:ln-1),]
 
-xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
-             caption = c('Base System 3 - 90 Quantile.','Base System 3'),
-             label = 'tab:q_90_results')
-align(xt) <- c('l','l','c','c','c','c','c','c')
-print(xt, 
-      file='../Tables/chp_ta_90q.tex',
-      include.rownames=FALSE, caption.placement = "top",
-      hline.after=NULL,
-      add.to.row=list(pos=list(-1,0, nrow(xt)),
-                      command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+dig <- 2
+caption = caption = caption = c('Base System 3 - 90 Quantile.','Base System 3')
+lab = 'tab:q_90_results'
+filname ='../Tables/chp_ta_90q.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# xt <- xtable(df10[-1,c(1,3,4,5,6,8,9)], digits = 2, 
+#              caption = c('Base System 3 - 90 Quantile.','Base System 3'),
+#              label = 'tab:q_90_results')
+# align(xt) <- c('l','l','c','c','c','c','c','c')
+# print(xt, 
+#       file='../Tables/chp_ta_90q.tex',
+#       include.rownames=FALSE, caption.placement = "top",
+#       hline.after=NULL,
+#       add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                       command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
 
 # ----------------------------------------------------------------------------
 # -------section{Candlestick Patterns}
