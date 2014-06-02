@@ -10,6 +10,7 @@ source("../RCode/Utils.R")
 source("../RCode/ts_1.R")
 source("../RCode/ts_2.R")
 source("../RCode/ts_3.R")
+source("../RCode/ts_4.R")
 #source("ts_1.R")
 #source("ts_2.R")
 #source("Utils.R")
@@ -412,10 +413,16 @@ ts_1_2_fnc_ar <- function(fil,nm,ts1){
   return(df10)
 }
 
-# 1. ------ Arima Ann Predicting Open Close -----------------
-fil <- c("../Data/ARIMA/ar_Ann/ar334_ann_DAX.csv",
-         "../Data/ARIMA/ar_Ann/ar334_ann_CAC.csv")
-nm <- c("Dax","CAC")
+# ---------- Predicting Closing Price -----------------
+# 1. ------ Arima Ann Predicting Closing Price -----------------
+fil <- c("../Data/ARIMA/Predict_Close/ar334_ann_DAX.csv",
+         "../Data/ARIMA/Predict_Close/ar334_ann_CAC.csv",
+         "../Data/ARIMA/Predict_Close/ar334_ann_F100.csv",
+         "../Data/ARIMA/Predict_Close/ar334_ann_Dow.csv",
+         "../Data/ARIMA/Predict_Close/ar334_ann_Nik.csv",
+         "../Data/ARIMA/Predict_Close/ar334_ann_Oz.csv")
+
+nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 # a. System 1
@@ -443,26 +450,169 @@ lab = 'tab:chp_ts:arima_ann_sys2'
 filname ='../Tables/chp_ts_arima_ann_sys2.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# 2. ------ Arima knn Predicting Closing Price -----------------
+fil <- c("../Data/ARIMA/Predict_Close/ar334_knn_Dax.csv",
+         "../Data/ARIMA/Predict_Close/ar334_knn_CAC.csv",
+         "../Data/ARIMA/Predict_Close/ar334_knn_F100.csv",
+         "../Data/ARIMA/Predict_Close/ar334_knn_Dow.csv",
+         "../Data/ARIMA/Predict_Close/ar334_knn_Nik.csv",
+         "../Data/ARIMA/Predict_Close/ar334_knn_Oz.csv")
+
+# a. System 1
+nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+# a. System 1
+res <- ts_1_2_fnc_ar(fil,nm,TRUE)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting Close Price - Arima/knn predictions passed to System 1",
+         "Predicting Close Price - Arima/knn predictions passed to System 1.")
+lab = 'tab:chp_ts:pred_close_arima_knn_sys1'
+filname ='../Tables/chp_ts_pred_close_arima_knn_sys1.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# a. System 2
+res <- ts_1_2_fnc_ar(fil,nm,FALSE)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting Close Price - Arima/knn predictions passed to System 2",
+         "Predicting Close Price - Arima/knn predictions passed to System 2")
+lab = 'tab:chp_ts:pred_close_arima_knn_sys2'
+filname ='../Tables/chp_ts_pred_close_arima_knn_sys2.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# -----------------------------------------------------------------
+#  ------ Arima Ann Predicting Up/Dn - Categorical -----------------
+# a. Categorical
+
+# 1. ARMA / ANN (Predicting Up/Dn - Categorical)
+source("../RCode/ts_4.R")
+source("../RCode/Utils.R")
+fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_CAC.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_F100.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dow.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_N225.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Oz.csv")
   
-# 2. ------ Arima Ann Predicting Up/Dn  -----------------
-# a. Cattegorical
+nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
-# b. Numeric 0-1
-ts_3_fnc_ar <- function(fil,nm,ts1){
-  for(i in 1:length(fil)){
-    Mkt <- read.csv(fil[i],stringsAsFactors=F)
-    Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
-    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
-    a <- ts_3(Mkt_p, 0, nm[i])
-    df10 <- rbind(df10, a)
-  }
-  df.name <- names(a)
-  names(df10) <- df.name
-  df10 <- df10[-c(1),]
-  return(df10)
-}
+res <- ts_4_fnc_ar(fil, nm)
 
-# b1. ARMA / knn
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting UpDn CAT - Arima/ANN predictions passed to System 4",
+         "Predicting UpDn CAT - Arima/ANN predictions passed to System 4.")
+lab = 'tab:chp_ts:pUD_CAT_arima_ann_sys'
+filname ='../Tables/chp_ts_predUpDn_CAT_arima_ann_sys.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# -----------------------
+# 2. ARMA / knn (Predicting Up/Dn - Categorical)
+source("../RCode/ts_4.R")
+source("../RCode/Utils.R")
+fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_CAC.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_F100.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dow.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_N225.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Oz.csv")
+
+nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+
+res <- ts_4_fnc_ar(fil, 0, nm)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting UpDn CAT - Arima/knn predictions passed to System 4",
+         "Predicting UpDn CAT - Arima/knn predictions passed to System 4.")
+lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys'
+filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+
+# 2. ARMA / knn (Predicting Up/Dn - Categorical) - SLoss
+res <- ts_4_fnc_ar(fil, -100, nm)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting UpDn CAT - Arima/knn predictions passed to System 4 - SLoss",
+         "Predicting UpDn CAT - Arima/knn predictions passed to System 4 - SLoss")
+lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys_SL'
+filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+
+# 3. ARMA / Reg (Logistic) (Predicting Up/Dn - Categorical)
+
+
+# 4. ARMA / SVM (Predicting Up/Dn - Categorical)
+fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_F100.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
+
+nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+
+res <- ts_4_fnc_ar(fil, nm)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting UpDn CAT - Arima/SVm predictions passed to System 4",
+         "Predicting UpDn CAT - Arima/SVM predictions passed to System 4.")
+lab = 'tab:chp_ts:pUD_CAT_arima_svm_sys'
+filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# -------------------------------------------------
+#  ------ Arima Ann Predicting Up/Dn - 01 ---------
+source("../RCode/ts_3a.R")
+source("../RCode/Utils.R")
+# 1. ARMA / ANN - (Predicting Up/Dn - 01)
+fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dax.csv",
+         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_CAC.csv",
+         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_FTSE.csv",
+         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dow.csv",
+         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_N225.csv",
+         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Oz.csv")
+
+nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+
+res <- ts_3a_fnc_ar(fil, nm)
+
+# produce latex table from ts_1
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting UpDn 01 - Arima/ANN predictions passed to System 3",
+         "Predicting UpDn 01 - Arima/ANN predictions passed to System 3.")
+lab = 'tab:chp_ts:pUD_01_arima_ann_sys'
+filname ='../Tables/chp_ts_predUpDn_01_arima_ann_sys.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+
+# 2. ARMA / knn (Predicting Up/Dn - 01)
 
 #source("../RCode/ts_3.R")
 fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Dax.csv",
@@ -479,39 +629,15 @@ res <- ts_3_fnc_ar(fil, nm)
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn 01 - Arima/ANN predictions passed to System 3",
-         "Predicting UpDn 01 - Arima/ANN predictions passed to System 3.")
+cap <- c("Predicting UpDn 01 - Arima/knn predictions passed to System 3",
+         "Predicting UpDn 01 - Arima/knn predictions passed to System 3.")
 lab = 'tab:chp_ts:pUD_01_arima_knn_sys'
 filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-# ---------------------------------------------------
-# b2. ARMA / ANN
-fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_up_01_ANN_Dax.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_up_01_ANN_CAC.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_up_01_ANN_FTSE.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_up_01_ANN_Dow.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_up_01_ANN_Nik.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_up_01_ANN_Oz.csv")
-nm <- c("Dax","CAC")
-df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-
-res <- ts_3_fnc_ar(fil, nm)
-
-# produce latex table from ts_1
-dat <- res[,c(1,3,4,5,7,8,10)]
-dig <- 0
-cap <- c("Predicting UpDn 01 - Arima/ANN predictions passed to System 3",
-         "Predicting UpDn 01 - Arima/ANN predictions passed to System 3.")
-lab = 'tab:chp_ts:pUD_01_arima_ann_sys'
-filname ='../Tables/chp_ts_predUpDn_01_arima_ann_sys.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# -----------------------------------------------------
-# b3. ARMA / Reg 
+# b3. ARMA / Reg  (Predicting Up/Dn - 01)
 fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Dax.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_CAC.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_FTSE.csv",

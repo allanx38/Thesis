@@ -124,21 +124,72 @@ print_xt <- function(dat,dig,cap,lab,al,filname,inclrnam){
   
 }
 
-print_xt2 <- function(dat,cap,lab,al,filname,inclrnam){
-  xt <- xtable(
-    dat, 
-    caption = cap,
-    label = lab
-  )
-  al <- c('l','l')
-  al <- c(al, rep('c',ncol(dat)-1))
-  align(xt) <- al
-  print(xt, 
-        file=filname,
-        include.rownames=inclrnam, 
-        caption.placement = "top",
-        hline.after=NULL,
-        add.to.row=list(pos=list(-1,0, nrow(xt)),
-                        command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
-  
+# print_xt2 <- function(dat,cap,lab,al,filname,inclrnam){
+#   xt <- xtable(
+#     dat, 
+#     caption = cap,
+#     label = lab
+#   )
+#   al <- c('l','l')
+#   al <- c(al, rep('c',ncol(dat)-1))
+#   align(xt) <- al
+#   print(xt, 
+#         file=filname,
+#         include.rownames=inclrnam, 
+#         caption.placement = "top",
+#         hline.after=NULL,
+#         add.to.row=list(pos=list(-1,0, nrow(xt)),
+#                         command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
+#   
+# }
+
+# -----------------------------------------------------------------
+#  ------ Arima Ann Predicting Up/Dn - Categorical -----------------
+# a. Categorical
+ts_4_fnc_ar <- function(fil,SLoss,nm){
+  #browser()
+  for(i in 1:length(fil)){
+    Mkt <- read.csv(fil[i],stringsAsFactors=F)
+    Mkt_p <- Mkt[,c(1,2,3,4,5)]
+    Mkt_p$pred <- Mkt$pred
+    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","pred")
+    a <- ts_4(Mkt_p, SLoss, nm[i])
+    df10 <- rbind(df10, a)
+  }
+  df.name <- names(a)
+  names(df10) <- df.name
+  df10 <- df10[-c(1),]
+  return(df10)
+}
+
+
+# -------------------------------------------------
+#  ------ Arima Ann Predicting Up/Dn - 01 ---------
+ts_3_fnc_ar <- function(fil,nm,ts1){
+  for(i in 1:length(fil)){
+    Mkt <- read.csv(fil[i],stringsAsFactors=F)
+    Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
+    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
+    a <- ts_3(Mkt_p, 0, nm[i])
+    df10 <- rbind(df10, a)
+  }
+  df.name <- names(a)
+  names(df10) <- df.name
+  df10 <- df10[-c(1),]
+  return(df10)
+}
+
+# bit of fiddling for ANN
+ts_3a_fnc_ar <- function(fil,nm,ts1){
+  for(i in 1:length(fil)){
+    Mkt <- read.csv(fil[i],stringsAsFactors=F)
+    Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
+    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
+    a <- ts_3a(Mkt_p, 0, nm[i])
+    df10 <- rbind(df10, a)
+  }
+  df.name <- names(a)
+  names(df10) <- df.name
+  df10 <- df10[-c(1),]
+  return(df10)
 }
