@@ -13,7 +13,7 @@ NaiveFollowPrev <- function(Mkt, SLoss, MktName){
   Mkt$prevPL <- c( NA, Mkt$Close[ - length(Mkt$Close) ] - Mkt$Open[ - length(Mkt$Open) ] )
   
   # Trade Long
-  Mkt$Long <- ifelse(Mkt$prevPL>0,Mkt$Close-Mkt$Open,NA)
+  Mkt$Long <- ifelse(Mkt$prevPL<0,Mkt$Close-Mkt$Open,NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {
@@ -22,7 +22,7 @@ NaiveFollowPrev <- function(Mkt, SLoss, MktName){
   }
   
   # Trade Short
-  Mkt$Short <- ifelse(Mkt$prevPL<0,Mkt$Open-Mkt$Close,NA)
+  Mkt$Short <- ifelse(Mkt$prevPL>0,Mkt$Open-Mkt$Close,NA)
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {

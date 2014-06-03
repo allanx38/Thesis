@@ -565,14 +565,14 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_F100.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow.csv",
+         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow2.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
 
 nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
-res <- ts_4_fnc_ar(fil, nm)
+res <- ts_4_fnc_ar(fil,0, nm)
 
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]

@@ -267,3 +267,10 @@ Figures/chp_ts_ftse_2000-13_diff_acf.pdf
 Figures/chp_ts_ftse_2000-13_acf_residuals.pdf
 Figures/chp_ts_ftse_2000-13_diff_acf.pdf
 Data/Dax_ta.csv
+*.aux
+*.out
+*.nav
+*.snm
+*.gz
+Presentation/allan_presentation.vrb
+Presentation/allan_presentation.toc
