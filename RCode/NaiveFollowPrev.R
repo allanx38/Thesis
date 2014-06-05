@@ -10,14 +10,20 @@ NaiveFollowPrev <- function(Mkt, SLoss, MktName){
   
   results <- createResultsVector(MktName, SLoss)
   
-  Mkt$prevPL <- c( NA, Mkt$Close[ - length(Mkt$Close) ] - Mkt$Open[ - length(Mkt$Open) ] )
+  Mkt$pl <- Mkt$Close - Mkt$Open
+  #Mkt$prevPL <- c( NA, Mkt$Close[ - length(Mkt$Close) ] - Mkt$Open[ - length(Mkt$Open) ] )
+  Mkt$prevPL <- c( NA, Mkt$pl[ - length(Mkt$pl) ] )
+  
   
   # Trade Long
   Mkt$Long <- ifelse(Mkt$prevPL<0,Mkt$Close-Mkt$Open,NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {
-    Mkt$Long <- ifelse((Mkt$Low-Mkt$Open) < SLoss, SLoss, Mkt$Long)
+    Mkt$Long <- ifelse(Mkt$prevPL<0,
+                       ifelse((Mkt$Low-Mkt$Open) < SLoss, SLoss, Mkt$Long),
+                       Mkt$Long)
+    
     results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   }
   
@@ -26,7 +32,9 @@ NaiveFollowPrev <- function(Mkt, SLoss, MktName){
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {
-    Mkt$Long <- ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Long)
+    Mkt$Short <- ifelse(Mkt$prevPL>0,
+                       ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Short),
+                       Mkt$Short)
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   }
   

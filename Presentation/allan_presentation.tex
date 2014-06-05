@@ -129,6 +129,10 @@ Institute of Technology Blanchardstown \\ % Your institution for the title page
 \section{Data} %
 %------------------------------------------------
 
+\begin{frame}
+\Huge{\centerline{Data}}
+\end{frame}
+
 % ---- Frame ------------
 \begin{frame}
 \frametitle{Data}
@@ -193,6 +197,10 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \section{Technical Analysis} %
 %------------------------------------------------
 
+\begin{frame}
+\Huge{\centerline{Technical Analysis}}
+\end{frame}
+
 % ---- Frame ------------
 \begin{frame}
 \frametitle{Technical Analysis}
@@ -202,10 +210,6 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \item all that was needed to know about a particular market was contained in its pricing chart
 \end{itemize}
 
-Murphy defines technical analysis as:
-
-\textit{\textquotedblleft Technical analysis is the study of market action, primarily through the use of charts for the purpose of forecasting future price trends.\textquotedblright}
-
 \end{frame}
 
 % ---- Frame ------------
@@ -213,12 +217,42 @@ Murphy defines technical analysis as:
 \frametitle{Technical Analysis}
 
 \textit{\textquotedblleft Obviously I am biased against the chartist. This is not only a personal predilection, but a professional one as well. Technical Analysis is anathema to the academic world. We love to pick on it. Our bullying tactics are prompted by two considerations: (1) the method is patently false; and (2) it's easy to pick on. And while it may seem a bit unfair to pick on such a sorry target, just remember: it is your money we are trying to save.\textquotedblright}
+%\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Malkiel, 1999]{p1} Malkiel, B.G. (1999)
+\newblock A Random Walk Down Wall Street: Including a Life-cycle Guide to Personal Investing
+\end{thebibliography}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Technical Indicators}
+
+\begin{itemize}
+\item Moving Average Convergence Divergence (MACD)
+\item Aroon
+\item Stochastic
+\item Rate of Change (ROC)
+\item Candlesticks
+\end{itemize}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Moving Average Convergence Divergence (MACD)}
+
 
 \end{frame}
 
 %------------------------------------------------
 \section{Time Series} %
 %------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{Time Series}}
+\end{frame}
 
 % ---- Frame ------------
 \begin{frame}
@@ -252,15 +286,72 @@ Murphy defines technical analysis as:
 %------------------------------------------------
 
 \begin{frame}
+\Huge{\centerline{Results}}
+\end{frame}
 
-\frametitle{Results}
-\begin{itemize}
-\item Introduction
-\item Data
-\end{itemize}
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Baseline Buy and Hold}
+
+\input{../Tables/chp_ta_naive_long_ctoc.tex}
 
 \end{frame}
 
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Baseline Daily Reversal}
+
+\input{../Tables/chp_ta_naive_follow_prev.tex}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Aroon Technical Indicator}
+
+\input{../Tables/chp_ta_aroon}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Break-out Indicator}
+
+\input{../Tables/chp_ta_b_out}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - ARIMA}
+
+\input{../Tables/chp_ts_arima1.tex}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Hybrid ARIMA / knn}
+
+\input{../Tables/chp_ts_pred_close_arima_knn_sys1.tex}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Hybrid ARIMA / knn Categorical}
+
+\input{../Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Hybrid ARIMA / knn 01}
+
+\input{../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
+
+\end{frame}
 
 %------------------------------------------------
 

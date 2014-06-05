@@ -15,13 +15,31 @@ The effectiveness of a particular indicator or system is measured in terms of \t
 
 In addition the results are presented such that returns from \textquotedblleft going Long" (expecting the market to rise) are presented seperately from the opposite scenario of \textquotedblleft going Short". This is because  market behaviour is often diffrent while it is rising than it is while falling and systems may be more adept at predicitng price movements in one of the directions. Further, transactions costs are not taken into account in the results and these would typically be 1 point per trade for the European markets, 2 points for the Dow and 10 for the Nikkei.  Thus if a system made a PL of 1000 but it required 2000 trades at 2 points per trade, in reality the system would have lost money. 
 
+The results presented in this chapter and the following one are based around trading systems. Essentially the methodology concerned, technical analysis in this chapter and time series analysis in the next, attempt to predict future market direction. The values from the various indicators and forecast techniques are fed into a variety of trading algorithms which use the forecast information to decide whether to make long (expect the market to rise) or short (expect the market to fall)trades. For consistency the algorithms all return the same data object containing the following results:
+
+\begin{enumerate}
+\item Mkt - the name of the financial market such as Dax, FTSE etc.
+\item S Loss - the value of any stop loss applied
+\item LongPL - the profit or loss generated from just the \textquotedblleft Long" trades.
+\item ShortPL - the profit or loss generated from just the \textquotedblleft Short" trades.
+\item L Win \% - the percentage of time the Long trades win.
+\item L Trades - the number of Long trades executed.
+\item Av L PL - the average profit or loss generated from each Long trade.
+\item S Win \% - the percentage of time the Short trades win.
+\item S Trades - the number of Short trades executed.
+\item Av S PL - the average profit or loss generated from each Short trade.
+\item misc - miscellaneous information such as the SMA used in the algorithm.
+\end{enumerate}
+
+The results from Long and Short trades in particular trading algorithm are considered separately as frequently markets behave differently as they move up as opposed to as they fall. Further the percentage of times the algorithm results in winning trades, the number of trades and the average profit or loss (PL) for each trade is reported for both Long and Short trades. The average PL is primarily reported in the following results tables because this allows comparisons between systems that generate a lot of trades with those such as the algorithms based on candlestick patterns that results in only a small number of trades. 
+
 % --------------------------------------------------------------------------------------
 \section{Base Systems - Naive Methods}
 Initially two very simple ideas were explored in order for the results to be used as baseline against which the technical indicators explored in the rest of the chapter can be compared. There is an expectation that the use of technical indicators will produce systems that provide much better results than these two so-called naive systems.
 
 The first system simply uses the idea that markets tend to increase in value over time. The algorithm applies a naive approach and simply enters a trade each day expecting the market to rise. The well-known method of "Buy and Hold" applies the same principles. The total PL of the resulting system is the the sum of all the daily close minus open prices. This approach has been named a (\textquotedblleft Naive Long System").
 
-The second approach is equally simplistic, and again is based around opening and closing a trade each day. A notable difference from the first naive system is that the algorithm can result in either a buy or a sell (expecting the market to decline in value) occurring. If a market increased in price the previous day the algorithm \textquotedblleft follows" it and expects the market to also rise today. Likewise if the market had fallen the previous day the system sells the market. This idea has been named (\textquotedblleft Naive Following System").
+The second approach is equally simplistic, and again is based around opening and closing a trade each day. A notable difference from the first naive system is that the algorithm can result in either a buy or a sell (expecting the market to decline in value) occurring. If a market increased in price the previous day the algorithm \textquotedblleft reverses" it and expects the market to fall today. Likewise if the market had fallen the previous day the system buys the market today. This idea has been named (\textquotedblleft Naive Reversing System").
 
 %-----------------------------------------------------------------
 % ---------------------------  Naive Long ------------------------
@@ -56,14 +74,16 @@ Altering the system slightly so that the a trade represents the difference betwe
 % Table
 \input{Tables/chp_ta_naive_long_ctoc.tex}
 
-\subsection{Naive Follow Previous}
-The second naive method is to follow the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading long for the current day (the R code for this algorithm can be see in \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}.
+\subsection{Naive Reversing Previous}
+The second naive method is to reverse the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading short for the current day (the R code for this algorithm can be see in \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}.
 	\
 % Table
 %\input{D:/Allan/DropBox/MSc/Dissertation/Thesis/Tables/chp_ta_naive_follow_prev.tex}
 \input{Tables/chp_ta_naive_follow_prev.tex}
 
-For all the markets tested, this second naive system produces negative results. The results are particularly marked for Nikkei and CAC trading long and the Dow trading short. These results demonstrate that markets have a tendency to reverse direction each day, they move up one day then down the next. This behaviour is also observed in trending markets, and market \textquotedblleft pull-backs" are a well-known phenomena.
+For all the markets tested, this second naive system produces positive results. 
+
+The results are particularly marked for Nikkei and CAC trading long and the Dow trading short. These results demonstrate that markets have a tendency to reverse direction each day, they move up one day then down the next. This behaviour is also observed in trending markets, and market \textquotedblleft pull-backs" are a well-known phenomena.
 
 \section{Trend Detection Indicators}
 

@@ -124,25 +124,44 @@ print_xt <- function(dat,dig,cap,lab,al,filname,inclrnam){
   
 }
 
-# print_xt2 <- function(dat,cap,lab,al,filname,inclrnam){
-#   xt <- xtable(
-#     dat, 
-#     caption = cap,
-#     label = lab
-#   )
-#   al <- c('l','l')
-#   al <- c(al, rep('c',ncol(dat)-1))
-#   align(xt) <- al
-#   print(xt, 
-#         file=filname,
-#         include.rownames=inclrnam, 
-#         caption.placement = "top",
-#         hline.after=NULL,
-#         add.to.row=list(pos=list(-1,0, nrow(xt)),
-#                         command=c('\\toprule ', '\\midrule ', '\\bottomrule ')))
-#   
-# }
 
+# subtract 2 data frames
+sub_df <- function(df1, df2){
+  
+  nc <- ncol(df1)
+  ln <- nrow(df1)
+  dfres <- df1
+  
+  for(i in 1:ln){
+    for(j in 2:nc){
+      dfres[i,j] <- as.numeric(df1[i,j]) - as.numeric(df2[i,j])
+    }
+  }
+  return(dfres)
+}
+
+
+# -----------------------------------------------------------------
+# ------------ CHAPTER 4 -----------------------------------------
+# -----------------------------------------------------------------
+
+# ------------ Follow Previous -------------
+run_NaiveFollowPrev <- function(fil,SLoss, nm){
+  df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+  for(i in 1:length(fil)){
+    Dax <- read.csv(fil[i],stringsAsFactors=F)
+    a <- NaiveFollowPrev(Dax, SLoss, nm[i])
+    df10 <- rbind(df10, a)
+  }
+  df.name <- names(a)
+  names(df10) <- df.name
+  df10 <- df10[-1,]
+  return(df10)
+}
+
+
+# -----------------------------------------------------------------
+# ------------ CHAPTER 5 -----------------------------------------
 # -----------------------------------------------------------------
 #  ------ Arima Ann Predicting Up/Dn - Categorical -----------------
 # a. Categorical

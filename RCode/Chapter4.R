@@ -35,6 +35,8 @@ fil <- c("../Data/Dax_2000_d.csv",
 nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11)) # to hold results
 
+std6 <- c(1,3,4,5,7,8,10)
+
 #s <- read.csv('../Data/Dax_2000_d.csv')
 
 # ------------------------------------------
@@ -60,7 +62,7 @@ res1 <- run_NaiveLongSystem(fil,0,nm)
 #undebug(run_NaiveLongSystem(fil,0,nm))
 
 # produce latex table
-dat <- res1[,c(1,3,5,6)]
+dat <- res1[,c(1,3,5,7)]
 dig <- 2
 cap = c('Naive Long System. A very simple system in which the algorithm assumes the market will rise and enters a long trade each day.',
             'Naive Long System')
@@ -88,7 +90,7 @@ return(df10)
 res2 <- run_NaiveLongSystem2(fil,0,nm)
   
 # produce latex table
-dat <- res2[,c(1,3,5,6)]
+dat <- res2[,c(1,3,5,7)]
 dig <- 2
 cap = c('Naive Long System changed such that the trading period is the previous close price minus today\'s close.',
             'Naive Long System - Close to Close')
@@ -97,34 +99,35 @@ filname ='../Tables/chp_ta_naive_long_ctoc.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-
-
 # -----------------------------------------------------------------------------
 # ------------ Follow Previous ------------------------------------------------
 # -----------------------------------------------------------------------------
 
-run_NaiveFollowPrev <- function(fil,SLoss, nm){
-  df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-  for(i in 1:length(fil)){
-    Dax <- read.csv(fil[i],stringsAsFactors=F)
-    a <- NaiveFollowPrev(Dax, 0, nm[i])
-    df10 <- rbind(df10, a)
-  }
-  df.name <- names(a)
-  names(df10) <- df.name
-  df10 <- df10[-1,]
-  return(df10)
-}
-
+source("../RCode/NaiveFollowPrev.R")
+source("../RCode/Utils.R")
 res3 <- run_NaiveFollowPrev(fil, 0, nm)
 
 # produce latex table
-dat <- res3[,c(1,3,4,5,6,8,9)]
+dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 2
-cap = c('Naive system which repeats the previous day\'s trade direction.',
+cap = c('Naive system which reverses the previous day\'s trade direction.',
                       'Naive Following System.')
 lab = 'tab:ntfresults'
 filname ='../Tables/chp_ta_naive_follow_prev.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# rpeat with a stop loss
+res3a <- run_NaiveFollowPrev(fil, -75, nm)
+#tt <- sub_df(res3a,res3);tt
+
+# produce latex table
+dat <- res3a[,std6]
+dig <- 2
+cap = c('Naive system which reverses the previous day\'s trade direction with stop loss.',
+        'Naive Following System.')
+lab = 'tab:ntfresults_sl'
+filname ='../Tables/chp_ta_naive_follow_prev_sl.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
@@ -153,7 +156,7 @@ run_BaseSystem1SMA <- function(fil,SLoss,nm){
 
 res4 <- run_BaseSystem1SMA(fil,0,nm)
 
-dat <- res4[,c(1,3,4,5,6,8,9,11)]
+dat <- res4[,c(1,3,4,5,7,8,10,11)]
 dig <- 2
 cap = c('Results from SMA system.','SMA Base System')
 lab = 'tab:sma_results'
@@ -173,7 +176,7 @@ run_BaseSystem1SMA2 <- function(fil,SLoss,nm){
     hh <- BaseSystem1SMA(Dax, 100, -100, nm[i])  #don't use i !!!!!
     df10 <- rbind(df10,h,hh)
   }
-  df.name <- names(a)
+  df.name <- names(hh)
   names(df10) <- df.name
   df10 <- df10[-1,]
   return(df10)
@@ -211,7 +214,7 @@ run_MACD_XO <- function(fil,SLoss,nm){
 
 res6 <- run_MACD_XO(fil,0,nm)
 
-dat <- res6[,c(1,3,4,5,6,8,9)]
+dat <- res6[,std6]
 dig <- 2
 cap =  c('MACD used a trend indicator.','MACD as Trend Indicator')
 lab = 'tab:mac_trend_results'
@@ -240,7 +243,7 @@ run_aroon_sys <- function(fil,SLoss,nm){
 
 res7 <- run_aroon_sys(fil,0,nm)
 
-dat <- res7[,c(1,3,4,5,6,8,9)]
+dat <- res7[,std6]
 dig <- 2
 cap =  c('Aroon trend indicator.',
                       'Aroon trend indicator')
@@ -265,7 +268,7 @@ names(aroondfsl) <- df.name
 res7a <- run_aroon_sys(fil,-100,nm)
 aroondfsl <- res7a
 
-dat <- res7a[,c(1,3,4,5,6,8,9)]
+dat <- res7a[,std6]
 dig <- 2
 cap =  c('Aroon trend indicator with stop loss.',
                       'Aroon trend indicator with Stop Loss')
@@ -321,7 +324,7 @@ run_sar_sys <- function(fil,SLoss,nm){
 
 res8 <- run_sar_sys(fil,0,nm)
 
-dat <- res8[,c(1,3,4,5, 6, 9)]
+dat <- res8[,std6]
 dig <- 2
 cap =  c('Results from SAR system.','SAR Base System')
 lab = 'tab:sar_results'
@@ -352,7 +355,7 @@ run_MACD_OB <- function(fil,SLoss,nm){
 
 res9 <- run_MACD_OB(fil,0,nm)
 
-dat <- res9[,c(1,3,4,5, 6, 8,9)]
+dat <- res9[,std6]
 dig <- 2
 cap =  c('MACD can also be used as a trend reveral indicator.',
                       'MACD as Trend Reversal Indicator')
@@ -392,7 +395,7 @@ run_stoch_sys <- function(fil,SLoss,nm){
 
 res10 <- run_stoch_sys(fil,0,nm)
 
-dat <- res10[,c(1,3,4,5, 6, 8,9)]
+dat <- res10[,std6]
 dig <- 2
 cap =  c('Results from Stochastics system.',
                       'Stochastics system')
@@ -405,7 +408,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # Stock plus SLoss
 res10a <- run_stoch_sys(fil,-100,nm)
 
-dat <- res10a[,c(1,3,4,5, 6, 8,9)]
+dat <- res10a[,std6]
 dig <- 2
 cap =  c('Results from Stochastics system and using a Stop Loss.',
                       'Stochastics system with stop loss')
@@ -436,7 +439,7 @@ run_roc_sys <- function(fil,SLoss,nm){
 
 res11 <- run_roc_sys(fil,0,nm)
 
-dat <- res11[,c(1,3,4,5, 6, 8,9)]
+dat <- res11[,std6]
 dig <- 2
 cap =  c('ROC.',
                                 'ROC')
@@ -461,7 +464,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # }
 # df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
 # 
-# dat <- df10[-1,c(1,3,4,5, 6, 8,9)]
+# dat <- df10[-1,std6]
 # dig <- 2
 # cap =  c('ROC2.',
 #                                 'ROC2')
@@ -490,7 +493,7 @@ run_BaseSystem2Bout <- function(fil,SLoss,nm){
 
 res12 <- run_BaseSystem2Bout(fil,0,nm)
 
-dat <- res12[,c(1,3,4,5, 6, 8,9)]
+dat <- res12[,std6]
 dig <- 2
 cap =  c('Results from Daily High / Low Breakout System.',
                                 'Daily High / Low Breakout System')
@@ -518,7 +521,7 @@ run_BaseSystem3Quant902 <- function(fil,SLoss,nm){
 
 res14 <- run_BaseSystem3Quant902(fil,0,nm)
 
-dat <- res14[,c(1,3,4,5, 6, 8,9)]
+dat <- res14[,std6]
 dig <- 2
 cap =  c('Base System 3 - 90 Quantile.','Base System 3')
 lab = 'tab:q_90_results'
@@ -620,7 +623,7 @@ run_candle_engulf <- function(fil,SLoss,nm){
 res15 <- run_candle_engulf(fil,0,nm)
 
 # latex table
-dat <- res15[,c(1,3,4,5,6,8,9)]
+dat <- res15[,std6]
 dig <- 2
 cap =  c('Results from Engulfing Candlestick.',
                                 'Engulfing Candlestick System')
@@ -655,7 +658,7 @@ run_candle_engulf_aroon <- function(fil,SLoss,nm){
 res15a <- run_candle_engulf_aroon(fil,0,nm)
 
 # latex table
-dat <- res15a[,c(1,3,4,5,6,8,9)]
+dat <- res15a[,std6]
 dig <- 2
 cap =  c('Results from Engulfing Candlestick with Aroon.',
                                 'Engulfing Candlestick System with Aroon')
@@ -690,7 +693,7 @@ run_candle_doji_aroon <- function(fil,SLoss,nm){
 res16 <- run_candle_doji_aroon(fil,0,nm)
 
 # latex table
-dat <- res16[,c(1,3,4,5,6,8,9)]
+dat <- res16[,std6]
 dig <- 2
 cap = c('Results from Doji Candlestick with aroon.',
                                 'Doji Candlestick System with aroon')
