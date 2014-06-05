@@ -123,6 +123,38 @@ dev.off() #savepdf end
 
 # ----------------------------------------
 
+# 1. Exp Smoothing
+
+exp_sm <- function(Mkt){
+  browser()
+  Mkt$p <- 0
+  ln <- nrow(Mkt)
+  lb <- 300 #lookback
+  for(i in lb:ln){
+    Mkt_slice <- Mkt[(i-lb):i,]
+    Mkt_slice_ts <- ts(Mkt_slice$Close)
+    mod <- ets(Mkt_slice_ts, model="AAN")
+    fcast <- forecast.ets(mod)
+    a <- fcast$fitted[i]
+    Mkt$p[i] <- a
+  }
+  return(Mkt)
+}
+
+Mkt <- read.csv("../Data/Dax_2000_d.csv")
+exp_sm(Mkt)
+
+nrow(Mkt)
+Mkt$Date[2999]
+Mkt_ts <- ts(Mkt$Close)
+Mkt_ts <- ts(Mkt$Close)
+mod <- ets(Mkt_ts, model="AAN")
+fcast <- forecast.ets(mod)
+fcast$fitted[500]
+
+res <- ets(Mkt$Close, model="AAN")
+
+
 
 # -----------------------------------------
 # 2. ARIMA ----------------------

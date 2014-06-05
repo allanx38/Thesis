@@ -216,7 +216,7 @@ res6 <- run_MACD_XO(fil,0,nm)
 
 dat <- res6[,std6]
 dig <- 2
-cap =  c('MACD used a trend indicator.','MACD as Trend Indicator')
+cap =  c('Results from system using MACD as a Trend Indicator.','Results from system using MACD as a Trend Indicator')
 lab = 'tab:mac_trend_results'
 filname ='../Tables/chp_ta_macd.tex'
 inclrnam=FALSE
@@ -523,7 +523,8 @@ res14 <- run_BaseSystem3Quant902(fil,0,nm)
 
 dat <- res14[,std6]
 dig <- 2
-cap =  c('Base System 3 - 90 Quantile.','Base System 3')
+cap =  c('Results from a trading system using 90\\% Quantile level.',
+         'Break-out of 90\\% Quantile')
 lab = 'tab:q_90_results'
 filname ='../Tables/chp_ta_90q.tex'
 inclrnam=FALSE
@@ -555,7 +556,7 @@ run_candle_hammer <- function(fil,SLoss,nm){
 res14 <- run_candle_hammer(fil,0,nm)
 
 # latex table
-dat <- res14[,c(1,3,5, 6)]
+dat <- res14[,c(1,3,5,6,7)]
 dig <- 2
 cap = c('Results from Hammer / Inverted Hammer.','Hammer System')
 lab = 'tab:hammer_results'
@@ -589,7 +590,7 @@ run_candle_hammer_aroon <- function(fil,SLoss,nm){
 res14a <- run_candle_hammer_aroon(fil,0,nm)
 
 # latex table
-dat <- res14a[,c(1,3,5, 6)]
+dat <- res14a[,c(1,3,5,6,7)]
 dig <- 2
 cap =  c('Results from Hammer / Inverted Hammer occurring in a downtrend as defined by the aroon value.',
                                 'Hammer System in downtrend.')

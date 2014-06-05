@@ -11,11 +11,11 @@
 \section{Introduction}
 This chapter investigates whether technical analysis can provide a positive expectanacy for financial traders. A variety of technical analysis indicators are employed including MACD, Aroon, Stochastics Oscillator and Rate of Change (ROC) indicator. The experimental reslts from using these indicators are presented in groupings based on the general category of indicator such as trend identification or market reversal indicators. Some technical indicators have a role to play in more than one area, such as MACD, and as such the categorisation is quite general.
 
-The effectiveness of a particular indicator or system is measured in terms of \textquotedblleft points" gained, which is also referred to as \textquotedblleft PL" (which stands for to profit/loss). The results presented in this chapter are mainly based around systems in which a trade is opened and closed each day, producing a daily PL either positive or negative. The sum of all the individual days produces the total system PL and these values are reported in the results tables. For example, if the market moved from 6000 to 6200 in any one day a PL of either 200 (6200 - 6000) or -200 (6000 - 6200) depending upon which way the trade was placed, would be added to the overall system results. 
+The effectiveness of a particular indicator or system is measured in terms of \textquotedblleft points" gained, which is also referred to as \textquotedblleft PL" (which stands for to profit and loss). The results presented in this chapter are mainly based around systems in which a trade is opened and closed each day, producing a daily PL either positive or negative. The sum of all the individual days produces the total system PL and these values are reported in the results tables. For example, if the market moved from 6000 to 6200 in any one day a PL of either 200 (6200 - 6000) or -200 (6000 - 6200) depending upon which way the trade was placed, would be added to the overall system results. 
 
 In addition the results are presented such that returns from \textquotedblleft going Long" (expecting the market to rise) are presented seperately from the opposite scenario of \textquotedblleft going Short". This is because  market behaviour is often diffrent while it is rising than it is while falling and systems may be more adept at predicitng price movements in one of the directions. Further, transactions costs are not taken into account in the results and these would typically be 1 point per trade for the European markets, 2 points for the Dow and 10 for the Nikkei.  Thus if a system made a PL of 1000 but it required 2000 trades at 2 points per trade, in reality the system would have lost money. 
 
-The results presented in this chapter and the following one are based around trading systems. Essentially the methodology concerned, technical analysis in this chapter and time series analysis in the next, attempt to predict future market direction. The values from the various indicators and forecast techniques are fed into a variety of trading algorithms which use the forecast information to decide whether to make long (expect the market to rise) or short (expect the market to fall)trades. For consistency the algorithms all return the same data object containing the following results:
+The results presented in this chapter and the following one are based around trading systems. Essentially the methodology concerned, technical analysis in this chapter and time series analysis in the next, attempt to predict future market direction. The values from the various indicators and forecast techniques are fed into a variety of trading algorithms which use the forecast information to decide whether to make long (expect the market to rise) or short (expect the market to fall) trades. For consistency the algorithms all return the same data object containing the following results:
 
 \begin{enumerate}
 \item Mkt - the name of the financial market such as Dax, FTSE etc.
@@ -35,16 +35,16 @@ The results from Long and Short trades in particular trading algorithm are consi
 
 % --------------------------------------------------------------------------------------
 \section{Base Systems - Naive Methods}
-Initially two very simple ideas were explored in order for the results to be used as baseline against which the technical indicators explored in the rest of the chapter can be compared. There is an expectation that the use of technical indicators will produce systems that provide much better results than these two so-called naive systems.
+Initially two very simple ideas were explored in order for the results to be used as baselines against which the technical indicators explored in the rest of the chapter can be compared. There is an expectation that the use of technical indicators will produce systems that provide much better results than these two so-called naive systems.
 
-The first system simply uses the idea that markets tend to increase in value over time. The algorithm applies a naive approach and simply enters a trade each day expecting the market to rise. The well-known method of "Buy and Hold" applies the same principles. The total PL of the resulting system is the the sum of all the daily close minus open prices. This approach has been named a (\textquotedblleft Naive Long System").
+The first system simply uses the idea that markets tend to increase in value over time. The algorithm applies a naive approach and simply enters a trade each day expecting the market to rise. The well-known method of "Buy and Hold" applies the same principles. The total PL of the resulting system is the the sum of all the daily close minus open prices. This approach has been named a \textquotedblleft Naive Long System".
 
-The second approach is equally simplistic, and again is based around opening and closing a trade each day. A notable difference from the first naive system is that the algorithm can result in either a buy or a sell (expecting the market to decline in value) occurring. If a market increased in price the previous day the algorithm \textquotedblleft reverses" it and expects the market to fall today. Likewise if the market had fallen the previous day the system buys the market today. This idea has been named (\textquotedblleft Naive Reversing System").
+The second approach is equally simplistic, and again is based around opening and closing a trade each day. A notable difference from the first naive system is that the algorithm can result in either a buy or a sell (expecting the market to decline in value) occurring. If a market increased in price the previous day the algorithm \textquotedblleft reverses" it and expects the market to fall today. Likewise if the market had fallen the previous day the system buys the market today. This idea has been named \textquotedblleft Naive Reversing System".
 
 %-----------------------------------------------------------------
 % ---------------------------  Naive Long ------------------------
 \subsection{Naive Long System}
-The results of the naive long system can be seen in Table \ref{tab:nlng_results}. The R code for the algorithm which generates the results shown in Table \ref{tab:nlng_results} can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong}. The opening prices of the indices in January 2000 along with the closing prices in 2013 can be seen in \ref{tab:ind_start_stop}. In this period three of them increased in value (Dax, Dow and AORD) and three decreased (FTSE, CAC and Nikkei).
+The results of the naive long system can be seen in Table \ref{tab:nlng_results}. The R code for the algorithm which generates the results shown in Table \ref{tab:nlng_results} can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong}. For comparison purposes, the opening prices of the indices in January 2000 along with the closing prices in 2013 can be seen in Table \ref{tab:ind_start_stop}. In this period three of them increased in value (Dax, Dow and AORD) and three decreased (FTSE, CAC and Nikkei).
 
 Interestingly the PL produced from this simple system doesn't match the price differentials seen in Table \ref{tab:ind_start_stop}.  The German Dax indice produced a marked loss in the naive system even though it increased 37\% during this period. The Japanese Nikkei declined by over 2600 points in this period, whereas the system reported a loss of over 18000 points in the same period. On the other hand the US Dow increased by around 5000 points during the period of the study but the trading algorithm produced a positive result of almost 10000. These discrepancies can be explained by the fact that the system was using prices from the market's opening to closing times, which represents approximately  eight hours of trading between 8am and 4pm local time. These price movements don't account for the rest of the hours, the so-called out of market hours, when the market prices also change. Clearly the markets show different characteristics in the amount they move during market hours compared to out of market hours. The Nikkei, Dax and CAC have a tendency to fall during market hours and rise during out of market hours. The opposite situation occurs for the Dow.
 
@@ -69,74 +69,74 @@ AORD & 3152 & 5353  & +2201 & +70 \\
 \end{tabular}
 \end{table}
 
-Altering the system slightly so that the a trade represents the difference between the previous close and today's close affects the results markedly. A full 24 hour period is now accounted for and the system reflects the overall market movement during this period. These results can be seen in Table \ref{tab:nlng_results_2} and the amended R code can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong_2}.
+Altering the algorithm slightly so that a trade represents the difference between the previous close and today's close affects the results markedly. A full 24 hour period is now accounted for and the system reflects the overall market movement during this period. These results can be seen in Table \ref{tab:nlng_results_2} and the amended R code can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong_2}.
 
 % Table
 \input{Tables/chp_ta_naive_long_ctoc.tex}
 
 \subsection{Naive Reversing Previous}
-The second naive method is to reverse the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading short for the current day (the R code for this algorithm can be see in \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}.
+The second naive method is to reverse the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading short for the current day (the R code for this algorithm can be see in Appendix \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}.
 	\
 % Table
 %\input{D:/Allan/DropBox/MSc/Dissertation/Thesis/Tables/chp_ta_naive_follow_prev.tex}
 \input{Tables/chp_ta_naive_follow_prev.tex}
 
-For all the markets tested, this second naive system produces positive results. 
+For all the markets tested, this second naive system produces positive results especially for the Nikkei and CAC trading short and the Dow trading long. These results demonstrate that markets have a tendency to reverse direction each day, they move up one day then down the next. This behaviour is also observed in trending markets, and market \textquotedblleft pull-backs" are a well-known phenomena.
 
-The results are particularly marked for Nikkei and CAC trading long and the Dow trading short. These results demonstrate that markets have a tendency to reverse direction each day, they move up one day then down the next. This behaviour is also observed in trending markets, and market \textquotedblleft pull-backs" are a well-known phenomena.
+\subsection{Summary of Naive Baseline Systems}
+Of the two naive systems tested, the \textquotedblleft reversing" methodology produces the best results in terms of profit and loss by quite a margin. Thus the results from the \textquotedblleft Naive Reversing System" will be used to compare the performance of technical indicators being tested in the following sections.
 
 \section{Trend Detection Indicators}
+\label{sec:trend}
 
-One of the most widely used phrases in financial trading is \textquotedblleft the trend is your friend". Thus most market participants are interested in identifying the start of trends, their direction and strength. In this section a variety of technical indicators that purport to assist in this important task are tested. 
+One of the most widely used phrases in financial trading is \textquotedblleft the trend is your friend". Thus, most market participants are interested in identifying the start of trends, their direction and strength. In this section a variety of technical indicators that purport to assist in this important task are tested. 
 
 \subsection{Simple Moving Average (SMA) System}
 \label{sec:Chp4a:sma}
-One of the most popular and widely utilised technical indicators is the simple moving average (as detailed in Chapter \ref{Chapter2} section \ref{sec:chp2_sma}). The effectiveness of SMA as an aid to predicting future market movements has been widely debated, with views mixed. A system based on simple moving averages is presented here, and the R code used to generate the results can be seen in See Appendix \ref{AppendixA} section \ref{appA:SMA_sys}. The algorithm trades daily, opening and closing a trade each day.  If the market opens above the SMA the algorithm trades long and trades short when the market opens below the SMA.
+One of the most popular and widely utilised technical indicators is the simple moving average (as detailed in Chapter \ref{Chapter2} section \ref{sec:chp2_sma}). The effectiveness of SMA as an aid to predicting future market movements has been widely debated, with views mixed. A system based on simple moving averages is presented here, and the R code used to generate the results can be seen in Appendix \ref{AppendixA} section \ref{appA:SMA_sys}. The algorithm trades daily, opening and closing a trade each day.  If the market opens above the SMA the algorithm trades long and trades short when the market opens below the SMA.
 
 Table \ref{tab:sma_results} lists the results from passing a variety of national index data sets (see Chapter \ref{Chapter3} for details) to the algorithm. For each indice the algorithm is run with values of 5, 25, 50, 100 and 200 for the SMA period. In general the results are poor, especially after consideration is given to any transaction costs. The CAC and Nikkei produce negative results for long trades, the FTSE negative results across the board, and the Dow negative returns on the short side.
-
-TO DO - Title of SMA column ...
 
 \input{Tables/chp_ta_sma}
 
 
-One aspect of a trading system of this nature worth considering is the risk / reward profile. As written in its current form the SMA algorithm has an unlimited profit potential (trades are left to run until the end of the day) and an unlimited potential loss for the same reason. Often traders employ what is known as a \textquotedblleft stop loss". This is a level in the market that if reached during a trade will cause the trade to close. Thus the risk is now reduced to this value while the profit is still potentially uncapped. Table \ref{tab:sma_results_Sloss} lists the results of using a stop loss with the SMA system.
+One aspect of a trading system of this nature worth considering is the risk / reward profile. As written in its current form the SMA algorithm has an unlimited profit potential (trades are left to run until the end of the day) and an unlimited potential loss for the same reason. Often traders employ what is known as a \textquotedblleft stop loss". This is a level in the market that if reached during a trade will cause the trade to close. The risk is now therefore reduced to this value while the profit is still potentially uncapped. Table \ref{tab:sma_results_Sloss} lists the results of using a stop loss with the SMA system.
 
-The logic of the stop loss was coded as follows. Considering a long trade (the opposite holds true for trading short), where there is an expectation that the market to rise, a the stop loss would be triggered if the market fell to a certain  level. Thus in the algorithm for a long trade the distance from the opening price to the low is calculated and this is compared to the stop loss value. If the open to low value exceeds the stop loss value the PL for this particular trade is set at the stop loss value, for example a loss of 100 points. One point of note is the fact that after hitting this low level the market may well recover and move upwards as originally expected. In many cases a trade that ultimately would have been profitable may be \textquotedblleft stopped out" by the natural wax and wane of the markets. Thus the impact of a stop loss is the balance btween lost good trades and the reduction in the lost PL from losing trades. The size of the stop loss determines the impact of the two competing situations.
+The logic of the stop loss was coded as follows. Considering a long trade (the opposite holds true for trading short), where there is an expectation that the market to rise, a the stop loss would be triggered if the market fell to a certain  level. Thus in the algorithm for a long trade the distance from the opening price to the low is calculated and this is compared to the stop loss value. If the open to low value exceeds the stop loss value the PL for this particular trade is set at the stop loss value, for example a loss of 100 points. One point of note is the fact that after hitting this low level the market may well recover and move upwards as originally expected. In many cases a trade that ultimately would have been profitable may be \textquotedblleft stopped out" by the natural wax and wane of the markets. Therefore the impact of a stop loss is the balance btween lost good trades and the reduction in the lost PL from losing trades. The size of the stop loss determines the impact of the two competing situations.
 
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=9cm]{chp5b_StopLoss1}
-\caption[ Stop Loss.]{Stop Loss showing reduction of lost PL.}
+\caption[ Stop Loss.]{Situation in which using a Stop Loss is beneficial, with a losing PL being reduced..}
 \label{fig:chp5:sloss1}
 \end{figure}
 
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=9cm]{chp5b_StopLoss2}
-\caption[ Stop Loss.]{Being Stopped out.}
+\caption[ Stop Loss.]{Situation in which using a Stop Loss is detrimental, being \textquotedblleft Stopped Out" of an ultimately winning trade.}
 \label{fig:chp5:sloss2}
 \end{figure}
 
 
-\begin{figure}[tbph]
-\centering
-\includegraphics[width=9cm]{chp5b_SLoss_new}
-\caption[ Stop Loss.]{Being Stopped out.}
-\label{fig:chp5:sloss_new}
-\end{figure}
+%\begin{figure}[tbph]
+%\centering
+%\includegraphics[width=9cm]{chp5b_SLoss_new}
+%\caption[ Stop Loss.]{Being Stopped out.}
+%\label{fig:chp5:sloss_new}
+%\end{figure}
 
 
-Figure \ref{fig:chp5:sloss1} shows the situation in which a stop loss is benefiical. The potential large loss is reduced to the value of the stop loss value. Figure \ref{fig:chp5:sloss2} ** NOTE CHANGE ** illustrates the alternative scenario of being stopped out of an ultimately winning trade, an undesirable outcome. It is the ratio of these scenarios that ultimately determines whether using a stop loss is a sound strategy.
+Figure \ref{fig:chp5:sloss1} shows the situation in which a stop loss is benefiical. The potential large loss is reduced to the value of the stop loss value. Figure \ref{fig:chp5:sloss2} illustrates the alternative scenario of being \textquotedblleft Stopped Out" of an ultimately winning trade, an undesirable outcome. It is the ratio of these scenarios that ultimately determines whether using a stop loss is a sound strategy.
 
 \input{Tables/chp_ta_sma_sloss}
 
 Comparing Tables \ref{tab:sma_results} and \ref{tab:sma_results_Sloss}
-it can be seen that applying the stop loss has been beneficial to the results obtained. Essentially losing trades have been truncated while winning trades have been left to develop. One question that needs to be addressed is what value is appropriate for a stop loss. If the value is large the benefits of cutting losses is lost, whereas if it is too small a large number of trades will be \textquotedblleft stopped out". Many traders use a value based on the Average True Range (see Chapter \ref{Chapter3} section \ref{chp3:atr} for details) as this allows for the volatility of a particular market.
+it can be seen that applying the stop loss has been on the whole beneficial to the results obtained, with the exception of those from the Dow which were markedly negatively impacted.. Essentially losing trades have been truncated while winning trades have been left to develop. One question that needs to be addressed is what value is appropriate for a stop loss. If the value is large the benefits of cutting losses is lost, whereas if it is too small a large number of trades will be \textquotedblleft stopped out". Many traders use a value based on the Average True Range (see Chapter \ref{Chapter3} section \ref{chp3:atr} for details) as this allows for the volatility of a particular market.
 
 \subsection{Moving Average Convergence/Divergence (MACD)}
 
-Moving Average Convergence/Divergence (MACD) is a trend following indicator, developed by \cite{appel2005technical}, that is formed from the relationship of two moving averages, see Appendix \ref{AppendixB} section \ref{appB:MACD} for more details. The value of MACD itself is the difference between two exponential moving averages (EMA), a \textquotedblleft slower" e.g. 26 day value and a \textquotedblleft faster" e.g. 12 day value. In addition a third EMA is calculated, which is set to 9 days in the following algorithm, which acts a \textquotedblleft signal".
+Moving Average Convergence/Divergence (MACD) is a trend following indicator, developed by \cite{appel2005technical}, that is formed from the relationship of two moving averages, see Appendix \ref{AppendixB} section \ref{appB:MACD} for more details. The value of MACD itself is the difference between two exponential moving averages (EMA), a \textquotedblleft slower" e.g. 26 day value and a \textquotedblleft faster" e.g. 12 day value. In addition an EMA of the MACD value is calculated, which is set to 9 days in the following algorithm, which acts as a \textquotedblleft signal" line.
  
 The MACD is generally used two ways. Firstly, it can be used to derive the general trend of the security so that the market participant can trade with the trend. Secondly, it can be employed to identify periods when the market is \textquotedblleft over-bought" or \textquotedblleft over-sold" and can be expected to reverse direction \citep{MACD2}.
 
@@ -150,7 +150,7 @@ The trading algorithm splits the results into two values, days when the system e
 
 
 \subsection{Aroon Indicator}
-Developed by Tushar Chande in 1995, the Aroon indicator was designed to identify trending markets \citep. The word aroon means \textquotedblleft dawn's early light" in Sanskrit and this indicator tries to pin point the dawning of a new trend.  Essentially it is a measure of the time since the occurence of a high/low price in a particular period. Further details can be seen in Appendix \ref{AppendixB} section \ref{appB:aroon}.
+Developed by Tushar Chande in 1995, the Aroon indicator was designed to identify trending markets \citep{aroon_stockcharts}. The word aroon means \textquotedblleft dawn's early light" in Sanskrit and this indicator tries to pin point the dawning of a new trend.  Essentially it is a measure of the time since the occurrence of a high/low price in a particular period. Further details can be seen in Appendix \ref{AppendixB} section \ref{appB:aroon}.
 
 \input{Tables/chp_ta_aroon}
 
@@ -159,7 +159,7 @@ Table \ref{tab:aroon_results} shows the results of applying the Aroon algorithm 
 
 \input{Tables/chp_ta_aroon_sloss}
 
-The affects of using a stop loss was investigated and the results shown in Table \ref{tab:aroon_results_sloss}. The use of a stop loss was beneficial in all cases except the Dow, in which case it had a catastrphic impact turning a winning system into a losing one.  The impact of the stop loss is shown in Table \ref{tab:aroon_results_sloss_diff} which lists the difference in PL between the original results without a stop loss and the revised ones with it.
+The affects of using a stop loss was investigated and the results shown in Table \ref{tab:aroon_results_sloss}. The use of a stop loss was beneficial in all cases except the Dow, in which case it had a catastrophic impact turning a winning system into a losing one.  The impact of the stop loss is shown in Table \ref{tab:aroon_results_sloss_diff} which lists the difference in PL between the original results without a stop loss and the revised ones with it.
 
 \input{Tables/chp_ta_aroon_diff}
 
@@ -169,7 +169,7 @@ The alternative to trend detection indicators are market reversal indicators, de
 \subsection{Parabolic Stop-and-Reverse  (SAR)}
 The parabolic stop-and-reverse (SAR) is a method to calculate a trailing stop. This technical indicator was developed by J. Welles Wilder and is detailed in his book New Concepts in Technical Trading Systems \citep{wilder1978new}. A trailing stop is related to the stop loss explored previously but differs in that it is adjusted as the market moves. If the market rises it is adjusted upwards, for example being set a certain distance from the highest high of a particular period. The parabolic SAR calculates the point at which a long trade would be closed and a short position entered, the assumption being that the market participant is always in the market either short or long. More details on the theory and calculations to generate the parabolic SAR can be found in Appendix \ref{AppendixB} section \ref{appB:sar}.  
 
-Table \ref{tab:sar_results} lists the results from passing a variety of national index data sets to an algorithm using the parabolic SAR. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:sar}. On the whole the results from these initial tests are very disappointing. Only the three of the national indices generated positive results and only the Japanese Nikkei provided reasonable returns.
+Table \ref{tab:sar_results} lists the results from passing a variety of national index data sets to an algorithm using the parabolic SAR. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:sar}. On the whole the results from these initial tests are very disappointing. Only three of the national indices generated positive results and only the Japanese Nikkei provided reasonable returns.
 
 \input{Tables/chp_ta_sar}
 
@@ -181,16 +181,16 @@ Table \ref{tab:mac_ob_results} shows the results of applying the algorithm shown
 \input{Tables/chp_ta_macd_ob}
 
 \section{Momentum Indicators}
+Momentum indicators are closely related to the trend indicators introduced in section \ref{sec:trend}. They are concerned with trending markets but differ in that the strength of the trend is also included in the information the indicator attempts to portray.
 
 \subsection{Stochastic Oscillator}
-The stochastic indicator is one of the oldest in widespread use today having been developed by George Lane in the 1950s \citep{lane1986using}. It measures the relative position of a market's closing price in the range between the low and high of the period of interest. This is of intrest as some market participants believe that financial markets essentially swing between price boundaries marked by where the market closes in this range \citep{williams2011long}. Thus markets increase until the close is at the top of this range before changing direction and moving down until it is at the bottom of the high low range.
+The stochastic indicator is one of the oldest in widespread use today having been developed by George Lane in the 1950s \citep{lane1986using}. It measures the relative position of a market's closing price in the range between the low and high of the period of interest. This is of interest as some market participants believe that financial markets essentially swing between price boundaries marked by where the market closes in this range \citep{williams2011long}. Thus markets increase until the close is at the top of this range before changing direction and moving down until it is at the bottom of the high low range.
 
-
-The stochastic is usually represented by two lines \%K which is the position of the price wihtin this high low envelope described above, and \%D a moving average of \%K (see Appendix \ref{appB:stoch} for more details). It can be used a number of ways and one popular technique is to go long when the \%Kcrosses above \%D and to go short in the opposite situation. Table \ref{tab:stoch_results} lists the results from passing a variety of national index data sets to an algorithm which uses the relative position of \%K and \%D to decide which way to trade. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:stoch}.
+The stochastic is usually represented by two lines \%K which is the position of the price within this high low envelope described above, and \%D a moving average of \%K (see Appendix \ref{appB:stoch} for more details). It can be used a number of ways and one popular technique is to go long when the \%K crosses above \%D and to go short in the opposite situation. Table \ref{tab:stoch_results} lists the results from passing a variety of national index data sets to an algorithm which uses the relative position of \%K and \%D to decide which way to trade. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:stoch}.
 
 \input{Tables/chp_ta_stoch}
 
-The results from Table \ref{tab:stoch_results} for this system are very modest with only the Austrialian ORD showing positive values for both long and short trades. Adding a stop loss of 100 points increases the PL across the board except for the case of the Dow where again the stop loss has had a detrimental affect. The results from using a stochastic based system with a stop loss can be seen in Table \ref{tab:stoch_results_sloss}.
+The results from Table \ref{tab:stoch_results} for this system are very modest with only the Australian ORD showing positive values for both long and short trades. Adding a stop loss of 100 points increases the PL across the board except for the case of the Dow where again the stop loss has had a detrimental affect. The results from using a stochastic based system with a stop loss can be seen in Table \ref{tab:stoch_results_sloss}.
 
 \input{Tables/chp_ta_stoch_sloss}
  
@@ -214,11 +214,11 @@ Table \ref{tab:hl_bout_sys} lists the results from a trading system based around
 
 \input{Tables/chp_ta_b_out}
 
-Referring to Table \ref{tab:hl_bout_sys} we can see that this system produces good results, with the exception of the US Dow. This ties in with the data in Chapter \ref{Chapter3} Table \ref{tab:closeHL} which shows that the Dow only closes outside of the previous low or high price a relatively low number of times. Likewise good results are seen with the Japanese Nikkei from the breakout system andthis tallies with the high proportion of the time in which it closes above or below the previous day's high or low.
+Referring to Table \ref{tab:hl_bout_sys} we can see that this system produces good results, with the exception of the US Dow. This ties in with the data in Chapter \ref{Chapter3} Table \ref{tab:closeHL} which shows that the Dow only closes outside of the previous low or high price a relatively low number of times. Likewise good results are seen with the Japanese Nikkei from the breakout system and this tallies with the high proportion of the time in which it closes above or below the previous day's high or low.
 
 %----------------------------------------------------------------
 % ---------------------------  90% Quant ------------------------
-\subsection{Break Out 90\% Quantile}
+\subsection{Break Out of 90\% Quantile Level}
 A second system utilising the break-out concept is presented in this section. In Chapter \ref{Chapter3} one characteristic of the markets was noted, namely that each day the market moves from its opening price to a low price and then to a high price (not necessarily in any particular order). One of these moves (O-H vs O-L) is greater than the other was termed the major move and the smaller move was called the minor move. The algorithm generating the results in this section (see Appendix \ref{AppendixA} section \ref{appA:bout_Quant90}) makes a long or short trade after the market has passed the 90\% quantile of the minor move. Table \ref{tab:q_90_results} lists the results from this algorithm.
 
 \input{Tables/chp_ta_90q}
@@ -237,7 +237,7 @@ Four well-known patterns that are generally considered to indicate the possible 
 \label{fig:chp5e:hammer}
 \end{figure}
 
-Figure \ref{fig:chp5e:hammer} is a diagram of a Hammer and Inverted Hammer patterns. Both patterns have a small \textquotedblleft body" (the distance between the open and close prices) and a long \textquotedblleft shadow" (the distance between the high and low prices). The body of the candlestick is white in this case, indicating that the market moved up, the closing price was above the opening price, although by only a small amount. Hammer and Inverted Hammer differ in that the long shadow in hammer is generated from a low price whereas the shadow of Inverted Hammer goes upwards as it is indicative of the period's high price.
+Figure \ref{fig:chp5e:hammer} is a diagram of a Hammer and Inverted Hammer patterns. Both patterns have a small \textquotedblleft body" (the distance between the open and close prices) and a long \textquotedblleft shadow" (the distance between the high and low prices). In the diagrams presented here a white candlestick means the market price increased over the course of the day while a black one means the market fell. The body of the candlestick is white in this case, indicating that the market moved up (the closing price was above the opening price), although by only a small amount. Hammer and Inverted Hammer differ in that the long shadow in hammer is generated from a low price whereas the shadow of Inverted Hammer goes upwards as it is indicative of the period's high price.
 
 \begin{figure}[tbph]
 \centering
@@ -305,14 +305,14 @@ Table \ref{tab:engulf_results} lists the results from passing a variety of natio
 
 \input{Tables/chp_ta_englf}
 
-Table \ref{tab:engulf_aroon_results} lists the results from passing a variety of national index data sets (see Appendix \ref{AppendixA} section \ref{appA:Engulf_aroon} for details) to an algorithm that buys or sells the market depending on the presence of an Engulfing pattern.
+Table \ref{tab:engulf_aroon_results} lists the results from extending the algorithm such that trades are only taken in either up or down trends, as defined by the aroon indicator. The R code for the amended algorithm can be see Appendix \ref{AppendixA} section \ref{appA:Engulf_aroon}.
 
 \input{Tables/chp_ta_englf_aroon}
 
 %----------------------------------------------------------
 % ---------------------------  Doji ------------------------
 \subsection{Doji}
-Doji is a well-known candlestick pattern that can appear on its own or as a component of a pattern. A Doji forms when the open and close price are similar and there is an upper and lower shadow, thus they often resemble a cross. Variations within Doji include the Dragonfly and Gravestone Doji, see Figure \ref{fig:chp5e:doji}. In an up trend Doji (especially Gravestone) can indicate a reversal could occur and likewise in a down trend a Gravestone could suggest an upward move is about to start.
+Doji is a well-known candlestick pattern that can appear on its own or as a component of a pattern. A Doji forms when the open and close price are similar and there is an upper and lower shadow, thus they often resemble a cross. Variations within Doji include the Dragonfly and Gravestone Doji, see Figure \ref{fig:chp5e:doji}. In an up trend Doji (especially Gravestone) can indicate a reversal could occur and likewise in a down trend a Dragonfly could suggest an upward move is about to start.
 
 \begin{figure}[tbph]
 \centering
