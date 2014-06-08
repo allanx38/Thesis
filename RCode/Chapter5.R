@@ -12,6 +12,7 @@ source("../RCode/ts_2.R")
 source("../RCode/ts_3.R")
 source("../RCode/ts_3a.R")
 source("../RCode/ts_4.R")
+source("../RCode//NaiveFollowPrev.R")
 #source("ts_1.R")
 #source("ts_2.R")
 #source("Utils.R")
@@ -24,74 +25,80 @@ fil <- c("../Data/Dax_2000_d.csv",
          "../Data/Oz_2000.csv")
 #nm <- c("Dax", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
 
+# Add Naive follow prev for comparison purposes
+# data frame will be fed into sub_df
+
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+NaiveRev <- run_NaiveFollowPrev(fil, 0, nm)
+
 # -----------------------------------------------------------
 # ---------- Base Systems
-Mkt <- read.csv("../Data/Dax_2000_d.csv")
-nrow(Mkt)
-Mkt$Date[2999]
-Mkt_ts <- ts(Mkt$Close)
-#Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
-#Mkt_train <- window(Mkt_ts, start=2000, end=2009.99)
-Mkt_train <- window(Mkt_ts, end=2999.99)
-Mkt_test <- window(Mkt_ts, start=3000)
-
-# a.build the  mean model
-mean_model <- meanf(Mkt_train, h=5)
-a <- accuracy(mean_model, Mkt_test) #out of sample
-rownames(a) <- c('Mean Training Set', 'Mean Test Set')
-
-# b. build the mean model
-naive_model <- naive(Mkt_train, h=5)
-b <- accuracy(naive_model, Mkt_test) #out of sample
-rownames(b) <- c('Naive Training Set', 'Naive Test Set')
-
-
-# c. build the drift model
-drift_model <- rwf(Mkt_train,drift=TRUE,h=5)
-c <- accuracy(drift_model, Mkt_test) #out of sample
-rownames(c) <- c('Drift Training Set', 'Drift Test Set')
-
-# combine results
-d <- rbind(a,b,c)
-
-# produce latex table
-dat <- d[,c(2,3,4,5,6)]
-dig <- 0
-cap <- c("Mean, Naive and Drift methods applied to 
-         to the Dax.","Simple forecasting methods.")
-lab = 'tab:chp_ts:sma'
-filname ='../Tables/chp_ts_sma.tex'
-inclrnam=TRUE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# --- plot all three base systems on Dow
-savepdf("chp_ts_dax1")
-Mkt_act <- window(Mkt_ts, start=3020, end=3200)
-plot.ts(Mkt_train,
-        main="Simple Forecasting Methods",
-        xlab="Days since 2000", ylab="Dax Closing Price",
-        xlim=c(2, 3200))
-lines(meanf(Mkt_train, h=350) $mean, col=4)
-lines(rwf(Mkt_train,h=350)$mean,col=2)
-lines(rwf(Mkt_train,drift=TRUE,h=350)$mean,col=3)
-legend("bottomright",lty=1,col=c(4,2,3),
-       legend=c("Mean method","Naive method","Drift method"))
-dev.off() #savepdf end
-
-# --- plot all three base systems on Dow PLUS actual data
-savepdf("chp_ts_dax1_plus_act_data")
-Mkt_act <- window(Mkt_ts, start=3020, end=3200)
-plot.ts(Mkt_train,
-        main="Simple Forecasting Methods",
-        xlab="Days since 2000", ylab="Dax Closing Price",
-        xlim=c(2, 3200))
-lines(meanf(Mkt_train, h=350) $mean, col=4)
-lines(rwf(Mkt_train,h=350)$mean,col=2)
-lines(rwf(Mkt_train,drift=TRUE,h=350)$mean,col=3)
-legend("bottomright",lty=1,col=c(4,2,3),
-       legend=c("Mean method","Naive method","Drift method"))
-lines(Mkt_act, col=6)
-dev.off() #savepdf end
+# Mkt <- read.csv("../Data/Dax_2000_d.csv")
+# nrow(Mkt)
+# Mkt$Date[2999]
+# Mkt_ts <- ts(Mkt$Close)
+# #Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
+# #Mkt_train <- window(Mkt_ts, start=2000, end=2009.99)
+# Mkt_train <- window(Mkt_ts, end=2999.99)
+# Mkt_test <- window(Mkt_ts, start=3000)
+# 
+# # a.build the  mean model
+# mean_model <- meanf(Mkt_train, h=5)
+# a <- accuracy(mean_model, Mkt_test) #out of sample
+# rownames(a) <- c('Mean Training Set', 'Mean Test Set')
+# 
+# # b. build the mean model
+# naive_model <- naive(Mkt_train, h=5)
+# b <- accuracy(naive_model, Mkt_test) #out of sample
+# rownames(b) <- c('Naive Training Set', 'Naive Test Set')
+# 
+# 
+# # c. build the drift model
+# drift_model <- rwf(Mkt_train,drift=TRUE,h=5)
+# c <- accuracy(drift_model, Mkt_test) #out of sample
+# rownames(c) <- c('Drift Training Set', 'Drift Test Set')
+# 
+# # combine results
+# d <- rbind(a,b,c)
+# 
+# # produce latex table
+# dat <- d[,c(2,3,4,5,6)]
+# dig <- 0
+# cap <- c("Mean, Naive and Drift methods applied to 
+#          to the Dax.","Simple forecasting methods.")
+# lab = 'tab:chp_ts:sma'
+# filname ='../Tables/chp_ts_sma.tex'
+# inclrnam=TRUE
+# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+# 
+# # --- plot all three base systems on Dow
+# savepdf("chp_ts_dax1")
+# Mkt_act <- window(Mkt_ts, start=3020, end=3200)
+# plot.ts(Mkt_train,
+#         main="Simple Forecasting Methods",
+#         xlab="Days since 2000", ylab="Dax Closing Price",
+#         xlim=c(2, 3200))
+# lines(meanf(Mkt_train, h=350) $mean, col=4)
+# lines(rwf(Mkt_train,h=350)$mean,col=2)
+# lines(rwf(Mkt_train,drift=TRUE,h=350)$mean,col=3)
+# legend("bottomright",lty=1,col=c(4,2,3),
+#        legend=c("Mean method","Naive method","Drift method"))
+# dev.off() #savepdf end
+# 
+# # --- plot all three base systems on Dow PLUS actual data
+# savepdf("chp_ts_dax1_plus_act_data")
+# Mkt_act <- window(Mkt_ts, start=3020, end=3200)
+# plot.ts(Mkt_train,
+#         main="Simple Forecasting Methods",
+#         xlab="Days since 2000", ylab="Dax Closing Price",
+#         xlim=c(2, 3200))
+# lines(meanf(Mkt_train, h=350) $mean, col=4)
+# lines(rwf(Mkt_train,h=350)$mean,col=2)
+# lines(rwf(Mkt_train,drift=TRUE,h=350)$mean,col=3)
+# legend("bottomright",lty=1,col=c(4,2,3),
+#        legend=c("Mean method","Naive method","Drift method"))
+# lines(Mkt_act, col=6)
+# dev.off() #savepdf end
 
 # --------------- NOT USED AT MO -------------------
 # plot diff range
@@ -369,8 +376,6 @@ inclrnam=F
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-
-
 # ----------------------------------------------------
 # 3. Trading System
 # using the models generated from the auto.arima function
@@ -421,6 +426,20 @@ filname ='../Tables/chp_ts_arima1.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
+# compare to Naive reverse
+diff_df <- sub_df_av_pl(res,NaiveRev)
+# produce latex table from ts_1
+#dat <- diff[,c(1,7,10)]
+dat <- diff_df
+dig <- 0
+cap <- c("Mean Long/Short PL from Naive Reverse subtracted from PL generated by auto.arima models",
+         "Mean PL from Auto.arima models inus mean PL from Naive Reverse system")
+lab = 'tab:chp_ts:arima1_diff'
+filname ='../Tables/chp_ts_arima1_diff.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# ----------------------------------------------------------------
 # run the fnc ts_2
 # apply system 2 to auto.arima data
 res <- ts_1_fnc(fil,nm,FALSE) # F = ts_2

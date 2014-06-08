@@ -161,13 +161,21 @@ SL – sma, aroon and stoch – why these?  Add to b/out and naïve systems
 \section{Time Series Analysis}
 Predicting either the closing price or whether the market will rise or fall, in which there are 2 options up/down represented as categorical U of D or represented as 1 and 0.
 
-\subsection{Exponential moving Average - Predicting Closing Price}
 
+\subsection{Automatically generated ARIMA Models}
+The auto.arima() function of the R forecast package was used to generate ARIMA models for the national indice data sets used in this study. For convenience the models picked are listed in Table \ref{tab:chp_ts_arima_models}.
 
-\subsection{ARIMA - Predicting Closing Price}
+%label - tab:chp_ts_arima_models
+\input{Tables/chp_ts_arima_models.tex}
 
+The one-step forecasts generated from these models were then used in two trading systems. In the first algorithm the decision to trade long or short was dependant upon on the relative values of the previous close price and the forecast. If the forecast was was higher than the close price a long trade wa entered in the expectation that the market would rise towards the prediction. The opposite situation was expected for when the forecast was lower than the close price. The second trading algorithm used the relative values of the predictions themselves in order to decide whether to trade long or short. If the current forecast was higher than the previous one a long trade was made and vice versa.
 
-\subsection{ARIMA hybrids - Predicting Closing Price}
+The results from both systems were poor. The difference in mean PL per trade between the first system based on the auto.arima models (previous close in comparison to forecast) and the mean PL for the Naive Reversing system from section \ref{sec:naive:rev} Chapter \ref{Chapter4} can be seen in Table \ref{tab:chp_ts:arima1_diff}. Most of the results are worse than the naive baseline system except for the French CAC and US Dow when trading long.
+
+%label - tab:chp_ts:arima1_diff
+\input{Tables/chp_ts_arima1_diff.tex}
+
+\subsection{ARIMA Hybrids - Predicting Closing Price}
 
 \subsubsection{ARIMA / ANN}
 

@@ -128,6 +128,7 @@ print_xt <- function(dat,dig,cap,lab,al,filname,inclrnam){
 
 
 # subtract 2 data frames
+# df2 from df1
 sub_df <- function(df1, df2){
   
   nc <- ncol(df1)
@@ -139,6 +140,21 @@ sub_df <- function(df1, df2){
       dfres[i,j] <- as.numeric(df1[i,j]) - as.numeric(df2[i,j])
     }
   }
+  return(dfres)
+}
+
+sub_df_av_pl <- function(df1, df2){
+  
+  nc <- ncol(df1)
+  ln <- nrow(df1)
+  dfres <- df1
+  for(i in 1:ln){
+    for(j in 2:nc){
+      dfres[i,j] <- as.numeric(df1[i,j]) - as.numeric(df2[i,j])
+    }
+  }
+  dfres <- dfres[,c(1,7,10)]
+  colnames(dfres) <- c('Mkt','Diff in Mean Long PL','Diff in Mean Short PL')
   return(dfres)
 }
 

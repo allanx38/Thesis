@@ -74,10 +74,10 @@ Altering the algorithm slightly so that a trade represents the difference betwee
 \input{Tables/chp_ta_naive_long_ctoc.tex}
 
 \subsection{Naive Reversing Previous}
-The second naive method is to reverse the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading short for the current day (the R code for this algorithm can be see in Appendix \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}.
-	\
-% Table
-%\input{D:/Allan/DropBox/MSc/Dissertation/Thesis/Tables/chp_ta_naive_follow_prev.tex}
+\label{sec:naive:rev}
+The second naive method is to reverse the previous day's movement. For example, if the market closed up the previous day the algorithm follows this by trading short for the current day (the R code for this algorithm can be see in Appendix \ref{AppendixA} section \ref{appA:NaiveFollowPrev}) . The results from this system can be seen in Table \ref{tab:ntfresults}. 
+
+% \label{tab:ntfresults}
 \input{Tables/chp_ta_naive_follow_prev.tex}
 
 For all the markets tested, this second naive system produces positive results especially for the Nikkei and CAC trading short and the Dow trading long. These results demonstrate that markets have a tendency to reverse direction each day, they move up one day then down the next. This behaviour is also observed in trending markets, and market \textquotedblleft pull-backs" are a well-known phenomena.
