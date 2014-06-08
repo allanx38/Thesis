@@ -8,71 +8,71 @@
 
 %----------------------------------------------------------------------------------------
 
-This chapter will use time series analysis to generate models to make forecasts for futures prices in various national stock market indices. Firstly three base systems will be considered, these are simple concepts and will be used as a bench mark against which the following time series models will be compared, and if they can't produce superior results won't be considered further. the base systems are the naive method which simply uses the previous value for the forecast of the next value, the average method in which the forecast is simply the mean of the pervious values and the drift method. The drift method is the average change encountered in the historical data and is equivalent to drawing a striaght line between the first and last observation. Subsequent time series models are developed using exponential smoothing methods, ARIMA techniques and finally hybrid methods.
+This chapter will explore the use of time series analysis techniques to generate models for forecasting futures prices in various national stock market indices. Usually, in trying to predict the future behaviour of financial markets the direction they will move, either up or down, is of more interest than the actual value itself. Thus in this chapter predictions of the future direction as well as the actual value itself are attempted. Further when considering the general direction of the market it can be represented as a categorical variable, i.e.\ \textquotedblleft up" or \textquotedblleft down" or as a variable for example 1 for \textquotedblleft up" and 2 for \textquotedblleft down". The choice has implications for which algorithm can be employed in the forecasting technique because of the differing data types. A variety of time series models are developed in this chapter using ARIMA and hybrid ARIMA methods.
 
-\section{Base results}
-Three base systems - mean, naive and drift were used to generate results as a starting point from which subsequent time series models can be compared. 
-
-Figure \ref{fig:chp5_ts_dax} shows the three methods being applied to a data set derived from the German Dax. The models were trained on the first 3000 observations and tested on the remaining 528. The results of applying these simple models against the test data can be seen in Table \ref{tab:chp_ts:sma}.
-
-%label - tab:chp_ts:sma
-\input{Tables/chp_ts_sma.tex}
-
-Figure \ref{fig:chp5_ts_dax} is a plot of the forecast from these models generated against the training set and forecasting the closing price at the end of the test period. The Naive and Drift algorithms forecast similar values while the Mean method produces a markedly lower value.
-
-\begin{figure}[tbh]
-\centering
-\includegraphics{Figures/chp_ts_dax1}
-\caption[Results of simple modelling methods.]{Results of simple modelling methods.}
-\label{fig:chp5_ts_dax}
-\end{figure}
-
-Figure \ref{fig:chp_ts_dax_act} is the same as Figure \ref{fig:chp5_ts_dax} except the actual data encountered during the foecast period has been added.
-
-\begin{figure}[tbh]
-\centering
-\includegraphics{Figures/chp_ts_dax1_plus_act_data}
-\caption[Results of simple modelling methods and actual data.]{Results of simple modelling methods with actual data in forecast period added.}
-\label{fig:chp_ts_dax_act}
-\end{figure}
-
-\section{Exponential Smoothing}
-
-Using Rob J Hyndman's forecast package and the ets() function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
-
-\begin{table}[ht]
-\centering
-\caption[Taxonomy of exponential smoothing methods.]{of exponential smoothing methods.} 
-\label{tab:tax_em}
-\begin{tabular}{lccc}
-  \toprule 
-            & \multicolumn{3}{c}{Seasonal Component} \\
-  \cmidrule(r){2-4}
-  Trend     & N      & A          & M       \\ 
-  Component &(None)  &(Additive)  & (Multiplicative)  \\
-  \midrule 
-  N (None) & (N,N)&(N,A)&(N,M)  \\ 
-  A (Additive) & (A,N)&	(A,A)&(A,M)  \\ 
-  Ad (Additive damped) &(Ad,N)&(Ad,A)&(Ad,M) \\ 
-  M (Multiplicative) &(M,N)&(M,A)&(M,M)  \\ 
-  Md (Multiplicative damped) &(Md,N)&(Md,A)&(Md,M) \\ 
-   \bottomrule \end{tabular}
-\end{table}
-
-Note - Hymndman: hard to beat the ets model, 37 mins.
+%\section{Base results}
+%Three base systems - mean, naive and drift were used to generate results as a starting point from which subsequent time series models can be compared. 
+%
+%Figure \ref{fig:chp5_ts_dax} shows the three methods being applied to a data set derived from the German Dax. The models were trained on the first 3000 observations and tested on the remaining 528. The results of applying these simple models against the test data can be seen in Table \ref{tab:chp_ts:sma}.
+%
+%%label - tab:chp_ts:sma
+%\input{Tables/chp_ts_sma.tex}
+%
+%Figure \ref{fig:chp5_ts_dax} is a plot of the forecast from these models generated against the training set and forecasting the closing price at the end of the test period. The Naive and Drift algorithms forecast similar values while the Mean method produces a markedly lower value.
+%
+%\begin{figure}[tbh]
+%\centering
+%\includegraphics{Figures/chp_ts_dax1}
+%\caption[Results of simple modelling methods.]{Results of simple modelling methods.}
+%\label{fig:chp5_ts_dax}
+%\end{figure}
+%
+%Figure \ref{fig:chp_ts_dax_act} is the same as Figure \ref{fig:chp5_ts_dax} except the actual data encountered during the forecast period has been added.
+%
+%\begin{figure}[tbh]
+%\centering
+%\includegraphics{Figures/chp_ts_dax1_plus_act_data}
+%\caption[Results of simple modelling methods and actual data.]{Results of simple modelling methods with actual data in forecast period added.}
+%\label{fig:chp_ts_dax_act}
+%\end{figure}
+%
+%\section{Exponential Smoothing}
+%
+%Using Rob J Hyndman's forecast package and the ets() function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
+%
+%\begin{table}[ht]
+%\centering
+%\caption[Taxonomy of exponential smoothing methods.]{of exponential smoothing methods.} 
+%\label{tab:tax_em}
+%\begin{tabular}{lccc}
+%  \toprule 
+%            & \multicolumn{3}{c}{Seasonal Component} \\
+%  \cmidrule(r){2-4}
+%  Trend     & N      & A          & M       \\ 
+%  Component &(None)  &(Additive)  & (Multiplicative)  \\
+%  \midrule 
+%  N (None) & (N,N)&(N,A)&(N,M)  \\ 
+%  A (Additive) & (A,N)&	(A,A)&(A,M)  \\ 
+%  Ad (Additive damped) &(Ad,N)&(Ad,A)&(Ad,M) \\ 
+%  M (Multiplicative) &(M,N)&(M,A)&(M,M)  \\ 
+%  Md (Multiplicative damped) &(Md,N)&(Md,A)&(Md,M) \\ 
+%   \bottomrule \end{tabular}
+%\end{table}
+%
+%Note - Hymndman: hard to beat the ets model, 37 mins.
 
 
 % ------ NEW PAGE --------------------------
-\newpage
+%\newpage
 \section{ARIMA Models}
 \label{arima_models}
-
-The process of fitting an ARIMA model to a time series involves the following general steps:
+The use of Auto-Regressive Integrated Moving Average (ARIMA) models, see section \ref{sec:arima} for details, was explored in order to forecast future prices for financial markets. 
+The process of fitting an ARIMA model to a time series is quite challenging and involves the following general steps:
 
 \begin{enumerate}
 \item Plot the data to get a general feel for the time series and to establish if it is stationary.
 \item Stabilize any variance in the data with a transformation process such as the Box-Cox method.
-\item Arima models work with stationary data, so if necessary, take differences of the data until it is stationary.
+\item ARIMA models work with stationary data, so if necessary, take differences of the data until it is stationary.
 \item Examine the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to determine if an AR(p) or MA(q) model is appropriate.
 \item Test the chosen model(s), using the AICc to determine if a better model is available.
 \item Check the residuals from the best model by plotting the ACF, and doing a portmanteau test on them. If the results from these tests do not look like white noise, a modified model may be required.
@@ -80,11 +80,13 @@ The process of fitting an ARIMA model to a time series involves the following ge
 \end{enumerate}
 
 
-In recent years automatic forecasting algorithms have become available and widely used \citep{Hyndman08automatictime}. These are necessary in a variety of circumstances, especially when organisations are faced with the need to repeatedly carry out a large number of forecasts and the human effort required renders manual means impractical. The auto.arima() function found in R's \textquotedblleft forecast" package is an example of an automatic algorithm for arima models. This function automates steps 3, 4, and 5 of those outlined previously in the general steps required for arima modelling. In the following sections, the general steps are followed in order to generate an arima model manually then the automatic algorithm is used for comparison purposes.
+In recent years automatic forecasting algorithms have become available and are widely used \citep{Hyndman08automatictime}. These are necessary in a variety of circumstances, especially when organisations are faced with the need to repeatedly carry out a large number of forecasts and the human effort required renders manual means impractical. The auto.arima() function found in R's \textquotedblleft forecast" package is an example of an automatic algorithm for ARIMA models. This function automates steps 3, 4, and 5 of those outlined previously, in the general steps required for ARIMA modelling. In the following sections, the general steps are used to generate an ARIMA model manually, and then the automatic algorithm is utilised to build one.
 
+\section{Manual Generation ARIMA of Models}
+\label{sec:man_arima}
 \subsection{Data Exploration}
 
-The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_2000_13} shows the UK's FTSE 100 index between the years 2000 to 2013. Over this time period the series has shown strong trends to move up and down and a uniform variance. Because the time series is non-stationary it will need to be transformed into a stationary series before arima modelling can be undertaken.
+The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_2000_13} shows the UK's FTSE 100 index between the years 2000 to 2013. Over this time period the series has shown strong trends to move up and down and a uniform variance. Because the time series is non-stationary it will need to be transformed into a stationary series before ARIMA modelling can be undertaken.
 
 \begin{figure}[tbh]
 \centering
@@ -94,31 +96,31 @@ The first step, as always is to explore the data. Figure \ref{fig:chp_ts_ftse_20
 \end{figure}
 
 \subsection{Adjusting for non-uniform variance and non-stationariness}
-The variance within the FTSE time series is relatively uniform and thus this data set doesn't need stabilizing with regard to this. If it did a Box-Cox transformation could be used. However, the FTSE 100 over this time period exhibits marked non-stationariness and requires adjusting accordingly. Differencing is a technique to make a data set stationary. Instead of using the actual observations the differences between two adjacent points are used and this is known as the first difference. If the data set still isn't stationary the difference between consecutive points in the differenced data set can used, this is the difference of the differences and is known as the second difference. Figure \ref{fig:chp_ts_ftse_2000_13_diff} shows the FTSE data set after the first differences have been taken.  The resulting data set is now stationary.
+The variance within the FTSE time series is relatively uniform and thus this data set doesn't need stabilizing with regard to this. If it did, a Box-Cox transformation could be used. However, over this time period the FTSE 100 exhibits marked non-stationariness and requires adjusting accordingly. One such technique to make a data set stationary is differencing. Instead of using the actual observations the differences between two adjacent points are used and this is known as the first difference. If the data set still isn't stationary the difference between consecutive points in the differenced data set can used, this is the difference of the differences and is known as the second difference. Figure \ref{fig:chp_ts_ftse_2000_13_diff} shows the FTSE data set after the first differences have been taken.  The resulting data set is now stationary.
 
 \begin{figure}[tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_diff}
-\caption[FTSE 2000-13 Diff.]{FTSE 2000-13 Diff.}
+\caption[First difference of FTSE]{First difference of FTSE between 2000-13.}
 \label{fig:chp_ts_ftse_2000_13_diff}
 \end{figure}
 
 \subsection{Examine ACF / PACF}
 With a stationary data set, the next stage is to investigate the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to help in the model selection process (see section \ref{sec:acf} for details of ACF and PACF). The ACF and PACF for the FTSE data set can be seen in Figures \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}. 
 
-If ultimately the arima model is of the form ARIMA(p,d,0) or ARIMA(0,d,q) then the ACF and PACF plots are useful in helping to define values for p or q. In the event that both p and q are positive, the ACF and PACF are not helpful in deducing the values for p and q. An ARIMA(p,d,0) model may be appropriate if the ACF and PACF plots of the stationary data exhibit an exponentially decaying pattern in the ACF and a large spike at lag p in PACF plot. Conversely an ARIMA(0,d,q) model may be appropriate if the PACF is decaying exponentially and there is there is a significant spike in the ACF plot at lag q. Considering the ACF and PACF plots in Figures \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}, neither of the two patterns are observed and thus an arima model where both p and q are positive is likely.
+If ultimately the ARIMA model is of the form ARIMA(p,d,0) or ARIMA(0,d,q) then the ACF and PACF plots are useful in helping to define values for p or q. In the event that both p and q are positive, the ACF and PACF are not helpful in deducing the values for p and q. An ARIMA(p,d,0) model may be appropriate if the ACF and PACF plots of the stationary data exhibit an exponentially decaying pattern in the ACF and a large spike at lag p in PACF plot. Conversely an ARIMA(0,d,q) model may be appropriate if the PACF is decaying exponentially and there is there is a significant spike in the ACF plot at lag q. Considering the ACF and PACF plots in Figures \ref{fig:chp_ts_ftse_2000-13_diff_acf} and \ref{fig:chp_ts_ftse_2000-13_diff_pacf}, neither of the two patterns are observed and thus an ARIMA model where both p and q are positive is likely.
 
 \begin{figure}[tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_diff_acf}
-\caption[FTSE 2000-13 Diff.]{ACF of Diff FTSE 2000-13.}
+\caption[ACF of FTSE 100 between 2000-2013]{Auto-correlation plot of differenced data from FTSE 100 between 2000-2013.}
 \label{fig:chp_ts_ftse_2000-13_diff_acf}
 \end{figure}
 
 \begin{figure}[tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_diff_pacf}
-\caption[FTSE 2000-13 Diff.]{PACF of Diff FTSE 2000-13.}
+\caption[PACF of FTSE 100 between 2000-2013]{Partial auto-correlation plot of differenced data from FTSE 100 between 2000-2013.}
 \label{fig:chp_ts_ftse_2000-13_diff_pacf}
 \end{figure}
 
@@ -129,24 +131,21 @@ If ultimately the arima model is of the form ARIMA(p,d,0) or ARIMA(0,d,q) then t
 %\caption[FTSE 2000-13 ACF / PACF.]{Difference, ACF and PACF plots for the FTSE 2000-13.}
 %\label{fig:chp_ts_ftse_2000_13_diff_acf_tsd}
 %\end{figure}
-
+\textquotesingle\newpage
 \subsection{Try the chosen model(s)}
-The next step is to try the chosen model along with a few viable alternatives. 
+The next step is to try the chosen model along with a few viable alternatives. Akaike’s Information Criterion (AIC) and Bayesian Information Criterion (BIC) are useful for determining the optimum order of an ARIMA model, and are typically used as a measure of how well the model fits the data. AIC can be given by:
 
-%Akaike’s Information Criterion (AIC) and Bayesian Information Criterion (BIC) are useful for determining the optimum order of an ARIMA model, and are typically used as a measure of how well the model fits the data. 
-%\[ AIC = -2 log (L) + 2 (p+q+k+1) \]
-%where:\\
-%$ L $ is the likelihood of the data\\ 
-%$ k = 1$ if $c != 0 $ and $ k=0$ if $c != 0$\\
-%Note that the last term in parentheses is the number of parameters in the model, the variance of the residuals.
-%
-%For ARIMA models, the corrected AIC can be written as:
-%\[ AIC_{c} = AIC + \dfrac{2 (p+q+k+1)(p+q+k+2)}{T-p-q-k-2} \]
-%
-%The Bayesian Information Criterion can be expressed as:
-%\[ BIC = AIC + log(T)(p+q+k+1) \]
-%
-%Table \ref{tab:chp_ts:arima_res_r} shows the AIC, AICc and BIC accuracy measures for a selection of arima models applied to the FTSE data set. On all three measures the arima(2,1,3) model has the lowest value.
+\[ AIC = -2 log (L) + 2 (p+q+k+1) \]
+where:\\
+$ L $ is the likelihood of the data and $ k = 1$ if $c\neq0$ and $ k=0$ if $c \neq 0$, the last term in parentheses is the number of parameters in the model.
+
+For ARIMA models, the corrected AIC can be written as:
+\[ AIC_{c} = AIC + \dfrac{2 (p+q+k+1)(p+q+k+2)}{T-p-q-k-2} \]
+
+The Bayesian Information Criterion can be expressed as:
+\[ BIC = AIC + log(T)(p+q+k+1) \]
+
+Table \ref{tab:chp_ts:arima_res_r} shows the AIC, AICc and BIC accuracy measures for a selection of ARIMA models applied to the FTSE data set. On all three measures the ARIMA(2,1,3) model has the lowest value.
 
 %label - tab:chp_ts:arima_res_r
 \input{Tables/chp_ts_arima_res_r.tex}
@@ -154,56 +153,55 @@ The next step is to try the chosen model along with a few viable alternatives.
 \subsection{Model Residuals}
 A so-called residual is the difference between an observation and its forecast. In forecasting a time series, residuals are calculated from a one-step forecast.  A one-step forecast is based on all observations from the start of the series until the previous observation to which the forecast applies to. Thus the number of data points used to calculate the one-step forecast increases as the forecast proceeds through the time series.  An alternative is cross-sectional forecasting which uses all the points in the data set except the observation being predicted.
 
-Knowledge of the residuals from the application of a model is important in establishing the validity of the model. There are two essential and two valuable properties that can be established by inspecting the model residuals. A good method of forecasting will produce a model in which the residuals are uncorrelated and have a zero mean. If a forecasting method doesn't comply with these two properties it can be improved upon. Correlation in residuals means that information is present in them that the model has missed and a non-mean is evidence of bias in the forecast. Adjusting for bias is straight forward, the mean value observed in the residuals can simply be added to all forecasts. Looking at Figure \ref{fig:chp_ts_ftse_2000_13_mean_residuals} it can be seen that the mean of the residuals is close to zero and this model doesn't have any bias.
+Knowledge of the residuals from the application of a model is important in establishing the validity of the model. There are two essential and two valuable properties that can be established by inspecting the model residuals. A good method of forecasting will produce a model in which the residuals are uncorrelated and have a zero mean. If a forecasting method doesn't comply with these two properties it can be improved upon. Correlation in residuals means that information is present in them that the model has missed and a non-zero mean is evidence of bias in the forecast. Adjusting for bias is straight forward, the mean value observed in the residuals can simply be added to all forecasts. Looking at Figure \ref{fig:chp_ts_ftse_2000_13_mean_residuals} it can be seen that the mean of the residuals is close to zero and this model doesn't have any bias. Figure \ref{fig:chp_ts_ftse_2000_13_acf_residuals} is the plot of the residuals of the ARIMA model applied to the FTSE data set. The lower order lags are all within the confidence boundaries and is indicative of a good model.
 
 \begin{figure}[!tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_mean_residuals}
-\caption[FTSE 2000-13 residuals.]{The residuals from applying the arima model to the FTSE data set.}
+\caption[FTSE 100 ARIMA model residuals.]{The residuals from applying the ARIMA(2,1,3) model to the FTSE data set.}
 \label{fig:chp_ts_ftse_2000_13_mean_residuals}
 \end{figure}
-
-Figure \ref{fig:chp_ts_ftse_2000_13_acf_residuals} is the plot of the residuals of the arima model applied to the FTSE data set. WHAT DOES IT SHOW \label{(todo-acf)}
 
 \begin{figure}[!tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_acf_residuals}
-\caption[FTSE 2000-13 ACF of residuals.]{ACF plot of the residuals from applying the arima model to the FTSE data set.}
+\caption[ACF of FTSE 100 ARIMA model residuals.]{ACF plot of the residuals from applying the ARIMA(2,1,3) model to the FTSE data set.}
 \label{fig:chp_ts_ftse_2000_13_acf_residuals}
 \end{figure}
 
-Two additional properties of the residuals that are desirable, though not necessary, are constant variance and normal distribution. If these two conditions are met, the calculation of the prediction interval inthe forecast step is easier. From Figure \ref{fig:chp_ts_ftse_2000_13_mean_residuals} it can be seen that the residuals have relatively constant variance and from Figure \ref{fig:chp_ts_ftse_2000_13_hist_residuals} it can be seen that they are normally distributed.
+Two additional properties of the residuals that are desirable, though not necessary, are constant variance and normal distribution. If these two conditions are met, the calculation of the prediction interval in the forecast step is easier. From Figure \ref{fig:chp_ts_ftse_2000_13_mean_residuals} it can be seen that the residuals have relatively constant variance and from Figure \ref{fig:chp_ts_ftse_2000_13_hist_residuals}, a histogram of the residuals, it can be seen that they are normally distributed.
 
 \begin{figure}[!tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_hist_residuals}
-\caption[FTSE 2000-13 - Histogram of residuals.]{Histogram of the residuals from applying the arima model to the FTSE data set.}
+\caption[FTSE 2000-13 - Histogram of residuals.]{Histogram of the residuals from applying the ARIMA(2,1,3) model to the FTSE data set.}
 \label{fig:chp_ts_ftse_2000_13_hist_residuals}
 \end{figure}
 
 % Box Ljung test
-Consideration of the ACF plots provides evidence for auto-correlation. However a more formal approach is to consider auto-correlation values together as a group as opposed to individually. The Box-Ljung portmanteau test is just one such approach and Table \ref{tab:chp_ts:arima_res_rbox_l} lists the results of the Box-Ljung portmanteau test being applied to the residuals of the arima model. A large p-value is indicative of white noise and is the desirable situation for a good arima model.
+Consideration of the ACF plots provides evidence for auto-correlation. However a more formal approach is to consider auto-correlation values together as a group as opposed to individually. The Box-Ljung portmanteau test is just one such approach and Table \ref{tab:chp_ts:arima_res_rbox_l} lists the results of the Box-Ljung portmanteau test being applied to the residuals of the ARIMA(2,1,3) model. A large p-value is indicative of white noise and is the desirable situation for a good ARIMA model. Taking all the evidence together the ARIMA(2,1,3) model appears a good option for the FTSE data set.
 
 %label - tab:chp_ts:arima_res_rbox_l
 \input{Tables/chp_ts_arima_res_r_box_l.tex}
 
 \subsection{Calculate forecast}
-Finally, after developing a model that meets the previous criteria a forecast can be generated. Table \ref{tab:chp_ts:ftse_100_fcast} shows the one-step forecast produced when the arima(3,1,2) model developed in the previous section is applied to the FTSE data set.
+Finally, after developing a model that meets the previous criteria a forecast can be generated. Table \ref{tab:chp_ts:ftse_100_fcast} shows the one-step forecast produced when the ARIMA(2,1,3) model developed in the previous section is applied to the FTSE data set.
  
 %label - tab:chp_ts:ftse_100_fcast
 \input{Tables/chp_ts_ftse_100_fcast.tex}
 
-\subsection{Automatic Arima Modelling}
-As explained previously the automatic arima modelling algorithm in the R forecast package automates steps 3 to 5 in the general steps used in the modelling process as outlined in section \ref{arima_models}. The function uses a variation of the Hyndman and Khandakar algorithm which obtains an arima model by the minimisation of the AICc and combination with unit root tests. KPSS tests are used to establish the number of differences, d, required to get a stationary time series. The p and q values are then obtained by choosing the model that minimises the AICc for the differenced data. 
+\section{Automatic Generation of ARIMA Models}
+As explained previously the automatic ARIMA modelling algorithm in the R forecast package, auto.arima(), automates steps 3 to 5 in the general steps used in the modelling process as outlined in section \ref{arima_models}. The function uses a variation of the Hyndman and Khandakar algorithm which obtains an ARIMA model by the minimisation of the AICc and combination with unit root tests. KPSS tests are used to establish the number of differences, d, required to get a stationary time series. The p and q values are then obtained by choosing the model that minimises the AICc for the differenced data. 
 
-Table \ref{tab:chp_ts_arima_models} 
+The results of passing the indice data sets to the auto.arima() function can be seen in Table \ref{tab:chp_ts_arima_models}. For the FTSE data set the automatic procedure selects the ARIMA(2,1,3) as being the most appropriate, which matches the conclusion of the work from the manual model selection process described earlier in section \ref{sec:man_arima}.
+
 %label - tab:chp_ts_arima_models
 \input{Tables/chp_ts_arima_models.tex}
 
-\section{Trading The ARIMA Results}
-Having developed forecasts based on arima models these can be passed into a trading system.
+\section{Trading the ARIMA Models}
+Having developed forecasts based on ARIMA models these can be passed into a trading system. Two ideas are presented here, in the first the previous closing price is compared against the prediction and if it is lower than the forecast a long trade is entered. In the second system the current forecast is compared with the previous prediction. When the previous forecast value is lower than the current prediction the system trades long.
 
-\subsection{System 1}
+\subsection{System 1 - Close Price vs Forecast}
 System 1 algorithm - uses previous close. If prediction is higher than previous close go Long, if lower go Short. See Appendix \ref{AppendixA} section \ref{appA:ts_1}
 
 Using the models listed in Table \ref{tab:chp_ts_arima_models} a series of data sets were generated by applying the models to the indice data sets. The resultant data sets contained Date, Open, High, Low, Close and Forecast attributes in a similar manner to the data seen in Table  \ref{tab:chp_ts:ftse_100_fcast}. Table \ref{tab:chp_ts:arima1} are results produced from passing the newly generated data sets to the System 1 algorithm.
@@ -214,13 +212,13 @@ Using the models listed in Table \ref{tab:chp_ts_arima_models} a series of data 
 \subsection{System 2}
 System 2 algorithm - uses previous prediction. If prediction is higher than previous prediction go Long, if lower go Short. See Appendix \ref{AppendixA} section \ref{appA:ts_2}
 
-Table \ref{tab:chp_ts:arima2} lists the results from passing the data sets with the forecasts desribed in the previous section to the System 2 algorithm.
+Table \ref{tab:chp_ts:arima2} lists the results from passing the data sets with the forecasts described in the previous section to the System 2 algorithm.
 
 %label - tab:chp_ts:arima2
 \input{Tables/chp_ts_arima2.tex}
 % ---------------------------------------------------------------
-\section{Hybrid Arima Models}
-A hybrid ARIA model is one in which the moving averages of a stationary data set (possibly a non-stationary data set that has been differenced) ae combined with data mining learners other than regression. Possible learners include k nearest neighbour algorithms, artificial neural networks and support vector machines.  RapidMiner, the open source data mining tool is a powerful solution for building hybrid ARIMA models. Figure \ref{fig:chp_ts_rm_arima} shows the RapidMiner process used to generate hybrid Arima models. The Validation operator in the model below can hold a variety of learners depending upon the task and data types involved. The various components in Figure \ref{fig:chp_ts_rm_arima} are as follows:
+\section{Hybrid ARIMA Models}
+A hybrid ARIMA model is one in which the moving averages of a stationary data set (possibly a non-stationary data set that has been differenced) are combined with data mining learners other than regression. Possible learners include k nearest neighbour algorithms, artificial neural networks and support vector machines.  RapidMiner, the open source data mining tool is a powerful solution for building hybrid ARIMA models. Figure \ref{fig:chp_ts_rm_arima} shows the RapidMiner process used to generate hybrid ARIMA models. The Validation operator in the model below can hold a variety of learners depending upon the task and data types involved. The various components in Figure \ref{fig:chp_ts_rm_arima} are as follows:
 
 \begin{itemize}
 \item Read CSV - reads in the appropriate data set.
@@ -229,7 +227,7 @@ A hybrid ARIA model is one in which the moving averages of a stationary data set
 \item Moving Average - calculates a moving average of the time series (see section \ref{sec:chp2_sma} for details.) This provides the q in ARIMA(p,d,q) models.
 \item Differentiate - calculates the difference in the time series and provides the d in ARIMA(p,d,q) models.
 \item Lag - creates lag variables which are values of the attribute (the attribute itself, the moving average or the difference value) at earlier points in the time series.
-\item Select Attribute (2) - selects the attributes that will be passed to the validation block. Attributes regaring today's values are removed because we are building a model to calculate them and don't want to \textquotedblleft peak" at them before the model is built.
+\item Select Attribute (2) - selects the attributes that will be passed to the validation block. Attributes regarding today's values are removed because we are building a model to calculate them and don't want to \textquotedblleft peak" at them before the model is built.
 \item Set Role - sets an attribute as the label to be predicted.
 
 \end{itemize}
@@ -237,29 +235,29 @@ A hybrid ARIA model is one in which the moving averages of a stationary data set
 \begin{figure}[!tbh]
 \centering
 \includegraphics[width=12cm]{../Figures/chp_ts_rm_arima}
-\caption[Rapid Miner Arima Process]{Rapid Miner Arima Process.}
-\label{fig:chp_ts_rm_arima}
+\caption[Rapid Miner ARIMA Process]{Rapid Miner Arima Process.}
+\label{fig:chp_ts_rm_ARIMA}
 \end{figure}
 
 Questions - should we pass the diff values to the model - just to flatten the series?
 
-TO DO - auto forecast - on window - does model change? prediction any good? ets and arima ...
+TO DO - auto forecast - on window - does model change? prediction any good? ets and ARIMA ...
 
 % ------------------------------------------------------------------------------
 \section{Predicting Closing Price}
 \subsection{Arima / Artificial Neural Networks (ANN)}
-An Arima / ANN method was used to generate predictions for the closing price of the indices. Table \ref{tab:chp_ts:arima_ann_sys1} are the results of passing the output of the arima / ANN models to trading system 1.
+An Arima / ANN method was used to generate predictions for the closing price of the indices. Table \ref{tab:chp_ts:arima_ann_sys1} are the results of passing the output of the ARIMA / ANN models to trading system 1.
 
 %label - tab:chp_ts:arima_hybrid_reg
 \input{Tables/chp_ts_arima_ann_sys1.tex}
 
-Table \ref{tab:chp_ts:arima_ann_sys2} are the results of passing the output of the arima / ANN models to trading system 2.
+Table \ref{tab:chp_ts:arima_ann_sys2} are the results of passing the output of the ARIMA / ANN models to trading system 2.
 
 %label - tab:chp_ts:arima_hybrid_reg
 \input{Tables/chp_ts_arima_ann_sys2.tex}
 
-\subsection{Arima / k Nearest Neighbour}
-An Arima / knn method was used to generate predictions for the closing price of the indices. Table \ref{tab:chp_ts:pred_close_arima_knn_sys1} shows the results of passing data sets containing forecasts generated with hybrid ARIMA / knn to trading system 1.
+\subsection{ARIMA / k Nearest Neighbour}
+An ARIMA / knn method was used to generate predictions for the closing price of the indices. Table \ref{tab:chp_ts:pred_close_arima_knn_sys1} shows the results of passing data sets containing forecasts generated with hybrid ARIMA / knn to trading system 1.
 
 %label - tab:chp_ts:pred_close_arima_knn_sys1
 \input{Tables/chp_ts_pred_close_arima_knn_sys1.tex}
@@ -274,41 +272,41 @@ An Arima / knn method was used to generate predictions for the closing price of 
 \section{Predicting Up or Down - Categorical}
 A categorical variable taking values "Up" and "Dn" was introduced.
 
-\subsection{Arima / ANN}
+\subsection{ARIMA / ANN}
 Parameters:
 Validation - train/test windows, horizon
 ANN - hidden layers, train cycles, learn rate, momentum
 
-Table \ref{tab:chp_ts:pUD_CAT_arima_ann_sys} - predicting categorical U / D with Arima / ANN. CAC, Oz and 1 other create lopsided predictions ... 
+Table \ref{tab:chp_ts:pUD_CAT_arima_ann_sys} - predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ... 
 
 %label - tab:chp_ts:pUD_CAT_arima_ann_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_ann_sys.tex}
 
-\subsection{Arima / knn}
+\subsection{ARIMA / knn}
 Parameters:
 Validation - train/test windows, horizon
 knn - k = 15
 
-Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} - predicting categorical U / D with Arima / ANN. CAC, Oz and 1 other create lopsided predictions ...
+Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} - predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
 
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex}
 
 With a Stop loss:
 
-Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys_SL} - predicting categorical U / D with Arima / ANN. CAC, Oz and 1 other create lopsided predictions ... Stop Loss
+Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys_SL} - predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ... Stop Loss
 
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys_SL
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex}
 
-\subsection{Arima / Reg}
+\subsection{ARIMA / Reg}
 
-\subsection{Arima / SVN}
+\subsection{ARIMA / SVN}
 Parameters:
 Validation - train/test windows, horizon
 knn - 
 
-Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} - predicting categorical U / D with Arima / ANN. CAC, Oz and 1 other create lopsided predictions ...
+Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} - predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
 
 %label - tab:chp_ts:pUD_CAT_arima_svm_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex}
@@ -317,20 +315,20 @@ Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} - predicting categorical U / D with
 \section{Predicting Up or Down - 01}
 An additional attribute was introduced into the national indice data sets which indicated whether the market moved up or down over the course of the day. 1 was used to indicate the market rose and 0 that it fell. A hybrid ARMA / knn model was used to predict the Up/Down attribute.
 
-\subsection{Arima / Artificial Neural Networks (ANN)}
+\subsection{ARIMA / Artificial Neural Networks (ANN)}
 Trying to predict up/down represented as 1 or 0 using ANN. See Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} - used function ts\_3a - adapting for ANN prediction.
 
 %label - tab:chp_ts:pUD_01_arima_ann_sys
 \input{Tables/chp_ts_predUpDn_01_arima_ann_sys.tex}
 
-\subsection{Arima / knn}
+\subsection{ARIMA / knn}
 Trying to predict up/down represented as 1 or 0 using knn. See Table \ref{tab:chp_ts:pUD_01_arima_knn_sys}
 
 %label - tab:chp_ts:pUD_01_arima_knn_sys
 \input{Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
 
 
-\subsection{Arima / Regression}
+\subsection{ARIMA / Regression}
 Using ARIMA with regression to predict 0/1 to represent up and down - See Table \ref{tab:chp_ts:01_arima_reg_sys}
 
 

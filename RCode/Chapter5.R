@@ -10,6 +10,7 @@ source("../RCode/Utils.R")
 source("../RCode/ts_1.R")
 source("../RCode/ts_2.R")
 source("../RCode/ts_3.R")
+source("../RCode/ts_3a.R")
 source("../RCode/ts_4.R")
 #source("ts_1.R")
 #source("ts_2.R")
@@ -21,7 +22,7 @@ fil <- c("../Data/Dax_2000_d.csv",
          "../Data/Dow_2000_d.csv",
          "../Data/N225_2000_d.csv",
          "../Data/Oz_2000.csv")
-nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
+#nm <- c("Dax", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
 
 # -----------------------------------------------------------
 # ---------- Base Systems
@@ -43,6 +44,7 @@ rownames(a) <- c('Mean Training Set', 'Mean Test Set')
 naive_model <- naive(Mkt_train, h=5)
 b <- accuracy(naive_model, Mkt_test) #out of sample
 rownames(b) <- c('Naive Training Set', 'Naive Test Set')
+
 
 # c. build the drift model
 drift_model <- rwf(Mkt_train,drift=TRUE,h=5)
@@ -125,31 +127,46 @@ dev.off() #savepdf end
 
 # 1. Exp Smoothing
 
-exp_sm <- function(Mkt_ts, Mkt, st){
-  #browser()
-  Mkta <- Mkt
-  cc <- Mkta[1,]
-  cc$a <- 0
-  ln <- nrow(Mkt)
-  lb <- 300 #lookback
-  for(i in 301:ed){
-    st <- i-300
-    Mkt_slice <- window(Mkt_ts,start=st,end=i)
-    mod <- ets(Mkt_slice, model="AAN")
-    fcast <- forecast.ets(mod)
-    a <- fcast$fitted[300]
-    b <- Mkta[i,]
-    ab <- cbind(b,a)
-    cc <- rbind(cc,ab)
-  }
-  cc <- cc[-1,]
-  return(cc)
-}
+# Mkt <- read.csv("../Data/Dax_2000_d.csv")
+# nrow(Mkt)
+# Mkt$Date[2999]
+# Mkt_ts <- ts(Mkt$Close)
+# #Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
+# #Mkt_train <- window(Mkt_ts, start=2000, end=2009.99)
+# Mkt_train <- window(Mkt_ts, end=2999.99)
+# Mkt_test <- window(Mkt_ts, start=3000)
+# 
+# # a.build the  mean model
+# mean_model <- ets(Mkt_train)
+# a <- accuracy(mean_model, Mkt_test) #out of sample
+# rownames(a) <- c('Mean Training Set', 'Mean Test Set')
+# a
 
-Mkt <- read.csv("../Data/Dax_2000_d.csv")
-Mkt_ts <- ts(Mkt$Close)
-res <- exp_sm(Mkt_ts, Mkt, 3500)
-write.csv(res,'../Data/Dax_ets_aan_300.csv')
+# exp_sm <- function(Mkt_ts, Mkt, st){
+#   #browser()
+#   Mkta <- Mkt
+#   cc <- Mkta[1,]
+#   cc$a <- 0
+#   ln <- nrow(Mkt)
+#   lb <- 300 #lookback
+#   for(i in 301:ed){
+#     st <- i-300
+#     Mkt_slice <- window(Mkt_ts,start=st,end=i)
+#     mod <- ets(Mkt_slice, model="AAN")
+#     fcast <- forecast.ets(mod)
+#     a <- fcast$fitted[300]
+#     b <- Mkta[i,]
+#     ab <- cbind(b,a)
+#     cc <- rbind(cc,ab)
+#   }
+#   cc <- cc[-1,]
+#   return(cc)
+# }
+# 
+# Mkt <- read.csv("../Data/Dax_2000_d.csv")
+# Mkt_ts <- ts(Mkt$Close)
+# res <- exp_sm(Mkt_ts, Mkt, 3500)
+# write.csv(res,'../Data/Dax_ets_aan_300.csv')
 
 # -----------------------------------------
 # 2. ARIMA ----------------------
@@ -175,7 +192,7 @@ dev.off()
 #data until the data are stationary.
 savepdf("chp_ts_ftse_2000-13_diff")
 plot(diff(Mkt_train),
-          main="FTSE 2000 - 2013",
+          main="First Difference of FTSE 2000 - 2013",
           xlab="Days since 2000", 
           ylab="FTSE Daily Price Movement",
           xlim=c(100, 3000))
@@ -238,7 +255,7 @@ results <- results[-1,]
 # produce latex table
 dat <- results
 dig <- c(0,0,2,2,2)
-cap <- c("Arima results.","Arima results.")
+cap <- c("AIC, AIc and BIC results from alternative ARIMA models.","alternative ARIMA models")
 lab = 'tab:chp_ts:arima_res_r'
 filname ='../Tables/chp_ts_arima_res_r.tex'
 inclrnam=F
@@ -299,23 +316,28 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 # 2.7 Once the residuals look like white noise, calculate forecasts.
+model_used_for_res <- Arima(Mkt_ts, order=c(2,1,3))
+model_name <- forecast(model_used_for_res)$method
+
 arima_man_fcast <- forecast.Arima(model_used_for_res,Mkt_test)
 fitted.data <- as.data.frame(arima_man_fcast$fitted); 
-ln <- nrow(Mkt)
-lw <- nrow(fitted.data)
-Mkt_test_df <- Mkt[(ln-lw+1):ln,] 
-Mkt_test_df <- cbind(Mkt_test_df,fitted.data)
+#ln <- nrow(Mkt)
+#lw <- nrow(fitted.data)
+#Mkt_test_df <- Mkt[(ln-lw+1):ln,] 
+Mkt_test_df <- cbind(Mkt,fitted.data)
 colnames(Mkt_test_df) <- c('Date','Open','High','Low','Close','Forecast')
 
 # plot the results
 dat <- tail(Mkt_test_df)
 dig <- 0
-cap <- c("FTSE 100 foecast.","FTSE 100 foecast.")
+cap <- c("FTSE 100 foecast.","FTSE 100 forecast.")
 lab = 'tab:chp_ts:ftse_100_fcast'
 filname ='../Tables/chp_ts_ftse_100_fcast.tex'
 inclrnam=F
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
+
+# -------------------------------------------------
 # 2.8 auto.arima
 
 arim_mod_fnc <- function(fil,nm){
@@ -444,12 +466,12 @@ ts_1_2_fnc_ar <- function(fil,nm,ts1){
 # 1. ------ Arima Ann Predicting Closing Price -----------------
 fil <- c("../Data/ARIMA/Predict_Close/ar334_ann_DAX.csv",
          "../Data/ARIMA/Predict_Close/ar334_ann_CAC.csv",
-         "../Data/ARIMA/Predict_Close/ar334_ann_F100.csv",
+         "../Data/ARIMA/Predict_Close/ar334_ann_FTSE.csv",
          "../Data/ARIMA/Predict_Close/ar334_ann_Dow.csv",
          "../Data/ARIMA/Predict_Close/ar334_ann_Nik.csv",
          "../Data/ARIMA/Predict_Close/ar334_ann_Oz.csv")
 
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 # a. System 1
@@ -487,7 +509,7 @@ fil <- c("../Data/ARIMA/Predict_Close/ar334_knn_Dax.csv",
          "../Data/ARIMA/Predict_Close/ar334_knn_Oz.csv")
 
 # a. System 1
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 # a. System 1
 res <- ts_1_2_fnc_ar(fil,nm,TRUE)
@@ -520,7 +542,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # a. Categorical
 
 # 1. ARMA / ANN (Predicting Up/Dn - Categorical)
-source("../RCode/ts_4.R")
+#source("../RCode/ts_4.R")
 source("../RCode/Utils.R")
 fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_CAC.csv",
@@ -529,10 +551,10 @@ fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Oz.csv")
   
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
-res <- ts_4_fnc_ar(fil, nm)
+res <- ts_4_fnc_ar(fil,0, nm)
 
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
@@ -546,8 +568,8 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -----------------------
 # 2. ARMA / knn (Predicting Up/Dn - Categorical)
-source("../RCode/ts_4.R")
-source("../RCode/Utils.R")
+#source("../RCode/ts_4.R")
+#source("../RCode/Utils.R")
 fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_CAC.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_F100.csv",
@@ -555,7 +577,7 @@ fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Oz.csv")
 
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 res <- ts_4_fnc_ar(fil, 0, nm)
@@ -596,7 +618,7 @@ fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
 
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 res <- ts_4_fnc_ar(fil,0, nm)
@@ -614,7 +636,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # -------------------------------------------------
 #  ------ Arima Ann Predicting Up/Dn - 01 ---------
 source("../RCode/ts_3a.R")
-source("../RCode/Utils.R")
+#source("../RCode/Utils.R")
 # 1. ARMA / ANN - (Predicting Up/Dn - 01)
 fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_CAC.csv",
@@ -623,7 +645,7 @@ fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_N225.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Oz.csv")
 
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 res <- ts_3a_fnc_ar(fil, nm)
@@ -648,7 +670,7 @@ fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Dax.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Dow.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Nik.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Oz.csv")
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 res <- ts_3_fnc_ar(fil, nm)
@@ -671,7 +693,7 @@ fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Dax.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Dow.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Nik.csv",
          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Oz.csv")
-nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
+#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 res <- ts_3_fnc_ar(fil, nm)
@@ -687,5 +709,5 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-
+# END
 

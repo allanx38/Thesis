@@ -1,3 +1,5 @@
+nm <- c("Dax", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
+
 createResultsVector <- function(MktName, SLossValue){
   # Function to create results vector
   #
@@ -9,7 +11,7 @@ createResultsVector <- function(MktName, SLossValue){
   #   results vector.
   
   results <- rep(0,11)
-  nm <- c("Mkt",          # 1. Name of Mkt
+  nam <- c("Mkt",          # 1. Name of Mkt
           "S Loss",       # 1. Name of Mkt
           "LongPL",       # 1. Name of Mkt
           "ShortPL",      # 1. Name of Mkt
@@ -20,7 +22,7 @@ createResultsVector <- function(MktName, SLossValue){
           "S Trades",    # 1. Name of Mkt
           "Av S PL",
           "misc")      # 1. Name of Mkt
-  names(results) <- nm
+  names(results) <- nam
   results["Mkt"] <- MktName
   results["S Loss"] <- SLossValue
   return(results)
@@ -166,13 +168,13 @@ run_NaiveFollowPrev <- function(fil,SLoss, nm){
 #  ------ Arima Ann Predicting Up/Dn - Categorical -----------------
 # a. Categorical
 ts_4_fnc_ar <- function(fil,SLoss,nm){
-  #browser()
+  
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i],stringsAsFactors=F)
     Mkt_p <- Mkt[,c(1,2,3,4,5)]
     Mkt_p$pred <- Mkt$pred
     colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","pred")
-    a <- ts_4(Mkt_p, SLoss, nm[i])
+    a <- ts_4(Mkt_p, SLoss,nm[i])
     df10 <- rbind(df10, a)
   }
   df.name <- names(a)
