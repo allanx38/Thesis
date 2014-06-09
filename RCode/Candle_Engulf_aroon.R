@@ -1,5 +1,5 @@
 candle_engulf_aroon <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading a breakout of a 90% quantile move.
+  # Calculates the profit/loss from trading a based on an Engulfing candelstick in a trending market.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
