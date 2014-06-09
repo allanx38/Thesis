@@ -27,8 +27,5 @@ candle_hammer <- function(Mkt, SLoss, MktName){
   Stats <- calcStats(Mkt$Long)
   results[5:7] <- Stats
   
-  # Stats <- calcStats(Mkt$Short)
-  # results[8:10] <- Stats
-
   return(results)
 }
