@@ -291,7 +291,7 @@ The R code for a trading system using the forecasts from a hybrid model can be s
 %label - tab:chp_ts:pUD_CAT_arima_ann_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_ann_sys.tex}
 
-\subsection{ARIMA/k-NN}
+\subsection{ARIMA/k-Nearest Neighbour (k-NN)}
 %Parameters:
 %Validation - train/test windows, horizon
 %k-NN - k = 15
@@ -305,13 +305,14 @@ As the results from Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} were good, the 
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys_SL
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex}
 
-\subsection{ARIMA / Reg}
+%\subsection{ARIMA / Reg}
 
-\subsection{ARIMA/ Support Vector Machine (SVN)}
+\subsection{ARIMA/Support Vector Machine (SVN)}
 %Parameters:
 %Validation - train/test windows, horizon
 %k-NN - 
-ARIMA was also married with a SVM learner in order to predict the categorical value, \label{\textquotedblleft U" or \textquotedblleft D"}. Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using this combination to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}.
+
+ARIMA was also married with a SVM learner in order to predict the categorical value, \textquotedblleft U" or \textquotedblleft D". Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using this combination to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}.
 
 %- predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
 
@@ -323,22 +324,22 @@ ARIMA was also married with a SVM learner in order to predict the categorical va
 An alternative to using a categorical variable represented by \textquotedblleft U" or \textquotedblleft D" to indicate if the market rose of fell is to use the numeric range 0 to 1. Here 0 is used to indicate the market fell and 1 to indicate that it increased in value. Thus an additional attribute was introduced into the national indice data sets which took the value of 0 or 1.
 
 \subsection{ARIMA/Artificial Neural Networks (ANN)}
-An ARIMA/ANN model was employed in an attempt to predict the value of 0 or 1, which indicates the directional movement of the market. 
-Trying to predict up/down represented as 1 or 0 using ANN. See Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} - used function ts\_3a - adapting for ANN prediction.
+An ARIMA/ANN model was employed in an attempt to predict the value of 0 or 1, which indicates the directional movement of the market. Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} are the results of passing the indice data sets augmented with the ARIMA/ANN forecasts to the trading algorithm listed in Appendix \ref{AppendixA} section \ref{appA:ts_3a}.
+% EXP algorithm ...
 
 %label - tab:chp_ts:pUD_01_arima_ann_sys
 \input{Tables/chp_ts_predUpDn_01_arima_ann_sys.tex}
 
-\subsection{ARIMA / k-NN}
-Trying to predict up/down represented as 1 or 0 using k-NN. See Table \ref{tab:chp_ts:pUD_01_arima_knn_sys}
+\subsection{ARIMA/k-Nearest Neighbour (k-NN)}
+An ARIMA/k-NN model was used to make forecasts for the continuous variable that represents whether the market will move up or down. The output of the model is a value between 0 and 1. The trading algorithm that uses this prediction can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_3} and the results generated in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys}. The trading algorithm looks at the forecast value and trades long if the values are over 0.5 and short if they are below this value.
 
 %label - tab:chp_ts:pUD_01_arima_knn_sys
 \input{Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
 
 
-\subsection{ARIMA / Regression}
-Using ARIMA with regression to predict 0/1 to represent up and down - See Table \ref{tab:chp_ts:01_arima_reg_sys}
-
-
-%label - tab:chp_ts:01_arima_reg_sys
-\input{Tables/chp_ts_predUpDn_01_arima_reg_sys.tex}
+%\subsection{ARIMA / Regression}
+%Using ARIMA with regression to predict 0/1 to represent up and down - See Table \ref{tab:chp_ts:01_arima_reg_sys}
+%
+%
+%%label - tab:chp_ts:01_arima_reg_sys
+%\input{Tables/chp_ts_predUpDn_01_arima_reg_sys.tex}

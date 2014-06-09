@@ -159,8 +159,7 @@ SL – sma, aroon and stoch – why these?  Add to b/out and naïve systems
 
 
 \section{Time Series Analysis}
-Predicting either the closing price or whether the market will rise or fall, in which there are 2 options up/down represented as categorical U of D or represented as 1 and 0.
-
+ARIMA and hybrid ARIMA models were used to generate forecasts of the closing prices and the more general situation of whether the market would rise or fall. In modelling the more general situation of market direction a categorical and a continuous label was employed. The categorical label used \textquotedblleft U" to represented occasions when the market prices increased and \textquotedblleft D" for when it decreased in value. Alternatively the values 1 and 0 were also used to represent up and down respectively. The primary difference between the two labels was in the values returned from the hybrid ARIMA models. When using 1 and 0 for the class label the models return a value in the range of 1 to 0, whereas for the categorical value there was only the choice of the two values. 
 
 \subsection{Automatically generated ARIMA Models}
 The auto.arima() function of the R forecast package was used to generate ARIMA models for the national indice data sets used in this study. For convenience the models picked are listed in Table \ref{tab:chp_ts_arima_models}.
@@ -201,11 +200,13 @@ system 2 - mixed.  Dax good, CAC, Nik short, Dow long OK.
 
 \subsubsection{ARIMA / ANN}
 
-\subsubsection{ARIMA / ANN}
-
 \subsubsection{ARIMA / knn}
 
-\subsubsection{ARIMA / SVN}
+%label - tab:chp_ts:pUD_01_arima_knn_sys_diff
+\input{Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex}
+
+
+%\subsubsection{ARIMA / SVN}
 
 \section{Conclusion}
 

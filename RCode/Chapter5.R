@@ -645,7 +645,7 @@ res <- ts_4_fnc_ar(fil,0, nm)
 # produce latex table from ts_1
 dat <- res[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn CAT - Arima/SVm predictions passed to System 4",
+cap <- c("Predicting UpDn CAT - Arima/SVM predictions passed to System 4",
          "Predicting UpDn CAT - Arima/SVM predictions passed to System 4.")
 lab = 'tab:chp_ts:pUD_CAT_arima_svm_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex'
@@ -701,6 +701,18 @@ cap <- c("Predicting UpDn 01 - Arima/k-NN predictions passed to System 3",
          "Predicting UpDn 01 - Arima/k-NN predictions passed to System 3.")
 lab = 'tab:chp_ts:pUD_01_arima_knn_sys'
 filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# comp to Naive
+res_diff <- sub_df_av_pl(NaiveRev, res)
+
+dat <- res[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Predicting UpDn 01 - Arima/k-NN predictions passed to System 3 res diff",
+         "Predicting UpDn 01 - Arima/k-NN predictions passed to System 3.")
+lab = 'tab:chp_ts:pUD_01_arima_knn_sys_diff'
+filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
