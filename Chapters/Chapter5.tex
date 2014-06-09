@@ -280,7 +280,7 @@ An ARIMA/k-NN method was used to generate predictions for the closing price of t
 In this section the ability of hybrid ARIMA models to forecast whether a financial market will rise or fall is investigated. A categorical attribute taking values \textquotedblleft U" and \textquotedblleft D", representing whether the market moved up (\textquotedblleft U") or down (\textquotedblleft D")  was introduced into the indice data sets depending upon which way the market moved that day. Hybrid ARIMA models were used to forecast this categorical label.
 
 \subsection{ARIMA/Artificial Neural Networks (ANN)}
-The R code for a trading system using the forecasts from a hybrid model can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_4}. The algorithm simply uses the prediction from the hybrid ARIMA model (\textquotedblleft U" or \textquotedblleft D") to decide whether to trade long or short. Table \ref{tab:chp_ts:pUD_CAT_arima_ann_sys} lists the results from using a hybrid ARIMA/ANN model to make the forecasts.
+The R code for a trading system using the forecasts from a hybrid model can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_4}. The algorithm simply uses the prediction from the hybrid ARIMA model (\textquotedblleft U" or \textquotedblleft D") to decide whether to trade long or short. Table \ref{tab:chp_ts:pUD_CAT_arima_ann_sys} lists the results from using this hybrid ARIMA/ANN model to make the forecasts.
 
 %Parameters:
 %Validation - train/test windows, horizon
@@ -300,30 +300,30 @@ An Arima/k-NN model was also employed in an attempt to predict the categorical l
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex}
 
-With a Stop loss:
-
-Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys_SL} - predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ... Stop Loss
+As the results from Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} were good, the algorithm was re-run but this time a stop loss was introduced. A stop loss of 100 points was applied to all the markets and the amended results can be seen in Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys_SL}. In a similar manner as encountered previously, the use of the stop loss was beneficial for all the markets except the Dow in which case it had a large detrimental affect.
 
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys_SL
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex}
 
 \subsection{ARIMA / Reg}
 
-\subsection{ARIMA / SVN}
-Parameters:
-Validation - train/test windows, horizon
-k-NN - 
+\subsection{ARIMA/ Support Vector Machine (SVN)}
+%Parameters:
+%Validation - train/test windows, horizon
+%k-NN - 
+ARIMA was also married with a SVM learner in order to predict the categorical value, \label{\textquotedblleft U" or \textquotedblleft D"}. Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using this combination to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}.
 
-Table \ref{tab:chp_ts:pUD_CAT_arima_k-NN_sys} - predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
+%- predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
 
 %label - tab:chp_ts:pUD_CAT_arima_svm_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex}
 
 % -------------------------------------------------------------------
-\section{Predicting Up or Down - 01}
-An additional attribute was introduced into the national indice data sets which indicated whether the market moved up or down over the course of the day. 1 was used to indicate the market rose and 0 that it fell. A hybrid ARMA / k-NN model was used to predict the Up/Down attribute.
+\section{Predicting Up or Down - Continuous Label}
+An alternative to using a categorical variable represented by \textquotedblleft U" or \textquotedblleft D" to indicate if the market rose of fell is to use the numeric range 0 to 1. Here 0 is used to indicate the market fell and 1 to indicate that it increased in value. Thus an additional attribute was introduced into the national indice data sets which took the value of 0 or 1.
 
-\subsection{ARIMA / Artificial Neural Networks (ANN)}
+\subsection{ARIMA/Artificial Neural Networks (ANN)}
+An ARIMA/ANN model was employed in an attempt to predict the value of 0 or 1, which indicates the directional movement of the market. 
 Trying to predict up/down represented as 1 or 0 using ANN. See Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} - used function ts\_3a - adapting for ANN prediction.
 
 %label - tab:chp_ts:pUD_01_arima_ann_sys
