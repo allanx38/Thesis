@@ -1,5 +1,5 @@
 candle_hammer_aroon <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading a breakout of a 90% quantile move.
+  # Calculates the profit/loss from trading a based on candelstick Hammer in a trend.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
@@ -29,22 +29,8 @@ candle_hammer_aroon <- function(Mkt, SLoss, MktName){
     results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   }
   
-  # Trade Short
-  # Mkt$Short <- ifelse(Mkt$prev_Aroon_UP >= 70, ifelse(Mkt$prev_Hammer=='Shooting Star' | Mkt$Hammer=='Hanging Man', Mkt$Close-Mkt$Open, NA) ,NA)
-  # results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
-  #Adj for SLoss
-#   if (SLoss < 0){
-#     Mkt$Short <- ifelse((Mkt$Open - Mkt$Low) > 0,
-#                         ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Short),
-#                         Mkt$Short)
-#     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
-#   }
-  
   Stats <- calcStats(Mkt$Long)
   results[5:7] <- Stats
-  
- # Stats <- calcStats(Mkt$Short)
- # results[8:10] <- Stats
   
   return(results)
 }
