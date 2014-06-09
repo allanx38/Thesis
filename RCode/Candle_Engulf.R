@@ -25,11 +25,11 @@ candle_engulf <- function(Mkt, SLoss, MktName){
    }
    
    # Trade Short
-  Mkt$Short <- ifelse(Mkt$prev_Bear_Engulf,Mkt$Open-Mkt$Close,NA)
+  Mkt$Short <- ifelse(Mkt$prev_Bear_Engulf == TRUE,Mkt$Open-Mkt$Close,NA)
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {
-    Mkt$Short <- ifelse(Mkt$prev_Bear_Engulf,
+    Mkt$Short <- ifelse(Mkt$prev_Bear_Engulf == TRUE,
                         ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Short),
                         Mkt$Short)
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
