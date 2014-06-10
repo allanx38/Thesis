@@ -118,6 +118,7 @@ Institute of Technology Blanchardstown \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Introduction}
 \begin{itemize}
+\item Predicting Financial Time Series
 \item Technical Analysis
 \item Time Series Analysis
 \end{itemize}
@@ -162,24 +163,24 @@ Institute of Technology Blanchardstown \\ % Your institution for the title page
 \end{frame}
 
 % ---- Frame ------------
-\begin{frame}
-\frametitle{German Dax Summary Statistics}
-\begin{table}[!htbp] \centering
-\caption[Dax summary statistics.]{Summary statistics of the Dax data set.}
-\label{tab:daxsum}
-\begin{tabular}{lccccc}
-\toprule
-Statistic & N & Mean & St. Dev & Min & Max \\
-\midrule
-Open  & 3,621 & 5,858.36 & 1,559.40 & 2,203.97 & 9,752.11 \\
-High  & 3,621 & 5,906.70 & 1,561.17 & 2,319.65 & 9,794.05 \\
-Low   & 3,621 & 5,804.85 & 1,557.49 & 2,188.75 & 9,714.02 \\
-Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
-\bottomrule
-%\normalsize
-\end{tabular}
-\end{table}
-\end{frame}
+%\begin{frame}
+%\frametitle{German Dax Summary Statistics}
+%\begin{table}[!htbp] \centering
+%\caption[Dax summary statistics.]{Summary statistics of the Dax data set.}
+%\label{tab:daxsum}
+%\begin{tabular}{lccccc}
+%\toprule
+%Statistic & N & Mean & St. Dev & Min & Max \\
+%\midrule
+%Open  & 3,621 & 5,858.36 & 1,559.40 & 2,203.97 & 9,752.11 \\
+%High  & 3,621 & 5,906.70 & 1,561.17 & 2,319.65 & 9,794.05 \\
+%Low   & 3,621 & 5,804.85 & 1,557.49 & 2,188.75 & 9,714.02 \\
+%Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
+%\bottomrule
+%%\normalsize
+%\end{tabular}
+%\end{table}
+%\end{frame}
 
 % ---- Frame ------------
 \begin{frame}
@@ -205,9 +206,9 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \begin{frame}
 \frametitle{Technical Analysis}
 \begin{itemize}
-\item Technical analysis is the study of historical prices
-\item Practitioners of technical analysis in the past were referred to as chartists
-\item all that was needed to know about a particular market was contained in its pricing chart
+\item Technical analysis is the study of historical prices \pause
+\item Practitioners of technical analysis in the past were referred to as chartists \pause
+\item All that was needed to know about a particular market was contained in its pricing chart
 \end{itemize}
 
 \end{frame}
@@ -230,11 +231,11 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \frametitle{Technical Indicators}
 
 \begin{itemize}
-\item Moving Average Convergence Divergence (MACD)
-\item Aroon
-\item Stochastic
-\item Rate of Change (ROC)
-\item Candlesticks
+\item Moving Average Convergence Divergence (MACD) \pause
+\item Aroon \pause
+\item Stochastic \pause
+\item Rate of Change (ROC) \pause
+\item Candlesticks 
 \end{itemize}
 
 \end{frame}
@@ -243,11 +244,34 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \begin{frame}
 \frametitle{Moving Average Convergence Divergence (MACD)}
 
+MACD is a widely used technical indicator which attempts to detect the early stage of a market trend. Subtract a long exponential moving average (EMA) from a shorter one. The EMA is calculated as follows:
+
+\[ EMA(n)_{t} = \dfrac{2}{n+1}(P_{t}-EMA_{t-1}) + EMA_{t-1}\]
+
+Where $ P_{t} $ is the closing price of a market on day $ t $ and $ n $ is the number of periods used in calculating the moving average. MACD itself is calculated as:
+
+\[ MACD_{t} = EMA(s)_{t} - EMA(l)_{t} \]
+
+where $ EMA(s)_{t} $ is the short moving average and $ EMA(l)_{t} $ is the long one. In addition an EMA of the MACD itself is calculated in order to generate trade signals and is often referred to as the \textquotedblleft trigger line".
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Moving Average Convergence Divergence (MACD)}
+
+\begin{figure}
+\centering
+\includegraphics[width=8cm]{../Figures/presentation_macd}
+\caption{Graph of Financial Data with MACD Added.}
+\label{fig:presentation_macd}
+\end{figure}
+
 
 \end{frame}
 
 %------------------------------------------------
-\section{Time Series} %
+\section{Time Series Analysis} %
 %------------------------------------------------
 
 \begin{frame}
@@ -270,14 +294,28 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \frametitle{ARIMA}
 
 \begin{itemize}
-\item Plot the data to get a general feel for the time series and to establish if it is stationary.
-\item Stabilize any variance in the data with a transformation process such as the Box-Cox method.
-\item Arima models work with stationary data, so if necessary, take differences of the data until it is stationary.
-\item Examine the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to determine if an AR(p) or MA(q) model is appropriate.
-\item Test the chosen model(s), using the AICc to determine if a better model is available.
-\item Check the residuals from the best model by plotting the ACF, and doing a portmanteau test on them. If the results from these tests do not look like white noise, a modified model may be required.
-\item Finally, once the residuals have a similar pattern to white noise, the model can be used to generate forecasts.
+\item Plot the data to get a general feel for the time series and to establish if it is stationary.  \pause
+\item Stabilize any variance in the data with a transformation process such as the Box-Cox method. \pause
+\item Arima models work with stationary data, so if necessary, take differences of the data until it is stationary. \pause
+\item Examine the auto-correlation and partial auto-correlation (ACF/PACF) plots in order to determine if an AR(p) or MA(q) model is appropriate. \pause
+\item Test the chosen model(s), using the AICc to determine if a better model is available. \pause
+\item Check the residuals from the best model by plotting the ACF, and doing a portmanteau test on them. If the results from these tests do not look like white noise, a modified model may be required. \pause
+\item Finally, once the residuals have a similar pattern to white noise, the model can be used to generate forecasts.   
 \end{itemize}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Hybrid ARIMA Models}
+\begin{figure}
+\centering
+\includegraphics[width=10cm]{../Figures/chp_ts_rm_arima}
+\caption{Rapid Miner Hybrid ARIMA Model}
+\label{fig:chp_ts_rm_arima}
+\end{figure}
+
+
 
 \end{frame}
 
@@ -287,6 +325,39 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 
 \begin{frame}
 \Huge{\centerline{Results}}
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results}
+
+\begin{itemize}
+\item Baseline Systems - for comparisons.
+	\begin{itemize}
+	\item Buy and Hold
+	\item Reversing System
+	\end{itemize}
+\item Technical Analysis
+	\begin{itemize}
+	\item Trend Detection Indicators
+	\item Reversal Indicators
+	\item Momentum Indicators
+	\item Break-out Systems
+	\item Candlesticks
+	\end{itemize}
+\item ARIMA and Hybrid ARIMA
+	\begin{itemize}
+	\item Predicting closing price
+	\item Predicting Up or Down
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\Huge{\centerline{Buy and Hold}}
+\Huge{\centerline{Reversing System}}
 \end{frame}
 
 % ---- Frame ------------
@@ -307,6 +378,14 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 
 % ---- Frame ------------
 \begin{frame}
+\Huge{\centerline{Technical Analysis}}
+\Huge{\centerline{ }}
+\Huge{\centerline{Aroon}}
+\Huge{\centerline{Break-out System}}
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
 \frametitle{Results - Aroon Technical Indicator}
 
 \input{../Tables/chp_ta_aroon}
@@ -318,12 +397,26 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \frametitle{Results - Break-out Indicator}
 
 \input{../Tables/chp_ta_b_out}
-
 \end{frame}
 
 % ---- Frame ------------
 \begin{frame}
-\frametitle{Results - ARIMA}
+\frametitle{Results - Break out compared to Reversing System}
+
+\input{../Tables/chp_ta_b_out_diff}
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\Huge{\centerline{Hybrid ARIMA Models}}
+\Huge{\centerline{ }}
+\Huge{\centerline{Predicting Closing Price}}
+\Huge{\centerline{Predicting Up or Down}}
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Predicting closing Price with ARIMA}
 
 \input{../Tables/chp_ts_arima1.tex}
 
@@ -331,25 +424,45 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 
 % ---- Frame ------------
 \begin{frame}
-\frametitle{Results - Hybrid ARIMA / knn}
+\frametitle{Results - Predicting closing Price with Hybrid ARIMA/k-NN}
 
-\input{../Tables/chp_ts_pred_close_arima_knn_sys1.tex}
-
-\end{frame}
-
-% ---- Frame ------------
-\begin{frame}
-\frametitle{Results - Hybrid ARIMA / knn Categorical}
-
-\input{../Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex}
+%\input{../Tables/chp_ts_pred_close_arima_knn_sys1.tex}
+\input{../Tables/chp_ts_pred_close_arima_knn_sys1_diff.tex}
 
 \end{frame}
 
 % ---- Frame ------------
 \begin{frame}
-\frametitle{Results - Hybrid ARIMA / knn 01}
+\frametitle{Results - Predicting Up/Down Categorical Label with Hybrid ARIMA/k-NN }
 
-\input{../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
+%\input{../Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex}
+\input{../Tables/chp_ts_predUpDn_CAT_arima_knn_sys_diff.tex}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Results - Predicting Up/Down Numerical Label Hybrid ARIMA/k-NN}
+
+%\input{../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
+\input{../Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex}
+
+\end{frame}
+
+
+%------------------------------------------------
+\section{Conclusions} %
+%------------------------------------------------
+% ---- Frame ------------
+\begin{frame}
+\frametitle{Conclusions}
+
+\begin{itemize}
+\item Technical Analysis Indicators - generally not good \pause
+\item Break-out system - very good \pause
+\item ARIMA - not good \pause
+\item Hybrid ARIMA models - good with k-NN
+\end{itemize}
 
 \end{frame}
 

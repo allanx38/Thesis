@@ -37,7 +37,8 @@ df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11)) # to hold results
 
 std6 <- c(1,3,4,5,7,8,10)
 
-#s <- read.csv('../Data/Dax_2000_d.csv')
+df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+NaiveRev <- run_NaiveFollowPrev(fil, 0, nm)
 
 # ------------------------------------------
 # ---------  1. Naive Long (Sub Chapter) --------
@@ -499,6 +500,18 @@ cap =  c('Results from Daily High / Low Breakout System.',
                                 'Daily High / Low Breakout System')
 lab = 'tab:hl_bout_sys'
 filname ='../Tables/chp_ta_b_out.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# comp to Naive
+res_diff <- sub_df(res12,NaiveRev)
+
+dat <- res_diff[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Results from Daily High / Low Breakout System compared with Naive Reversing System",
+         "Daily High / Low Breakout System compared with Naive Reversing System")
+lab = 'ab:hl_bout_sys_diff'
+filname ='../Tables/chp_ta_b_out_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 

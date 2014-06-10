@@ -556,12 +556,13 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # comp aring to Naive Prev
-res_diff <- sub_df_av_pl(res,NaiveRev)
+#res_diff <- sub_df_av_pl(res,NaiveRev)
+res_diff2 <- sub_df(res,NaiveRev)
 
 # produce latex table from ts_1
-dat <- res_diff
+dat <- res_diff2[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting Close Price - Arima/k-NN predictions passed to System 1 diff.",
+cap <- c("Predicting Close Price - Arima/k-NN predictions compared with Naive Reversing System.",
          "Predicting Close Price - Arima/k-NN predictions passed to System 1.")
 lab = 'tab:chp_ts:pred_close_arima_knn_sys1_diff'
 filname ='../Tables/chp_ts_pred_close_arima_knn_sys1_diff.tex'
@@ -650,14 +651,15 @@ filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# -------------------
+
 # comp aring to Naive Prev
-res_diff <- sub_df_av_pl(res,NaiveRev)
+#res_diff <- sub_df_av_pl(res,NaiveRev)
+res_diff2 <- sub_df(res,NaiveRev)
 
 # produce latex table from ts_1
-dat <- res_diff
+dat <- res_diff2[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn CAT - Arima/k-NN predictions passed to System 4 - diff.",
+cap <- c("Results from Naive Reversing System subtracted from results generated from predicting Up/Down categorical label using Arima/k-NN.",
          "Predicting UpDn CAT - Arima/k-NN predictions passed to System 4 - ")
 lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys_diff'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys_diff.tex'
@@ -744,11 +746,12 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # comp to Naive
-res_diff <- sub_df_av_pl(NaiveRev, res)
+#res_diff <- sub_df_av_pl(NaiveRev, res)
+res_diff2 <- sub_df(res,NaiveRev)
 
-dat <- res[,c(1,3,4,5,7,8,10)]
+dat <- res_diff2[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn 01 - Arima/k-NN predictions passed to System 3 res diff",
+cap <- c("Results from Naive Reversing System subtracted from results generated from predicting Up/Down Numerical label using Arima/k-NN.",
          "Predicting UpDn 01 - Arima/k-NN predictions passed to System 3.")
 lab = 'tab:chp_ts:pUD_01_arima_knn_sys_diff'
 filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex'
