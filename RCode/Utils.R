@@ -143,6 +143,8 @@ sub_df <- function(df1, df2){
   return(dfres)
 }
 
+# subtract 2 data frames - rtn fewer cols
+# df2 from df1
 sub_df_av_pl <- function(df1, df2){
   
   nc <- ncol(df1)

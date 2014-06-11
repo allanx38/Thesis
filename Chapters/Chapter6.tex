@@ -54,101 +54,55 @@ In an attempt to improve the returns from the trading system a stop loss was int
 it can be seen that applying the stop loss has been on the whole beneficial to the results obtained, with the exception of those from the Dow which were negatively impacted. Essentially losing trades have been truncated while winning trades have been left to develop. This general pattern of a stop loss being beneficial to all the markets except the US Dow was seen multiple times with the systems tested.
 
 %b. MACD – no SL applied here
-The second trend detection indicator explored was the Moving Average Convergence Divergence (MACD) indicator, full details of which can be found in section \ref{appB:MACD} of Appendix \label{AppendixB}. The MACD can generally be used two ways, as a trend detection indicator and as an over-bought/over-sold indicator in which case traders use it to identify potential market reversals. In this section the indicator was used as a trend detector and the results from a system based on the MACD indicator can be seen in Table \ref{tab:mac_trend_results} in Chapter \ref{Chapter4}.  The algorithm trades long when the value of MACD is greater than the value of the signal line, see Appendix \ref{AppendixA} section \ref{appA:macd_xo} for details of the R code used. The results are not very impressive, only the Nikkei producing reasonable profits, although wouldn't beat the baseline Naive Reversing system.
+The second trend detection indicator explored was the Moving Average Convergence Divergence (MACD) indicator, full details of which can be found in section \ref{appB:MACD} of Appendix \label{AppendixB}. The MACD can generally be used two ways, as a trend detection indicator and as an over-bought/over-sold indicator in which case traders use it to identify potential market reversals. In this section the indicator was used as a trend detector and the results from a system based on the MACD indicator can be seen in Table \ref{tab:mac_trend_results} in Chapter \ref{Chapter4}.  The algorithm trades long when the value of MACD is greater than the value of the signal line, see Appendix \ref{AppendixA} section \ref{appA:macd_xo} for details of the R code used. The results are not very impressive, only the Nikkei producing reasonable profits, although they wouldn't beat the baseline Naive Reversing system.
 
-c. Aroon – alone and SL -> sort ref out ...
-The final trend detection indicator examined was Aroon.  This indicator measures the time since the previous high or low within a certain time window. The algorithms presented here used a time window of 20. If today was highest price in the last 20 days trading the indicator would take a value of 100 and for each day that proceeds that doesn't make a new high the indicator falls by 5 (100 divided by the lag period which is 20).  Thus if the highest price was four days ago the AroonUp value would be 80. The opposite situation occurs with regard to the low price. A value of 70 or above for the AroonUp is indicative of a upward trending market and likewise a value of 70 and above for AroonDn suggests a falling market.
+The final trend detection indicator examined was Aroon.  This indicator measures the number of intervals since the previous high or low within a certain time window. The algorithms presented here used a time window of 20 days. If the current day was the highest price in the last 20 days trading, the indicator would take a value of 100 and for each following day that doesn't make a new high the indicator falls by 5 (100 divided by the lag period which is 20).  Thus if the highest price was four days ago the AroonUp value would be 80. The opposite situation occurs with regard to the low price. A value of 70 or above for the AroonUp is indicative of a upward trending market and likewise a value of 70 and above for AroonDn suggests a falling market.
 
-Naive Reversed PL:
-CAC - 7800 (L)  -> 
-FTSE - 4000 (LS)
-Dow - 6000/15800
-Nik - 20500(L)
+The results from an algorithm using the Aroon indicator can be seen in Table \ref{tab:aroon_results} of Chapter \ref{Chapter4}. Overall the results are encouraging with the Dax, FTSE, Dow and AORD all producing positive returns for both long and short trades, while the CAC and Nikkei are positive short trading. Table \ref{tab:aroon_results_diff} lists the values derived from the Aroon system with those from the baseline Reversing system (see Chapter \ref{Chapter4} section \ref{sec:naive:rev}) subtracted. Because the Aroon system doesn't execute trades each day it only makes sense to compare the average daily returns as opposed to the total returns. As can be seen from  Table \ref{tab:aroon_results_diff}, compared with the baseline system for some markets the Aroon indicator outperforms the baseline while for others it is worse. 
 
-The results from an algorithm using these concepts can be seen in Table \ref{}. Overall the results are encouraging.  The Dax, FTSE, Dow, AORD produce positive returns for both Long and Short. The CAC and Nikkei are positive short trading. 
+%\ref{tab:aroon_results_diff}
+\input{Tables/chp_ta_aroon_diff}
 
-The use of a Stop Loss improves the returns from all markets except the Dow. One again using a SL with the Dow shows very marked negative impacts on profits. These results can be seen in Table \ref{}
+The trading system based on the Aroon indicator was re-run with a stop loss value of 100. Overall the use of a stop loss improves the returns, with the exception of the Dow. One again using a stop loss with the Dow shows very marked negative impacts on profits. These results can be seen in \ref{tab:aroon_results_sloss} of Chapter \ref{Chapter4}.
 
-MACD – no SL applied here
-The results from a system based on the moving average convergence/divergence (MACD) indicator can be seen in Table \ref{}. The results are not very impressive, only the Nikkei producing reasonable profits – though wouldn't beat the flip flop system.
+\subsection{Market Reversal Indicators}
+In this section two indicators that purport to assist in identifying market reversals are examined, namely the Parabolic Stop-and-Reverse (SAR) and the Moving Average Convergence Divergence (MACD) used as an over-bought/over-sold indicator. 
 
-Aroon – alone and SL
-Alone – promising results on short side, long side CAC and Nik show loss
-With SL – results improve, except Dow -> results get worse!!  See diff table.
+The first market reversal indicator explored was the Parabolic Stop-and-Reverse (SAR), an indicator initially developed for traders who were always in the market with either long or short position. The SAR is used to judge when the  position should be reversed from long to short or vice versa. The trading algorithm reported here trades each day (i.e opens a trade at the start of the trading session and closes it out at the end) and makes a decision regarding the direction of the trade based on the SAR indicator. If the market opening is above the SAR a long trade is initiated and vice versa if the market is below the SAR value.
 
-\subsection{Market Reversal Indicators} – no SL used
-In this section  two indicators that purport to assist in identifying market reversals are examined.
+The results from the trading system based on the SAR can be seen in Table \ref{tab:sar_results} of Chapter \ref{Chapter4} and are very poor. Only the Nikkei trading short produces reasonable results, but these are much worse than the baseline Naive Reversing method introduced previously.
 
-1. Parabolic Stop-and-Reverse (SAR)
-The first market reversal indicator used was the Parabolic Stop-and-Reverse (SAR) an indicator initially developed for traders who were always in the market either long or short. The SAR was used to judge when the  position should be reversed from long to short or vice versa. The trading algorithm using the SAR trades each day (i.e opens a trade at the start of the trading session and closes it out at the end) and makes a decision regarding the direction of the trade based on the SAR indicator. If the market opening is above the SAR a long trade is initiated and vice versa if the market is below the SAR value.
-
-The results from the trading system based on the SAR can be seen in Table \ref{} and are very poor. Only the Nikkei trading short produce reasonable results, but these are much worse than the naive flip flop method of section \ref{}.
-
-2.	MACD
-As previously mentioned the MACD indicator can be used as a market reversal indicator. Once the MACD value reaches its extreme values the market is considered over-bought or over-sold. The trading algorithm using this concept expects a market reversal once the MACD crosses above the 85\% quantile (of the MACD range) or the 15\% quantile. Short trades are initiated once the MACD crosses above the 85\% quantile value and short trades once it has passed below the 15\% quantile.
-
-The results from this trading system can be seen in Table \ref{} and are very unimpressive. 
-
-V modest results, but we are deffo not in trend at this point …  Cross-ref to a trend indicator?
+As previously mentioned the MACD indicator can be used as a market reversal indicator. Once the MACD value reaches its extreme values, the market is considered over-bought or over-sold and likely to reverse back on itself. The trading algorithm using this concept expects a market reversal once the MACD crosses above the 85\% quantile (of the MACD range) or below the 15\% quantile. Short trades are initiated once the MACD crosses above the 85\% quantile value and short trades once it has passed below the 15\% quantile. The results from this trading system can be seen in Table \ref{tab:mac_ob_results} and are very unimpressive being inferior to the baseline method.
 
 \subsection{Momentum Indicators}
+A third category of technical indicators are the momentum indicators, which are related to the trend detection indicators. Two such indicators are studied here, the Stochastic and Rate of Change (ROC). The stochastic oscillator is one of the oldest and most widely used of the technical indicators. Essentially it measures the percentage position the current close is in relation to the high low range of period of interest. For example the current close could be 80\% of the way between the low and high of the last 10 days. Thus it has conceptual similarities to the Aroon indicator. The stochastic is usually represented by two lines \%K which is the position of the price within this high low envelope described above, and \%D a moving average of \%K (see Appendix \ref{AppendixB} section \ref{appB:stoch} for more details). 
 
-A third type of technical indicators are the momentum indicators, which are related to the trend detection indicators. Two such indicators are studied here, the stochastic and Rate of Change (ROC). 
-1.	Stoch – plus SL
-The stochastic oscillator is one of the oldest and most widely used of the technical indicators. Essentially it measures the percentage position the current close in relation to the high low range of period of interest. Thus it has conceptual similarities to the Aroon indicator. The stochastic is usually represented by two lines \%K which is the position of the price within this high low envelope described above, and \%D a moving average of \%K (see Chapter 4.  Appendix \ref{} for more details). Long trades are initiated when \%K is above \%D and vice versa for short trades. Results from an algorithm implementing these ideas can be seen in Table \ref{}. the results are poor being significantly worse than the naive flip flop system. 
+The trading algorithm utilising the stochastic initiates long trades when \%K is above \%D and short trades when \%K is below \%D. Results from an algorithm implementing these ideas can be seen in  Table \ref{tab:stoch_results} in Chapter \ref{Chapter4}. The results of this system are poor being significantly worse than the baseline Naive Reversing system. 
 
-NB – written “of interest” twice … also "This is of interest as ... " , within this high"
+%ROC1 - Mkt$Long <- ifelse(Mkt$prevROC < lw,Mkt$Close-Mkt$Open,NA)
+%ROC2 - Mkt$Long <- ifelse(Mkt$prevROC > 0,Mkt$Close-Mkt$Open,NA)
 
-Use of the SL improves things - except the Dow as usual.
+The second momentum indicator is the Rate Of Change (ROC) indicator, and this is simply the difference between the current price and a price a certain number of days previously. If this value is positive the market is considered to be trending up and the larger the value the greater the trending momentum. The results from an algorithm using these ideas is presented in Table \ref{tab:stoch_results} of Chapter \ref{Chapter4}. The results are positive but very modest and inferior to the baseline Reversing system.
 
-1.	Stoch – plus SL
-NB – written “of interest” twice …
-a.	Alone – results v. modest
+\subsection{Breakout systems}
+The fourth area of technical analysis explored the idea of trade signals being generated by a particular value from the previous day, so-called breakout systems. Two particular values are used as the trigger price for a trade, the previous day's high/low or the 90\% quantile of the minor move (see section \ref{sec:ohol:fluctuation} of Chapter \ref{Chapter3}). 
 
+The first idea explored was to use the previous time period's high or low price as a trigger for a buy or sell. If the current day's high price exceeded the previous day's high price a long trade would be made and in a similar manner if today's low price is lower than previous day's low a short trade is initiated. Results from using the previous day's high price or low price as a trigger to trade long or short can be seen in Table \ref{tab:hl_bout_sys}. Generally the results are very good with the exception of the Dow. These results can be linked to the data exploratory work shown in Table \ref{tab:closeHL} of section \ref{sec:closing_prices}. The best returns were generated in the Nikkei, a market which had the highest number of times closing outside the previous day's high or low. Conversely, the lowest ranked market in terms of closing outside yesterday's high low range was the Dow, and this was the one market that produced negative results in the break-out system. Table \ref{tab:hl_bout_sys_diff} lists the returns from the high low breakout system with the profits from the baseline Naive Reversing system subtracted. As can be seen, with the exception of the Dow, the method out-performs the baseline system markedly.
 
-2.	ROC
--	Needs finishing in Chp 4
--	Roc1 and 2 – what's Diff ? let's go with ROC2 ...
+%lab = 'tab:hl_bout_sys_diff'
+\input{Tables/chp_ta_b_out_diff}
 
-ROC1 - Mkt$Long <- ifelse(Mkt$prevROC < lw,Mkt$Close-Mkt$Open,NA)
+The second break-out system used the minor fluctuation 90\% quantile value as the trigger level to trade long or short. Once the market moved above this level a long trade was made or if the market moved below this level a short trade was executed. Overall this methodology produces good results with the exception of the Dow and CAC. Table \ref{tab:chp_ta_90q_diff} lists the difference in results between this breakout methodology and the baseline Naive Reversing system.
 
-ROC2 - Mkt$Long <- ifelse(Mkt$prevROC > 0,Mkt$Close-Mkt$Open,NA)
-
-The second momentum indicators is the Rate Of Change (ROC) indicator, and this is simply the difference between the current price and a price a certain number of days previously. If this value is positive the market is considered to be trending up and the larger the value the greater the trending momentum. The results from an algorithm using these ideas is presented in Table \ref{}. Most of the results are negative and in fact doing the opposite would produce reasonable results.
-
-
-\subsection{Break-out systems}
-
-The fourth section explored the idea of trade signals being generated by a particular value from the previous day, so-called breakout systems. Two particular values are used as the trigger price for a trade, the previous day's high/low or the 90\% quantile of the minor move (see section x). 
-
-%1.	Daily high -> no SL …
-%The results from using the previous day's high price or low price as a trigger to trade long or short can be seen in table \ref{]. Generally the results are very good with the exception of the Dow. These results can be linked to the data exploratory work shown in section \ref{} Table \ref{}. The best pl was shown in the Nikkei and this market had the highest number of times closing outside the previous high / low. Conversely, the lowest ranked market was the Dow and this produced negative results in the high/low break-out system.
-
-%-	Error “seen in See Appendix A section A.1.4.1”, "andthis tallies "
-%-	Good results – except Dow, reference to Chp3
-
-2.	90% Q system – no SL
-The second break-out stem used the minor fluctuation 90\% quantile value as the level to buy or sell. Once the market moved this amount above
--	Good results, not as good as b/out system … Dow poor again … Oz v. good given price of mkt, almost as good as b/out sys 
-
-2.	90% Q system – no SL
--	Good results, not as good as b/out system … Dow poor again … Oz v. good given price of mkt, almost as good as b/out sys …
+%lab = 'tab:chp_ta_90q_diff'
+\input{Tables/chp_ta_90q_diff}
 
 \subsection{Candlestick Patterns}
-1.	Hammer
-2.	Hammer plus aroon
+A number of so-called candlestick patterns were explored for predictive properties in financial markets. The patterns tested were essentially market reversal patterns. Firstly Hammer and Inverted Hammer were considered. When these patterns occur it is considered a sign that the market will reverse upwards, especially when they are encountered in a down trend. Table \ref{tab:hammer_results} lists the results from placing buy trades after all occurrences of either pattern while Table \ref{tab:hammer_aroon_results} shows the results from initiating buy trades when these patterns occur inn trending markets. The Aroon indicator detailed in section \ref{appB:aroon} of Appendix \ref{AppendixB} was used to determine if the market was in a trending phase. Overall the results from using the Hammer or Inverted Hammer candlestick pattern to predict market movement was poor. Only the Dow and FTSE showed positive results, although the per trade profit from the Dow was good. Another consideration is the small number of times in which these patterns occur, only 22 trades in the 14 years of the Dow data were made.
 
-3.	Engulfing
-4.	Engulfing plus aroon
-To Do – name of tables are the same …
+The next pattern tested was the Engulfing pattern. This pattern occurs when a candlestick has a lower low and a higher high than the previous day's candlestick, it engulfs it. The presence of this pattern it supposed to indicate that the market will change direction. The results of a trading algorithm that trades long or short depending upon the presence of an Engulfing candlestick can be seen in Table \ref{tab:engulf_results}. The results shown in Table \ref{tab:engulf_aroon_results} are similar to Table \ref{tab:engulf_results} except trades are only taken if the market is trending, with the Aroon indicator used to determine if the market is in a trending phase. The results from both algorithms were very poor, with most markets showing negative results.
 
-5.	Doji
-
-
-Summary
-SL – sma, aroon and stoch – why these?  Add to b/out and naïve systems
-
-
+The final pattern tested was the Doji, one of the best known candlestick patterns. Again the presence of this pattern in a trending market is supposed to give warning to the market participants that a reversal may be imminent. Table \ref{tab:doji_aroon_results} shows the results of a trading system that uses the presence of a Doji in a trending market to initiate a trade. Again the results are very poor with mostly negative returns.
 
 \section{Time Series Analysis}
 ARIMA and hybrid ARIMA models were used to generate forecasts of the closing prices and the more general situation of whether the market would rise or fall. In modelling the more general situation of market direction a categorical and a continuous label was employed. The categorical label used \textquotedblleft U" to represented occasions when the market prices increased and \textquotedblleft D" for when it decreased in value. Alternatively the values 1 and 0 were also used to represent up and down respectively. The primary difference between the two labels was in the values returned from the hybrid ARIMA models. When using 1 and 0 for the class label the models return a value in the range of 1 to 0, whereas for the categorical value there was only the choice of the two values. 
@@ -212,7 +166,8 @@ Finally a k-Nearest Neighbour (k-NN) learner was used instead of the ANN algorit
 
 
 \section{Conclusion}
-TA - not much cop -> b/out good
+
+TA - not much cop -> b/out good, trend Det - Aroon OK, Rev no good ...
 
 \section{Future Work}
 candlestick systems -> price 2,,3,4 days ahead?

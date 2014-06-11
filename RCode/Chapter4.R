@@ -278,9 +278,7 @@ filname ='../Tables/chp_ta_aroon_sloss.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-
-# Aroon - Diffs
-
+# Aroon - Diffs - between Aroon and Aroon with Stop Loss
 aroondfsldf <- as.data.frame(matrix(seq(3),nrow=1,ncol=3))
 ln <- nrow(aroondfsl)
 res <- 1:3
@@ -299,10 +297,21 @@ dig <- 2
 cap =  c('Impact of stop loss on Aroon.',
                       'Impact of using stop loss with Aroon trend indicator.')
 lab = 'tab:aroon_results_sloss_diff'
-filname ='../Tables/chp_ta_aroon_diff.tex'
+filname ='../Tables/chp_ta_aroon_sloss_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
+# Aroon compared to baseline system
+res7_diff <- sub_df_av_pl(res7,NaiveRev)
+#print table
+dat <- res7_diff
+dig <- 0
+cap =  c('Results from baseline Reversing System subtracted from Aroon results.',
+         'Aroon results minus baseline')
+lab = 'tab:aroon_results_diff'
+filname ='../Tables/chp_ta_aroon_diff.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -------------------------------------------------------------------------
 # ------------ Trend REversal -------------------------
@@ -510,7 +519,7 @@ dat <- res_diff[,c(1,3,4,5,7,8,10)]
 dig <- 0
 cap <- c("Results from Daily High / Low Breakout System compared with Naive Reversing System",
          "Daily High / Low Breakout System compared with Naive Reversing System")
-lab = 'ab:hl_bout_sys_diff'
+lab = 'tab:hl_bout_sys_diff'
 filname ='../Tables/chp_ta_b_out_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
@@ -542,6 +551,19 @@ lab = 'tab:q_90_results'
 filname ='../Tables/chp_ta_90q.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# comp to Naive
+res_diff <- sub_df(res14,NaiveRev)
+
+dat <- res_diff[,c(1,3,4,5,7,8,10)]
+dig <- 0
+cap <- c("Results 90\\% Quantile level Breakout System compared with Naive Reversing System",
+         "Daily 90\\% Quantile level Breakout System compared with Naive Reversing System")
+lab = 'tab:chp_ta_90q_diff'
+filname ='../Tables/chp_ta_90q_diff.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
 
 # ----------------------------------------------------------------------------
 # -------section{Candlestick Patterns}
@@ -591,7 +613,7 @@ run_candle_hammer_aroon <- function(fil,SLoss,nm){
     Mkt <- cbind(Mkt,hi)
     ar <- aroon(Mkt$Close,n=20)
     Mkt <- cbind(Mkt,ar)
-    a <- candle_hammer(Mkt,SLoss, nm[i])        
+    a <- candle_hammer_aroon(Mkt,SLoss, nm[i])        
     df10 <- rbind(df10,a)
   }
   df.name <- names(a)
