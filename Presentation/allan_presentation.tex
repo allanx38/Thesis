@@ -1,3 +1,4 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beamer Presentation
 % LaTeX Template
@@ -244,7 +245,7 @@ Institute of Technology Blanchardstown \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Moving Average Convergence Divergence (MACD)}
 
-MACD is a widely used technical indicator which attempts to detect the early stage of a market trend. Subtract a long exponential moving average (EMA) from a shorter one. The EMA is calculated as follows:
+ The EMA is calculated as follows:
 
 \[ EMA(n)_{t} = \dfrac{2}{n+1}(P_{t}-EMA_{t-1}) + EMA_{t-1}\]
 
@@ -286,6 +287,31 @@ where $ EMA(s)_{t} $ is the short moving average and $ EMA(l)_{t} $ is the long 
 \item ARIMA
 \item Hybrid ARIMA
 \end{itemize}
+
+\end{frame}
+
+% ---- Frame ------------
+\begin{frame}
+\frametitle{ARIMA}
+\begin{align*}
+	r(t) & =   c+ \\
+    & b_{1}*r_{t-1}+b_{2}*r_{t-2}...b_{p}*r_{t-p}+ \\ 
+    & a_{1}*ma_{t-1}+a_{2}*ma_{t-2}...a_{q}*ma_{t-q} \\
+    & d_{1}*diff_{t-1}+d_{2}*diff_{t-2} ... d_{d}*diff_{t-d} \\
+    & +err
+\end{align*}
+
+where:
+
+$ c $ is the intercept, which is often zero and the mean of the time series.
+
+$ b_{1}-b_{p} $ are the independent variables, the previous values in the auto-regression term.
+
+$ a_{1}-a_{p} $ are parameters of the moving average model.
+
+$ d_{1}-_{p} $ are the parameters of the differencing term.
+$ \varepsilon $ is random noise.
+
 
 \end{frame}
 
