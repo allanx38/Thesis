@@ -120,7 +120,7 @@ Probably the oldest form of technical analysis in use today is the so-called can
 \centering
 \includegraphics[width=7cm]{chp2_Candlestick}
 %\caption{fs yrytrytr}
-\caption[Candlestick representation of daily open and close prices]{Candlestick representation of daily open and close prices. Days when markets close higher than opening prices (up days) are distinguished from days that close down by use of either different colour or alternatively being filled or not filled.}
+\caption[Candlestick representation of daily open and close prices]{Candlestick representation of daily open and close prices. Different colouring is used to distinguish between prices going up or down.}
 \label{fig:Candlestick}
 \end{figure}
 
@@ -129,7 +129,7 @@ Technical analysis via candlesticks is reputed to have been developed by Munelus
 \begin{figure}[tbph!]
 \centering
 \includegraphics[width=9cm]{chp2_Candlestick_Patterns}
-\caption[Examples of well known candlestick patterns]{Examples of well known patterns encountered in candlestick analysis together with the their commonly accepted predicted powers.}
+\caption[Examples of well known candlestick patterns]{Examples of well known patterns encountered in candlestick analysis.}
 \label{fig:Candlestick_Patterns}
 \end{figure}
 
@@ -182,7 +182,7 @@ As illustrated in Figure \ref{fig:TimeSeriesComponents} a time series can contai
 \begin{figure}[tbph!]
 \centering
 \includegraphics[height=12cm]{chp2_TimeSeriesComponents}
-\caption[Time series decomposed into primary components]{A time series decomposed into its three primary components \citep{CoghlanR}.}
+\caption[A time series decomposed into primary components]{A time series decomposed into its three primary components.}
 \label{fig:TimeSeriesComponents}
 \end{figure}
 
@@ -311,7 +311,7 @@ If researching a time series with no seasonality or trend use of the Holt-Winter
 \begin{figure}[tbph!]
 \centering
 \includegraphics{chp2_HW1a}
-\caption[A time series with no seasonality or trend plus exponential smoothing]{A time series with no seasonality or trend, showing the fitted line generated from Holt-Winters exponential smoothing with the beta and gamma parameters set to false.}
+\caption[Exponential smoothing of a time series with no seasonality or trend]{A time series with no seasonality or trend, showing the fitted line generated from Holt-Winters exponential smoothing with the beta and gamma parameters set to false.}
 \label{fig:HW1a}
 \end{figure}
 
@@ -327,7 +327,7 @@ If the time series is additive with a trend but without seasonality the use of H
 \begin{figure}[tbph!]
 \centering
 \includegraphics{chp2_HW2a}
-\caption[A time series with trend though no seasonality plus exponential smoothing.]{A time series with trend though no seasonality, showing the fitted Holt-Winters exponential smoothing with the gamma parameter set to false.}
+\caption[Exponential smoothing of a time series with trend though no seasonality]{A time series with trend though no seasonality, showing the fitted Holt-Winters exponential smoothing with the gamma parameter set to false.}
 \label{fig:HW2a}
 \end{figure}
 
@@ -341,7 +341,7 @@ If the time series is additive with a trend but without seasonality the use of H
 \begin{figure}[tbph!]
 \centering
 \includegraphics{chp2_HW3a}
-\caption[A time series with trend and seasonality plus exponential smoothing]{A time series with trend and seasonality, showing the fitted Holt-Winters exponential smoothing.}
+\caption[Exponential smoothing of a time series with trend and seasonality]{A time series with trend and seasonality, showing the fitted Holt-Winters exponential smoothing.}
 \label{fig:HW3a}
 \end{figure}
 
@@ -476,7 +476,9 @@ Auto-correlation is the correlation between an attributes value now and the same
 
 A correlogram is a matrix plot of auto-correlations over a series of time lags.  Correlograms are used in checking data for randomness and in the model identification stage of the ARMA methodology (see section \ref{sec:arma}). Data is considered random if the auto-correlation value is close to zero.  In general a data set's randomness needs to be checked in order to confirm the validity of many statistical tests. Thus a correlogram helps to determine if data is random or if an observation is related to an earlier one, thereby helping in the determination of an appropriate ARMA model. 
 
-Figure \ref{fig:acf80} is the correlogram of a data set built-in to R, called AirPassenger, over a range of lags from 1 to 80 and Figure \ref{fig:pacf} is the correlogram of the seasonal component of this data set.
+Figure \ref{fig:acf80} is the correlogram of a data set built-in to R, called AirPassenger, over a range of lags from 1 to 80.
+
+$and Figure \ref{fig:pacf} is the correlogram of the seasonal component of this data set.
 
 \begin{figure}[tbph!]
 \centering
@@ -485,12 +487,12 @@ Figure \ref{fig:acf80} is the correlogram of a data set built-in to R, called Ai
 \label{fig:acf80}
 \end{figure}
 
-\begin{figure}[tbph!]
-\centering
-\includegraphics{chp2_p_pacf}
-\caption[Correlogram of a seasonal component]{Correlogram of the seasonal component of the AirPassenger data, a built-in data set of R, over a range of time lags from 1 to 80.}
-\label{fig:pacf}
-\end{figure}
+%\begin{figure}[tbph!]
+%\centering
+%\includegraphics{chp2_p_pacf}
+%\caption[Correlogram of a seasonal component]{Correlogram of the seasonal component of the AirPassenger data, a built-in data set of R, over a range of time lags from 1 to 80.}
+%\label{fig:pacf}
+%\end{figure}
 
 The partial correlation is defined as the degree of correlation not already explained by the correlations previously measured. If the regression of variable A on variables B1, B2 and B3 is considered the partial correlation between variables A and B3 is the degree of correlation not accounted for by their common correlations with variables B1 and B2. In a similar manner the partial autocorrelation is the unexplained correlation after considering the variable and itself at an earlier time period. In a series, if a variable A at time t is correlated with an earlier lag at time t-1 it follows that the variable at t-1 itself is correlated with the previous variable at lag t-2. By extension the variable at time t should also be correlated with the variable at lag t-2, as the correlation will propagate through the series. The partial autocorrelation is the difference the expected correlations due the propagating factors and the actual correlation measured.
 
