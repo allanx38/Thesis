@@ -30,7 +30,7 @@ Dax <- read.csv("../Data/Dax_2000_d.csv", stringsAsFactors = FALSE)
 # produce latex table
 dat <- head(Dax)
 dig <- 0
-cap <- c("First 6 rows of the Dax data set","First 6 rows of the Dax data set.")
+cap <- c("First 6 rows of the Dax data set.","First 6 rows of the Dax data set")
 lab = 'tab:daxhead'
 filname ='../Tables/chp_3_1_daxhead.tex'
 inclrnam=F
@@ -39,7 +39,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # 2. tail of Dax
 dat <- tail(Dax)
 dig <- 0
-cap <- c("Final 6 rows of the Dax data set","Final 6 rows of the Dax data set.")
+cap <- c("Final 6 rows of the Dax data set.","Final 6 rows of the Dax data set")
 lab = 'tab:daxtail'
 filname ='../Tables/chp_3_1_daxtail.tex'
 inclrnam=F
