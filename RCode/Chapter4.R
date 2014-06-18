@@ -112,7 +112,7 @@ res3 <- run_NaiveFollowPrev(fil, 0, nm)
 dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 2
 cap = c('Naive system which reverses the previous day\'s trade direction.',
-                      'Naive Following System.')
+                      'Naive Reversing System.')
 lab = 'tab:ntfresults'
 filname ='../Tables/chp_ta_naive_follow_prev.tex'
 inclrnam=FALSE
