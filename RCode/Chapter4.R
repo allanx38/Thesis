@@ -217,7 +217,7 @@ res6 <- run_MACD_XO(fil,0,nm)
 
 dat <- res6[,std6]
 dig <- 2
-cap =  c('Results from system using MACD as a Trend Indicator.','Results from system using MACD as a Trend Indicator')
+cap =  c('Results from a system using MACD as a Trend Indicator.','Results from a system using MACD as a Trend Indicator')
 lab = 'tab:mac_trend_results'
 filname ='../Tables/chp_ta_macd.tex'
 inclrnam=FALSE
@@ -246,8 +246,8 @@ res7 <- run_aroon_sys(fil,0,nm)
 
 dat <- res7[,std6]
 dig <- 2
-cap =  c('Aroon trend indicator.',
-                      'Aroon trend indicator')
+cap =  c('Results from Aroon trend indicator.',
+                      'Results from a system based on the Aroon trend indicator')
 lab = 'tab:aroon_results'
 filname ='../Tables/chp_ta_aroon.tex'
 inclrnam=FALSE
@@ -272,7 +272,7 @@ aroondfsl <- res7a
 dat <- res7a[,std6]
 dig <- 2
 cap =  c('Aroon trend indicator with stop loss.',
-                      'Aroon trend indicator with Stop Loss')
+                      'Results from a system based on the Aroon trend indicator with Stop Loss')
 lab = 'tab:aroon_results_sloss'
 filname ='../Tables/chp_ta_aroon_sloss.tex'
 inclrnam=FALSE
@@ -294,7 +294,7 @@ aroondfsldf <- aroondfsldf[-1,]
 
 dat <- aroondfsldf[,c(1,2,3)]
 dig <- 2
-cap =  c('Impact of stop loss on Aroon.',
+cap =  c('Impact of using stop loss with Aroon trend indicator..',
                       'Impact of using stop loss with Aroon trend indicator.')
 lab = 'tab:aroon_results_sloss_diff'
 filname ='../Tables/chp_ta_aroon_sloss_diff.tex'
@@ -336,7 +336,7 @@ res8 <- run_sar_sys(fil,0,nm)
 
 dat <- res8[,std6]
 dig <- 2
-cap =  c('Results from SAR system.','SAR Base System')
+cap =  c('Results from a system based on SAR indicator.','SAR Base System')
 lab = 'tab:sar_results'
 filname ='../Tables/chp_ta_sar.tex'
 inclrnam=FALSE
@@ -367,7 +367,7 @@ res9 <- run_MACD_OB(fil,0,nm)
 
 dat <- res9[,std6]
 dig <- 2
-cap =  c('MACD can also be used as a trend reveral indicator.',
+cap =  c('Results from a trading system based on MACD being used as a trend reveral indicator.',
                       'MACD as Trend Reversal Indicator')
 lab = 'tab:mac_ob_results'
 filname ='../Tables/chp_ta_macd_ob.tex'
