@@ -4,7 +4,6 @@ BaseSystem1SMA <- function(Mkt, sma, SLoss, MktName){
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out 
-  #
   # Returns:
   #   profit/loss from trading according to SMA.
   
@@ -14,7 +13,6 @@ BaseSystem1SMA <- function(Mkt, sma, SLoss, MktName){
   Mkt <- cbind(Mkt, sma.value)        #add sma vector as new col
   
   # Trade Long
-  #browser()
   Mkt$Long <- ifelse(Mkt$Open > Mkt$sma.value, Mkt$Close - Mkt$Open, NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=T))
   if (SLoss < 0) {
@@ -34,27 +32,13 @@ BaseSystem1SMA <- function(Mkt, sma, SLoss, MktName){
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=T))
   }
   
-  Stats <- calcStats(Mkt$Long)
-  results[5:7] <- Stats
+  #calculate Long results
+  results[5:7] <- calcStats(Mkt$Long)
   
-  Stats <- calcStats(Mkt$Short)
-  results[8:10] <- Stats
+  #calculate Short results
+  results[8:10] <- calcStats(Mkt$Short)
   
-  results[11] <- sma
-  nm <- c("Mkt",          # 1. Name of Mkt
-          "S Loss",       # 1. Name of Mkt
-          "LongPL",       # 1. Name of Mkt
-          "ShortPL",      # 1. Name of Mkt
-          "L Win %",      # 1. Name of Mkt
-          "L Trades",    # 1. Name of Mkt
-          "Av L PL",      # 1. Name of Mkt
-          "S Win %",      # 1. Name of Mkt
-          "S Trades",    # 1. Name of Mkt
-          "Av S PL",
-          "SMA") 
-  names(results) <- nm
-  
-  #write.csv(Mkt, 'smatest.csv')
+  names(results)[11] <- "SMA"
   
   return(results)
 }

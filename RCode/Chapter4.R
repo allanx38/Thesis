@@ -58,15 +58,11 @@ run_NaiveLongSystem <- function(fil, SLoss, nm){
 
 res1 <- run_NaiveLongSystem(fil,0,nm)
 
-#res1 <- debug(run_NaiveLongSystem)
-#res1 <- run_NaiveLongSystem(fil,0,nm)
-#undebug(run_NaiveLongSystem(fil,0,nm))
-
 # produce latex table
 dat <- res1[,c(1,3,5,7)]
 dig <- 2
 cap = c('Naive Long System. A very simple system in which the algorithm assumes the market will rise and enters a long trade each day.',
-            'Naive Long System')
+            'Results from the Naive Long System')
 lab = 'tab:nlng_results'
 filname ='../Tables/chp_ta_naive_long.tex'
 inclrnam=FALSE
@@ -94,7 +90,7 @@ res2 <- run_NaiveLongSystem2(fil,0,nm)
 dat <- res2[,c(1,3,5,7)]
 dig <- 2
 cap = c('Naive Long System changed such that the trading period is the previous close price minus today\'s close.',
-            'Naive Long System - Close to Close')
+            'Results from the Naive Long System trading close to close')
 lab = 'tab:nlng_results_2'
 filname ='../Tables/chp_ta_naive_long_ctoc.tex'
 inclrnam=FALSE
@@ -111,8 +107,8 @@ res3 <- run_NaiveFollowPrev(fil, 0, nm)
 # produce latex table
 dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 2
-cap = c('Naive system which reverses the previous day\'s trade direction.',
-                      'Naive Reversing System.')
+cap = c('Results from a naive trading system which simply trades in the opposite direction to the previous day\'s movement.',
+                      'Results from the Naive Reversing System.')
 lab = 'tab:ntfresults'
 filname ='../Tables/chp_ta_naive_follow_prev.tex'
 inclrnam=FALSE
@@ -159,20 +155,17 @@ res4 <- run_BaseSystem1SMA(fil,0,nm)
 
 dat <- res4[,c(1,3,4,5,7,8,10,11)]
 dig <- 2
-cap = c('Results from SMA system.','SMA Base System')
+cap = c('Results from a system based on SMA.','Results from a system based on SMA')
 lab = 'tab:sma_results'
 filname ='../Tables/chp_ta_sma.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 
 # SMA SLoss
 run_BaseSystem1SMA2 <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
     Dax <- read.csv(fil[i])
-    #f <- BaseSystem1SMA(Dax, 5, -50, nm[i])
-    #g <- BaseSystem1SMA(Dax, 5, -100, nm[i])
     h <- BaseSystem1SMA(Dax, 100, -50, nm[i])
     hh <- BaseSystem1SMA(Dax, 100, -100, nm[i])  #don't use i !!!!!
     df10 <- rbind(df10,h,hh)
@@ -187,8 +180,8 @@ res5 <- run_BaseSystem1SMA2(fil,0,nm)
 
 dat <- res5[,c(1,2,3,4,5,6,8,9,11)]
 dig <- 2
-cap =  c('Results from SMA system with Stop Loss.',
-                      'SMA Base System with Stop Loss')
+cap =  c('Results from a system based on SMA with stop loss.',
+                      'Results from a system based on SMA with stop loss')
 lab = 'tab:sma_results_Sloss'
 filname ='../Tables/chp_ta_sma_sloss.tex'
 inclrnam=FALSE
@@ -217,7 +210,8 @@ res6 <- run_MACD_XO(fil,0,nm)
 
 dat <- res6[,std6]
 dig <- 2
-cap =  c('Results from a system using MACD as a Trend Indicator.','Results from a system using MACD as a Trend Indicator')
+cap =  c('Results from a system using MACD as a trend indicator.',
+         'Results from a system using MACD as a trend indicator')
 lab = 'tab:mac_trend_results'
 filname ='../Tables/chp_ta_macd.tex'
 inclrnam=FALSE
@@ -246,8 +240,8 @@ res7 <- run_aroon_sys(fil,0,nm)
 
 dat <- res7[,std6]
 dig <- 2
-cap =  c('Results from Aroon trend indicator.',
-                      'Results from a system based on the Aroon trend indicator')
+cap =  c('Results from a system based on the Aroon indicator.',
+                      'Results from a system based on the Aroon indicator')
 lab = 'tab:aroon_results'
 filname ='../Tables/chp_ta_aroon.tex'
 inclrnam=FALSE
@@ -271,8 +265,8 @@ aroondfsl <- res7a
 
 dat <- res7a[,std6]
 dig <- 2
-cap =  c('Aroon trend indicator with stop loss.',
-                      'Results from a system based on the Aroon trend indicator with Stop Loss')
+cap =  c('Results from a system based on the Aroon indicator with stop loss.',
+                      'Results from a system based on the Aroon indicator with stop loss')
 lab = 'tab:aroon_results_sloss'
 filname ='../Tables/chp_ta_aroon_sloss.tex'
 inclrnam=FALSE
@@ -294,8 +288,8 @@ aroondfsldf <- aroondfsldf[-1,]
 
 dat <- aroondfsldf[,c(1,2,3)]
 dig <- 2
-cap =  c('Impact of using stop loss with Aroon trend indicator..',
-                      'Impact of using stop loss with Aroon trend indicator.')
+cap =  c('Impact of using stop loss with Aroon trend indicator.',
+                      'Impact of using stop loss with Aroon trend indicator')
 lab = 'tab:aroon_results_sloss_diff'
 filname ='../Tables/chp_ta_aroon_sloss_diff.tex'
 inclrnam=FALSE
@@ -336,7 +330,8 @@ res8 <- run_sar_sys(fil,0,nm)
 
 dat <- res8[,std6]
 dig <- 2
-cap =  c('Results from a system based on SAR indicator.','SAR Base System')
+cap =  c('Results from a system based on the SAR indicator.',
+         'Results from a system based on the SAR indicator')
 lab = 'tab:sar_results'
 filname ='../Tables/chp_ta_sar.tex'
 inclrnam=FALSE
@@ -368,7 +363,7 @@ res9 <- run_MACD_OB(fil,0,nm)
 dat <- res9[,std6]
 dig <- 2
 cap =  c('Results from a trading system based on MACD being used as a trend reveral indicator.',
-                      'MACD as Trend Reversal Indicator')
+                      'Results from a system based on MACD as trend reversal indicator')
 lab = 'tab:mac_ob_results'
 filname ='../Tables/chp_ta_macd_ob.tex'
 inclrnam=FALSE
@@ -407,8 +402,8 @@ res10 <- run_stoch_sys(fil,0,nm)
 
 dat <- res10[,std6]
 dig <- 2
-cap =  c('Results from Stochastics system.',
-                      'Stochastics system')
+cap =  c('Results from a system based on the Stochastic indicator.',
+                      'Results from a system based on the Stochastic indicator')
 lab = 'tab:stoch_results'
 filname ='../Tables/chp_ta_stoch.tex'
 inclrnam=FALSE
@@ -420,8 +415,8 @@ res10a <- run_stoch_sys(fil,-100,nm)
 
 dat <- res10a[,std6]
 dig <- 2
-cap =  c('Results from Stochastics system and using a Stop Loss.',
-                      'Stochastics system with stop loss')
+cap =  c('Results from a system based on the Stochastic indicator with a stop loss.',
+         'Results from a system based on the Stochastic indicator with a stop loss')
 lab = 'tab:stoch_results_sloss'
 filname ='../Tables/chp_ta_stoch_sloss.tex'
 inclrnam=FALSE
@@ -451,8 +446,8 @@ res11 <- run_roc_sys(fil,0,nm)
 
 dat <- res11[,std6]
 dig <- 2
-cap =  c('ROC.',
-                                'ROC')
+cap =  c('Results from a system based on the ROC indicator.',
+         'Results from a system based on the ROC indicator')
 lab = 'tab:mac_roc_results'
 filname ='../Tables/chp_ta_roc.tex'
 inclrnam=FALSE
@@ -505,8 +500,8 @@ res12 <- run_BaseSystem2Bout(fil,0,nm)
 
 dat <- res12[,std6]
 dig <- 2
-cap =  c('Results from Daily High / Low Breakout System.',
-                                'Daily High / Low Breakout System')
+cap =  c('Results from the Daily High / Low Breakout System.',
+         'Results from the Daily High / Low Breakout System')
 lab = 'tab:hl_bout_sys'
 filname ='../Tables/chp_ta_b_out.tex'
 inclrnam=FALSE
@@ -545,8 +540,8 @@ res14 <- run_BaseSystem3Quant902(fil,0,nm)
 
 dat <- res14[,std6]
 dig <- 2
-cap =  c('Results from a trading system using 90\\% Quantile level.',
-         'Break-out of 90\\% Quantile')
+cap =  c('Results from a system that breaks out from the 90\\% quantile level of the day\'s minor move.',
+         'Results from a break out system using the day\'s the minor move')
 lab = 'tab:q_90_results'
 filname ='../Tables/chp_ta_90q.tex'
 inclrnam=FALSE
@@ -593,7 +588,8 @@ res14 <- run_candle_hammer(fil,0,nm)
 # latex table
 dat <- res14[,c(1,3,5,6,7)]
 dig <- 2
-cap = c('Results from Hammer / Inverted Hammer.','Hammer System')
+cap = c('Results from a system based on the Hammer and Inverted Hammer candlestick patterns.',
+        'Results from a system based on the Hammer and Inverted Hammer candlestick patterns')
 lab = 'tab:hammer_results'
 filname ='../Tables/chp_ta_hammer.tex'
 inclrnam=FALSE
@@ -627,8 +623,8 @@ res14a <- run_candle_hammer_aroon(fil,0,nm)
 # latex table
 dat <- res14a[,c(1,3,5,6,7)]
 dig <- 2
-cap =  c('Results from Hammer / Inverted Hammer occurring in a downtrend as defined by the aroon value.',
-                                'Hammer System in downtrend.')
+cap =  c('Results from a system based on the Hammer and Inverted Hammer candlestick patterns occurring in a downtrend as defined by the aroon value.',
+         'Results from a system based on the Hammer and Inverted Hammer candlestick patterns occurring in a downtrend')
 lab = 'tab:hammer_aroon_results'
 filname ='../Tables/chp_ta_hammer_d_trend.tex'
 inclrnam=FALSE
@@ -661,8 +657,8 @@ res15 <- run_candle_engulf(fil,0,nm)
 # latex table
 dat <- res15[,std6]
 dig <- 2
-cap =  c('Results from Engulfing Candlestick.',
-                                'Engulfing Candlestick System')
+cap =  c('Results from a system based on the Engulfing candlestick pattern.',
+          'Results from a system based on the Engulfing candlestick pattern')
 lab = 'tab:engulf_results'
 filname ='../Tables/chp_ta_englf.tex'
 inclrnam=FALSE
@@ -696,8 +692,8 @@ res15a <- run_candle_engulf_aroon(fil,0,nm)
 # latex table
 dat <- res15a[,std6]
 dig <- 2
-cap =  c('Results from Engulfing Candlestick with Aroon.',
-                                'Engulfing Candlestick System with Aroon')
+cap =  c('Results from a system based on the Engulfing candlestick pattern in a trending market.',
+         'Results from a system based on the Engulfing candlestick pattern in a trending market')
 lab = 'tab:engulf_aroon_results'
 filname ='../Tables/chp_ta_englf_aroon.tex'
 inclrnam=FALSE
@@ -731,8 +727,8 @@ res16 <- run_candle_doji_aroon(fil,0,nm)
 # latex table
 dat <- res16[,std6]
 dig <- 2
-cap = c('Results from Doji Candlestick with aroon.',
-                                'Doji Candlestick System with aroon')
+cap = c('Results from a system based on the Doji candlestick pattern in a trending market.',
+        'Results from a system based on the Doji candlestick pattern in a trending market')
 lab = 'tab:doji_aroon_results'
 filname ='../Tables/chp_ta_doji.tex'
 inclrnam=FALSE

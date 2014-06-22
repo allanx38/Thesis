@@ -1,11 +1,10 @@
 sar_sys <- function(Mkt, SLoss, MktName){
-  # uses Aroon indicator to trigger rades
+  # uses Parabolic SAR indicator to trigger trades
   #
   # Args:
   #   Mkt:      Data
   #   SLoss:    Stop Loss (if 0 not used)
   #   MktName:  Name of market
-  #
   # Returns:
   #   results vector.
   
@@ -34,11 +33,11 @@ sar_sys <- function(Mkt, SLoss, MktName){
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   }
   
-  Stats <- calcStats(Mkt$Long)
-  results[5:7] <- Stats
+  #calculate Long results 
+  results[5:7] <- calcStats(Mkt$Long)
   
-  Stats <- calcStats(Mkt$Short)
-  results[8:10] <- Stats
+  #calculate Short results
+  results[8:10] <- calcStats(Mkt$Short)
   
   return(results)
 }

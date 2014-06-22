@@ -106,27 +106,18 @@ The logic of the stop loss was coded as follows. Considering a long trade (the o
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=9cm]{chp5b_StopLoss1}
-\caption[ Stop Loss.]{Situation in which using a Stop Loss is beneficial, with a losing PL being reduced.}
+\caption[Situation in which using a stop loss is beneficial]{Situation in which using a stop loss is beneficial, with a losing PL being reduced.}
 \label{fig:chp5:sloss1}
 \end{figure}
 
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=9cm]{chp5b_StopLoss2}
-\caption[ Stop Loss.]{Situation in which using a Stop Loss is detrimental, being \textquotedblleft Stopped Out" of an ultimately winning trade.}
+\caption[Situation in which using a stop loss is detrimental]{Situation in which using a stop loss is detrimental, being \textquotedblleft stopped out" of an ultimately winning trade.}
 \label{fig:chp5:sloss2}
 \end{figure}
 
-
-%\begin{figure}[tbph]
-%\centering
-%\includegraphics[width=9cm]{chp5b_SLoss_new}
-%\caption[ Stop Loss.]{Being Stopped out.}
-%\label{fig:chp5:sloss_new}
-%\end{figure}
-
-
-Figure \ref{fig:chp5:sloss1} shows the situation in which a stop loss is benefiical. The potential large loss is reduced to the value of the stop loss value. Figure \ref{fig:chp5:sloss2} illustrates the alternative scenario of being \textquotedblleft Stopped Out" of an ultimately winning trade, an undesirable outcome. It is the ratio of these scenarios that ultimately determines whether using a stop loss is a sound strategy.
+Figure \ref{fig:chp5:sloss1} shows the situation in which a stop loss is beneficial. The potential large loss is reduced to the value of the stop loss value. Figure \ref{fig:chp5:sloss2} illustrates the alternative scenario of being \textquotedblleft Stopped Out" of an ultimately winning trade, an undesirable outcome. It is the ratio of these scenarios that ultimately determines whether using a stop loss is a sound strategy.
 
 \input{Tables/chp_ta_sma_sloss}
 
@@ -143,13 +134,13 @@ In order to identify the trend of a market using the MACD indicator, the relativ
 
 Table \ref{tab:mac_trend_results} lists the results of using the MACD indicator in just such a way. The MACD value itself is generated using the EMA of the opening prices with values of 26 and 12 for the slow and long averages and a value of 9 days for the indicator line. 
 
-The trading algorithm splits the results into two values, days when the system expected the market to rise and days when a market decline were predicted (see Appendix \ref{AppendixA} section \ref{appA:macd_xo} for details of the R code used and Appendix \ref{AppendixB} section \ref{appB:MACD} for background information on the MACD indicator). At the start of each day if the MACD value exceeds the signal line the algorithm adds the value of the close price minus the opening price to the \textquotedblleft Long PL" running total. Likewise in the opposite situation with the signal line greater than the MACD, the value of the open price minus the close price is added to the \textquotedblleft Short PL". Table \ref{tab:mac_trend_results} lists the results of the algorithm run against a variety of national indices.
+The trading algorithm splits the results into two values, days when the system expected the market to rise and days when a market decline were predicted (see Appendix \ref{AppendixA} section \ref{appA:macd_xov} for details of the R code used). At the start of each day if the MACD value exceeds the signal line the algorithm adds the value of the close price minus the opening price to the \textquotedblleft Long PL" running total. Likewise in the opposite situation with the signal line greater than the MACD, the value of the open price minus the close price is added to the \textquotedblleft Short PL". Table \ref{tab:mac_trend_results} lists the results of the algorithm run against a variety of national indices.
 
 \input{Tables/chp_ta_macd}
 
 
 \subsection{Aroon Indicator}
-Developed by Tushar Chande in 1995, the Aroon indicator was designed to identify trending markets \citep{aroon_stockcharts}. The word aroon means \textquotedblleft dawn's early light" in Sanskrit and this indicator tries to pin point the dawning of a new trend.  Essentially it is a measure of the time since the occurrence of a high/low price in a particular period. Further details can be seen in Appendix \ref{AppendixB} section \ref{appB:aroon}.
+Developed by Tushar Chande, the Aroon indicator was designed to identify trending markets \citep{chande1994new}. The word aroon means \textquotedblleft dawn's early light" in Sanskrit and this indicator tries to pin point the dawning of a new trend.  Essentially it is a measure of the time since the occurrence of a high/low price in a particular period. Further details can be seen in Appendix \ref{AppendixB} section \ref{appB:aroon}.
 
 \input{Tables/chp_ta_aroon}
 
@@ -165,7 +156,7 @@ The affects of using a stop loss with the Aroon indicator was investigated and t
 The alternative to trend detection indicators are market reversal indicators, designed to identify when a trend may be ending and the market will start to move in the opposite direction. Many traders advocate that this type of trading should be avoided and cite the old phrase \textquotedblleft never try to catch a falling knife". Nevertheless a variety of market reversal technical indicators are explored and their effectiveness noted.
 
 \subsection{Parabolic Stop-and-Reverse  (SAR)}
-The parabolic stop-and-reverse (SAR) is a method to calculate a trailing stop. This technical indicator was developed by J. Welles Wilder and is detailed in his book New Concepts in Technical Trading Systems \citep{wilder1978new}. A trailing stop is related to the stop loss explored previously but differs in that it is adjusted as the market moves. If the market rises it is adjusted upwards, for example being set a certain distance from the highest high of a particular period. The parabolic SAR calculates the point at which a long trade would be closed and a short position entered, the assumption being that the market participant is always in the market either short or long. More details on the theory and calculations to generate the parabolic SAR can be found in Appendix \ref{AppendixB} section \ref{appB:sar}.  
+The parabolic stop-and-reverse (SAR) is a method to calculate a trailing stop. This technical indicator was developed by J. Welles Wilder and is detailed in his book New Concepts in Technical Trading Systems \citep{wilder1978new}. A trailing stop is related to the stop loss explored previously but differs in that it is adjusted as the market moves. The level of this of kind of stop loss is amended periodically such that it is a certain amount away from the high or low value of a market. As the the market makes new highs it is adjusted up or down if the market makes new lows. The parabolic SAR calculates the point at which a long trade would be closed and a short position entered, the assumption being that the market participant is always in the market either short or long. More details on the theory and calculations to generate the parabolic SAR can be found in Appendix \ref{AppendixB} section \ref{appB:sar}.  
 
 Table \ref{tab:sar_results} lists the results from passing a variety of national index data sets to an algorithm using the parabolic SAR. The R code used to generate these results can be seen in See Appendix \ref{AppendixA} section \ref{appA:sar}. On the whole the results from these initial tests are very disappointing. Only three of the national indices generated positive results and only the Japanese Nikkei provided reasonable returns.
 
@@ -231,7 +222,7 @@ Four well-known patterns that are generally considered to indicate the possible 
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=5cm]{chp5e_candle_hammer}
-\caption[Shooting Star.]{Hammer and Inverted Hammer.}
+\caption[Hammer and Inverted Hammer candlestick patterns]{Hammer and Inverted Hammer candlestick patterns.}
 \label{fig:chp5e:hammer}
 \end{figure}
 
@@ -240,7 +231,7 @@ Figure \ref{fig:chp5e:hammer} is a diagram of a Hammer and Inverted Hammer patte
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=5cm]{chp5e_candle_shoot_star}
-\caption[Shooting Star.]{Shooting Star and Hanging Man.}
+\caption[Hanging Man and Shooting Star candlestick patterns]{Hanging Man and Shooting Star candlestick patterns.}
 \label{fig:chp5e:shoot_star}
 \end{figure}
 
@@ -249,7 +240,7 @@ Figure \ref{fig:chp5e:shoot_star} is a diagram of Hanging Man and Shooting Star,
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=12cm]{chp5e_candle_shoot_star_apr_dax_jp}
-\caption [Dax Candlestick Patterns April 2014.]{Daily candlestick patterns from the German Dax over 22 days in April 2014 with Shooting Star and Hanging Man circled.}
+\caption [Dax candlestick patterns occurring in April 2014.]{Daily candlestick patterns from the German Dax over 22 days in April 2014 with Shooting Star and Hanging Man circled.}
 \label{fig:chp5e:shoot_star_dax}
 \end{figure}
 
@@ -294,7 +285,7 @@ The \textquotedblleft Engulfing" pattern, either Bull or Bear is another widely 
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=10cm]{chp5e_candle_engulf}
-\caption[ Engulfing Pattern.]{Engulfing Pattern.}
+\caption[Engulfing candlestick patterns]{Engulfing candlestick patterns.}
 \label{fig:chp5e:engulf}
 \end{figure}
 
@@ -315,7 +306,7 @@ Doji is a well-known candlestick pattern that can appear on its own or as a comp
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=10cm]{chp5e_candle_doji}
-\caption[ Doji Star.]{Doji Pattern.}
+\caption[Doji candlestick patterns]{Doji candlestick patterns.}
 \label{fig:chp5e:doji}
 \end{figure}
 

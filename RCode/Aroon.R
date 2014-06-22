@@ -1,17 +1,15 @@
 aroon_sys <- function(Mkt, SLoss, MktName){
-  # uses Aroon indicator to trigger rades
+  # uses Aroon indicator to trigger trades
   #
   # Args:
-  #   Mkt:      Data
+  #   Mkt:      Data to run system on
   #   SLoss:    Stop Loss (if 0 not used)
   #   MktName:  Name of market
-  #
   # Returns:
   #   results vector.
   
   results <- createResultsVector(MktName, SLoss)
-  
-    # Trade Long
+  # Trade Long
   Mkt$Long <- ifelse(Mkt$aroonUp >= 70,Mkt$Close-Mkt$Open,NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   #Adj for SLoss
@@ -25,6 +23,7 @@ aroon_sys <- function(Mkt, SLoss, MktName){
   # Trade Short
   Mkt$Short <- ifelse(Mkt$aroonDn >= 70,Mkt$Open-Mkt$Close,NA)
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
+  #Adj for SLoss
   if (SLoss < 0) {
       Mkt$Short <- ifelse(Mkt$aroonDn >= 70,
                         ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Short),
@@ -32,11 +31,11 @@ aroon_sys <- function(Mkt, SLoss, MktName){
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   }
   
-  Stats <- calcStats(Mkt$Long)
-  results[5:7] <- Stats
+  #calculate Long results
+  results[5:7] <- calcStats(Mkt$Long)
   
-  Stats <- calcStats(Mkt$Short)
-  results[8:10] <- Stats
+  #calculate Short results
+  results[8:10] <- calcStats(Mkt$Short)
   
   return(results)
 }

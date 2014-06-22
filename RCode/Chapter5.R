@@ -13,9 +13,6 @@ source("../RCode/ts_3.R")
 source("../RCode/ts_3a.R")
 source("../RCode/ts_4.R")
 source("../RCode//NaiveFollowPrev.R")
-#source("ts_1.R")
-#source("ts_2.R")
-#source("Utils.R")
 
 fil <- c("../Data/Dax_2000_d.csv",
          "../Data/CAC_2000_d.csv", 
@@ -232,7 +229,7 @@ dev.off()
 # ----------------------------------------------------
 # 2.5. Try your chosen model(s), and use the AICc to search for a better model.
        
-mod_ar <- function(Mkt, ord, nm){
+mod_ar <- function(Mkt_ts, ord, nm){
   res <- t(as.data.frame(rep(0,4)))
   mod <- Arima(Mkt_ts, order=ord)
   res[1,1] <- nm
@@ -262,16 +259,12 @@ results <- results[-1,]
 # produce latex table
 dat <- results
 dig <- c(0,0,2,2,2)
-cap <- c("AIC, AIc and BIC results from alternative ARIMA models.","alternative ARIMA models")
+cap <- c("AIC, AICc and BIC results from alternative ARIMA models.",
+         "AIC, AICc and BIC results from alternative ARIMA models")
 lab = 'tab:chp_ts:arima_res_r'
 filname ='../Tables/chp_ts_arima_res_r.tex'
 inclrnam=F
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# model_311 <- Arima(Mkt_ts, order=c(3,1,1))
-# results[1,1] <- model_311$aic
-# results[2,1] <- model_311$aicc
-# results[3,1] <- model_311$bic
 
 # ----------------------------------------------------
 # 2.6. Check the residuals from your chosen model by plotting the ACF of the residuals, 
@@ -315,7 +308,8 @@ results_bc_t <- t(results_bc)
 
 dat <- results_bc_t
 dig <- c(0,4,0,0)
-cap <- c("Box Ljung test.","Box Ljung test.")
+cap <- c("Box Ljung test of FTSE 100 ARIMA model residuals.",
+         "Box Ljung test of FTSE 100 ARIMA model residuals")
 lab = 'tab:chp_ts:arima_res_rbox_l'
 filname ='../Tables/chp_ts_arima_res_r_box_l.tex'
 inclrnam=TRUE
@@ -337,7 +331,8 @@ colnames(Mkt_test_df) <- c('Date','Open','High','Low','Close','Forecast')
 # plot the results
 dat <- tail(Mkt_test_df)
 dig <- 0
-cap <- c("FTSE 100 foecast.","FTSE 100 forecast.")
+cap <- c("One step ahead forecast for FTSE 100 generated from ARIMA(2,1,3) model.",
+         "Forecast for FTSE 100 generated from the ARIMA model")
 lab = 'tab:chp_ts:ftse_100_fcast'
 filname ='../Tables/chp_ts_ftse_100_fcast.tex'
 inclrnam=F
