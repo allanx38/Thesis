@@ -1,10 +1,9 @@
 BaseSystem2Bout <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from a break out system.
+  # Trading system based on the break out of the previous day's high/low value.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
-  #   MktName: market's name for print out  
-  #
+  #   MktName: market's name for print out
   # Returns:
   #   results vector.
   
