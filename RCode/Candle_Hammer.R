@@ -1,5 +1,5 @@
 candle_hammer <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading a based on candelstick Hammer.
+  # Trading system based on the Hammer candelstick pattern.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
