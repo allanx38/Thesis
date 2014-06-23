@@ -5,7 +5,7 @@ NaiveFollowPrev <- function(Mkt, SLoss, MktName){
   #   SLoss: stop loss 
   #   MktName: market's name for print out
   # Returns:
-  #   profit/loss from trading according to SMA.
+  #   results vector
   
   results <- createResultsVector(MktName, SLoss)
   
