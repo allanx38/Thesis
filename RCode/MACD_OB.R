@@ -13,7 +13,7 @@ MACD_OB <- function(Mkt, SLoss, MktName,lw, up){
   
   results <- createResultsVector(MktName, SLoss)
   
-  # Break out high
+  # Trade Long
   Mkt$Long <- ifelse(Mkt$macd < lw,Mkt$Close-Mkt$Open,NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   #Adj for SLoss
@@ -24,7 +24,7 @@ MACD_OB <- function(Mkt, SLoss, MktName,lw, up){
     results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   }
   
-  # Break out low
+  # Trade Short
   Mkt$Short <- ifelse(Mkt$macd > up,Mkt$Open-Mkt$Close,NA)
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   if (SLoss < 0) {
