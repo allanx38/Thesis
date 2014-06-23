@@ -1,4 +1,4 @@
-MACD_OB <- function(Mkt, SLoss, MktName,lw, up){
+MACD_OB <- function(Mkt, SLoss, MktName, lw, up){
   # MACD over-bought/sold system.
   #
   # Args:
