@@ -1,5 +1,5 @@
 candle_doji_aroon <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from using Doji candlestick pattern.
+  # Trading system based on the Doji candelstick pattern occurring in a trending market.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
