@@ -1,19 +1,16 @@
 NaiveFollowPrev <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading according to a naive follow previous day idea.
+  # Calculates the profit/loss from trading according to a naive idea of trading in the opposite direction to the previous day.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out
-  #
   # Returns:
   #   profit/loss from trading according to SMA.
   
   results <- createResultsVector(MktName, SLoss)
   
   Mkt$pl <- Mkt$Close - Mkt$Open
-  #Mkt$prevPL <- c( NA, Mkt$Close[ - length(Mkt$Close) ] - Mkt$Open[ - length(Mkt$Open) ] )
   Mkt$prevPL <- c( NA, Mkt$pl[ - length(Mkt$pl) ] )
-  
   
   # Trade Long
   Mkt$Long <- ifelse(Mkt$prevPL<0,Mkt$Close-Mkt$Open,NA)
