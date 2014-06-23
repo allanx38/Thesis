@@ -7,7 +7,6 @@ MACD_OB <- function(Mkt, SLoss, MktName,lw, up){
   #   MktName: market's name for print out
   #   lw: value of MACD that signals end of bear runs and rev
   #   up: value of MACD that signals end of bull runs and rev
-  #
   # Returns:
   #   results vector.
   
