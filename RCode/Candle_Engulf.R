@@ -1,10 +1,9 @@
 candle_engulf <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading a based on an Engulfing candelstick.
+  # Trading system based on the Engulfing candelstick pattern.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out  
-  #
   # Returns:
   #   results vector.
   
