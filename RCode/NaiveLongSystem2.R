@@ -6,7 +6,6 @@ NaiveLongSystem2 <- function(Mkt, SLoss, MktName){
   #   Mkt: market data 
   #   SLoss: stop loss
   #   MktName: name of market data
-  #
   # Returns:
   #   results vector.
   
