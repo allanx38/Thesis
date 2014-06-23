@@ -4,7 +4,6 @@ BaseSystem3Quant902 <- function(Mkt, SLoss, MktName){
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out  
-  #
   # Returns:
   #   results vector.
   
@@ -13,7 +12,6 @@ BaseSystem3Quant902 <- function(Mkt, SLoss, MktName){
   Mkt$OH <- Mkt$High - Mkt$Open
   Mkt$OL <- Mkt$Open - Mkt$Low
   Mkt$mn <- ifelse(Mkt$OH>Mkt$OL,Mkt$OL,Mkt$OH)
-  Mkt$mx <- ifelse(Mkt$OH>Mkt$OL,Mkt$OH,Mkt$OL)
   qq <- quantile(Mkt$mn, probs=0.90)
   
   # Trade Long
