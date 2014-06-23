@@ -1,11 +1,10 @@
 stoch_sys <- function(Mkt, SLoss, MktName){
-  # uses Stochastic Oscillator to trigger rades
+  # Trading system useing Stochastic Oscillator to trigger trades
   #
   # Args:
   #   Mkt:      Data
   #   SLoss:    Stop Loss (if 0 not used)
   #   MktName:  Name of market
-  #
   # Returns:
   #   results vector.
   
