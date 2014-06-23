@@ -1,10 +1,9 @@
 candle_hammer_aroon <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading a based on candelstick Hammer in a trend.
+  # Trading system based on the Hammer candelstick pattern occurring in a trending market.
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out  
-  #
   # Returns:
   #   results vector.
   
