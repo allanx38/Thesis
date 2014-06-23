@@ -490,8 +490,8 @@ res3 <- ts_1_2_fnc_ar(fil,nm,TRUE)
 # produce latex table from ts_1
 dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from passiing closing price predictions from hybrid ARIMA/ANN models to System 1.",
-         "Results from passiing closing price predictions from hybrid ARIMA/ANN models to System 1")
+cap <- c("Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 1.",
+         "Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 1")
 lab = 'tab:chp_ts:arima_ann_sys1'
 filname ='../Tables/chp_ts_arima_ann_sys1.tex'
 inclrnam=FALSE
@@ -515,8 +515,8 @@ res4 <- ts_1_2_fnc_ar(fil,nm,FALSE)
 # produce latex table from ts_1
 dat <- res4[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from passiing closing price predictions from hybrid ARIMA/ANN models to System 2.",
-         "Results from passiing closing price predictions from hybrid ARIMA/ANN models to System 2")
+cap <- c("Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 2.",
+         "Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 2")
 lab = 'tab:chp_ts:arima_ann_sys2'
 filname ='../Tables/chp_ts_arima_ann_sys2.tex'
 inclrnam=FALSE
@@ -539,8 +539,8 @@ res5 <- ts_1_2_fnc_ar(fil,nm,TRUE)
 # produce latex table from ts_1
 dat <- res5[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from passiing closing price predictions from hybrid ARIMA/k-NN models to System 1.",
-         "Results from passiing closing price predictions from hybrid ARIMA/k-NN models to System 1")
+cap <- c("Results from passing closing price predictions from hybrid ARIMA/k-NN model to System 1.",
+         "Results from passing closing price predictions from hybrid ARIMA/k-NN model to System 1")
 lab = 'tab:chp_ts:pred_close_arima_knn_sys1'
 filname ='../Tables/chp_ts_pred_close_arima_knn_sys1.tex'
 inclrnam=FALSE
@@ -566,8 +566,8 @@ res6 <- ts_1_2_fnc_ar(fil,nm,FALSE)
 # produce latex table from ts_1
 dat <- res6[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from passiing closing price predictions from hybrid ARIMA/k-NN models to System 2.",
-         "Results from passiing closing price predictions from hybrid ARIMA/k-NN models to System 2")
+cap <- c("Results from passing closing price predictions from hybrid ARIMA/k-NN model to System 2.",
+         "Results from passing closing price predictions from hybrid ARIMA/k-NN model to System 2")
 lab = 'tab:chp_ts:pred_close_arima_knn_sys2'
 filname ='../Tables/chp_ts_pred_close_arima_knn_sys2.tex'
 inclrnam=FALSE
@@ -595,8 +595,8 @@ res7 <- ts_4_fnc_ar(fil,0, nm)
 # produce latex table from ts_1
 dat <- res7[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn CAT - Arima/ANN predictions passed to System 4",
-         "Predicting UpDn CAT - Arima/ANN predictions passed to System 4.")
+cap <- c("Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/ANN model.",
+         "Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/ANN model")
 lab = 'tab:chp_ts:pUD_CAT_arima_ann_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_ann_sys.tex'
 inclrnam=FALSE
@@ -621,8 +621,8 @@ res8 <- ts_4_fnc_ar(fil, 0, nm)
 # produce latex table from ts_1
 dat <- res8[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn CAT - Arima/k-NN predictions passed to System 4",
-         "Predicting UpDn CAT - Arima/k-NN predictions passed to System 4.")
+cap <- c("Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/k-NN model.",
+         "Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/k-NN model")
 lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex'
 inclrnam=FALSE
@@ -635,8 +635,8 @@ res8a <- ts_4_fnc_ar(fil, -100, nm)
 # produce latex table from ts_1
 dat <- res8a[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn CAT - Arima/k-NN predictions passed to System 4 - SLoss",
-         "Predicting UpDn CAT - Arima/k-NN predictions passed to System 4 - SLoss")
+cap <- c("Results from a trading system with a stop loss using th eforecast of categorical label "U/D" from hybrid ARIMA/k-NN model.",
+         "Results from a trading system with a stop loss using the forecast of categorical label "U/D" from hybrid ARIMA/k-NN model")
 lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys_SL'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex'
 inclrnam=FALSE
@@ -677,8 +677,8 @@ res9 <- ts_4_fnc_ar(fil,0, nm)
 # produce latex table from ts_1
 dat <- res9[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn CAT - Arima/SVM predictions passed to System 4",
-         "Predicting UpDn CAT - Arima/SVM predictions passed to System 4.")
+cap <- c("Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/SVM model.",
+         "Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/SVM model")
 lab = 'tab:chp_ts:pUD_CAT_arima_svm_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex'
 inclrnam=FALSE
@@ -704,8 +704,8 @@ res10 <- ts_3a_fnc_ar(fil, nm)
 # produce latex table from ts_1
 dat <- res10[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn 01 - Arima/ANN predictions passed to System 3",
-         "Predicting UpDn 01 - Arima/ANN predictions passed to System 3.")
+cap <- c("Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model.",
+         "Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model")
 lab = 'tab:chp_ts:pUD_01_arima_ann_sys'
 filname ='../Tables/chp_ts_predUpDn_01_arima_ann_sys.tex'
 inclrnam=FALSE
@@ -729,8 +729,8 @@ res11 <- ts_3_fnc_ar(fil_01_ar_knn, nm)
 # produce latex table from ts_1
 dat <- res11[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Predicting UpDn 01 - Arima/k-NN predictions passed to System 3",
-         "Predicting UpDn 01 - Arima/k-NN predictions passed to System 3.")
+cap <- c("Results from a trading system using the forecast of a continous label from a hybrid ARIMA/k-NN model.",
+         "Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model")
 lab = 'tab:chp_ts:pUD_01_arima_knn_sys'
 filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex'
 inclrnam=FALSE
