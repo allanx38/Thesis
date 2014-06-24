@@ -108,10 +108,10 @@ The final pattern tested was the Doji, one of the best known candlestick pattern
 ARIMA and hybrid ARIMA models were used to generate forecasts of the closing prices and the more general situation of whether the market would rise or fall. In modelling the more general situation of market direction a categorical and a continuous label was employed. The categorical label used \textquotedblleft U" to represented occasions when the market prices increased and \textquotedblleft D" for when it decreased in value. Alternatively the values 1 and 0 were also used to represent up and down respectively. The primary difference between the two labels was in the values returned from the hybrid ARIMA models. When using 1 and 0 for the class label the models return a value in the range of 1 to 0, whereas for the categorical value there was only the choice of the two values. 
 
 \subsection{Automatically generated ARIMA Models}
-The auto.arima() function of the R forecast package was used to generate ARIMA models for the national indice data sets used in this study. For convenience the models picked are listed in Table \ref{tab:chp_ts_arima_models}.
+The auto.arima() function of the R forecast package was used to generate ARIMA models for the national indice data sets used in this study. For convenience the models picked are listed in Table \ref{tab:chp_ts_arima_models_chp6}.
 
 %label - tab:chp_ts_arima_models
-\input{Tables/chp_ts_arima_models.tex}
+\input{Tables/chp_ts_arima_models_chp6.tex}
 
 The one-step forecasts generated from these models were then used in two trading systems. In the first algorithm the decision to trade long or short was dependant upon on the relative values of the previous close price and the forecast. If the forecast was was higher than the close price a long trade wa entered in the expectation that the market would rise towards the prediction. The opposite situation was expected for when the forecast was lower than the close price. The second trading algorithm used the relative values of the predictions themselves in order to decide whether to trade long or short. If the current forecast was higher than the previous one a long trade was made and vice versa.
 

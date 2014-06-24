@@ -1,17 +1,16 @@
 ts_2 <- function(Mkt, SLoss, MktName){
-  # 
+  # Trading system using predictions from ARIMA models. Uses 
+  # relative value of the forecast and the previous forecast
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out  
-  #
   # Returns:
   #   results vector.
   
   results <- createResultsVector(MktName, SLoss)
   
   Mkt$p_p <- c( NA, Mkt$p[ - length(Mkt$p) ] ) # prev prediction
-  #Mkt$p_c <- c( NA, Mkt$Close[ - length(Mkt$Close) ] ) # prev close
   
   # Trade Long
   Mkt$Long <- ifelse(Mkt$p > Mkt$p_p, Mkt$Close - Mkt$Open, NA)

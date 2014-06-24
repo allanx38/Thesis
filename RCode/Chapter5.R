@@ -342,7 +342,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # -------------------------------------------------
 # 2.8 auto.arima
 
-arim_mod_fnc <- function(fil,nm)
+arim_mod_fnc <- function(fil,nm){
   dfres <- dfres <- t(c('a','b'))
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i])
@@ -365,6 +365,16 @@ lab = 'tab:chp_ts_arima_models'
 filname ='../Tables/chp_ts_arima_models.tex'
 inclrnam=F
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# plot the results for Chp 6 ...
+dat <- fg
+dig <- 0
+cap <- c("Arima models chosen by auto.arima() function when applied to the national indice data sets.","Arima models chosen by auto.arima() function")
+lab = 'tab:chp_ts_arima_models_chp6'
+filname ='../Tables/chp_ts_arima_models_chp6.tex'
+inclrnam=F
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
 
 
 # ----------------------------------------------------
@@ -418,7 +428,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # compare to Naive reverse
-diff_df1 <- sub_df_av_pl(res,NaiveRev)
+diff_df1 <- sub_df_av_pl(res1,NaiveRev)
 # produce latex table from ts_1
 #dat <- diff[,c(1,7,10)]
 dat <- diff_df1
@@ -490,15 +500,15 @@ res3 <- ts_1_2_fnc_ar(fil,nm,TRUE)
 # produce latex table from ts_1
 dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 1.",
-         "Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 1")
+cap <- c("Results from passing closing price predictions from hybrid ARIMA/ANN model to System 1.",
+         "Results from passing closing price predictions from hybrid ARIMA/ANN model to System 1")
 lab = 'tab:chp_ts:arima_ann_sys1'
 filname ='../Tables/chp_ts_arima_ann_sys1.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # comp aring to Naive Prev
-res_diff3 <- sub_df_av_pl(res,NaiveRev)
+res_diff3 <- sub_df_av_pl(res3,NaiveRev)
 
 dat <- res_diff3
 dig <- 0
@@ -515,8 +525,8 @@ res4 <- ts_1_2_fnc_ar(fil,nm,FALSE)
 # produce latex table from ts_1
 dat <- res4[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 2.",
-         "Results from passiing closing price predictions from hybrid ARIMA/ANN model to System 2")
+cap <- c("Results from passing closing price predictions from hybrid ARIMA/ANN model to System 2.",
+         "Results from passing closing price predictions from hybrid ARIMA/ANN model to System 2")
 lab = 'tab:chp_ts:arima_ann_sys2'
 filname ='../Tables/chp_ts_arima_ann_sys2.tex'
 inclrnam=FALSE
@@ -548,7 +558,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # comp aring to Naive Prev
 #res_diff <- sub_df_av_pl(res,NaiveRev)
-res_diff5 <- sub_df(res,NaiveRev)
+res_diff5 <- sub_df(res5,NaiveRev)
 
 # produce latex table from ts_1
 dat <- res_diff5[,c(1,3,4,5,7,8,10)]
@@ -578,7 +588,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # a. Categorical
 
 # 1. ARMA / ANN (Predicting Up/Dn - Categorical)
-#source("../RCode/ts_4.R")
+source("../RCode/ts_4.R")
 source("../RCode/Utils.R")
 fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_CAC.csv",
@@ -595,8 +605,8 @@ res7 <- ts_4_fnc_ar(fil,0, nm)
 # produce latex table from ts_1
 dat <- res7[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/ANN model.",
-         "Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/ANN model")
+cap <- c("Results from a trading system using the forecast of categorical label \"U/D\" from hybrid ARIMA/ANN model.",
+         "Results from a trading system using the forecast of categorical label \"U/D\" from hybrid ARIMA/ANN model")
 lab = 'tab:chp_ts:pUD_CAT_arima_ann_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_ann_sys.tex'
 inclrnam=FALSE
@@ -621,8 +631,8 @@ res8 <- ts_4_fnc_ar(fil, 0, nm)
 # produce latex table from ts_1
 dat <- res8[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/k-NN model.",
-         "Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/k-NN model")
+cap <- c("Results from a trading system using the forecast of categorical label \"U/D\" from hybrid ARIMA/k-NN model.",
+         "Results from a trading system using the forecast of categorical label \"U/D\" from hybrid ARIMA/k-NN model")
 lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex'
 inclrnam=FALSE
@@ -635,8 +645,8 @@ res8a <- ts_4_fnc_ar(fil, -100, nm)
 # produce latex table from ts_1
 dat <- res8a[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from a trading system with a stop loss using th eforecast of categorical label "U/D" from hybrid ARIMA/k-NN model.",
-         "Results from a trading system with a stop loss using the forecast of categorical label "U/D" from hybrid ARIMA/k-NN model")
+cap <- c("Results from a trading system with a stop loss using the forecast of categorical label \"U/D\" from hybrid ARIMA/k-NN model.",
+         "Results from a trading system with a stop loss using the forecast of categorical label \"U/D\" from hybrid ARIMA/k-NN model")
 lab = 'tab:chp_ts:pUD_CAT_arima_knn_sys_SL'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_knn_sys_SL.tex'
 inclrnam=FALSE
@@ -677,8 +687,8 @@ res9 <- ts_4_fnc_ar(fil,0, nm)
 # produce latex table from ts_1
 dat <- res9[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/SVM model.",
-         "Results from a trading system using the forecast of categorical label "U/D" from hybrid ARIMA/SVM model")
+cap <- c("Results from a trading system using the forecast of categorical label \"U/D\" from hybrid ARIMA/SVM model.",
+         "Results from a trading system using the forecast of categorical label \"U/D\" from hybrid ARIMA/SVM model")
 lab = 'tab:chp_ts:pUD_CAT_arima_svm_sys'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex'
 inclrnam=FALSE

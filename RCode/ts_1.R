@@ -1,16 +1,15 @@
 ts_1 <- function(Mkt, SLoss, MktName){
-  # Calculates the profit/loss from trading a breakout of a 90% quantile move.
+  # Trading system using predictions from ARIMA models. Uses relative 
+  # value of the forecast with the previous close
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out  
-  #
   # Returns:
   #   results vector.
   
   results <- createResultsVector(MktName, SLoss)
   
-  #Mkt$p_p <- c( NA, Mkt$p[ - length(Mkt$p) ] ) # prev prediction
   Mkt$p_c <- c( NA, Mkt$Close[ - length(Mkt$Close) ] ) # prev close
   
   # Trade Long
