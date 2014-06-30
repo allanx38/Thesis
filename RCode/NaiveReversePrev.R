@@ -1,4 +1,4 @@
-NaiveFollowPrev <- function(Mkt, SLoss, MktName){
+NaiveReversePrev <- function(Mkt, SLoss, MktName){
   # Calculates the profit/loss from trading according to a naive idea of trading in the opposite direction to the previous day.
   #
   #   Mkt: market data 

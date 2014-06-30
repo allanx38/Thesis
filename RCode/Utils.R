@@ -166,11 +166,11 @@ sub_df_av_pl <- function(df1, df2){
 # -----------------------------------------------------------------
 
 # ------------ Follow Previous -------------
-run_NaiveFollowPrev <- function(fil,SLoss, nm){
+run_NaiveReversePrev <- function(fil,SLoss, nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
     Dax <- read.csv(fil[i],stringsAsFactors=F)
-    a <- NaiveFollowPrev(Dax, SLoss, nm[i])
+    a <- NaiveReversePrev(Dax, SLoss, nm[i])
     df10 <- rbind(df10, a)
   }
   df.name <- names(a)

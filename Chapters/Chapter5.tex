@@ -215,6 +215,7 @@ Table \ref{tab:chp_ts:arima2} lists the results from passing the amended indice 
 \input{Tables/chp_ts_arima2.tex}
 % ---------------------------------------------------------------
 \section{Hybrid ARIMA Models}
+\label{sec:arima:chp5}
 A hybrid ARIMA model is one in which the moving averages of a stationary data set (possibly a non-stationary data set that has been differenced) are combined with data mining learners other than regression. Possible learners include k nearest neighbour algorithms, artificial neural networks and support vector machines.  RapidMiner, the open source data mining tool is a powerful solution for building hybrid ARIMA models. Figure \ref{fig:chp_ts_rm_arima} shows the RapidMiner process used to generate hybrid ARIMA models. The Validation operator in the model below can hold a variety of learners depending upon the task and data types involved. The various components in Figure \ref{fig:chp_ts_rm_arima} are as follows:
 
 \begin{itemize}

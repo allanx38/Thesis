@@ -9,7 +9,7 @@ library(candlesticks)
 source("../RCode//Utils.R")
 source("../RCode//NaiveLongSystem.R")
 source("../RCode//NaiveLongSystem2.R")
-source("../RCode//NaiveFollowPrev.R")
+source("../RCode//NaiveReversePrev.R")
 source("../RCode//SMA_sys.R")
 source("../RCode//MACD_XO.R")
 source("../RCode//Aroon.R")
@@ -38,7 +38,7 @@ df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11)) # to hold results
 std6 <- c(1,3,4,5,7,8,10)
 
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-NaiveRev <- run_NaiveFollowPrev(fil, 0, nm)
+NaiveRev <- run_NaiveReversePrev(fil, 0, nm)
 
 # ------------------------------------------
 # ---------  1. Naive Long (Sub Chapter) --------
@@ -96,26 +96,35 @@ filname ='../Tables/chp_ta_naive_long_ctoc.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
+
 # -----------------------------------------------------------------------------
-# ------------ Follow Previous ------------------------------------------------
+# ------------ Reverse Previous ------------------------------------------------
 # -----------------------------------------------------------------------------
 
-source("../RCode/NaiveFollowPrev.R")
-source("../RCode/Utils.R")
-res3 <- run_NaiveFollowPrev(fil, 0, nm)
+res3 <- run_NaiveReversePrev(fil, 0, nm)
 
 # produce latex table
 dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 2
 cap = c('Results from a naive trading system which simply trades in the opposite direction to the previous day\'s movement.',
                       'Results from the Naive Reversing System.')
-lab = 'tab:ntfresults'
-filname ='../Tables/chp_ta_naive_follow_prev.tex'
+lab = 'tab:n_rev_results'
+filname ='../Tables/chp_ta_naive_reverse_prev.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
+# repeat latex table for Chp6 - affects numbering if re-use ...
+dat <- res3[,c(1,3,4,5,7,8,10)]
+dig <- 2
+cap = c('Results from a naive trading system which simply trades in the opposite direction to the previous day\'s movement.',
+        'Results from the Naive Reversing System.')
+lab = 'tab:n_rev_results_chp6'
+filname ='../Tables/chp_ta_naive_reverse_prev_chp6.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # rpeat with a stop loss
-res3a <- run_NaiveFollowPrev(fil, -75, nm)
+res3a <- run_NaiveReversePrev(fil, -75, nm)
 #tt <- sub_df(res3a,res3);tt
 
 # produce latex table
@@ -123,8 +132,8 @@ dat <- res3a[,std6]
 dig <- 2
 cap = c('Naive system which reverses the previous day\'s trade direction with stop loss.',
         'Naive Following System.')
-lab = 'tab:ntfresults_sl'
-filname ='../Tables/chp_ta_naive_follow_prev_sl.tex'
+lab = 'tab:n_rev_results_sl'
+filname ='../Tables/chp_ta_naive_reverse_prev_sl.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
