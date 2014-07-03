@@ -118,8 +118,6 @@ filname ='../Tables/chp_3_open_in_prev_HL.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-
-
 # -------------------------------------hxcvbn34567890-uiopu\zxcbzxcbnk
 # 8. closing prices - table - 3 x tables
 

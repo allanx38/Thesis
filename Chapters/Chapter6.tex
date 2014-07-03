@@ -167,19 +167,22 @@ Replacing the ANN learner from the previous section with a k-NN method resulted 
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys_diff
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys_diff.tex}
 
-%\subsubsection{ARIMA / SVN}
+\subsubsection{ARIMA / SVN}
 
-\subsection{ARIMA Hybrids - Predicting Up Down with Numeric Label}
-The final approach adopted was to represent whether a financial market moved up or down by using 1 to signify that the market moved up and 0 that it moved down. The implications of using a numeric value is that the forecasts were in a range between these two values. In such circumstances the trading algorithms picked long trades when the prediction were in the upper half of the range.
+%label - tab:chp_ts:pUD_CAT_arima_svm_sys
+\input{Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex}
 
-\subsubsection{ARIMA/Artificial Neural Networks (ANN)}
-An hybrid approach using ARIMA and ANN was used to make one-step forecasts for the future direction of the market, either up (1) or down (0). Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} in Chapter \ref{Chapter5} lists the results of passing the indice data sets augmented with the ARIMA/ANN forecasts to the trading algorithm listed in Appendix \ref{AppendixA} section \ref{appA:ts_3a}.  Overall the results are poor, especially for the Japanese Nikkei trading long and inferior to the Naive Reversing system that is used as a comparative baseline.
-
-\subsubsection{ARIMA/k-Nearest Neighbour (k-NN)}
-Finally a k-Nearest Neighbour (k-NN) learner was used instead of the ANN algorithm. The models were used to calculate the one-step ahead forecast as represented by a numeric value between 0 and 1. The forecast was added to the data sets and passed to the trading listed in Appendix \ref{AppendixA} section \ref{appA:ts_3}. In common with other forecast using the hybrid k-NN approach good results were obtained and these can be seen in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys} of Chapter \ref{Chapter5}. The results are much better than the baseline system which simply trades based on doing the opposite of what happened yesterday. Table \ref{tab:chp_ts:pUD_01_arima_knn_sys_diff} lists the difference in terms of performance between the two systems and is simply the values in  Table \ref{tab:ntfresults} from Chapter \ref{Chapter4} subtracted from the results in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys} from Chapter \ref{Chapter5}.
-
-%label - tab:chp_ts:pUD_01_arima_knn_sys_diff
-\input{Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex}
+%\subsection{ARIMA Hybrids - Predicting Up Down with Numeric Label}
+%The final approach adopted was to represent whether a financial market moved up or down by using 1 to signify that the market moved up and 0 that it moved down. The implications of using a numeric value is that the forecasts were in a range between these two values. In such circumstances the trading algorithms picked long trades when the prediction were in the upper half of the range.
+%
+%\subsubsection{ARIMA/Artificial Neural Networks (ANN)}
+%An hybrid approach using ARIMA and ANN was used to make one-step forecasts for the future direction of the market, either up (1) or down (0). Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} in Chapter \ref{Chapter5} lists the results of passing the indice data sets augmented with the ARIMA/ANN forecasts to the trading algorithm listed in Appendix \ref{AppendixA} section \ref{appA:ts_3a}.  Overall the results are poor, especially for the Japanese Nikkei trading long and inferior to the Naive Reversing system that is used as a comparative baseline.
+%
+%\subsubsection{ARIMA/k-Nearest Neighbour (k-NN)}
+%Finally a k-Nearest Neighbour (k-NN) learner was used instead of the ANN algorithm. The models were used to calculate the one-step ahead forecast as represented by a numeric value between 0 and 1. The forecast was added to the data sets and passed to the trading listed in Appendix \ref{AppendixA} section \ref{appA:ts_3}. In common with other forecast using the hybrid k-NN approach good results were obtained and these can be seen in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys} of Chapter \ref{Chapter5}. The results are much better than the baseline system which simply trades based on doing the opposite of what happened yesterday. Table \ref{tab:chp_ts:pUD_01_arima_knn_sys_diff} lists the difference in terms of performance between the two systems and is simply the values in  Table \ref{tab:ntfresults} from Chapter \ref{Chapter4} subtracted from the results in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys} from Chapter \ref{Chapter5}.
+%
+%%label - tab:chp_ts:pUD_01_arima_knn_sys_diff
+%\input{Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex}
 
 
 

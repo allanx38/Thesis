@@ -320,21 +320,21 @@ ARIMA was also married with a SVM learner in order to predict the categorical va
 \input{Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex}
 
 % -------------------------------------------------------------------
-\section{Predicting Up or Down - Continuous Label}
-An alternative to using a categorical variable represented by \textquotedblleft U" or \textquotedblleft D" to indicate if the market rose of fell is to use the numeric range 0 to 1. Here 0 is used to indicate the market fell and 1 to indicate that it increased in value. Thus an additional attribute was introduced into the national indice data sets which took the value of 0 or 1.
-
-\subsection{ARIMA/Artificial Neural Networks (ANN)}
-An ARIMA/ANN model was employed in an attempt to predict the value of 0 or 1, which indicates the directional movement of the market. Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} are the results of passing the indice data sets augmented with the ARIMA/ANN forecasts to the trading algorithm listed in Appendix \ref{AppendixA} section \ref{appA:ts_3a}.
-% EXP algorithm ...
-
-%label - tab:chp_ts:pUD_01_arima_ann_sys
-\input{Tables/chp_ts_predUpDn_01_arima_ann_sys.tex}
-
-\subsection{ARIMA/k-Nearest Neighbour (k-NN)}
-An ARIMA/k-NN model was used to make forecasts for the continuous variable that represents whether the market will move up or down. The output of the model is a value between 0 and 1. The trading algorithm that uses this prediction can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_3} and the results generated in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys}. The trading algorithm looks at the forecast value and trades long if the values are over 0.5 and short if they are below this value.
-
-%label - tab:chp_ts:pUD_01_arima_knn_sys
-\input{Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
+%\section{Predicting Up or Down - Continuous Label}
+%An alternative to using a categorical variable represented by \textquotedblleft U" or \textquotedblleft D" to indicate if the market rose of fell is to use the numeric range 0 to 1. Here 0 is used to indicate the market fell and 1 to indicate that it increased in value. Thus an additional attribute was introduced into the national indice data sets which took the value of 0 or 1.
+%
+%\subsection{ARIMA/Artificial Neural Networks (ANN)}
+%An ARIMA/ANN model was employed in an attempt to predict the value of 0 or 1, which indicates the directional movement of the market. Table \ref{tab:chp_ts:pUD_01_arima_ann_sys} are the results of passing the indice data sets augmented with the ARIMA/ANN forecasts to the trading algorithm listed in Appendix \ref{AppendixA} section \ref{appA:ts_3a}.
+%% EXP algorithm ...
+%
+%%label - tab:chp_ts:pUD_01_arima_ann_sys
+%\input{Tables/chp_ts_predUpDn_01_arima_ann_sys.tex}
+%
+%\subsection{ARIMA/k-Nearest Neighbour (k-NN)}
+%An ARIMA/k-NN model was used to make forecasts for the continuous variable that represents whether the market will move up or down. The output of the model is a value between 0 and 1. The trading algorithm that uses this prediction can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_3} and the results generated in Table \ref{tab:chp_ts:pUD_01_arima_knn_sys}. The trading algorithm looks at the forecast value and trades long if the values are over 0.5 and short if they are below this value.
+%
+%%label - tab:chp_ts:pUD_01_arima_knn_sys
+%\input{Tables/chp_ts_predUpDn_01_arima_knn_sys.tex}
 
 
 %\subsection{ARIMA / Regression}
