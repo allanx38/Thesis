@@ -3,7 +3,7 @@ setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 library(forecast)
 
 exp_sm <- function(Mkt_ts, Mkt, strt){
-  #browser()
+  browser()
   Mkta <- Mkt
   cc <- Mkta[1,]
   cc$a <- 0
@@ -13,11 +13,11 @@ exp_sm <- function(Mkt_ts, Mkt, strt){
     st <- i-30
     Mkt_slice <- window(Mkt_ts,start=st,end=i)
     modf <- ets(Mkt_slice)
-    #fcast <- forecast.ets(mod)
-    #a <- fcast$fitted[300]
-    a <- modf$method
-    b <- Mkta[i,]
-    ab <- cbind(b,a)
+    fcast <- forecast.ets(mod,h=1)
+    a <- fcast$mean
+    b <- modf$method
+    c <- Mkta[i,]
+    ab <- cbind(b,a,c)
     cc <- rbind(cc,ab)
   }
   cc <- cc[-1,]
@@ -27,13 +27,16 @@ exp_sm <- function(Mkt_ts, Mkt, strt){
 Mkt <- read.csv("../Data/Dax_2000_d.csv")
 tail(Mkt)
 Mkt_ts <- ts(Mkt$Close)
-Mkt_train <- window(Mkt_ts, start=2000, end=2030)
+Mkt_train <- window(Mkt_ts, start=2000, end=2030) 
 mod <- ets(Mkt_ts)
 mod$method
 mod$fitted
-fcast <- forecast.ets(mod, h=5)
+mod$initstate
+fcast <- forecast.ets(mod, h=1)
+fcast$mean
 
 as <- exp_sm(Mkt_ts,Mkt, 3000)
+
 
 nrow(Mkt)
 Mkt_train <- window(Mkt_ts, start=2000, end=2030)
