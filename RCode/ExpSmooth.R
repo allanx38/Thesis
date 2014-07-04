@@ -3,21 +3,22 @@ setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 library(forecast)
 
 exp_sm <- function(Mkt_ts, Mkt, strt){
-  browser()
+  #browser()
   Mkta <- Mkt
   cc <- Mkta[1,]
   cc$a <- 0
+  cc$b <- 0
   ln <- nrow(Mkt)
   #lb <- 300 #lookback
   for(i in strt:ln){
     st <- i-30
     Mkt_slice <- window(Mkt_ts,start=st,end=i)
     modf <- ets(Mkt_slice)
-    fcast <- forecast.ets(mod,h=1)
-    a <- fcast$mean
+    fcastf <- forecast.ets(modf,h=1)
+    a <- as.numeric(fcastf$mean)
     b <- modf$method
-    c <- Mkta[i,]
-    ab <- cbind(b,a,c)
+    c1 <- Mkta[i,]
+    ab <- cbind(c1,b,a)
     cc <- rbind(cc,ab)
   }
   cc <- cc[-1,]
@@ -29,37 +30,41 @@ tail(Mkt)
 Mkt_ts <- ts(Mkt$Close)
 Mkt_train <- window(Mkt_ts, start=2000, end=2030) 
 mod <- ets(Mkt_ts)
-mod$method
+mm <- mod$method
+class(mm)
 mod$fitted
 mod$initstate
 fcast <- forecast.ets(mod, h=1)
-fcast$mean
+m <- as.numeric(fcast$mean)
+m
+class(m)
 
 as <- exp_sm(Mkt_ts,Mkt, 3000)
+as1 <- exp_sm(Mkt_ts,Mkt, 400)
+tail(as1)
+write.csv(as1,'../Data/ES/dax_es.csv')
 
+es <- read.csv("../Data/ES/dax_es.csv",stringsAsFactors=F)
+tail(es,n=5)
+table(es$b)
 
-nrow(Mkt)
-Mkt_train <- window(Mkt_ts, start=2000, end=2030)
-tail(Mkt_train)
-mod2 <- ets(Mkt_train)
-mod2
-fcast2 <- forecast.ets(mod2, h=5)
-fcast2
+# 1. Add U/D
+es$pred_d <- ifelse(es$a > es$Close, 'U','D')
 
+es$pm <- c( NA, es$b[ - length(es$b) ] )
+es$pp <- c( NA, es$a[ - length(es$a) ] )
+es$pu <-c( NA, es$pred_d[ - length(es$pred_d) ] )
 
-# nrow(Mkt)
-# Mkt$Date[2999]
-# Mkt_ts <- ts(Mkt$Close)
-# #Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
-# #Mkt_train <- window(Mkt_ts, start=2000, end=2009.99)
-# Mkt_train <- window(Mkt_ts, end=2999.99)
-# Mkt_test <- window(Mkt_ts, start=3000)
-# 
-# # a.build the  mean model
-# mean_model <- ets(Mkt_train)
-# a <- accuracy(mean_model, Mkt_test) #out of sample
-# rownames(a) <- c('Mean Training Set', 'Mean Test Set')
-# a
+es$b[100]
+es2 <- es[es$pp != 'ETS(A,N,N)', ]
+tail(es2)
+nrow(es2)
+
+source("../RCode/es_1.R")
+source("../RCode/Utils.R")
+
+res <- es_1(es2,0,"Dax")
+res
 
 # exp_sm <- function(Mkt_ts, Mkt, st){
 #   #browser()
