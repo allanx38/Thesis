@@ -143,7 +143,7 @@ Having calculated the TR, an average of a previous number of days is used to der
 
 Absolute values are used in the calculation of the ATR as we are not concerned with the market direction but rather the the amount the market is likely to move. ATRs are typically quoted as absolute values and as such markets trading at higher prices will have higher ATRs. For example the Japanese Nikkei with a value of 14000 will move more in a day than the French CAC with a value in the 4000's. 
 
-Dividing the ATR by the closing price is a useful way to see how a security's volatility varies over time. Table \ref{tab:atr_dax} and Figure \ref{fig:Dax_atr} are the ATR and ATR divided by closing price for the Dax between 2000 and 2013. In absolute terms the ATR varied between 36 and 316, however the value of the indice itself varied a lot. Looking at the ATR value divided by the closing period it can be seen that over the period of 2000 to 2014 the mean value is approximately 2. Thus on average the market can be expected to move 2\% of the closing price in any one day. However this value has varied between 0.7\% in periods of low volatility to a value of 6.7\%.
+Dividing the ATR by the closing price is a useful way to see how a security's volatility varies over time. Table \ref{tab:atr_dax} shows summary statistics for the ATR and ATR divided by closing price and Figure \ref{fig:Dax_atr} is a graph of how ATR divided by closing price has varied for the Dax between 2000 and 2013. In absolute terms the ATR varied between 36 and 316, however the value of the indice itself varied a lot. Looking at the ATR value divided by the closing period it can be seen that over the period of 2000 to 2014 the mean value is approximately 2. Thus on average the market can be expected to move 2\% of the closing price in any one day. However this value has varied between 0.7\% in periods of low volatility to a value of 6.7\%.
 
 % Table created by stargazer v.4.5.3 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
 % Date and time: Mon, Mar 24, 2014 - 21:57:13
@@ -341,7 +341,7 @@ AORD   & 8  & 19  & 36 & 347 \\
 
 
 \subsection{High / Low Price}
-Table \ref{tab:highlow} shows the percentage of times that either today's high price crosses yesterday's high or today's low prices dips below the yesterday's low value. The final closing price may be between yesterday's high and low or outside of it. The second column of Table \ref{tab:highlow} is the number of times when today's values crossed both the previous low and the previous high in the same day. This is also known as an Engulfing Candlestick (see section \ref{sec:eng_cand}). In all the indices the previous day's high or low value is reached the following day in a  a large number of instances, in the case of the Nikkei 90\% of the time. Conversely, the like hood of both the previous day's high and low values being touched are low, only 5\% of occasions in the Australian AORD. 
+Table \ref{tab:highlow} shows the percentage of times that either today's high price crosses yesterday's high or today's low prices dips below yesterday's low value. The final closing price may be between yesterday's high and low or outside of it. The second column of Table \ref{tab:highlow} is the number of times when today's values crossed both the previous low and the previous high in the same day. This is also known as an Engulfing Candlestick (see section \ref{sec:eng_cand}). In all the indices the previous day's high or low value is reached the following day in a large number of instances, in the case of the Nikkei 90\% of the time. Conversely, the like hood of both the previous day's high and low values being touched are low, only 5\% of occasions in the Australian AORD. 
 
 \begin{table}[!htbp] \centering 
   \caption[Today's H/L Prices in relation to previous day's HL]{Number of occasions when today's high or low prices crossed the previous day's high or low values.} 
@@ -384,7 +384,7 @@ AORD   & 86 & 5 \\
 \label{sec:ohol:fluctuation}
 The movements in prices between the open and high (OH) and open to low (OL) are interesting and can have an influence on any trading systems developed. On any given day prices open, move to their lowest point, move to their highest point and then close (not in any particular order). From the OHLC data used in this study the order of these events can not be determined or even the number of times in a day these price points are reached. 
 
-In this section we are concerned with the relative sizes of these two price movements, the day's high price minus the opening price (OH) and the opening price minus the low price (OL), one of which is usually greater than the other. We will define the daily \textquotedblleft minor" price fluctuation as the smaller of the two price movements. Likewise we will define the larger value as the \textquotedblleft mayor" price fluctuation.
+In this section we are concerned with the relative sizes of these two price movements, the day's high price minus the opening price (OH) and the opening price minus the low price (OL), one of which is usually greater than the other. We will define the daily \textquotedblleft minor" price fluctuation as the smaller of the two price movements. Likewise we will define the larger value as the \textquotedblleft major" price fluctuation.
 
 Considering the minor price fluctuation, the range of values encountered in the indice markets under study can be seen in Table \ref{tab:minorOH}. In all cases the minimum value is zero, in other words the market opening price and either the day's high or low price were the same, the market didn't dip below or above this level. The second column in Table \ref{tab:minorOH} is the maximum value. In the case of the German Dax, there was a day when the market moved 189 points away from its opening price but also moved further in the opposite direction away from the opening price. Clearly this was a highly volatile day on the German markets.
 
@@ -447,7 +447,7 @@ AORD   & 0 & 347 \\
 \end{table} 
 
 \begin{table}[!htbp] \centering 
-  \caption[Quantiles of Major daily price fluctuation.]{Quantile levels of the maximum values for the larger of the days OH or OL price movement - the \textquotedblleft major" daily price fluctuation.} 
+  \caption[Quantiles of Major daily price fluctuation.]{Quantile levels for the larger of the day's OH or OL price movement - the \textquotedblleft major" daily price fluctuation.} 
   \label{tab:majorOHQ}
 \begin{tabular}{lccc} 
 \toprule 
@@ -464,7 +464,7 @@ AORD   & 18  & 30  & 48 \\
 \end{tabular} 
 \end{table} 
 
-A final consideration in this section is the range of the open to close prices detailed in section \ref{sec:closing_prices}. Again considering the German Dax it can be seen that the 50\% quantile value is 39 (see Table \ref{tab:OCQuantile2} - NOTE repeated from Table \ref{tab:OCQuantile}) , which is below the 90\% minor fluctuation level.
+A final consideration in this section is the range of the open to close prices detailed in section \ref{sec:closing_prices}. Again considering the German Dax it can be seen that the 50\% quantile value is 39, as shown in Table \ref{tab:OCQuantile2}, which is below the 90\% minor fluctuation level.
 
 \begin{table}[!htbp] \centering 
   \caption[Quantiles of the open to close price range.]{Quantile values for the open to close price range.} 
@@ -487,7 +487,7 @@ AORD   & 8  & 19  & 36 & 347 \\
 \section{Software Tools}
 
 \subsection{R and R Studio}
-A lot of the experimental results and graphs were produced with the open source programming language R version 3.0.2. For help in the creation and organisation of the R code for this thesis the open-source development environment R Studio version 0.98.490 was used extensively. The following packages were immensely helpful in the preparation of this thesis:
+Experimental results and graphs were produced with the open source programming language R version 3.0.2. For help in the creation and organisation of the R code for this thesis the open-source development environment R Studio version 0.98.490 was used extensively. The following packages were immensely helpful in the preparation of this thesis:
 \begin{itemize}
 \item TTR - provided technical analysis functions
 \item xts - irregularly spaced time series
@@ -495,10 +495,11 @@ A lot of the experimental results and graphs were produced with the open source 
 \item candlestick - Japanese candlestick patterns
 \end{itemize}
 
-\subsection{Sweave}
-Sweave \citep{lmucs-papers:Leisch:2002} was employed extensively in the preparation of this manuscript. Use of this software enabled tex code to be prepared that embedded R code within it. Thus it was possible to embed results tables and graphs directly and dynamically into the published document. Changes to the code or underlying data is reflected in the manuscript directly.
+%\subsection{Sweave}
+%Sweave \citep{lmucs-papers:Leisch:2002} was employed extensively in the preparation of this manuscript. Use of this software enabled tex code to be prepared that embedded R code within it. Thus it was possible to embed results tables and graphs directly and dynamically into the published document. Changes to the code or underlying data is reflected in the manuscript directly.
 
 \subsection{Rapid Miner}
+Rpaid Miner a market leading open-source data mining and predicitive analytics platform was used for building hubrid ARIMA models. The base system and time series plug-ins were used.
 
 \subsection{Microsoft Excel and VBA}
 A lot of data was manipulated in Microsoft Excel and much proofing and testing done with the Visual Basic for Applications programming language built into the Microsoft Office suite of products.
