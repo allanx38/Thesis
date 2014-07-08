@@ -19,6 +19,7 @@ source("../RCode//ROC.R")
 source("../RCode//ROC2.R")
 source("../RCode//MACD_OB.R")
 source("../RCode//Bout_sys.R")
+source("../RCode//Bout_sys_2.R")
 source("../RCode//Quant90_sys.R")
 source("../RCode//Candle_Hammer.R")
 source("../RCode//Candle_Hammer_aroon.R")
@@ -496,7 +497,7 @@ run_BaseSystem2Bout <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i])
-    a <- BaseSystem2Bout(Mkt, SLoss, nm[i])         
+    a <- BaseSystem2Bout2(Mkt, SLoss, nm[i])         
     df10 <- rbind(df10,a)
   }
   df.name <- names(a)

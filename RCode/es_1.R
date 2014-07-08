@@ -10,8 +10,8 @@ es_1 <- function(Mkt, SLoss, MktName){
   
   results <- createResultsVector(MktName, SLoss)
   
-  #es$pm <- c( NA, es$b[ - length(es$b) ] )   # prev mod
-  #es$pp <- c( NA, es$a[ - length(es$a) ] )  # prev pred
+  Mkt$pred_d <- ifelse(Mkt$a > Mkt$Close, 'U','D')
+  Mkt$pu <-c( NA, Mkt$pred_d[ - length(Mkt$pred_d) ] )
   
   # Trade Long
   Mkt$Long <- ifelse(Mkt$pu == 'U', Mkt$Close - Mkt$Open, NA)
