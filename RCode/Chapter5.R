@@ -32,7 +32,6 @@ NaiveRev <- run_NaiveReversePrev(fil, 0, nm)
 # -----------------------------------------------------------
 # ---------- Base Systems
 Mkt <- read.csv("../Data/Dax_2000_d.csv")
-nrow(Mkt)
 Mkt$Date[2999]
 Mkt_ts <- ts(Mkt$Close)
 #Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
@@ -45,7 +44,7 @@ mean_model <- meanf(Mkt_train, h=5)
 a <- accuracy(mean_model, Mkt_test) #out of sample
 rownames(a) <- c('Mean Training Set', 'Mean Test Set')
 
-# b. build the mean model
+# b. build the naive model
 naive_model <- naive(Mkt_train, h=5)
 b <- accuracy(naive_model, Mkt_test) #out of sample
 rownames(b) <- c('Naive Training Set', 'Naive Test Set')
@@ -56,12 +55,12 @@ c <- accuracy(drift_model, Mkt_test) #out of sample
 rownames(c) <- c('Drift Training Set', 'Drift Test Set')
 
 # combine results
-d <- rbind(a,b,c)
+d <- rbind(a,c)
 
 # produce latex table
 dat <- d[,c(2,3,4,5,6)]
 dig <- 0
-cap <- c("Mean, Naive and Drift methods applied to 
+cap <- c("Mean, and Drift methods applied to 
          to the Dax.","Simple forecasting methods.")
 lab = 'tab:chp_ts:sma'
 filname ='../Tables/chp_ts_sma.tex'
@@ -76,10 +75,10 @@ plot.ts(Mkt_train,
         xlab="Days since 2000", ylab="Dax Closing Price",
         xlim=c(2, 3200))
 lines(meanf(Mkt_train, h=350) $mean, col=4)
-lines(rwf(Mkt_train,h=350)$mean,col=2)
+#lines(rwf(Mkt_train,h=350)$mean,col=2)
 lines(rwf(Mkt_train,drift=TRUE,h=350)$mean,col=3)
-legend("bottomright",lty=1,col=c(4,2,3),
-       legend=c("Mean method","Naive method","Drift method"))
+legend("bottomright",lty=1,col=c(4,3),
+       legend=c("Mean method","Drift method"))
 dev.off() #savepdf end
 
 # --- plot all three base systems on Dow PLUS actual data
@@ -90,10 +89,10 @@ plot.ts(Mkt_train,
         xlab="Days since 2000", ylab="Dax Closing Price",
         xlim=c(2, 3200))
 lines(meanf(Mkt_train, h=350) $mean, col=4)
-lines(rwf(Mkt_train,h=350)$mean,col=2)
+#lines(rwf(Mkt_train,h=350)$mean,col=2)
 lines(rwf(Mkt_train,drift=TRUE,h=350)$mean,col=3)
-legend("bottomright",lty=1,col=c(4,2,3),
-       legend=c("Mean method","Naive method","Drift method"))
+legend("bottomright",lty=1,col=c(4,3),
+       legend=c("Mean method","Drift method"))
 lines(Mkt_act, col=6)
 dev.off() #savepdf end
 
