@@ -60,8 +60,9 @@ d <- rbind(a,c)
 # produce latex table
 dat <- d[,c(2,3,4,5,6)]
 dig <- 0
-cap <- c("Mean, and Drift methods applied to 
-         to the Dax.","Simple forecasting methods.")
+cap <- c("Mean and Drift methods applied to 
+         to the Dax.","Mean and Drift methods applied to 
+         to the Dax")
 lab = 'tab:chp_ts:sma'
 filname ='../Tables/chp_ts_sma.tex'
 inclrnam=TRUE
