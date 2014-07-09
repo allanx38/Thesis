@@ -215,7 +215,7 @@ run_exp_drift <- function(fil,nm){
 }
 
 # a3 - run thru data sets - takes while so need to run just once
-run_exp_drift(fil,nm)
+#run_exp_drift(fil,nm)
 
 # 
 fil_drift <- c("../Data/ES/Dax_es_drift.csv",
@@ -273,7 +273,7 @@ run_exp_sm <- function(fil,nm){
 }
 
 # loop thru data sets
-run_exp_sm(fil,nm)
+#run_exp_sm(fil,nm)
 
 # 3d Trade ES
 fil_es <- c("../Data/ES/Dax_es.csv",
