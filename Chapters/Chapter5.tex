@@ -12,14 +12,14 @@ This chapter will explore the use of time series analysis techniques to generate
 
 \section{Exponential Smoothing}
 
-Exponential smoothing was applied to the stock market indice data sets in order to generate predictions for the following day's closing price, so-called one step ahead forecasts. Two basic approaches and an exponential smoothing methodology was examined. The two basic methods provide a useful baseline against which to compare later models, and are the mean and drift methodologies. The mean is simply the average of the data points in the sample while the drift is equivalent to drawing a straight line between the first and last point of the sample and then extrapolating this line forward the desired number of observations.
+Exponential smoothing was applied to the stock market indice data sets in order to generate predictions for the following day's closing price, so-called one step ahead forecasts. Two basic approaches and an exponential smoothing methodology were examined. The two basic methods provide a useful baseline against which to compare later models, and are the mean and drift methodologies. The mean is simply the average of the data points in the sample while the drift is equivalent to drawing a straight line between the first and last point of the sample and then extrapolating this line forward the desired number of observations.
 
 Explain the three approaches.-> Hyndman video
 
 HW - 15 options, ETS - 30 options
 
 \subsection{Base Time Series Models}
-Figure \ref{fig:chp5_ts_dax} shows the two base methods, mean and drift, being applied to a data set derived from the German Dax. The models were trained on the first 3000 observations and tested on the remaining ones. The actual data points being predicted in Figure \ref{fig:chp5_ts_dax} are added to the plot in Figure \ref{fig:chp_ts_dax_act}. A variety of error measures for the two methods are listed in Table \ref{tab:chp_ts:sma}. From these error measures we can see that the drift model fits the training data the best, having the smallest error values across all the measures, but that the mean model actually performs the best on the test data.
+Figure \ref{fig:chp5_ts_dax} shows the two base methods, mean and drift, being applied to a data set derived from the German Dax. The models were trained on the first 3000 observations of the Dax data set and tested on the remaining ones. The actual data points being predicted in Figure \ref{fig:chp5_ts_dax} are added to the plot in Figure \ref{fig:chp_ts_dax_act}. A variety of error measures for the two methods are listed in Table \ref{tab:chp_ts:sma}. From these error measures we can see that the drift model fits the training data the best, having the smallest error values across all the measures, but that the mean model actually performs the best on the test data.
 
 %label - tab:chp_ts:sma
 \input{Tables/chp_ts_sma.tex}
@@ -38,18 +38,18 @@ Figure \ref{fig:chp5_ts_dax} shows the two base methods, mean and drift, being a
 \label{fig:chp_ts_dax_act}
 \end{figure}
 
-Looking at Figure \ref{fig:chp_ts_dax_act} it can be seen that neither the mean or the drift does a good job with the predictions for the Dax. The forecasts were based on the entire data set, treating it as a homogeneous whole. However, financial time series typically shows a variety of behaviour at different periods. On occasions it is stationary and at other times trending. Thus, in the following sections, in order to generate a forecasts a sliding window approach was adopted. A window of data (the last 30 observations) was used to generate a model and the one step ahead forecast, before the window was advanced one observation to the next period. In this way the model is constantly adapting and changing. Using this approach forecasts and models for use in a trading system from a mean, drift and exponential smoothing methodology was developed.
+Looking at Figure \ref{fig:chp_ts_dax_act} it can be seen that neither the mean or the drift does a good job with the predictions for the Dax. The forecasts were based on the entire data set, treating it as a homogeneous whole. However, financial time series typically shows a variety of behaviour at different periods. On occasions it is stationary and at other times trending. Thus, in the following sections, in order to generate forecasts a sliding window approach was adopted. A window of data (the last 30 observations) was used to generate a model and the one step ahead forecast, before the window was advanced one observation to the next period. In this way the model is constantly adapting and changing. Using this approach forecasts and models for use in a trading system from a mean, drift and exponential smoothing methodology were developed.
 
 \subsection{Trading System Based on Mean Model}
 \label{sec:es:mean}
-Results from a trading system one step ahead forecasts based on a mean model using a moving window can be seen in Table \ref{tab:es_mean_sys}. A trading algorithm, which can be seen in Appendix \ref{AppendixA} section \ref{appA:es_1}, used these forecasts to decide in which direction to trade. If the forecast was higher than the closing price a long trade was entered the following day and likewise if it was below the close a short trade was entered.
+Results from a trading system using the one step ahead forecasts generated by the mean model using a moving window can be seen in Table \ref{tab:es_mean_sys}. A trading algorithm, which can be seen in Appendix \ref{AppendixA} section \ref{appA:es_1}, used these forecasts to decide in which direction to trade. If the forecast was higher than the closing price a long trade was entered the following day and likewise if it was below the close a short trade was entered.
 
 
 %label - tab:es_mean_sys
 \input{Tables/chp_ts_es_mean.tex}
 
 \subsection{Trading System Based on Drift Model}
-In a similar way to the mean model of section \ref{sec:es:mean} (above) predictions based on a drift model was generated and the results can be seen in Table \ref{tab:es_drift_sys}. The same trading algorithm as used for the mean model was also used for the drift model.
+In a similar way to the mean model of section \ref{sec:es:mean} the predictions generated by the drift model were passed to trading  and the results can be seen in Table \ref{tab:es_drift_sys}. The same trading algorithm as used for the mean model was also used for the drift model.
 
 %label - tab:es_drift_sys
 \input{Tables/chp_ts_es_drift.tex}
