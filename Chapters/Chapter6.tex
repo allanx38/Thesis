@@ -13,17 +13,27 @@ In chapters 4 and 5 a wide variety of analytical techniques were applied to a ra
 
 Chapter 5 continued the exploration of financial time series through the use of exponential smoothing, ARIMA and hybrid ARIMA techniques. The generated models were used to create one-step ahead forecasts which were then added to the original data sets. These amended data sets were then fed into trading algorithms which used the forecast values to make buying decisions.
 
-\section{Exponential Smoothing}
-Exponential smoothing was used to make one step ahead forecasts for the indice data sets. Initially two base systems were explored in order that they could be used as a baseline against which later results could be compared. The two methods generated predictions using a mean method in which the forecast was simply the average of the sample and a drify method which is the extrapolation of a striaght line between the first and last point in a data sample. For all the forecasts generated in this section a moving window approach was adopted. A window of sample data points was used, typically the last 30 observations, for which a forecast was generated using one of the methods. This window was then advanced one observation forward and the forecast for this data set calculated and the process repeated for the entire data set.
-
-Once the forecasts were generated they were passed to a trading algorithm which made decisions regarding whether to trade long or short based on the value of the forecast. If the forecast was higher than the previous closing price a long trade was initiated or if it was lower a short trade was made with the expectation that the market would fall. Results from the forecasts generated from the mean method can be seen in Figure \ref{} while results from the drift method can be seen in Figure \ref{}. Both systems produced poor results and wouldn't generate enough profits to offset any transaction costs that would be incurred in the real world.
-
-Next exponential smoothing was used to  generate forecasts. Allowing for trend, seasonality and whether there are additive or multiplicative affects, a variety of models may be used to generate predictions. The ets() function of the forecast package in R can create models from all the available possibilities. Once again using a moving window approach, one step ahead forecasts were created for the indice data sets. As the window moved through the data, different models were selected as being the best fit and these used to generate the forecasts. Having generated the preditctions they were passed to the same trading algorithm as used for the mean and drift models, and the results can be seen in Figure \ref{}. 
-
-RESULTS in diss are the same as mean model ...
 
 
 \section{Technical Analysis}
+
+% \label{tab:chp6:dax_summary}
+%\input{Tables/chp_6_dax_summary.tex}
+
+% \label{tab:chp6:cac_summary}
+%\input{Tables/chp_6_cac_summary.tex}
+
+% \label{tab:chp6:ftse_summary}
+%\input{Tables/chp_6_ftse_summary.tex}
+
+% \label{tab:chp6:dow_summary}
+%\input{Tables/chp_6_dow_summary.tex}
+
+% \label{tab:chp6:nik_summary}
+%\input{Tables/chp_6_nik_summary.tex}
+
+% \label{tab:chp6:aord_summary}
+%\input{Tables/chp_6_aord_summary.tex}
 
 \subsection{Baseline Systems}
 Initially two simple, naive systems were explored so that they could be used as a baseline against which the developed predictive models could be compared. These systems were the Naive Long System which mirrors a buy and hold strategy and a Naive Reversing System which simply trades in the opposite direction to the previous days market movement.
@@ -131,7 +141,14 @@ The next pattern tested was the Engulfing pattern. This pattern occurs when a ca
 The final pattern tested was the Doji, one of the best known candlestick patterns. Again the presence of this pattern in a trending market is supposed to give warning to the market participants that a reversal may be imminent. Table \ref{tab:doji_aroon_results} shows the results of a trading system that uses the presence of a Doji in a trending market to initiate a trade. Again the results are very poor with mostly negative returns.
 
 \section{Time Series Analysis}
-ARIMA and hybrid ARIMA models were used to generate forecasts of the closing prices and the more general situation of whether the market would rise or fall. In modelling the more general situation of market direction a categorical and a continuous label was employed. The categorical label used \textquotedblleft U" to represent occasions when the market prices increased and \textquotedblleft D" for when it decreased in value. Alternatively the values 1 and 0 were also used to represent up and down respectively. The primary difference between the two labels was in the values returned from the hybrid ARIMA models. When using 1 and 0 for the class label the models return a value in the range of 1 to 0, whereas for the categorical value there was only the choice of the two values. 
+Exponential smoothing, ARIMA and hybrid ARIMA models were used to generate forecasts of the closing prices and the more general situation of whether the market would rise or fall. In modelling the more general situation of market direction a categorical and a continuous label was employed. The categorical label used \textquotedblleft U" to represent occasions when the market prices increased and \textquotedblleft D" for when it decreased in value. Alternatively the values 1 and 0 were also used to represent up and down respectively. The primary difference between the two labels was in the values returned from the hybrid ARIMA models. When using 1 and 0 for the class label the models return a value in the range of 1 to 0, whereas for the categorical value there was only the choice of the two values. 
+
+\subsection{Exponential Smoothing}
+Exponential smoothing was used to make one step ahead forecasts for the indice data sets. Initially two base systems were explored in order that they could be used as a baseline against which later results could be compared. The two methods generated predictions using a mean method in which the forecast was simply the average of the sample and a drift method which is the extrapolation of a straight line between the first and last point in a data sample. For all the forecasts generated in this section a moving window approach was adopted. A window of sample data points was used, typically the last 30 observations, for which a forecast was generated using one of the methods. This window was then advanced one observation forward and the forecast for this data set calculated and the process repeated for the entire data set.
+
+Once the forecasts were generated they were passed to a trading algorithm which made decisions regarding whether to trade long or short based on the value of the forecast. If the forecast was higher than the previous closing price a long trade was initiated or if it was lower a short trade was made with the expectation that the market would fall. Results from the forecasts generated from the mean method can be seen in Table \ref{tab:es_mean_sys} while results from the drift method can be seen in Table \ref{tab:es_drift_sys}. Both systems produced poor results and wouldn't generate enough profits to offset any transaction costs that would be incurred in the real world.
+
+Next exponential smoothing was used to  generate forecasts. Allowing for trend, seasonality and whether there are additive or multiplicative affects, a variety of models may be used to generate predictions. The ets() function of the forecast package in R can create models from all the available possibilities. Once again using a moving window approach, one step ahead forecasts were created for the indice data sets. As the window moved through the data, different models were selected as being the best fit and these used to generate the forecasts. Having generated the predictions they were passed to the same trading algorithm as used for the mean and drift models, and the results can be seen in Table \ref{tab:es_sys}. 
 
 \subsection{ARIMA Models}
 The auto.arima() function of the R forecast package was used to assist in generating ARIMA models for the national indice data sets used in this study. For convenience the models selected are listed in Table \ref{tab:chp_ts_arima_models_chp6}.

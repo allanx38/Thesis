@@ -41,8 +41,6 @@ std6 <- c(1,3,4,5,7,8,10)
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 NaiveRev <- run_NaiveReversePrev(fil, 0, nm)
 
-misc_col <- 11
-
 # ------------------------------------------
 # ---------  1. Naive Long (Sub Chapter) --------
 
@@ -60,10 +58,6 @@ run_NaiveLongSystem <- function(fil, SLoss, nm){
 }
 
 res1 <- run_NaiveLongSystem(fil,0,nm)
-res1[misc_col] <- 'Naive Long'
-
-# for summary results
-total_res <- res1
 
 # produce latex table
 dat <- res1[,c(1,3,5,7)]
@@ -92,11 +86,7 @@ return(df10)
 }
 
 res2 <- run_NaiveLongSystem2(fil,0,nm)
-res2[misc_col] <- 'Naive Long 2'
-
-# Add to total results
-total_res <- rbind(total_res, res2)
-
+  
 # produce latex table
 dat <- res2[,c(1,3,5,7)]
 dig <- 2
@@ -113,10 +103,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # -----------------------------------------------------------------------------
 
 res3 <- run_NaiveReversePrev(fil, 0, nm)
-res3[misc_col] <- 'Reverse Prev'
-
-# Add to total results
-total_res <- rbind(total_res, res3)
 
 # produce latex table
 dat <- res3[,c(1,3,4,5,7,8,10)]
@@ -140,10 +126,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # rpeat with a stop loss
 res3a <- run_NaiveReversePrev(fil, -75, nm)
-res3a[misc_col] <- 'Reverse Prev Stop Loss'
-
-# Add to total results
-total_res <- rbind(total_res, res3a)
+#tt <- sub_df(res3a,res3);tt
 
 # produce latex table
 dat <- res3a[,std6]
@@ -179,10 +162,6 @@ run_BaseSystem1SMA <- function(fil,SLoss,nm){
 }
 
 res4 <- run_BaseSystem1SMA(fil,0,nm)
-res4[misc_col] <- 'SMA'
-
-# Add to total results
-total_res <- rbind(total_res, res4)
 
 dat <- res4[,c(1,3,4,5,7,8,10,11)]
 dig <- 2
@@ -208,10 +187,6 @@ run_BaseSystem1SMA2 <- function(fil,SLoss,nm){
 }
 
 res5 <- run_BaseSystem1SMA2(fil,0,nm)
-res5[misc_col] <- 'SMA Stop Loss'
-
-# Add to total results
-total_res <- rbind(total_res, res5)
 
 dat <- res5[,c(1,2,3,4,5,6,8,9,11)]
 dig <- 2
@@ -242,10 +217,6 @@ run_MACD_XO <- function(fil,SLoss,nm){
 }
 
 res6 <- run_MACD_XO(fil,0,nm)
-res6[misc_col] <- 'MACD'
-
-# Add to total results
-total_res <- rbind(total_res, res6)
 
 dat <- res6[,std6]
 dig <- 2
@@ -276,10 +247,6 @@ run_aroon_sys <- function(fil,SLoss,nm){
 }
 
 res7 <- run_aroon_sys(fil,0,nm)
-res7[misc_col] <- 'Aroon'
-
-# Add to total results
-total_res <- rbind(total_res, res7)
 
 dat <- res7[,std6]
 dig <- 2
@@ -305,11 +272,6 @@ names(aroondfsl) <- df.name
 
 res7a <- run_aroon_sys(fil,-100,nm)
 aroondfsl <- res7a
-
-res7a[misc_col] <- 'Aroon Stop Loss'
-
-# Add to total results
-total_res <- rbind(total_res, res7a)
 
 dat <- res7a[,std6]
 dig <- 2
@@ -375,10 +337,6 @@ run_sar_sys <- function(fil,SLoss,nm){
 }
 
 res8 <- run_sar_sys(fil,0,nm)
-res8[misc_col] <- 'SAR'
-
-# Add to total results
-total_res <- rbind(total_res, res8)
 
 dat <- res8[,std6]
 dig <- 2
@@ -411,10 +369,6 @@ run_MACD_OB <- function(fil,SLoss,nm){
 }
 
 res9 <- run_MACD_OB(fil,0,nm)
-res9[misc_col] <- 'MACD Reversal'
-
-# Add to total results
-total_res <- rbind(total_res, res9)
 
 dat <- res9[,std6]
 dig <- 2
@@ -455,11 +409,6 @@ run_stoch_sys <- function(fil,SLoss,nm){
 }
 
 res10 <- run_stoch_sys(fil,0,nm)
-res10[misc_col] <- 'Stoch'
-
-# Add to total results
-total_res <- rbind(total_res, res10)
-
 
 dat <- res10[,std6]
 dig <- 2
@@ -473,10 +422,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # Stock plus SLoss
 res10a <- run_stoch_sys(fil,-100,nm)
-res10a[misc_col] <- 'Stoch Stop Loss'
-
-# Add to total results
-total_res <- rbind(total_res, res10a)
 
 dat <- res10a[,std6]
 dig <- 2
@@ -508,10 +453,6 @@ run_roc_sys <- function(fil,SLoss,nm){
 }
 
 res11 <- run_roc_sys(fil,0,nm)
-res11[misc_col] <- 'ROC'
-
-# Add to total results
-total_res <- rbind(total_res, res11)
 
 dat <- res11[,std6]
 dig <- 2
@@ -566,10 +507,6 @@ run_BaseSystem2Bout <- function(fil,SLoss,nm){
 }
 
 res12 <- run_BaseSystem2Bout(fil,0,nm)
-res12[misc_col] <- 'Daily Breakout'
-
-# Add to total results
-total_res <- rbind(total_res, res12)
 
 dat <- res12[,std6]
 dig <- 2
@@ -610,10 +547,6 @@ run_BaseSystem3Quant902 <- function(fil,SLoss,nm){
 }
 
 res14 <- run_BaseSystem3Quant902(fil,0,nm)
-res14[misc_col] <- '90% Quantile Breakout'
-
-# Add to total results
-total_res <- rbind(total_res, res14)
 
 dat <- res14[,std6]
 dig <- 2
@@ -660,14 +593,10 @@ run_candle_hammer <- function(fil,SLoss,nm){
   return(df10)
 }
 
-res15 <- run_candle_hammer(fil,0,nm)
-res15[misc_col] <- 'Hammer Candlestick'
-
-# Add to total results
-total_res <- rbind(total_res, res15)
+res14 <- run_candle_hammer(fil,0,nm)
 
 # latex table
-dat <- res15[,c(1,3,5,6,7)]
+dat <- res14[,c(1,3,5,6,7)]
 dig <- 2
 cap = c('Results from a system based on the Hammer and Inverted Hammer candlestick patterns.',
         'Results from a system based on the Hammer and Inverted Hammer candlestick patterns')
@@ -699,10 +628,10 @@ run_candle_hammer_aroon <- function(fil,SLoss,nm){
   return(df10)
 }
 
-res15a <- run_candle_hammer_aroon(fil,0,nm)
+res14a <- run_candle_hammer_aroon(fil,0,nm)
 
 # latex table
-dat <- res15a[,c(1,3,5,6,7)]
+dat <- res14a[,c(1,3,5,6,7)]
 dig <- 2
 cap =  c('Results from a system based on the Hammer and Inverted Hammer candlestick patterns occurring in a downtrend as defined by the aroon value.',
          'Results from a system based on the Hammer and Inverted Hammer candlestick patterns occurring in a downtrend')
@@ -733,14 +662,10 @@ run_candle_engulf <- function(fil,SLoss,nm){
   return(df10)
 }
 
-res16 <- run_candle_engulf(fil,0,nm)
-res16[misc_col] <- 'Engulfing Candlestick'
-
-# Add to total results
-total_res <- rbind(total_res, res16)
+res15 <- run_candle_engulf(fil,0,nm)
 
 # latex table
-dat <- res16[,std6]
+dat <- res15[,std6]
 dig <- 2
 cap =  c('Results from a system based on the Engulfing candlestick pattern.',
           'Results from a system based on the Engulfing candlestick pattern')
@@ -772,14 +697,10 @@ run_candle_engulf_aroon <- function(fil,SLoss,nm){
   return(df10)
 }
 
-res16a <- run_candle_engulf_aroon(fil,0,nm)
-res16a[misc_col] <- 'Engulfing Candlestick in Trend'
-
-# Add to total results
-total_res <- rbind(total_res, res9)
+res15a <- run_candle_engulf_aroon(fil,0,nm)
 
 # latex table
-dat <- res16a[,std6]
+dat <- res15a[,std6]
 dig <- 2
 cap =  c('Results from a system based on the Engulfing candlestick pattern in a trending market.',
          'Results from a system based on the Engulfing candlestick pattern in a trending market')
@@ -811,14 +732,10 @@ run_candle_doji_aroon <- function(fil,SLoss,nm){
   return(df10)
 }
 
-res17 <- run_candle_doji_aroon(fil,0,nm)
-res17[misc_col] <- 'Doji Candlestick'
-
-# Add to total results
-total_res <- rbind(total_res, res17)
+res16 <- run_candle_doji_aroon(fil,0,nm)
 
 # latex table
-dat <- res17[,std6]
+dat <- res16[,std6]
 dig <- 2
 cap = c('Results from a system based on the Doji candlestick pattern in a trending market.',
         'Results from a system based on the Doji candlestick pattern in a trending market')
@@ -826,92 +743,5 @@ lab = 'tab:doji_aroon_results'
 filname ='../Tables/chp_ta_doji.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# -- Generate Summary tables for Chp6
-# 1. Dax
-colnames(total_res)[11] <- 'Methodology'
-Dx <- total_res[total_res$Mkt == 'Dax',]
-Dx2 <- Dx[c(11,3,4,7,10)]
-
-# latex table
-dat <- Dx2
-dig <- 2
-cap = c('Chapter 4 Dax Results',
-        'Chapter 4 Dax Results')
-lab = 'tab:chp6:dax_summary'
-filname ='../Tables/chp_6_dax_summary.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# 2. CAC
-Cc <- total_res[total_res$Mkt == 'CAC',]
-Cc2 <- Cc[c(11,3,4,7,10)]
-
-# latex table
-dat <- Cc2
-dig <- 2
-cap = c('Chapter 4 CAC Results',
-        'Chapter 4 CAC Results')
-lab = 'tab:chp6:cac_summary'
-filname ='../Tables/chp_6_cac_summary.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# 3. FTSE
-Ft <- total_res[total_res$Mkt == 'FTSE',]
-Ft2 <- Ft[c(11,3,4,7,10)]
-
-# latex table
-dat <- Ft2
-dig <- 2
-cap = c('Chapter 4 FTSE Results',
-        'Chapter 4 FTSE Results')
-lab = 'tab:chp6:ftse_summary'
-filname ='../Tables/chp_6_ftse_summary.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# 4. Dow
-Dw <- total_res[total_res$Mkt == 'Dow',]
-Dw2 <- Dw[c(11,3,4,7,10)]
-
-# latex table
-dat <- Dw2
-dig <- 2
-cap = c('Chapter 4 Dow Results',
-        'Chapter 4 Dow Results')
-lab = 'tab:chp6:dow_summary'
-filname ='../Tables/chp_6_dow_summary.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# 5. Nikkei
-Nk <- total_res[total_res$Mkt == 'Nikkei',]
-Nk2 <- Nk[c(11,3,4,7,10)]
-
-# latex table
-dat <- Nk2
-dig <- 2
-cap = c('Chapter 4 Nikkei Results',
-        'Chapter 4 Nikkei Results')
-lab = 'tab:chp6:nik_summary'
-filname ='../Tables/chp_6_nik_summary.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# 6. Oz
-Oz <- total_res[total_res$Mkt == 'AORD',]
-Oz2 <- Oz[c(11,3,4,7,10)]
-
-# latex table
-dat <- Oz2
-dig <- 2
-cap = c('Chapter 4 AORD Results',
-        'Chapter 4 AORD Results')
-lab = 'tab:chp6:aord_summary'
-filname ='../Tables/chp_6_aord_summary.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 
 # END

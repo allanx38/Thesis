@@ -38,7 +38,7 @@ BaseSystem1SMA <- function(Mkt, sma, SLoss, MktName){
   #calculate Short results
   results[8:10] <- calcStats(Mkt$Short)
   
-  names(results)[11] <- "SMA"
+  #names(results)[11] <- "SMA"
   
   return(results)
 }
