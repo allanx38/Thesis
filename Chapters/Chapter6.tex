@@ -14,6 +14,14 @@ In chapters 4 and 5 a wide variety of analytical techniques were applied to a ra
 Chapter 5 continued the exploration of financial time series through the use of exponential smoothing, ARIMA and hybrid ARIMA techniques. The generated models were used to create one-step ahead forecasts which were then added to the original data sets. These amended data sets were then fed into trading algorithms which used the forecast values to make buying decisions.
 
 \section{Exponential Smoothing}
+Exponential smoothing was used to make one step ahead forecasts for the indice data sets. Initially two base systems were explored in order that they could be used as a baseline against which later results could be compared. The two methods generated predictions using a mean method in which the forecast was simply the average of the sample and a drify method which is the extrapolation of a striaght line between the first and last point in a data sample. For all the forecasts generated in this section a moving window approach was adopted. A window of sample data points was used, typically the last 30 observations, for which a forecast was generated using one of the methods. This window was then advanced one observation forward and the forecast for this data set calculated and the process repeated for the entire data set.
+
+Once the forecasts were generated they were passed to a trading algorithm which made decisions regarding whether to trade long or short based on the value of the forecast. If the forecast was higher than the previous closing price a long trade was initiated or if it was lower a short trade was made with the expectation that the market would fall. Results from the forecasts generated from the mean method can be seen in Figure \ref{} while results from the drift method can be seen in Figure \ref{}. Both systems produced poor results and wouldn't generate enough profits to offset any transaction costs that would be incurred in the real world.
+
+Next exponential smoothing was used to  generate forecasts. Allowing for trend, seasonality and whether there are additive or multiplicative affects, a variety of models may be used to generate predictions. The ets() function of the forecast package in R can create models from all the available possibilities. Once again using a moving window approach, one step ahead forecasts were created for the indice data sets. As the window moved through the data, different models were selected as being the best fit and these used to generate the forecasts. Having generated the preditctions they were passed to the same trading algorithm as used for the mean and drift models, and the results can be seen in Figure \ref{}. 
+
+RESULTS in diss are the same as mean model ...
+
 
 \section{Technical Analysis}
 
