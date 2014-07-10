@@ -286,7 +286,7 @@ fil_es <- c("../Data/ES/Dax_es.csv",
 # use prev function
 res_es <- run_es_1(fil_es,0,nm)
 
-dat <- res_mean[,std6]
+dat <- res_es[,std6]
 dig <- 2
 cap =  c('Results from the ES System.',
          'Results from the ES System')
