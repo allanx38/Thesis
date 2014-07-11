@@ -34,8 +34,6 @@ NaiveRev <- run_NaiveReversePrev(fil, 0, nm)
 Mkt <- read.csv("../Data/Dax_2000_d.csv")
 Mkt$Date[2999]
 Mkt_ts <- ts(Mkt$Close)
-#Mkt_ts <- ts(Mkt$Close,frequency=252, start=c(2000,1))
-#Mkt_train <- window(Mkt_ts, start=2000, end=2009.99)
 Mkt_train <- window(Mkt_ts, end=2999.99)
 Mkt_test <- window(Mkt_ts, start=3000)
 
@@ -60,9 +58,8 @@ d <- rbind(a,c)
 # produce latex table
 dat <- d[,c(2,3,4,5,6)]
 dig <- 0
-cap <- c("Mean and Drift methods applied to 
-         to the Dax.","Mean and Drift methods applied to 
-         to the Dax")
+cap <- c("Error measures from mean and drift models.",
+         "Error measures from mean and drift models")
 lab = 'tab:chp_ts:sma'
 filname ='../Tables/chp_ts_sma.tex'
 inclrnam=TRUE
