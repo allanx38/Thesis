@@ -179,7 +179,7 @@ run_BaseSystem1SMA <- function(fil,SLoss,nm){
 }
 
 res4 <- run_BaseSystem1SMA(fil,0,nm)
-res4[misc_col] <- 'SMA'
+#res4[misc_col] <- 'SMA'
 
 # Add to total results
 total_res <- rbind(total_res, res4)
@@ -208,7 +208,7 @@ run_BaseSystem1SMA2 <- function(fil,SLoss,nm){
 }
 
 res5 <- run_BaseSystem1SMA2(fil,0,nm)
-res5[misc_col] <- 'SMA Stop Loss'
+#res5[misc_col] <- 'SMA Stop Loss'
 
 # Add to total results
 total_res <- rbind(total_res, res5)
@@ -776,7 +776,7 @@ res16a <- run_candle_engulf_aroon(fil,0,nm)
 res16a[misc_col] <- 'Engulfing Candlestick in Trend'
 
 # Add to total results
-total_res <- rbind(total_res, res9)
+total_res <- rbind(total_res, res16a)
 
 # latex table
 dat <- res16a[,std6]
