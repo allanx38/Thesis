@@ -216,20 +216,28 @@ Replacing the ANN learner from the previous section with a k-NN method resulted 
 
 
 \section{Conclusion}
+This study delved into the issue of whether financial markets can be predicted with the use of technical analysis or times series modelling.  To this end a wide variety of technical analysis indicators were explored along with a range of time series models. One aspect of technical analysis worth noting is that opinion is divided as to its value, with many voices in academia being critical of it. Having stated that, it is also a fact that it is widely, almost ubiquitously, used by participants of the financial markets. The widespread use of technical analysis includes the large body of amateur traders as may be expected as well as professional. Indeed it was reported by \cite{Menkhoff20102573} that most fund managers who were polled, educated professional in this arena, employ technical analysis.
 
-TA - not much cop -> b/out good, trend Det - Aroon OK, Rev no good ...
+The results from the technical analysis presented in Chapter \ref{Chapter4} were grouped into the general area in which they purport to operate. These area were trend detection, market reversals, momentum indicators, break-out patterns and candlestick patterns. Of all the technical indicators explored in this study the break-out and trend detection methods seem to hold the most promise. This is in agreement with \cite{Brock} who also found merit in these techniques. The use of Moving Average Convergence/Divergence (MACD) is one area where the results of this study divert from the literature. The results from Chapter \ref{Chapter4} section \ref{sec:chp4macd} are quite poor whereas \cite{Prodan2013214} report profitable returns from using MACD to forecast national stock market indices.
 
-2.1.4 - MACD - reported profitability - not me
+One area in agreement with the literature is in the use of candlestick patterns. \citep{Marshall20062303} reported on unsuccessful studies using a range of candlestick patterns to assist in forecasting the Dow Jones Industrial Average. These results were reflected in this study, in that predictions from the candlestick patterns produced poor returns. However, an element of caution is required before dismissing the usefulness of candlestick patterns. Being visual patterns they need an element of subjectivity to be applied to their use and this is difficult to achieve in the rigid arena of computer programming. %Time frame - us days, Tanaka positive on tick data. -> also combined them together.
 
-2.1.5 - Candlesticks - Marshall reported that they don't work, me same, but visual inspection suggests they do ...
+The second area of study concentrated on established time series modelling techniques with a firmer basis in academia. This included the use of exponential smoothing, ARIMA and hybrid ARIMA techniques. The Holt-Winters method of exponential smoothing defines various aspects of a time series and applies a smoothing function to each \citep{Winters1960}. Thus models can be defined to account for stationary, trending or data sets with a seasonal element. Financial markets exhibit a variety of behaviour at different periods and thus one single smoothing model is not appropriate. The approach adopted in this study was to use a moving window technique. Thus as the window moved through the data set an appropriate model could be selected and applied for each subset of observations. The results generated from this exponential moving methodology were poor, barely producing returns better than a baseline approach that simply used the average of the data sample.
 
-Summary of Research Activity - already done?
-Discussion
-Research question and objective revisited
+Another widely used time series modelling technique is Auto-Regressive Integrated Moving Average (ARIMA). ARIMA models were built for the data sets under study and the forecasts generated used in trading algorithms, see Chapter \ref{Chapter5} section \ref{sec:traing:arima:models} for details. The results were poor with the systems unable to produce a profit. 
 
+One major limitation in the ARIMA model is the need for the relationship in the data to be linear. The use of hybrid ARIMA methods is an attempt to overcome this limitation, coupling ARIMA with a different learner such as Artificial Neural Networks (ANN), k-Nearest Neighbour (k-NN) or Support Vector Machines (SVM). There are many reports in the literature of good results obtained from the use of these hybrid methods. \cite{Wang2012758}, \cite{Khashei2009956} and \cite{Zhang2003159} reported promising results from the use of ARIMA/ANN and \cite{Pai2005497} good results from ARIMA/SVM. This study showed only very modest returns from the use of ARIMA/ANN or ARIMA/SVM, however ARIMA/k-NN generated high returns. The positive returns from the ARIMA/k-NN models were similar to the results from the break-out system described previously.
 
-\section{Future Work}
-candlestick systems -> price 2,,3,4 days ahead?
-combining systems
-k-NN seems promising
-additional markets
+\subsection{Research question revisited}
+This study had the aim of answering the following question:
+
+\textit{\textquotedblleft Can the use of technical indicators or time series analysis help to predict the future direction and movement of financial markets?\textquotedblright}
+
+Essentially there are two elements to this question, the ability of technical analysis to aid in predicting future market movements and the usefulness of time series modelling techniques to predict market movements. Considering technical analysis first the results overall are quite poor and most techniques tried produced poor results, rarely beating the baseline system of simply trading in the opposite direction to the previous day, especially when this concept is married with a stop loss. Overall the breakout idea and the aroon indicator produced the best results from the technical analysis indicators.
+
+Of the times series modelling techniques explored the hybrid ARIMA/k-NN models produced by far the best results. Returns from this approach were very similar to the break-out system from the technical analysis section.
+
+\subsection{Future Work}
+Restraints of time and resources restricted this study to a selection of technical analysis indicators and times series models. Further, the data selects were limited to national indices of daily data. There are a large number of other technical indicators that can be explored and many other financial markets including individual stocks, commodities such as gold and oil and a wide range of currency pairs. The techniques reported in this study were compared in isolation. In many situations traders use combinations of methods and this could form the basis of future work. Given the huge number of possible combinations careful consideration would have to be given to the selection of the techniques to use.
+
+The time frame of the data used is another important consideration. This report used daily open, high, low and close data and used trading algorithms based around the day. Data sets in different times frames, particularly shorter ones such has minute or even tick data (the most granular of financial data) could be explored. Trading algorithms that hold trades for days or weeks could also be tried and this idea maybe particularly interesting for techniques such as candlestick patterns for which the predictive benefit may not be immediate.
