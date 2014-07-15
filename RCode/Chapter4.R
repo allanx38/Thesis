@@ -1,11 +1,12 @@
 # Chapter 4
 setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 
-# Housekeeping
+# libraries to include
 library(xtable)
 library(TTR)
 library(candlesticks)
 
+# files to include
 source("../RCode//Utils.R")
 source("../RCode//NaiveLongSystem.R")
 source("../RCode//NaiveLongSystem2.R")
@@ -16,9 +17,7 @@ source("../RCode//Aroon.R")
 source("../RCode//SAR.R")
 source("../RCode//Stoch.R")
 source("../RCode//ROC.R")
-source("../RCode//ROC2.R")
 source("../RCode//MACD_OB.R")
-source("../RCode//Bout_sys.R")
 source("../RCode//Bout_sys_2.R")
 source("../RCode//Quant90_sys.R")
 source("../RCode//Candle_Hammer.R")
@@ -43,8 +42,8 @@ NaiveRev <- run_NaiveReversePrev(fil, 0, nm)
 
 misc_col <- 11
 
-# ------------------------------------------
-# ---------  1. Naive Long (Sub Chapter) --------
+# -----------------------------------------------
+# ---------  1. Naive Long Base System   --------
 
 run_NaiveLongSystem <- function(fil, SLoss, nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -75,8 +74,9 @@ filname ='../Tables/chp_ta_naive_long.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# ---------------------------------------------
-# ---------- previous close and today's close
+# ------------------------------------------------------
+# ---------   Naive Long Base System          ----------
+# ---------- previous close and today's close ----------
 
 run_NaiveLongSystem2 <- function(fil,SLoss, nm){
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -109,7 +109,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 # -----------------------------------------------------------------------------
-# ------------ Reverse Previous ------------------------------------------------
+# ------------ Reverse Previous Baseline System -------------------------------
 # -----------------------------------------------------------------------------
 
 res3 <- run_NaiveReversePrev(fil, 0, nm)
@@ -128,7 +128,7 @@ filname ='../Tables/chp_ta_naive_reverse_prev.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# repeat latex table for Chp6 - affects numbering if re-use ...
+# repeat latex table for Chp6 - affects numbering if re-use from Chp5
 dat <- res3[,c(1,3,4,5,7,8,10)]
 dig <- 2
 cap = c('Results from a naive trading system which simply trades in the opposite direction to the previous day\'s movement.',
@@ -138,7 +138,7 @@ filname ='../Tables/chp_ta_naive_reverse_prev_chp6.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# rpeat with a stop loss
+# repeat with a stop loss
 res3a <- run_NaiveReversePrev(fil, -75, nm)
 res3a[misc_col] <- 'Reverse Prev Stop Loss'
 
@@ -156,11 +156,10 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-# -------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------
-# section{Trend Detection Indicators}
+# ------------------------------------------------------------
+# ----------------- Trend Detection Indicators ----------------
 
-# SMA
+# --------------- SMA
 run_BaseSystem1SMA <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -179,7 +178,6 @@ run_BaseSystem1SMA <- function(fil,SLoss,nm){
 }
 
 res4 <- run_BaseSystem1SMA(fil,0,nm)
-#res4[misc_col] <- 'SMA'
 
 # Add to total results
 total_res <- rbind(total_res, res4)
@@ -192,7 +190,7 @@ filname ='../Tables/chp_ta_sma.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# SMA SLoss
+# SMA SLoss ---------------------
 run_BaseSystem1SMA2 <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -208,12 +206,11 @@ run_BaseSystem1SMA2 <- function(fil,SLoss,nm){
 }
 
 res5 <- run_BaseSystem1SMA2(fil,0,nm)
-#res5[misc_col] <- 'SMA Stop Loss'
 
 # Add to total results
 total_res <- rbind(total_res, res5)
 
-dat <- res5[,c(1,2,3,4,5,6,8,9,11)]
+dat <- res5[,c(1,3,4,5,7,8,10,11)]
 dig <- 2
 cap =  c('Results from a system based on SMA with stop loss.',
                       'Results from a system based on SMA with stop loss')
@@ -223,8 +220,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # ----------------------------------------------------------------------
-# subsection{Moving Average Convergence/Divergence (MACD)}
-# subsubsection{MACD as trend Indicator}
+# --------- Moving Average Convergence/Divergence (MACD)}
 
 run_MACD_XO <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -257,8 +253,8 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-# ----------------------------------------------------------
-# ---------------------------  Aroon ------------------------
+# -------------------------------------------
+# ------------ Aroon ------------------------
 
 run_aroon_sys <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -291,7 +287,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-# Aroon with SLoss
+# ---- Aroon with SLoss
 aroondfsl <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 for(i in 1:length(fil)){
   Dax <- read.csv(fil[i])                        #read data 
@@ -356,7 +352,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -------------------------------------------------------------------------
-# ------------ Trend REversal -------------------------
+# ------------ Trend Reversal -------------------------
 
 # ----------- SAR
 run_sar_sys <- function(fil,SLoss,nm){
@@ -391,7 +387,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 # ----------------------------------------------------------
-# ---------------------------  MACD OB ------------------------
+# ----------------- MACD OB -------------------------------
 
 run_MACD_OB <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -427,7 +423,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 #----------------------------------------------------------
-# ---------------------------  stoch ------------------------
+# ----------------  Stochastic ----------------------------
 
 ln <- nrow(df10)
 for(i in 1:length(fil)){
@@ -470,8 +466,7 @@ filname ='../Tables/chp_ta_stoch.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-
-# Stock plus SLoss
+# --------- Stochastic plus Stop Loss
 res10a <- run_stoch_sys(fil,-100,nm)
 res10a[misc_col] <- 'Stoch Stop Loss'
 
@@ -522,36 +517,10 @@ filname ='../Tables/chp_ta_roc.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# ROC 2
-#If previous ROC was greater or smaller than 0:
-#source("../RCode//ROC2.R")
-# ln <- nrow(df10)
-# #results <- 1:11
-# for(i in 1:length(fil)){
-#   Mkt <- read.csv(fil[i])                          #read data 
-#   roc <- ROC( Mkt$Close )                          #calc MACD values
-#   Mkt <- cbind(Mkt, roc)                           #Add MACD values to orig data set
-#   lw <- quantile(Mkt$roc, na.rm=T, probs=0.15)     #Calc low val for algo
-#   up <- quantile(Mkt$roc, na.rm=T, probs=0.85)     #Calc up val for algo
-#   a <- roc_sys2(Mkt, 0, nm[i])              #Call fnc
-#   df10 <- rbind(df10, a)               #add results
-# }
-# df10 <- df10[-c(1:ln-1),]                #NOTE ln-1 !!!!!
-# 
-# dat <- df10[-1,std6]
-# dig <- 2
-# cap =  c('ROC2.',
-#                                 'ROC2')
-# lab = 'tab:mac_roc2_results'
-# filname ='../Tables/chp_ta_roc2.tex'
-# inclrnam=FALSE
-# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 # -----------------------------------------------------------------
-# -------------section{Break-out systems}
+# ------------- Break-out Systems ------------------------------
 
-#----------------------------------------------------------------
-# ---------------------------  Break Out ------------------------
+# ------------  Daily Break Out ------------------------
 run_BaseSystem2Bout <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -592,10 +561,8 @@ filname ='../Tables/chp_ta_b_out_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-
-#----------------------------------------------------------------
-# ---------------------------  90% Quant ------------------------
-
+#-----------------------------------------------------------------
+# ---------------- 90% Quantile Break-out ------------------------
 run_BaseSystem3Quant902 <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -636,10 +603,9 @@ filname ='../Tables/chp_ta_90q_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-
 # ----------------------------------------------------------------------------
-# -------section{Candlestick Patterns}
-
+# -------  Candlestick Patterns 
+# -------- Hammer Pattern
 run_candle_hammer <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -713,7 +679,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -------------------------------------------------------------
 # -----------------  Engulfing Candlestick -------------------
-
 run_candle_engulf <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -750,7 +715,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
-# with Aroon
+# ---------- Engulfing Candlestick with Aroon
 run_candle_engulf_aroon <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -789,7 +754,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # ----------------------------------------------------------
-# ---------------------------  Doji ------------------------
+# -------------  Doji Candlestick   ------------------------
 run_candle_doji_aroon <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -827,7 +792,8 @@ filname ='../Tables/chp_ta_doji.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# -- Generate Summary tables for Chp6
+#--------------------------------------------------------
+# -- Generate Summary tables for Appendic C -------------
 # 1. Dax
 colnames(total_res)[11] <- 'Methodology'
 Dx <- total_res[total_res$Mkt == 'Dax',]
@@ -912,6 +878,5 @@ lab = 'tab:chp6:aord_summary'
 filname ='../Tables/chp_6_aord_summary.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 
 # END

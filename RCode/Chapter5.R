@@ -1,4 +1,4 @@
-# Chapter 5 - test
+# Chapter 5
 setwd("D:/Allan/DropBox/MSc/Dissertation/Thesis/RCode")
 
 # libraries
@@ -23,7 +23,7 @@ fil <- c("../Data/Dax_2000_d.csv",
          "../Data/Oz_2000.csv")
 nm <- c("Dax", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
 
-# Add Naive follow prev for comparison purposes
+# Add Naive reverse prev for comparison purposes
 # data frame will be fed into sub_df
 
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -93,38 +93,6 @@ legend("bottomright",lty=1,col=c(4,3),
        legend=c("Mean method","Drift method"))
 lines(Mkt_act, col=6)
 dev.off() #savepdf end
-
-# --------------- NOT USED AT MO -------------------
-# plot diff range
-# Mkt_test2 <- window(Mkt_ts, start=1510, end=1600)
-# Mkt_train2 <- window(Mkt_ts, start=1000, end=1500)
-# plot.ts(Mkt_train2,
-#         main="Dax over 300 Days",
-#         xlab="Day", ylab="",
-#         xlim=c(1000, 1600),
-#         ylim=c(3500, 6350))
-# lines(meanf(Mkt_train2, h=150) $mean, col=4)
-# lines(rwf(Mkt_train2,h=150)$mean,col=2)
-# lines(rwf(Mkt_train2,drift=TRUE,h=150)$mean,col=3)
-# legend("topleft",lty=1,col=c(4,2,3),
-#        legend=c("Mean method","Naive method","Drift method"))
-# 
-# # plot diff range PLUS actual data
-# Mkt_test2 <- window(Mkt_ts, start=1510, end=1600)
-# Mkt_train2 <- window(Mkt_ts, start=1000, end=1500)
-# plot.ts(Mkt_train2,
-#         main="Dax over 300 Days",
-#         xlab="Day", ylab="",
-#         xlim=c(1000, 1600),
-#         ylim=c(3500, 6350))
-# lines(meanf(Mkt_train2, h=150) $mean, col=4)
-# lines(rwf(Mkt_train2,h=150)$mean,col=2)
-# lines(rwf(Mkt_train2,drift=TRUE,h=150)$mean,col=3)
-# legend("topleft",lty=1,col=c(4,2,3),
-#        legend=c("Mean method","Naive method","Drift method"))
-# lines(Mkt_test2,col=6)
-
-# ----------------------------------------
 
 # 1. Exp Smoothing - mean model
 # a. build data set - window thru and add prediction
@@ -600,8 +568,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # --------- RM Generated Files -----------------------------------------
 # --------- HYBRID ARIMA SYSTEMS ---------------------------------------
 
-source("../RCode/ts_1.R")
-source("../RCode/ts_2.R")
 Mkt <- read.csv("../Data/rm_ar334_reg.csv",stringsAsFactors=F)
 
 ts_1_2_fnc_ar <- function(fil,nm,ts1){
@@ -744,8 +710,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # a. Categorical
 
 # 1. ARMA / ANN (Predicting Up/Dn - Categorical)
-source("../RCode/ts_4.R")
-source("../RCode/Utils.R")
 fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_CAC.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_F100.csv",
@@ -774,8 +738,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -----------------------
 # 2. ARMA / knn (Predicting Up/Dn - Categorical)
-#source("../RCode/ts_4.R")
-#source("../RCode/Utils.R")
 fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_CAC.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_F100.csv",
@@ -868,30 +830,28 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -------------------------------------------------
 #  ------ Arima Ann Predicting Up/Dn - 01 ---------
-source("../RCode/ts_3a.R")
-#source("../RCode/Utils.R")
 # 1. ARMA / ANN - (Predicting Up/Dn - 01)
-fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dax.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_CAC.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_FTSE.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dow.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_N225.csv",
-         "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Oz.csv")
-
-#nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
-df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-
-res10 <- ts_3a_fnc_ar(fil, nm)
-
-# produce latex table from ts_1
-dat <- res10[,c(1,3,4,5,7,8,10)]
-dig <- 0
-cap <- c("Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model.",
-         "Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model")
-lab = 'tab:chp_ts:pUD_01_arima_ann_sys'
-filname ='../Tables/chp_ts_predUpDn_01_arima_ann_sys.tex'
-inclrnam=FALSE
-print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+# fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dax.csv",
+#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_CAC.csv",
+#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_FTSE.csv",
+#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dow.csv",
+#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_N225.csv",
+#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Oz.csv")
+# 
+# #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
+# df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
+# 
+# res10 <- ts_3a_fnc_ar(fil, nm)
+# 
+# # produce latex table from ts_1
+# dat <- res10[,c(1,3,4,5,7,8,10)]
+# dig <- 0
+# cap <- c("Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model.",
+#          "Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model")
+# lab = 'tab:chp_ts:pUD_01_arima_ann_sys'
+# filname ='../Tables/chp_ts_predUpDn_01_arima_ann_sys.tex'
+# inclrnam=FALSE
+# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -- Generate Summary tables for Chp6
 # 1. Dax
@@ -978,69 +938,6 @@ lab = 'tab:chp6:aord2_summary'
 filname ='../Tables/chp_6_aord2_summary.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-
-
-# # 2. ARMA / knn (Predicting Up/Dn - 01)
-# 
-# source("../RCode/ts_3.R")
-# fil_01_ar_knn <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Dax.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_CAC.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_FTSE.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Dow.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Nik.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_knn_Oz.csv")
-# #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
-# df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-# 
-# res11 <- ts_3_fnc_ar(fil_01_ar_knn, nm)
-# 
-# # produce latex table from ts_1
-# dat <- res11[,c(1,3,4,5,7,8,10)]
-# dig <- 0
-# cap <- c("Results from a trading system using the forecast of a continous label from a hybrid ARIMA/k-NN model.",
-#          "Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model")
-# lab = 'tab:chp_ts:pUD_01_arima_knn_sys'
-# filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys.tex'
-# inclrnam=FALSE
-# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-# 
-# # comp to Naive
-# #res_diff <- sub_df_av_pl(NaiveRev, res)
-# res_diff11 <- sub_df(res11,NaiveRev)
-# 
-# dat <- res_diff11[,c(1,3,4,5,7,8,10)]
-# dig <- 0
-# cap <- c("Results from Naive Reversing System subtracted from results generated from predicting Up/Down Numerical label using Arima/k-NN.",
-#          "Predicting UpDn 01 - Arima/k-NN predictions passed to System 3.")
-# lab = 'tab:chp_ts:pUD_01_arima_knn_sys_diff'
-# filname ='../Tables/chp_ts_predUpDn_01_arima_knn_sys_diff.tex'
-# inclrnam=FALSE
-# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-# 
-# 
-# # b3. ARMA / Reg  (Predicting Up/Dn - 01)
-# fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Dax.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_CAC.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_FTSE.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Dow.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Nik.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_Reg_Oz.csv")
-# #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
-# df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-# 
-# res12 <- ts_3_fnc_ar(fil, nm)
-# 
-# # produce latex table from ts_1
-# dat <- res12[,c(1,3,4,5,7,8,10)]
-# dig <- 0
-# cap <- c("Predicting UpDn 01 - Arima/Reg predictions passed to System 3",
-#          "Predicting UpDn 01 - Arima/Reg predictions passed to System 3.")
-# lab = 'tab:chp_ts:01_arima_reg_sys'
-# filname ='../Tables/chp_ts_predUpDn_01_arima_reg_sys.tex'
-# inclrnam=FALSE
-# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 
 # END
 

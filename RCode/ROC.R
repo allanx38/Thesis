@@ -5,8 +5,8 @@ roc_sys <- function(Mkt, SLoss, MktName,lw, up){
   #   Mkt: market data 
   #   SLoss: stop loss 
   #   MktName: market's name for print out
-  #   lw: value of MACD that signals end of bear runs and rev
-  #   up: value of MACD that signals end of bull runs and rev
+  #   lw: value of ROC for reversal up
+  #   up: value of ROC for reversal down
   #
   # Returns:
   #   results vector.

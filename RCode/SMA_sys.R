@@ -41,7 +41,7 @@ BaseSystem1SMA <- function(Mkt, sma, SLoss, MktName){
   if (SLoss == 0){
     results[11] <- paste("SMA",sma)
   } else {
-    results[11] <- paste("SMA",sma, "Stop Loss")
+    results[11] <- paste("SMA",sma)
   }
   
   
