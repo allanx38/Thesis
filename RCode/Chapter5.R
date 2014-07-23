@@ -829,6 +829,12 @@ filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
+# Chp6
+lab = 'tab:chp_ts:pUD_CAT_arima_svm_sys_ch6'
+filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys_chp6.tex'
+inclrnam=FALSE
+print_xt(dat,dig,cap,lab,al,filname,inclrnam)
+
 # -------------------------------------------------
 #  ------ Arima Ann Predicting Up/Dn - 01 ---------
 # 1. ARMA / ANN - (Predicting Up/Dn - 01)
