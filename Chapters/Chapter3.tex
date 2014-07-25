@@ -7,11 +7,8 @@
 \lhead{Chapter 3. \emph{Methodology}} % This is for the header on each page - perhaps a shortened title
 
 %----------------------------------------------------------------------------------------
-\section{Data Collection}
-The data used in this study was freely collected from the Yahoo finance web site (www.yahoo.com).
-
-\section{Data Quality}
-The data is of high quality with no missing values. It represents the opening, high, low and closing prices for each day that the particular market indice was open for trading. 
+\section{Data Collection and Quality}
+The data used in this study was freely collected from the Yahoo finance web site (www.yahoo.com). It is of high quality with no missing values and represents the opening, high, low and closing prices for each day that the particular market indice was open for trading. 
 
 \section{Data Description}
 Data from a variety of national stock market indices was employed in this study. The indices were from a variety of geographic locations with FTSE (UK), DAX (Germany) and CAC (France) all being in Europe, the Dow is from the US, the Nikkei from Japan and AORD from Australia. The data is in the form of so-called daily OHLC (daily open, high, low and close prices) for Monday to Friday (excluding appropriate national holidays) for the period 2000 until the end of 2013. A schematic representation of daily OHLC data can be seen in Figure \ref{fig:chp3_ohlc}. The data sets are freely available from the finance section of Yahoo's website (www.yahoo.com). The first six observations from the DAX data set (German national indice) can be seen in Table \ref{tab:daxhead}.
@@ -129,7 +126,7 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \label{fig:Dax2013}
 \end{figure}
 
-Each data set has a particular set of characteristics and these are important when technical analysis and other analytical techniques are applied to the data set. A variety of these are explored in the following sections. The average amount a market moves is investigated and the term Average True Range is introduced and defined for the data sets. Where the opening and closing prices are in relation to the previous day's high and low values are also considered. Finally the distance between the day's opening and high prices and opening to low prices are investigated. The relative ratios of these values are important when considering which technical analysis may be best suited to a particular market.
+Each data set has a particular set of characteristics and these are important when technical analysis and other analytical techniques are applied to the data set. A variety of these are explored in the following sections. The average amount a market moves is investigated and the term Average True Range is introduced and defined for the data sets. Where the opening and closing prices are in relation to the previous day's high and low values are also considered. Finally, the distance between the day's opening and high prices and opening to low prices are investigated. The relative ratios of these values are important when considering which technical analysis may be best suited to a particular market.
 
 \subsection{Average True Range (ATR)}
 \label{chp3:atr}
@@ -341,7 +338,7 @@ AORD   & 8  & 19  & 36 & 347 \\
 
 
 \subsection{High / Low Price}
-Table \ref{tab:highlow} shows the percentage of times that either today's high price crosses yesterday's high or today's low prices dips below yesterday's low value. The final closing price may be between yesterday's high and low or outside of it. The second column of Table \ref{tab:highlow} is the number of times when today's values crossed both the previous low and the previous high in the same day. This is also known as an Engulfing Candlestick (see section \ref{sec:eng_cand}). In all the indices the previous day's high or low value is reached the following day in a large number of instances, in the case of the Nikkei 90\% of the time. Conversely, the like hood of both the previous day's high and low values being touched are low, only 5\% of occasions in the Australian AORD. 
+Table \ref{tab:highlow} shows the percentage of times that either today's high price crosses yesterday's high or today's low prices dips below yesterday's low value. The final closing price may be between yesterday's high and low or outside of it. The second column of Table \ref{tab:highlow} is the number of times when today's values crossed both the previous low and the previous high in the same day. This is also known as an Engulfing Candlestick (see section \ref{sec:eng_cand}). In all the indices the previous day's high or low value is reached the following day in a large number of instances, in the case of the Nikkei 90\% of the time. Conversely, the likelihood of both the previous day's high and low values being touched are low, only 5\% of occasions in the Australian AORD. 
 
 \begin{table}[!htbp] \centering 
   \caption[Today's H/L Prices in relation to previous day's HL]{Number of occasions when today's high or low prices crossed the previous day's high or low values.} 
@@ -464,25 +461,25 @@ AORD   & 18  & 30  & 48 \\
 \end{tabular} 
 \end{table} 
 
-A final consideration in this section is the range of the open to close prices detailed in section \ref{sec:closing_prices}. Again considering the German Dax it can be seen that the 50\% quantile value is 39, as shown in Table \ref{tab:OCQuantile2}, which is below the 90\% minor fluctuation level.
+A final consideration in this section is the range of the open to close prices detailed in section \ref{sec:closing_prices}. Again considering the German Dax it can be seen that the 50\% quantile value is 39, as shown in Table \ref{tab:OCQuantile}, which is below the 90\% minor fluctuation level.
 
-\begin{table}[!htbp] \centering 
-  \caption[Quantiles of the open to close price range.]{Quantile values for the open to close price range.} 
-  \label{tab:OCQuantile2}
-\begin{tabular}{lcccc} 
-\toprule 
-Market & 25\% & 50\% & 75\% & 90\% \\ 
-\midrule
-Dax  & 16  & 39 & 75 & 508  \\ 
-FTSE & 15  & 33 & 63 & 431 \\ 
-CAC  & 11  & 26 & 49 & 313 \\ 
-Dow  & 27 & 61  & 119 & 950 \\ 
-Nikkei & 32  & 71  & 133 & 1333 \\ 
-AORD   & 8  & 19  & 36 & 347 \\ 
-\bottomrule
-%\normalsize 
-\end{tabular} 
-\end{table} 
+%\begin{table}[!htbp] \centering 
+%  \caption[Quantiles of the open to close price range.]{Quantile values for the open to close price range.} 
+%  \label{tab:OCQuantile2}
+%\begin{tabular}{lcccc} 
+%\toprule 
+%Market & 25\% & 50\% & 75\% & 90\% \\ 
+%\midrule
+%Dax  & 16  & 39 & 75 & 508  \\ 
+%FTSE & 15  & 33 & 63 & 431 \\ 
+%CAC  & 11  & 26 & 49 & 313 \\ 
+%Dow  & 27 & 61  & 119 & 950 \\ 
+%Nikkei & 32  & 71  & 133 & 1333 \\ 
+%AORD   & 8  & 19  & 36 & 347 \\ 
+%\bottomrule
+%%\normalsize 
+%\end{tabular} 
+%\end{table} 
 
 \section{Software Tools}
 

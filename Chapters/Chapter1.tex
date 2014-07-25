@@ -42,7 +42,7 @@ Technical analysis (TA) is interesting as it tends to polarise opinion as to its
 
 \textit{\textquotedblleft Obviously I am biased against the chartist. This is not only a personal predilection, but a professional one as well. Technical Analysis is anathema to the academic world. We love to pick on it. Our bullying tactics are prompted by two considerations: (1) the method is patently false; and (2) it's easy to pick on. And while it may seem a bit unfair to pick on such a sorry target, just remember: it is your money we are trying to save.\textquotedblright}
 
-However, in world of finance technical analysis is ubiquitous and widely used \citep{Menkhoff20102573}. In support of TA a plethora of so-called indicators have been developed over the years from simple moving averages to much more exotic offerings. Today every piece of software or on-line analysis tool provides the ability to place a multitude of technical indicators on a graph of stock, commodity or any financial instrument.
+However, in the world of finance technical analysis is ubiquitous and widely used \citep{Menkhoff20102573}. In support of TA a plethora of so-called indicators have been developed over the years from simple moving averages to much more exotic offerings. Today every piece of software or on-line analysis tool provides the ability to place a multitude of technical indicators on a graph of a stock, commodity or any financial instrument.
 
 Most technical indicators essentially fall into one of two main categories, ones attempting to detect the start and direction of trends and those trying to identify market reversals generally called oscillators. Trend analysis indicators include Average Direction Index (ADX), Aroon, Moving Averages and Commodity Channel Indexes (CCI). Price oscillator indicators include, Moving Average Convergence Divergence (MACD - \citep{appel2007understanding}), Stochastics, Relative Strength Index (RSI) and the Chande Momentum Oscillator (CMO).
 
@@ -50,7 +50,7 @@ Most technical indicators essentially fall into one of two main categories, ones
 The study of forecasting time series data has been an active area of study for several decades \citep{DeGooijer2006443}. Series data is ordered such that the ordering is an important if not critical aspect of the data, with the requirement to maintain this ordering enforcing certain requirements on any processing. Series data can be ordered by factors such as distance or height but typically time is the ordering encountered. Financial data is an important category of series data and a variety of well known time series forecasting methods have been applied to the problem of predicting price movements in the financial markets. These have included, exponential smoothing, auto-regressive moving average (ARMA)
 and auto-regressive integrated moving average (ARIMA).
 
-A variety of smoothing algorithms have been applied to series data in general and financial data in particular. Moving averages, including simple, weighted and exponential, are widely employed by participants in financial markets to both predict future movements and quantify current conditions. Classical time series analysis such as so-called Holt-Winters exponential smoothing, the auto-regressive moving average (ARMA or Box-Jenkins model) and auto-regressive integrated moving average (ARIMA) methods have been widely employed. In more recent years data mining techniques have been applied to the problem of financial time series prediction, for example with the use of artificial neural networks (ANNs) and support vector machines (SVM) as well as an hybrid approach of combining the classic time series techniques with the data mining methods in an attempt to leverage the strengths of each technique.
+A variety of smoothing algorithms have been applied to series data in general and financial data in particular. Moving averages, including simple, weighted and exponential, are widely employed by participants in financial markets to both predict future movements and quantify current conditions. Classical time series analysis such as so-called Holt-Winters exponential smoothing, the auto-regressive moving average (ARMA or Box-Jenkins model) and auto-regressive integrated moving average (ARIMA) methods have also been widely employed. In more recent years data mining techniques have been applied to the problem of financial time series prediction, for example with the use of artificial neural networks (ANNs) and support vector machines (SVM) as well as an hybrid approach of combining the classic time series techniques with the data mining methods in an attempt to leverage the strengths of each technique.
 
 %(\cite{Hsu201114026}) - \textquotedblleft In addition, traditional time series forecasting techniques, such as
 %autoregressive integrated moving average (ARIMA) (Box & Jenkins,
@@ -78,15 +78,15 @@ The problem under study in this thesis is that of predicting the movement of fin
 The goal of financial traders is to detect the movement of the markets and buy instruments expected to rise in price \textquotedblleft going long" and sell those predicted to fall in price \textquotedblleft going short". The markets are a neutral sum process, for every participant who gains there are those who lose.
 
 \section{Purpose of Study}
-The purpose of this study is to investigate and establish the usefulness and accuracy of a selection of technical indicators and time series analysis on the ability to predict future data movements in a group of financial markets including national indices, Forex, commodities and stocks.
+The purpose of this study is to investigate and establish the usefulness and accuracy of a selection of technical indicators and time series analysis on the ability to predict future data movements in a group of national indice data sets.
 
 \subsection{Study Objectives}
 The objective of this study is three fold:
 
 \begin{enumerate}
-\item Determine if a group of popular and widely used technical indicators can be used to predict the direction of movement in a range of financial markets.
-\item Investigate if traditional time series models can predict the direction of movement in a range of financial markets.
-\item Use traditional time series models to identify when a financial market moves into the \textquotedblleft trending" phase.
+\item To investigate a group of national indice data sets in terms of their behaviour and characteristics.
+\item To determine if a group of popular and widely used technical indicators can be used to predict the direction of movement in a range of financial markets.
+\item To investigate if traditional time series models can predict the direction of movement in a range of financial markets.
 \end{enumerate}
 
 %Arima vs Holt Winters - ID trend - trad tools
@@ -116,12 +116,12 @@ The following methodology was used to answer the research question:
 Limitations in this study include:
 \begin{enumerate}
 \item Choice of technical indicators - a small selection of the huge number available was selected. The selected group represent widely used examples and are drawn from the various categories available.
-\item Use of financial data relating to stock market indices - Daily data in the format of open, high, low and close prices (OHLC) from national stock market indices such as the Dow Jones or FTSE 100 is readily and freely available and is thus was used in this study. High quality data in time frames other than daily or from alternative financial markets such commodities or foreign exchange is generally only commercially available and beyond the resources of this study.
+\item Use of financial data relating to stock market indices - daily data in the form of open, high, low and close prices (OHLC) from national stock market indices such as the Dow Jones or FTSE 100 is readily and freely available and thus was used in this study. High quality data in time frames other than daily or from alternative financial markets such commodities or foreign exchange is generally only commercially available and beyond the resources of this study.
 \end{enumerate}
 
 \section{Scope of the Study }
 %Are the aspects of your problem statement that cannot be addressed in the time available? Clarify what will / will not be addressed by this project.
-There is a huge choice of financial data sets from which to choose and likewise many dozens of technical indicators. given the time frame and resources available, this study employed daily data from major national indices such as the German Dax, US Dow and Japanese Nikkei. Technical indicators selected included examples from the primary categories such as trend detection and market reversal indicators.
+There is a huge choice of financial data sets from which to choose and likewise many dozens of technical indicators. Given the time frame and resources available, this study employed daily data from major national indices such as the German Dax, US Dow and Japanese Nikkei. Technical indicators selected included examples from the primary categories such as trend detection and market reversal indicators.
 
 \section{Structure of Project}
 Chapter \ref{Chapter2} is a literature review and introduction to financial market trading, the methods and theory of technical analysis and time series modelling. Financial trading systems in general are discussed along with the use and applicability of technical analysis. The classical time series methods of Holt-Winters exponential smoothing, auto-regressive moving average (ARMA or Box-Jenkins model) and auto-regressive integrated moving average (ARIMA) are introduced and explained along with more recent developments such as hybrid ARIMA models.
