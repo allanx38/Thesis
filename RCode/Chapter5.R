@@ -569,7 +569,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # --------- RM Generated Files -----------------------------------------
 # --------- HYBRID ARIMA SYSTEMS ---------------------------------------
 
-Mkt <- read.csv("../Data/rm_ar334_reg.csv",stringsAsFactors=F)
+#Mkt <- read.csv("../Data/rm_ar334_reg.csv",stringsAsFactors=F)
 
 ts_1_2_fnc_ar <- function(fil,nm,ts1){
   for(i in 1:length(fil)){
@@ -591,12 +591,19 @@ ts_1_2_fnc_ar <- function(fil,nm,ts1){
 
 # ---------- Predicting Closing Price -----------------
 # 1. ------ Arima Ann Predicting Closing Price -----------------
-fil <- c("../Data/ARIMA/Predict_Close/ar334_ann_DAX.csv",
-         "../Data/ARIMA/Predict_Close/ar334_ann_CAC.csv",
-         "../Data/ARIMA/Predict_Close/ar334_ann_FTSE.csv",
-         "../Data/ARIMA/Predict_Close/ar334_ann_Dow.csv",
-         "../Data/ARIMA/Predict_Close/ar334_ann_Nik.csv",
-         "../Data/ARIMA/Predict_Close/ar334_ann_Oz.csv")
+# fil <- c("../Data/ARIMA/Predict_Close/ar334_ann_DAX.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_ann_CAC.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_ann_FTSE.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_ann_Dow.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_ann_Nik.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_ann_Oz.csv")
+
+fil <- c("../Data/ARIMA2/Predict_Close/ar334_ann_DAX.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_ann_CAC.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_ann_FTSE.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_ann_Dow.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_ann_Nik.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_ann_Oz.csv")
 
 #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -655,6 +662,13 @@ fil <- c("../Data/ARIMA/Predict_Close/ar334_knn_Dax.csv",
          "../Data/ARIMA/Predict_Close/ar334_knn_Nik.csv",
          "../Data/ARIMA/Predict_Close/ar334_knn_Oz.csv")
 
+fil <- c("../Data/ARIMA2/Predict_Close/ar334_knn_Dax.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_knn_CAC.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_knn_F100.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_knn_Dow.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_knn_Nik.csv",
+         "../Data/ARIMA2/Predict_Close/ar334_knn_Oz.csv")
+
 # a. System 1
 #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -689,7 +703,7 @@ filname ='../Tables/chp_ts_pred_close_arima_knn_sys1_diff.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-# a. System 
+# a. System 2
 res6 <- ts_1_2_fnc_ar(fil,nm,FALSE)
 res6[misc_col] <- 'ARIMA/k-NN Closing Price System 2'
 
@@ -717,6 +731,13 @@ fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dow.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Oz.csv")
+
+fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_Dax.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_CAC.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_F100.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_Dow.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_N225.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_Oz.csv")
   
 #nm <- c("Dax","CAC","FTSE","Dow","Nik","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -745,6 +766,13 @@ fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dow.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Oz.csv")
+
+fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_CAC.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_F100.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_Dow.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_N225.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_Oz.csv")
 
 #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
@@ -809,6 +837,13 @@ fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow2.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
+
+fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_F100.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_Dow.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
+         "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
 
 #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))

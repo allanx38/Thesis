@@ -55,6 +55,7 @@ Dax$Date <- as.POSIXct(Dax$Date,format='%d/%m/%Y')
 ggplot(Dax,aes(x=Date,y=Close)) + geom_line() + ggtitle("Dax Prices between 2000 and 2013") + ylab('Dax Closing Price')
 dev.off()
 
+
 # 5 plot Dax 2000
 savepdf(chp3_dax_2013)
 x <- c(3316:3570)
@@ -69,7 +70,7 @@ dev.off()
 # a. Table
 Dax <- Dax[-c(6,7)]
 atr <- ATR(Dax[,c('High','Low','Close')],n=14)
-str(atr)
+#str(atr)
 Dax$atr <- atr[,2]
 Dax$atr_av <- ifelse(Dax$atr>0,round((Dax$atr/Dax$Close)*100),NA)
 Dax$atr_av <- round((Dax$atr/Dax$Close)*100,2)
