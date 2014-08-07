@@ -655,12 +655,12 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # 2. ------ Arima knn Predicting Closing Price -----------------
-fil <- c("../Data/ARIMA/Predict_Close/ar334_knn_Dax.csv",
-         "../Data/ARIMA/Predict_Close/ar334_knn_CAC.csv",
-         "../Data/ARIMA/Predict_Close/ar334_knn_F100.csv",
-         "../Data/ARIMA/Predict_Close/ar334_knn_Dow.csv",
-         "../Data/ARIMA/Predict_Close/ar334_knn_Nik.csv",
-         "../Data/ARIMA/Predict_Close/ar334_knn_Oz.csv")
+# fil <- c("../Data/ARIMA/Predict_Close/ar334_knn_Dax.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_knn_CAC.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_knn_F100.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_knn_Dow.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_knn_Nik.csv",
+#          "../Data/ARIMA/Predict_Close/ar334_knn_Oz.csv")
 
 fil <- c("../Data/ARIMA2/Predict_Close/ar334_knn_Dax.csv",
          "../Data/ARIMA2/Predict_Close/ar334_knn_CAC.csv",
@@ -831,12 +831,12 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 # 4. ARMA / SVM (Predicting Up/Dn - Categorical)
-fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_F100.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow2.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
+# fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
+#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
+#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_F100.csv",
+#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow2.csv",
+#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
+#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
 
 fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
