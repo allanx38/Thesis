@@ -137,7 +137,6 @@ run_exp_mean <- function(fil,nm){
 # run_exp_mean(fil,nm)
 
 # a4 - use data sets in system
-
 fil_mean <- c("../Data/ES/Dax_es_mean.csv",
               "../Data/ES/CAC_es_mean.csv", 
               "../Data/ES/FTSE_es_mean.csv",
@@ -188,7 +187,6 @@ run_exp_drift <- function(fil,nm){
 # a3 - run thru data sets - takes while so need to run just once
 #run_exp_drift(fil,nm)
 
-# 
 fil_drift <- c("../Data/ES/Dax_es_drift.csv",
               "../Data/ES/CAC_es_drift.csv", 
               "../Data/ES/FTSE_es_drift.csv",
@@ -210,7 +208,6 @@ lab = 'tab:es_drift_sys'
 filname ='../Tables/chp_ts_es_drift.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
 
 # 3. Exp Smoothing - ets model
 # 3a. gen data set
@@ -387,8 +384,6 @@ savepdf("chp_ts_ftse_2000-13_acf_residuals")
 Acf(residuals(model_used_for_res),
     main= paste("ACF of Residuals of", model_name))
 dev.off()
-
-# c. variance - use plot from a
 
 # d. histogram of residuals - normal distribution
 savepdf("chp_ts_ftse_2000-13_hist_residuals")
@@ -569,8 +564,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # --------- RM Generated Files -----------------------------------------
 # --------- HYBRID ARIMA SYSTEMS ---------------------------------------
 
-#Mkt <- read.csv("../Data/rm_ar334_reg.csv",stringsAsFactors=F)
-
 ts_1_2_fnc_ar <- function(fil,nm,ts1){
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i],stringsAsFactors=F)
@@ -591,13 +584,6 @@ ts_1_2_fnc_ar <- function(fil,nm,ts1){
 
 # ---------- Predicting Closing Price -----------------
 # 1. ------ Arima Ann Predicting Closing Price -----------------
-# fil <- c("../Data/ARIMA/Predict_Close/ar334_ann_DAX.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_ann_CAC.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_ann_FTSE.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_ann_Dow.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_ann_Nik.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_ann_Oz.csv")
-
 fil <- c("../Data/ARIMA2/Predict_Close/ar334_ann_DAX.csv",
          "../Data/ARIMA2/Predict_Close/ar334_ann_CAC.csv",
          "../Data/ARIMA2/Predict_Close/ar334_ann_FTSE.csv",
@@ -655,13 +641,6 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # 2. ------ Arima knn Predicting Closing Price -----------------
-# fil <- c("../Data/ARIMA/Predict_Close/ar334_knn_Dax.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_knn_CAC.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_knn_F100.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_knn_Dow.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_knn_Nik.csv",
-#          "../Data/ARIMA/Predict_Close/ar334_knn_Oz.csv")
-
 fil <- c("../Data/ARIMA2/Predict_Close/ar334_knn_Dax.csv",
          "../Data/ARIMA2/Predict_Close/ar334_knn_CAC.csv",
          "../Data/ARIMA2/Predict_Close/ar334_knn_F100.csv",
@@ -725,13 +704,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # a. Categorical
 
 # 1. ARMA / ANN (Predicting Up/Dn - Categorical)
-fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dax.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_CAC.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_F100.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Dow.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_N225.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_ANN_Oz.csv")
-
 fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_Dax.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_CAC.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_ann_F100.csv",
@@ -760,13 +732,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -----------------------
 # 2. ARMA / knn (Predicting Up/Dn - Categorical)
-fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_CAC.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_F100.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Dow.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_N225.csv",
-         "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_knn_Oz.csv")
-
 fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_Dax.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_CAC.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_knn_F100.csv",
@@ -813,7 +778,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 # comp aring to Naive Prev
-#res_diff <- sub_df_av_pl(res,NaiveRev)
 res_diff8 <- sub_df(res8,NaiveRev)
 
 # produce latex table from ts_1
@@ -831,13 +795,6 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 
 # 4. ARMA / SVM (Predicting Up/Dn - Categorical)
-# fil <- c("../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
-#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
-#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_F100.csv",
-#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Dow2.csv",
-#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_N225.csv",
-#          "../Data/ARIMA/PredUpDn_CAT/ar_334_UD_svm_Oz.csv")
-
 fil <- c("../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_Dax.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_CAC.csv",
          "../Data/ARIMA2/PredUpDn_CAT/ar_334_UD_svm_F100.csv",

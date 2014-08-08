@@ -344,11 +344,9 @@ As the results from Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} were good, the 
 %\subsection{ARIMA / Reg}
 
 \subsection{ARIMA/Support Vector Machine (SVM)}
-%Parameters:
-%Validation - train/test windows, horizon
-%k-NN - 
+ARIMA was also married with a SVM learner in order to predict the categorical value, \textquotedblleft U" or \textquotedblleft D". SVM is used in binary classification to assign data sets to one of two options, in this case \textquotedblleft U" or \textquotedblleft D". Given a data set labelled as belonging to one of two possible sets, a model is built that assigns new examples into one of the categories. Support vector machines operate by building a set of hyperplanes in a high dimensional space which can then be used for classification or regression. The algorithm works by choosing the hyperplanes that are furthest from the nearest data points, which intuitively would provide the best classification between two sets of data points.
 
-ARIMA was also married with a SVM learner in order to predict the categorical value, \textquotedblleft U" or \textquotedblleft D". Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using this combination to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}.
+Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using this combination to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}.
 
 %- predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
 
