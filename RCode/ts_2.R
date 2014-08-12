@@ -11,24 +11,25 @@ ts_2 <- function(Mkt, SLoss, MktName){
   results <- createResultsVector(MktName, SLoss)
   
   Mkt$p_p <- c( NA, Mkt$p[ - length(Mkt$p) ] ) # prev prediction
+  Mkt$p_p2 <- c( NA, Mkt$p_p[ - length(Mkt$p_p) ] ) # prev prediction
   
   # Trade Long
-  Mkt$Long <- ifelse(Mkt$p > Mkt$p_p, Mkt$Close - Mkt$Open, NA)
+  Mkt$Long <- ifelse(Mkt$p_p > Mkt$p_p2, Mkt$Close - Mkt$Open, NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {
-    Mkt$Long <- ifelse(Mkt$p > Mkt$p_p,
+    Mkt$Long <- ifelse(Mkt$p_p > Mkt$p_p2,
                        ifelse((Mkt$Low-Mkt$Open) < SLoss, SLoss, Mkt$Long),
                        Mkt$Long)
     results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   }
   
   # Trade Short
-  Mkt$Short <- ifelse(Mkt$p < Mkt$p_p, Mkt$Open - Mkt$Close, NA)
+  Mkt$Short <- ifelse(Mkt$p_p < Mkt$p_p2, Mkt$Open - Mkt$Close, NA)
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0){
-    Mkt$Short <- ifelse(Mkt$p < Mkt$p_p,
+    Mkt$Short <- ifelse(Mkt$p_p < Mkt$p_p2,
                         ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Short),
                         Mkt$Short)
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))

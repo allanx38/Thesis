@@ -188,9 +188,9 @@
 %-------------------------------------------------   
 \examiner{} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
 %-------------------------------------------------   
-\degree{Master of Science} % Your degree name - this is currently used in the title page and abstract
+\degree{Master of Science in Computing} % Your degree name - this is currently used in the title page and abstract
 %-------------------------------------------------   
-\authors{Allan \textsc{Steel}} % Your name - this is used in the title page and abstract
+\authors{Dr. Allan \textsc{Steel}} % Your name - this is used in the title page and abstract
 %-------------------------------------------------   
 \addresses{} % Your address - this is not currently used anywhere in the template, cite it with \addressnames if you want it
 %-------------------------------------------------   
@@ -202,11 +202,11 @@
                 {Institute of Technology Blanchardstown}} % Your university's name - this is currently used in the title page
                 {Institute of Technology Blanchardstown}}
 %-------------------------------------------------   
-\UNIVERSITY{\texorpdfstring{\href{University Web Site URL Here (include http://http://www.itb.ie/)} % Your university's URL
+\UNIVERSITY{\texorpdfstring{\href{http://www.itb.ie/} % Your university's URL
                 {INSTITUTE OF TECHNOLOGY BLANCHARDSTOWN}} % Your university's name in capitals - this is currently used in the abstract page
                 {INSTITUTE OF TECHNOLOGY BLANCHARDSTOWN}}
 %-------------------------------------------------                
-\department{\texorpdfstring{\href{Department or School Web Site URL Here (include http://)} % Your department's URL
+\department{\texorpdfstring{\href{http://www.itb.ie/)} % Your department's URL
                 {School of Informatics and Engineering}} % Your department's name - used in the title page and abstract
                 {School of Informatics and Engineering}}
 %-------------------------------------------------                

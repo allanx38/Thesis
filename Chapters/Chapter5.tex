@@ -15,7 +15,7 @@ This chapter will explore the use of time series analysis techniques to generate
 Exponential smoothing was applied to the stock market indice data sets in order to generate predictions for the following day's closing price, so-called one step ahead forecasts. Two basic approaches and an exponential smoothing methodology were examined. The two basic methods provide a useful baseline against which to compare later models, and are the mean and drift methodologies. The mean is simply the average of the data points in the sample while the drift is equivalent to drawing a straight line between the first and last point of the sample and then extrapolating this line forward the desired number of observations.
 
 \subsection{Time Series Base Models}
-Figure \ref{fig:chp5_ts_dax} shows the two base methods, mean and drift, being applied to a data set derived from the German Dax. The models were trained on the first 3000 observations of the Dax data set and tested on the remaining ones. The actual data points being predicted in Figure \ref{fig:chp5_ts_dax} are added to the plot in Figure \ref{fig:chp_ts_dax_act}. Five error measures, root mean square error (RMSE), mean absolute error (MAE), mean percentage error (MPE), mean absolute percentage error (MAPE) and mean absolute scaled error (MASE) for the two methods are listed in Table \ref{tab:chp_ts:sma}. From these error measures we can see that the drift model fits the training data the best, having the smallest error values across all the measures, but that the mean model actually performs the best on the test data.
+Figure \ref{fig:chp5_ts_dax} shows the two base methods, mean and drift, being applied to a data set derived from the German DAX. The models were trained on the first 3000 observations of the DAX data set and tested on the remaining ones. The actual data points being predicted in Figure \ref{fig:chp5_ts_dax} are added to the plot in Figure \ref{fig:chp_ts_dax_act}. Five error measures, root mean square error (RMSE), mean absolute error (MAE), mean percentage error (MPE), mean absolute percentage error (MAPE) and mean absolute scaled error (MASE) for the two methods are listed in Table \ref{tab:chp_ts:sma}. From these error measures we can see that the drift model fits the training data the best, having the smallest error values across all the measures, but that the mean model actually performs the best on the test data.
 
 %label - tab:chp_ts:sma
 \input{Tables/chp_ts_sma.tex}
@@ -34,7 +34,7 @@ Figure \ref{fig:chp5_ts_dax} shows the two base methods, mean and drift, being a
 \label{fig:chp_ts_dax_act}
 \end{figure}
 
-Looking at Figure \ref{fig:chp_ts_dax_act} it can be seen that neither the mean or the drift does a good job with the predictions for the Dax. The forecasts were based on the entire data set, treating it as a homogeneous whole. However, financial time series typically show a variety of behaviour at different periods. On occasions it is stationary and at other times trending. Thus, in the following sections, in order to generate forecasts a sliding window approach was adopted. A window of data (the last 30 observations) was used to generate a model and the one step ahead forecast, before the window was advanced one observation to the next period. In this way the model is constantly adapting and changing. Using this approach forecasts and models for use in a trading system from a mean, drift and exponential smoothing methodology were developed.
+Looking at Figure \ref{fig:chp_ts_dax_act} it can be seen that neither the mean or the drift does a good job with the predictions for the DAX. The forecasts were based on the entire data set, treating it as a homogeneous whole. However, financial time series typically show a variety of behaviour at different periods. On occasions it is stationary and at other times trending. Thus, in the following sections, in order to generate forecasts a sliding window approach was adopted. A window of data (the last 30 observations) was used to generate a model and the one step ahead forecast, before the window was advanced one observation to the next period. In this way the model is constantly adapting and changing. Using this approach forecasts and models for use in a trading system from a mean, drift and exponential smoothing methodology were developed.
 
 \subsection{Trading System Based on Mean Model}
 \label{sec:es:mean}
@@ -145,14 +145,14 @@ If ultimately the ARIMA model is of the form ARIMA(p,d,0) or ARIMA(0,d,q) then t
 \begin{figure}[tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_diff_acf}
-\caption[ACF of FTSE 100 between between the years 2000 to 2013]{Auto-correlation plot of differenced data from FTSE 100 between the years 2000 to 2013.}
+\caption[ACF of FTSE 100 between the years 2000 to 2013]{Auto-correlation plot of differenced data from FTSE 100 between the years 2000 to 2013.}
 \label{fig:chp_ts_ftse_2000-13_diff_acf}
 \end{figure}
 
 \begin{figure}[tbh]
 \centering
 \includegraphics{Figures/chp_ts_ftse_2000-13_diff_pacf}
-\caption[PACF of FTSE 100 between between the years 2000 to 2013]{Partial auto-correlation plot of differenced data from FTSE 100 between the years 2000 to 2013.}
+\caption[PACF of FTSE 100 between the years 2000 to 2013]{Partial auto-correlation plot of differenced data from FTSE 100 between the years 2000 to 2013.}
 \label{fig:chp_ts_ftse_2000-13_diff_pacf}
 \end{figure}
 
@@ -234,7 +234,7 @@ The results of passing the indice data sets to the auto.arima() function can be 
 \label{sec:traing:arima:models}
 Having developed forecasts based on ARIMA models these can be passed into a trading system. Two ideas are presented here, in the first the previous closing price is compared against the prediction and if it is lower than the forecast a long trade is entered. This first system will be referred to as System 1. In the second algorithm the current forecast is compared with the previous prediction. When the previous forecast value is lower than the current prediction the system trades long. This algorithm will be referred to as System 2.
 
-The data sets containing fourteen years of indice data was divided into a training set, containing the first ten years of data, and a test set holding the remaining four years worth of data. Models were trained on the training sets before being applied ot the unseen data in the test sets.
+The data sets containing fourteen years of indice data was divided into a training set, containing the first ten years of data, and a test set holding the remaining four years worth of data. Models were trained on the training sets before being applied to the unseen data in the test sets.
 
 \subsection{System 1 - Close Price vs Forecast}
 Using the ARIMA models listed in Table \ref{tab:chp_ts_arima_models} a series of amended data sets were generated by applying the models to the national indice data sets used throughout this study. The amended data sets contained the original Date, Open, High, Low and Close attributes plus a new one called Forecast, in a similar manner to the data seen in Table  \ref{tab:chp_ts:ftse_100_fcast}. Table \ref{tab:chp_ts:arima1} are results produced from passing the newly generated data sets to the algorithm listed in Appendix \ref{AppendixA} section \ref{appA:ts_1}. This system uses the relative position of the close price and the forecast to determine the direction of the trade. If the forecast is higher than the close a long trade is made and when the prediction is lower than the close price a short trade is made.
@@ -255,11 +255,11 @@ A hybrid ARIMA model is one in which the moving averages of a stationary data se
 \begin{itemize}
 \item Read CSV - reads in the appropriate data set.
 \item Select Attribute (1) - selects the attribute that will be processed in the following steps.
-\item Rename - renames the attribute selected in Select Attribute (1) to \textquotedblleft attr1" which is then used in the est of the steps. This component is used to make it easy to change the attribute without having to rename all the subsequent steps.
+\item Rename - renames the attribute selected in Select Attribute (1) to \textquotedblleft attr1" which is then used in the rest of the steps. This component is used to make it easy to change the attribute without having to rename all the subsequent steps.
 \item Moving Average - calculates a moving average of the time series (see section \ref{sec:chp2_sma} for details.) This provides the q in ARIMA(p,d,q) models.
 \item Differentiate - calculates the difference in the time series and provides the d in ARIMA(p,d,q) models.
 \item Lag - creates lag variables which are values of the attribute (the attribute itself, the moving average or the difference value) at earlier points in the time series.
-\item Select Attribute (2) - selects the attributes that will be passed to the validation block. Attributes regarding today's values are removed because we are building a model to calculate them and don't want to \textquotedblleft peak" at them before the model is built.
+\item Select Attribute (2) - selects the attributes that will be passed to the validation block, including the number of previous moving averages and differences.
 \item Set Role - sets an attribute as the label to be predicted.
 
 \end{itemize}

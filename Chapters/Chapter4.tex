@@ -8,16 +8,16 @@
 
 %---------------------------------------------------------------------------------------
 \section{Introduction}
-This chapter investigates whether technical analysis can provide a positive expectanacy for financial traders. A variety of technical analysis indicators are employed including MACD, Aroon, Stochastics Oscillator and Rate of Change (ROC) indicator. The experimental results from using these indicators are presented in groupings based on the general category of indicator such as trend identification or market reversal indicators. Some technical indicators have a role to play in more than one area, for example MACD can be considered a trend detection indicator or a market reversal indicator.
+This chapter investigates whether technical analysis can provide a positive expectancy for financial traders \citep{Kuang2014192, Hsu2010471}. A variety of technical analysis indicators are employed including MACD, Aroon, Stochastics Oscillator and Rate of Change (ROC) indicator. The experimental results from using these indicators are presented in groupings based on the general category of indicator such as trend identification, market reversal and momentum indicators \citep{Taylor2014286}. Some technical indicators have a role to play in more than one area, for example MACD can be considered a trend detection indicator or a market reversal indicator.
 
 The effectiveness of a particular indicator or system is measured in terms of \textquotedblleft points" gained, which is also referred to as \textquotedblleft PL" (which stands for to profit and loss). The results presented in this chapter are mainly based around systems in which a trade is opened and closed each day, producing a daily PL either positive or negative. The sum of all the individual days produces the total system PL and these values are reported in the results tables. For example, if the market moved from 6000 to 6200 in any one day a PL of either 200 (6200 - 6000) or -200 (6000 - 6200) depending upon which way the trade was placed, would be added to the overall system results. 
 
-In addition, the results are presented such that returns from \textquotedblleft going long" (expecting the market to rise) are presented seperately from the opposite scenario of \textquotedblleft going short". This is because  market behaviour is often different while it is rising than it is while falling and systems may be more adept at predicitng price movements in one of the directions. Further, transactions costs are not taken into account in the results and these would typically be 1 point per trade for the European markets, 2 points for the Dow and 10 for the Nikkei.  Thus if a system made a PL of 1000 but it required 2000 trades at 2 points per trade, in reality the system would have lost money. 
+In addition, the results are presented such that returns from \textquotedblleft going long" (expecting the market to rise) are presented separately from the opposite scenario of \textquotedblleft going short". This is because  market behaviour is often different while it is rising than it is while falling and systems may be more adept at predicting price movements in one of the directions. Further, transactions costs are not taken into account in the results and these would typically be 1 point per trade for the European markets, 2 points for the Dow and 10 for the Nikkei.  Thus if a system made a PL of 1000 but it required 2000 trades at 2 points per trade, in reality the system would have lost money. 
 
 The results presented in this chapter and the following one are based around trading systems. Essentially the methodology concerned, technical analysis in this chapter and time series analysis in the next, attempt to predict future market direction. The values from the various indicators and forecast techniques are fed into a variety of trading algorithms which use the forecast information to decide whether to make long (expect the market to rise) or short (expect the market to fall) trades. For consistency the algorithms all return the same data object containing the following results:
 
 \begin{enumerate}
-\item Mkt - the name of the financial market such as Dax, FTSE etc.
+\item Mkt - the name of the financial market such as DAX, FTSE etc.
 \item S Loss - the value of any stop loss applied
 \item LongPL - the profit or loss generated from just the \textquotedblleft Long" trades.
 \item ShortPL - the profit or loss generated from just the \textquotedblleft Short" trades.
@@ -43,9 +43,9 @@ The second approach is equally simplistic, and again is based around opening and
 %-----------------------------------------------------------------
 % ---------------------------  Naive Long ------------------------
 \subsection{Naive Long System}
-The results of the naive long system can be seen in Table \ref{tab:nlng_results}. The R code for the algorithm which generates the results shown in Table \ref{tab:nlng_results} can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong}. For comparison purposes, the opening prices of the indices in January 2000 along with the closing prices in 2013 can be seen in Table \ref{tab:ind_start_stop}. In this period three of the indices increased in value (Dax, Dow and AORD) and three decreased (FTSE, CAC and Nikkei).
+The results of the naive long system can be seen in Table \ref{tab:nlng_results}. The R code for the algorithm which generates the results shown in Table \ref{tab:nlng_results} can be seen in Appendix \ref{AppendixA} section \ref{appA:NaiveLong}. For comparison purposes, the opening prices of the indices in January 2000 along with the closing prices in 2013 can be seen in Table \ref{tab:ind_start_stop}. In this period three of the indices increased in value (DAX, Dow and AORD) and three decreased (FTSE, CAC and Nikkei).
 
-Interestingly, the PL produced from the Naive Long System doesn't match the price differentials seen in Table \ref{tab:ind_start_stop}.  The German Dax indice produced a marked loss in the naive system even though it actually increased 37\% during this period. The Japanese Nikkei declined by over 2600 points in this period, whereas the system reported a loss of over 18000 points in the same period. On the other hand the US Dow increased by around 5000 points during the period of the study but the trading algorithm produced a positive result of almost 10000. These discrepancies can be explained by the fact that the system was using prices from the market's opening to closing times, which represents approximately  eight hours of trading between 8am and 4pm local time. These price movements don't account for the rest of the hours, the so-called out of market hours, when the market prices also change. Clearly the markets show different characteristics in the amount they move during market hours compared to out of market hours. The Nikkei, Dax and CAC have a tendency to fall during market hours and rise during out of market hours. The opposite situation occurs for the Dow.
+Interestingly, the PL produced from the Naive Long System doesn't match the price differentials seen in Table \ref{tab:ind_start_stop}.  The German DAX indice produced a marked loss in the naive system even though it actually increased 37\% during this period. The Japanese Nikkei declined by over 2600 points in this period, whereas the system reported a loss of over 18000 points in the same period. On the other hand the US Dow increased by around 5000 points during the period of the study but the trading algorithm produced a positive result of almost 10000. These discrepancies can be explained by the fact that the system was using prices from the market's opening to closing times, which represents approximately  eight hours of trading between 8am and 4pm local time. These price movements don't account for the rest of the hours, the so-called out of market hours, when the market prices also change. Clearly the markets show different characteristics in the amount they move during market hours compared to out of market hours. The Nikkei, DAX and CAC have a tendency to fall during market hours and rise during out of market hours. The opposite situation occurs for the Dow.
 
 % Table
 \input{Tables/chp_ta_naive_long.tex}
@@ -58,11 +58,11 @@ Interestingly, the PL produced from the Naive Long System doesn't match the pric
 \toprule
 Date & Start 2000 & End 2013 & Difference & \% Change  \\
 \midrule
-Dax & 6961 & 9552   & +2591 & +37 \\
+DAX & 6961 & 9552   & +2591 & +37 \\
 CAC & 6024 & 4250   & -1774 & -29 \\
 FTSE & 6930 & 6749  & -181  & +-3 \\
 Dow & 11501 & 16576 & +5075 & +44 \\
-Nik & 18937 & 16291 & -2646 & -14 \\
+Nikkei & 18937 & 16291 & -2646 & -14 \\
 AORD & 3152 & 5353  & +2201 & +70 \\
 \bottomrule
 \end{tabular}
@@ -213,7 +213,7 @@ A second system utilising the break-out concept is presented in this section. In
 \input{Tables/chp_ta_90q}
 
 \section{Candlestick Patterns}
-As previously noted in Chapter \ref{Chapter2} section \ref{sec:candlesticks} candlestick patterns are visual representations of price movements over the course of a particular time period (often a day) in terms of the market's opening, closing, high and low prices. The pattern generated from these price markets are categorised and named depending upon the visual shape they produce. Thus candlestick patterns represent the counter forces of buyers and sellers throughout the trading period. This section analyses some well known candlestick patterns for predictive power in making trading decisions.
+As previously noted in Chapter \ref{Chapter2} section \ref{sec:candlesticks} candlestick patterns are visual representations of price movements over the course of a particular time period (often a day) in terms of the market's opening, closing, high and low prices. The pattern generated from these price markets are categorised and named depending upon the visual shape they produce. Thus candlestick patterns represent the counter forces of buyers and sellers throughout the trading period. This section analyses some well known candlestick patterns for predictive power in making trading decisions \citep{Lu201465}.
 
 % -----------------  Hammer -------------------
 \subsection{Hanging Man, Hammer, Inverted Hanging Man and Shooting Star}
@@ -240,11 +240,11 @@ Figure \ref{fig:chp5e:shoot_star} is a diagram of Hanging Man and Shooting Star,
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=12cm]{chp5e_candle_shoot_star_apr_dax_jp}
-\caption [Dax candlestick patterns occurring in April 2014.]{Daily candlestick patterns from the German Dax over 22 days in April 2014 with Shooting Star and Hanging Man circled.}
+\caption [DAX candlestick patterns occurring in April 2014.]{Daily candlestick patterns from the German DAX over 22 days in April 2014 with Shooting Star and Hanging Man circled.}
 \label{fig:chp5e:shoot_star_dax}
 \end{figure}
 
-Both sets of patterns Hammer/Inverted Hammer and Hanging Man/Shooting Star are considered to indicate that a trend is coming to a close and a reversal could be looming. In the case of Hammer/Inverted Hammer if they are encountered during a down trend they could indicate that the selling pressure is easing and a market move to the upside could happen soon. The opposite is true for Hanging Man/Shooting Star. When these are encountered in an up trend they often indicate that the trend is ending and a reversal may occur. Figure \ref{fig:chp5e:shoot_star_dax} shows daily candlestick patterns for the German Dax over 22 days in April 2014. A Shooting Star is circled on the 6th April and a Hanging Man on the 23rd April. In each case they occur while the market is rising and in each case it reverses immediately afterwards.
+Both sets of patterns Hammer/Inverted Hammer and Hanging Man/Shooting Star are considered to indicate that a trend is coming to a close and a reversal could be looming. In the case of Hammer/Inverted Hammer if they are encountered during a down trend they could indicate that the selling pressure is easing and a market move to the upside could happen soon. The opposite is true for Hanging Man/Shooting Star. When these are encountered in an up trend they often indicate that the trend is ending and a reversal may occur. Figure \ref{fig:chp5e:shoot_star_dax} shows daily candlestick patterns for the German DAX over 22 days in April 2014. A Shooting Star is circled on the 6th April and a Hanging Man on the 23rd April. In each case they occur while the market is rising and in each case it reverses immediately afterwards.
 
 In order to have a system based on candlestick patterns, the pattern itself must be identified in code. A Hammer and Hanging Man are essentially the same pattern except Hammer has a close higher than the open whereas Hanging Man represents a decline in the price. For these patterns three components are defined, the length of the upper shadow (short), the size of the body (short) and the length of the lower shadow. In the trading system that follows these were defined as:
 
@@ -254,7 +254,7 @@ In order to have a system based on candlestick patterns, the pattern itself must
 \item Lower Shadow - the value of the day's low minus the low of the body is greater than 66\% of the High-Low range.
 \end{enumerate}
 
-Analysing the Dax data set running from 2000 to 2013 with 3570 observations, and using the criteria described above 35 Hammer and 48 Hanging Man patterns can be detected. 
+Analysing the DAX data set running from 2000 to 2013 with 3570 observations, and using the criteria described above 35 Hammer and 48 Hanging Man patterns can be detected. 
 
 Inverted Hammer and Shooting Star are again the same pattern except in Inverted Hammer the price rose. In the later system these are defined as:
 
@@ -264,7 +264,7 @@ Inverted Hammer and Shooting Star are again the same pattern except in Inverted 
 \item Lower Shadow - the value of the day's low minus the low of the body is less than 10\% of the High-Low range.
 \end{enumerate}
 
-Considering the Dax data set again, occurrences of these patterns are quite rare with 30 Inverted Hammers and 17 Shooting Stars in 3570 observations.
+Considering the DAX data set again, occurrences of these patterns are quite rare with 30 Inverted Hammers and 17 Shooting Stars in 3570 observations.
 
 Results from a trading system based on the Hammer / Inverted Hammer can be seen in Table \ref{tab:hammer_results} and the R code in Appendix \ref{AppendixA} section \ref{appA:Hammer}. The algorithm simply places a buy the day after a Hammer or Inverted Hammer occur, the assumption being that these patterns indicate that the market is about to rise.
 

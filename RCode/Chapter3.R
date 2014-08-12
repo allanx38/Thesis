@@ -19,7 +19,7 @@ fil <- c("../Data/Dax_2000_d.csv",
          "../Data/Dow_2000_d.csv",
          "../Data/N225_2000_d.csv",
          "../Data/Oz_2000.csv")
-nm <- c("Dax", "CAC", "F100", "Dow", "Nik", "Oz")
+nm <- c("DAX", "CAC", "F100", "Dow", "Nik", "Oz")
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 
 
@@ -30,7 +30,7 @@ Dax <- read.csv("../Data/Dax_2000_d.csv", stringsAsFactors = FALSE)
 # produce latex table
 dat <- head(Dax)
 dig <- 0
-cap <- c("First 6 rows of the Dax data set","First 6 rows of the Dax data set.")
+cap <- c("First 6 rows of the DAX data set","First 6 rows of the DAX data set.")
 lab = 'tab:daxhead'
 filname ='../Tables/chp_3_1_daxhead.tex'
 inclrnam=F
@@ -39,7 +39,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # 2. tail of Dax
 dat <- tail(Dax)
 dig <- 0
-cap <- c("Final 6 rows of the Dax data set","Final 6 rows of the Dax data set.")
+cap <- c("Final 6 rows of the DAX data set","Final 6 rows of the DAX data set.")
 lab = 'tab:daxtail'
 filname ='../Tables/chp_3_1_daxtail.tex'
 inclrnam=F
@@ -52,7 +52,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 savepdf("chp3_dax_2000_2013")
 Dax$Date <- as.POSIXct(Dax$Date,format='%d/%m/%Y')
 #qplot(Dax$Date, Dax$Close, data = Dax, geom='line') + ggtitle("Dax 2000-2013") + ylab('')
-ggplot(Dax,aes(x=Date,y=Close)) + geom_line() + ggtitle("Dax Prices between 2000 and 2013") + ylab('Dax Closing Price')
+ggplot(Dax,aes(x=Date,y=Close)) + geom_line() + ggtitle("DAX Prices between 2000 and 2013") + ylab('DAX Closing Price')
 dev.off()
 
 
@@ -62,7 +62,7 @@ x <- c(3316:3570)
 Dx2 <- Dax[,c(1,2,5)]
 Dx2 <- Dx2[x,]
 #tail(Dx2)
-ggplot(Dx2,aes(x=Date,y=Close)) + geom_line() + ggtitle("Dax Prices in 2013") + ylab('Dax Closing Price')
+ggplot(Dx2,aes(x=Date,y=Close)) + geom_line() + ggtitle("DAX Prices in 2013") + ylab('DAX Closing Price')
 dev.off()
 
 
@@ -127,7 +127,7 @@ fil <- c("../Data/Dax_2000_d.csv",
          "../Data/Dow_2000_d.csv",
          "../Data/N225_2000.csv",
          "../Data/Oz_2000.csv")
-nm <- c("Dax", "F100", "Dow", "Nik", "Oz")
+nm <- c("DAX", "F100", "Dow", "Nik", "Oz")
 
 Close_out_prev_HL <- function(fil, nm){
   df <- t(c('a','b'))

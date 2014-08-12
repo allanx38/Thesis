@@ -32,14 +32,11 @@ fil <- c("../Data/Dax_2000_d.csv",
          "../Data/Dow_2000_d.csv",
          "../Data/N225_2000_d.csv",
          "../Data/Oz_2000.csv")
-#nm <- c("Dax", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
+
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11)) # to hold results
-
 std6 <- c(1,3,4,5,7,8,10)
-
 df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
 NaiveRev <- run_NaiveReversePrev(fil, 0, nm)
-
 misc_col <- 11
 
 # -----------------------------------------------

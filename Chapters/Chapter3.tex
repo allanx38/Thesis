@@ -11,7 +11,7 @@
 The data used in this study was freely collected from the Yahoo finance web site (www.yahoo.com). It is of high quality with no missing values and represents the opening, high, low and closing prices for each day that the particular market indice was open for trading. 
 
 \section{Data Description}
-Data from a variety of national stock market indices was employed in this study. The indices were from a variety of geographic locations with FTSE (UK), DAX (Germany) and CAC (France) all being in Europe, the Dow is from the US, the Nikkei from Japan and AORD from Australia. The data is in the form of so-called daily OHLC (daily open, high, low and close prices) for Monday to Friday (excluding appropriate national holidays) for the period 2000 until the end of 2013. A schematic representation of daily OHLC data can be seen in Figure \ref{fig:chp3_ohlc}. The data sets are freely available from the finance section of Yahoo's website (www.yahoo.com). The first six observations from the DAX data set (German national indice) can be seen in Table \ref{tab:daxhead}.
+Data from a variety of national stock market indices was employed in this study. The indices were from a variety of geographic locations with FTSE (UK), DAX (Germany) and CAC (France) all being in Europe, the Dow is from the US, the Nikkei from Japan and AORD from Australia. The data is in the form of so-called daily OHLC (daily open, high, low and close prices) for Monday to Friday (excluding appropriate national holidays) for the period 2000 until the end of 2013. A schematic representation of daily OHLC data can be seen in Figure \ref{fig:chp3_ohlc}. The first six observations from the DAX data set (German national indice) can be seen in Table \ref{tab:daxhead}.
 
 %------------------- Graph of OHLC ---------------------------------
 \begin{figure}[tbh]
@@ -22,9 +22,9 @@ Data from a variety of national stock market indices was employed in this study.
 \label{fig:chp3_ohlc}
 \end{figure}
 
-The final six observations from the DAX data set can be seen in Table \ref{tab:daxtail}. Over the period of the data (2000 until the end of 2013) the Dax started at 6691 and finished at 9552. Summary statistics for the Dax data set can be seen in Table \ref{tab:daxsum}. The data set contains 3621 observations and the closing price has ranged between 2202 and 9742 over the period. A graph of the closing prices from 2000 to 2013 and be seen in Figure \ref{fig:Dax2000_2013} and a graph for 2013 can be seen in Figure \ref{fig:Dax2013}.
+The final six observations from the DAX data set can be seen in Table \ref{tab:daxtail}. Over the period of the data (2000 until the end of 2013) the DAX started at 6691 and finished at 9552. Summary statistics for the DAX data set can be seen in Table \ref{tab:daxsum}. The data set contains 3621 observations and the closing price has ranged between 2202 and 9742 over the period. A graph of the closing prices from 2000 to 2013 and be seen in Figure \ref{fig:Dax2000_2013} and a graph for 2013 can be seen in Figure \ref{fig:Dax2013}.
 
-%------------------- Table of 1st 6 rows of Dax ---------------------------------
+%------------------- Table of 1st 6 rows of DAX ---------------------------------
 
 
 %label - tab:daxhead
@@ -94,7 +94,7 @@ The final six observations from the DAX data set can be seen in Table \ref{tab:d
 
 % ------ Table of Summary stats of Dax --------------
 \begin{table}[!htbp] \centering
-\caption[Dax summary statistics]{Summary statistics of the Dax data set.}
+\caption[DAX summary statistics]{Summary statistics of the DAX data set.}
 \label{tab:daxsum}
 \begin{tabular}{lccccc}
 \toprule
@@ -110,11 +110,11 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \end{table}
 
 
-% ------ Graph of Dax 2000 to 2013 --------------
+% ------ Graph of DAX 2000 to 2013 --------------
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=9cm]{chp3_Dax2000_2013}
-\caption[Graph of Dax between 2000 and 2013]{Graph of German Dax between 2000 and 2013.}
+\caption[Graph of DAX between 2000 and 2013]{Graph of German DAX between 2000 and 2013.}
 \label{fig:Dax2000_2013}
 \end{figure}
 
@@ -122,11 +122,11 @@ Close & 3,621 & 5,857.74 & 1,559.39 & 2,202.96 & 9,742.96 \\
 \begin{figure}[tbph]
 \centering
 \includegraphics[width=9cm]{chp3_Dax_2013}
-\caption[Graph of Dax in 2013]{Graph of German Dax in 2013.}
+\caption[Graph of DAX in 2013]{Graph of German DAX in 2013.}
 \label{fig:Dax2013}
 \end{figure}
 
-Each data set has a particular set of characteristics and these are important when technical analysis and other analytical techniques are applied to the data set. A variety of these are explored in the following sections. The average amount a market moves is investigated and the term Average True Range is introduced and defined for the data sets. Where the opening and closing prices are in relation to the previous day's high and low values are also considered. Finally, the distance between the day's opening and high prices and opening to low prices are investigated. The relative ratios of these values are important when considering which technical analysis may be best suited to a particular market.
+Each data set has a particular set of characteristics and these are important when technical analysis and other analytical techniques are applied to the data set \citep{Chen201466,Matheson2012441}. A variety of these are explored in the following sections. The average amount a market moves is investigated and the term Average True Range is introduced and defined for the data sets. Where the opening and closing prices are in relation to the previous day's high and low values are also considered. Finally, the distance between the day's opening and high prices and opening to low prices are investigated. The relative ratios of these values are important when considering which technical analysis may be best suited to a particular market.
 
 \subsection{Average True Range (ATR)}
 \label{chp3:atr}
@@ -140,12 +140,12 @@ Having calculated the TR, an average of a previous number of days is used to der
 
 Absolute values are used in the calculation of the ATR as we are not concerned with the market direction but rather the the amount the market is likely to move. ATRs are typically quoted as absolute values and as such markets trading at higher prices will have higher ATRs. For example the Japanese Nikkei with a value of 14000 will move more in a day than the French CAC with a value in the 4000's. 
 
-Dividing the ATR by the closing price is a useful way to see how a security's volatility varies over time. Table \ref{tab:atr_dax} shows summary statistics for the ATR and ATR divided by closing price and Figure \ref{fig:Dax_atr} is a graph of how ATR divided by closing price has varied for the Dax between 2000 and 2013. In absolute terms the ATR varied between 36 and 316, however the value of the indice itself varied a lot. Looking at the ATR value divided by the closing period it can be seen that over the period of 2000 to 2014 the mean value is approximately 2. Thus on average the market can be expected to move 2\% of the closing price in any one day. However this value has varied between 0.7\% in periods of low volatility to a value of 6.7\%.
+Dividing the ATR by the closing price is a useful way to see how a security's volatility varies over time. Table \ref{tab:atr_dax} shows summary statistics for the ATR and ATR divided by closing price and Figure \ref{fig:Dax_atr} is a graph of how ATR divided by closing price has varied for the DAX between 2000 and 2013. In absolute terms the ATR varied between 36 and 316, however the value of the indice itself varied a lot. Looking at the ATR value divided by the closing period it can be seen that over the period of 2000 to 2014 the mean value is approximately 2. Thus on average the market can be expected to move 2\% of the closing price in any one day. However this value has varied between 0.7\% in periods of low volatility to a value of 6.7\%.
 
 % Table created by stargazer v.4.5.3 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
 % Date and time: Mon, Mar 24, 2014 - 21:57:13
 \begin{table}[!htbp] \centering 
-  \caption[Average True Range of Dax]{ATR and ATR divided by closing price for the Dax between 2000 and 2013} 
+  \caption[Average True Range of DAX]{ATR and ATR divided by closing price for the DAX between 2000 and 2013} 
   \label{tab:atr_dax} 
 \begin{tabular}{lccccc} 
 \toprule
@@ -158,11 +158,11 @@ ATR/Close & 3,556 & 1.995 & 1.065 & 0.700 & 6.740 \\
 \end{tabular} 
 \end{table} 
 
-% ------ Graph of Dax/Closing Price 2000 to 2013 --------------
+% ------ Graph of DAX/Closing Price 2000 to 2013 --------------
 \begin{figure}[tbph]
 \centering
 \includegraphics{chp3_Dax_atr}
-\caption[ATR of Dax Divided by Closing Price]{ATR of Dax divided by closing price between 2000 and 2013.}
+\caption[ATR of DAX Divided by Closing Price]{ATR of DAX divided by closing price between 2000 and 2013.}
 \label{fig:Dax_atr}
 \end{figure}
 
@@ -177,7 +177,7 @@ Where a market opens in relation to the previous day's high and low price varies
 Market & Opening Price between Previous   \\ 
        &  Day's High and Low (\%) \\
 \midrule 
-Dax & 75 \\ 
+DAX & 75 \\ 
 FTSE & 90  \\ 
 CAC & 60  \\ 
 Dow & 98 \\ 
@@ -196,7 +196,7 @@ AORD & 79\\
 %\toprule 
 %Market & Open in Prev HL & Open in Prev HL +/-10\% & Open in Prev HL +/-30\%  \\ 
 %\midrule 
-%Dax & 75\% & 60\% & 29\%  \\ 
+%DAX & 75\% & 60\% & 29\%  \\ 
 %FTSE & 90\% & 70\% & 32\%  \\ 
 %CAC & 60\% & 49\% & 25\%  \\ 
 %Dow & 98\% & 85\% & 49\%  \\ 
@@ -219,7 +219,7 @@ In a similar fashion to the opening prices the position of the closing prices in
 Market & Closing Price outside Previous   \\ 
        &  Day's High and Low (\%) \\
 \midrule 
-Dax & 56 \\ 
+DAX & 56 \\ 
 FTSE & 56  \\ 
 CAC & 58 \\ 
 Dow & 39  \\ 
@@ -239,7 +239,7 @@ The range from opening price to closing price, either up or down, is of interest
 \toprule 
 Market & Min Value & Max Value  \\ 
 \midrule
-Dax  & 0 & 508  \\ 
+DAX  & 0 & 508  \\ 
 FTSE & 0 & 431  \\ 
 CAC  & 0 & 313  \\ 
 Dow  & 0 & 950  \\ 
@@ -258,7 +258,7 @@ AORD   & 0 & 347  \\
 \toprule 
 Market & 25\% & 50\% & 75\% & 90\% \\ 
 \midrule
-Dax  & 16  & 39 & 75 & 508  \\ 
+DAX  & 16  & 39 & 75 & 508  \\ 
 FTSE & 15  & 33 & 63 & 431 \\ 
 CAC  & 11  & 26 & 49 & 313 \\ 
 Dow  & 27 & 61  & 119 & 950 \\ 
@@ -284,7 +284,7 @@ AORD   & 8  & 19  & 36 & 347 \\
 %\multicolumn{1}{C{1.25in}}{Close outside previous HL +/-10\% (\%)} &
 %\multicolumn{1}{C{1.25in}}{Close outside previous HL +/-30\% (\%)}\\
 %\midrule
-%Dax & 56 & 64 & 81  \\ 
+%DAX & 56 & 64 & 81  \\ 
 %FTSE & 56 & 63 & 81  \\ 
 %CAC & 58 & 66 & 83  \\ 
 %Dow & 39 & 48 & 72  \\ 
@@ -307,8 +307,8 @@ AORD   & 8  & 19  & 36 & 347 \\
 %{
 %\FL
 %Market &  Close Outside   &  Outside Previous      & Outside Previous \\
-%Dax    & Previous HL      &  HL +/- 10\% \tmark   &  HL +/- 30\% \tmark[b]         \ML
-%Dax & 56 & 64 & 81  \\ 
+%DAX    & Previous HL      &  HL +/- 10\% \tmark   &  HL +/- 30\% \tmark[b]         \ML
+%DAX & 56 & 64 & 81  \\ 
 %FTSE & 56 & 63 & 81  \\ 
 %CAC & 58 & 66 & 83  \\ 
 %Dow & 39 & 48 & 72  \\ 
@@ -324,7 +324,7 @@ AORD   & 8  & 19  & 36 & 347 \\
 %\toprule 
 %Market & Close out Prev HL & Close out Prev HL(1090) & Close out Prev HL(3070)  \\ 
 %\midrule
-%Dax & 56\% & 64\% & 81\%  \\ 
+%DAX & 56\% & 64\% & 81\%  \\ 
 %FTSE & 56\% & 63\% & 81\%  \\ 
 %CAC & 58\% & 66\% & 83\%  \\ 
 %Dow & 39\% & 48\% & 72\%  \\ 
@@ -348,7 +348,7 @@ Table \ref{tab:highlow} shows the percentage of times that either today's high p
 Market & Crosses either previous    & Crosses both the previous \\ 
        & day's High or Low (\%)     &  day's High and Low (\%)       \\
 \midrule 
-Dax  & 89  & 9  \\ 
+DAX  & 89  & 9  \\ 
 FTSE & 87  & 8  \\ 
 CAC  & 90  & 10 \\ 
 Dow  & 88  & 9  \\ 
@@ -366,7 +366,7 @@ AORD   & 86 & 5 \\
 %\toprule
 %Market & \parbox[c]{2cm}{HL crosses Prev HL} & \parbox[c]{3cm}{HL crosses \\both Prev HL} & \parbox[c]{3cm}{HL crosses\\ Prev HL(1090)} & \parbox[c]{3cm}{HL crosses both Prev HL(1090)}  \\ 
 %\midrule
-%Dax  & 89\% & 9\%  & 95\% & 16\% \\ 
+%DAX  & 89\% & 9\%  & 95\% & 16\% \\ 
 %FTSE & 87\% & 8\%  & 95\% & 15\% \\ 
 %CAC  & 90\% & 10\% & 95\% & 16\% \\ 
 %Dow  & 88\% & 9\%  & 97\% & 21\% \\ 
@@ -383,7 +383,7 @@ The movements in prices between the open and high (OH) and open to low (OL) are 
 
 In this section we are concerned with the relative sizes of these two price movements, the day's high price minus the opening price (OH) and the opening price minus the low price (OL), one of which is usually greater than the other. We will define the daily \textquotedblleft minor" price fluctuation as the smaller of the two price movements. Likewise we will define the larger value as the \textquotedblleft major" price fluctuation.
 
-Considering the minor price fluctuation, the range of values encountered in the indice markets under study can be seen in Table \ref{tab:minorOH}. In all cases the minimum value is zero, in other words the market opening price and either the day's high or low price were the same, the market didn't dip below or above this level. The second column in Table \ref{tab:minorOH} is the maximum value. In the case of the German Dax, there was a day when the market moved 189 points away from its opening price but also moved further in the opposite direction away from the opening price. Clearly this was a highly volatile day on the German markets.
+Considering the minor price fluctuation, the range of values encountered in the indice markets under study can be seen in Table \ref{tab:minorOH}. In all cases the minimum value is zero, in other words the market opening price and either the day's high or low price were the same, the market didn't dip below or above this level. The second column in Table \ref{tab:minorOH} is the maximum value. In the case of the German DAX, there was a day when the market moved 189 points away from its opening price but also moved further in the opposite direction away from the opening price. Clearly this was a highly volatile day on the German markets.
 
 \begin{table}[!h] \centering 
   \caption[Minor daily price fluctuation]{Minimum and maximum values for the smaller of the daily OH or OL price movement - the \textquotedblleft minor" move.} 
@@ -392,7 +392,7 @@ Considering the minor price fluctuation, the range of values encountered in the 
 \toprule 
 Market & Min Value & Max Value  \\ 
 \midrule
-Dax  & 0 & 189  \\ 
+DAX  & 0 & 189  \\ 
 FTSE & 0 & 186  \\ 
 CAC  & 0 & 134  \\ 
 Dow  & 0 & 379  \\ 
@@ -403,7 +403,7 @@ AORD   & 0 & 114  \\
 \end{tabular} 
 \end{table} 
 
-The quantiles of the minor price movements can be seen in Table \ref{tab:minorOHQ}. The 90\% quantile is the level at which 90\% of the time the minor move is less than this level.  This value may be important to know and understand when considering break-out type of systems (see section \ref{sec:bout}).  Looking at the value of the Dax we can see that the 90\% quantile level occurs at 46, which indicates that if the market has moved to this level it is unlikely to be the day's minor move (whose level 90\% of the time is below this).  Perhaps a break-out type of system may be profitable at this point, as once the market has moved this far it is usually a major move and may be expected to continue further in the same direction.
+The quantiles of the minor price movements can be seen in Table \ref{tab:minorOHQ}. The 90\% quantile is the level at which 90\% of the time the minor move is less than this level.  This value may be important to know and understand when considering break-out type of systems (see section \ref{sec:bout}).  Looking at the value of the DAX we can see that the 90\% quantile level occurs at 46, which indicates that if the market has moved to this level it is unlikely to be the day's minor move (whose level 90\% of the time is below this).  Perhaps a break-out type of system may be profitable at this point, as once the market has moved this far it is usually a major move and may be expected to continue further in the same direction.
 
 \begin{table}[!htbp] \centering 
   \caption[Quantiles of Minor daily price fluctuation.]{Quantile values for the smaller of the days OH or OL price movement - the \textquotedblleft minor" move.} 
@@ -412,7 +412,7 @@ The quantiles of the minor price movements can be seen in Table \ref{tab:minorOH
 \toprule 
 Market & 25\% & 50\% & 75\% & 90\% \\ 
 \midrule
-Dax  & 5  & 15 & 29 & 46  \\ 
+DAX  & 5  & 15 & 29 & 46  \\ 
 FTSE & 0  & 7 & 20 & 33 \\ 
 CAC  & 4  & 11 & 19 & 31 \\ 
 Dow  & 12 & 43  & 75 & 113 \\ 
@@ -423,7 +423,7 @@ AORD   & 0  & 1  & 7 & 13\\
 \end{tabular} 
 \end{table} 
 
-In contrast to the minor daily price fluctuation, the \textquotedblleft major" price fluctuation is defined as the largest of the OH or OL values.  The range of values encountered in this price fluctuation in the indice markets can be seen in Table \ref{tab:majorOH} and the quantiles of the major price movements can be seen in Table \ref{tab:majorOHQ}. Considering the Dax once more, it can be seen that the 25\% quantile is approximately equal to the 90\% quantile of the minor fluctuation. Thus if the Dax moves approximately 50 points away from the opening it is unlikely to be the smaller of the price movements and much more likely to be part of the larger movement. Knowledge of the minor and major price fluctuations may be useful in developing trading systems. 
+In contrast to the minor daily price fluctuation, the \textquotedblleft major" price fluctuation is defined as the largest of the OH or OL values.  The range of values encountered in this price fluctuation in the indice markets can be seen in Table \ref{tab:majorOH} and the quantiles of the major price movements can be seen in Table \ref{tab:majorOHQ}. Considering the DAX once more, it can be seen that the 25\% quantile is approximately equal to the 90\% quantile of the minor fluctuation. Thus if the DAX moves approximately 50 points away from the opening it is unlikely to be the smaller of the price movements and much more likely to be part of the larger movement. Knowledge of the minor and major price fluctuations may be useful in developing trading systems. 
 
 \begin{table}[!h] \centering 
   \caption[Major daily price fluctuation.]{Minimum and maximum values for the larger of the days OH or OL price movement - the \textquotedblleft major" daily price fluctuation.} 
@@ -432,7 +432,7 @@ In contrast to the minor daily price fluctuation, the \textquotedblleft major" p
 \toprule 
 Market & Min Value & Max Value  \\ 
 \midrule
-Dax  & 0 & 530  \\ 
+DAX  & 0 & 530  \\ 
 FTSE & 0 & 471  \\ 
 CAC  & 0 & 359  \\ 
 Dow  & 0 & 992  \\ 
@@ -450,7 +450,7 @@ AORD   & 0 & 347 \\
 \toprule 
 Market & 25\% & 50\% & 75\% \\ 
 \midrule
-Dax  & 43  & 69 & 106  \\ 
+DAX  & 43  & 69 & 106  \\ 
 FTSE & 37  & 56 & 86  \\ 
 CAC  & 30  & 45 & 69  \\ 
 Dow  & 92 & 131  & 190  \\ 
@@ -461,7 +461,7 @@ AORD   & 18  & 30  & 48 \\
 \end{tabular} 
 \end{table} 
 
-A final consideration in this section is the range of the open to close prices detailed in section \ref{sec:closing_prices}. Again considering the German Dax it can be seen that the 50\% quantile value is 39, as shown in Table \ref{tab:OCQuantile}, which is below the 90\% minor fluctuation level.
+A final consideration in this section is the range of the open to close prices detailed in section \ref{sec:closing_prices}. Again considering the German DAX it can be seen that the 50\% quantile value is 39, as shown in Table \ref{tab:OCQuantile}, which is below the 90\% minor fluctuation level.
 
 %\begin{table}[!htbp] \centering 
 %  \caption[Quantiles of the open to close price range.]{Quantile values for the open to close price range.} 
@@ -493,7 +493,7 @@ Experimental results and graphs were produced with the open source programming l
 \end{itemize}
 
 \subsection{Rapid Miner}
-Rapid Miner version 5.3, a market leading open-source data mining and predictive analytics platform, was used for building hybrid ARIMA models. The base system and time series plug-ins were used.
+Rapid Miner version 5.3, a market leading open-source data mining and predictive analytic platform, was used for building hybrid ARIMA models. The base system and time series plug-ins were used.
 
 \section{Methodology}
 The aim of this study was to predict market movement, not in terms of absolute values but  more in terms of general direction. The trading algorithms developed in this study were based around a daily time period. The data used was daily data containing open, high, low and closing prices. The trading algorithms developed typically opened a trade at the day's opening price and closed them at the day's closing prices. There are some deviations from this, for example trades are closed at some pre-defined point in the event of a stop loss being entered or trades running from close to close, and these are detailed in the text at the appropriate place. The forecasts produced from the technical analysis and time series models were consumed by the trading algorithms and used to decide in which direction the daily trade would be made, i.e. would the market rise or fall.

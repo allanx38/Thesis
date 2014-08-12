@@ -1,4 +1,4 @@
-nm <- c("Dax", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
+nm <- c("DAX", "CAC", "FTSE", "Dow", "Nikkei", "AORD")
 
 createResultsVector <- function(MktName, SLossValue){
   # Function to create results vector
@@ -179,14 +179,12 @@ run_NaiveReversePrev <- function(fil,SLoss, nm){
   return(df10)
 }
 
-
 # -----------------------------------------------------------------
 # ------------ CHAPTER 5 -----------------------------------------
 # -----------------------------------------------------------------
 #  ------ Arima Ann Predicting Up/Dn - Categorical -----------------
 # a. Categorical
 ts_4_fnc_ar <- function(fil,SLoss,nm){
-  
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i],stringsAsFactors=F)
     Mkt_p <- Mkt[,c(1,2,3,4,5)]

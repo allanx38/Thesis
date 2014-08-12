@@ -1,6 +1,6 @@
-ts_1 <- function(Mkt, SLoss, MktName){
-  # Trading system using predictions from ARIMA models. Uses relative 
-  # value of the forecast with the previous close
+ts_2 <- function(Mkt, SLoss, MktName){
+  # Trading system using predictions from ARIMA models. Uses 
+  # relative value of the forecast and the previous forecast
   #
   #   Mkt: market data 
   #   SLoss: stop loss 
@@ -10,26 +10,26 @@ ts_1 <- function(Mkt, SLoss, MktName){
   
   results <- createResultsVector(MktName, SLoss)
   
-  Mkt$p_c <- c( NA, Mkt$Close[ - length(Mkt$Close) ] ) # prev close
-  Mkt$p_p <- c( NA, Mkt$p[ - length(Mkt$p) ] ) # prev pred
+  Mkt$p_p <- c( NA, Mkt$p[ - length(Mkt$p) ] ) # prev prediction
+  Mkt$p_p2 <- c( NA, Mkt$p_p[ - length(Mkt$p_p) ] ) # prev prediction
   
   # Trade Long
-  Mkt$Long <- ifelse(Mkt$p_p > Mkt$p_c, Mkt$Close - Mkt$Open, NA)
+  Mkt$Long <- ifelse(Mkt$p_p > Mkt$p_p2, Mkt$Close - Mkt$Open, NA)
   results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0) {
-    Mkt$Long <- ifelse(Mkt$p_p > Mkt$p_c,
+    Mkt$Long <- ifelse(Mkt$p > Mkt$p_p,
                        ifelse((Mkt$Low-Mkt$Open) < SLoss, SLoss, Mkt$Long),
                        Mkt$Long)
     results["LongPL"] <- round(sum(Mkt$Long, na.rm=TRUE))
   }
   
   # Trade Short
-  Mkt$Short <- ifelse(Mkt$p_p < Mkt$p_c, Mkt$Open - Mkt$Close, NA)
+  Mkt$Short <- ifelse(Mkt$p < Mkt$p_p, Mkt$Open - Mkt$Close, NA)
   results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
   #Adj for SLoss
   if (SLoss < 0){
-    Mkt$Short <- ifelse(Mkt$p_p < Mkt$p_c,
+    Mkt$Short <- ifelse(Mkt$p < Mkt$p_p,
                         ifelse((Mkt$Open-Mkt$High) < SLoss, SLoss, Mkt$Short),
                         Mkt$Short)
     results["ShortPL"] <- round(sum(Mkt$Short, na.rm=TRUE))
