@@ -539,8 +539,8 @@ total_res <- rbind(total_res, res12)
 
 dat <- res12[,std6]
 dig <- 2
-cap =  c('Results from the Daily High / Low Breakout System.',
-         'Results from the Daily High / Low Breakout System')
+cap =  c('Results from the Daily High/Low Breakout System.',
+         'Results from the Daily High/Low Breakout System')
 lab = 'tab:hl_bout_sys'
 filname ='../Tables/chp_ta_b_out.tex'
 inclrnam=FALSE
@@ -551,8 +551,8 @@ res_diff <- sub_df(res12,NaiveRev)
 
 dat <- res_diff[,c(1,3,4,5,7,8,10)]
 dig <- 0
-cap <- c("Results from Daily High / Low Breakout System compared with Naive Reversing System",
-         "Daily High / Low Breakout System compared with Naive Reversing System")
+cap <- c("Results from Daily High/Low Breakout System compared with Naive Reversing System",
+         "Daily High/Low Breakout System compared with Naive Reversing System")
 lab = 'tab:hl_bout_sys_diff'
 filname ='../Tables/chp_ta_b_out_diff.tex'
 inclrnam=FALSE

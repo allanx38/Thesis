@@ -93,7 +93,6 @@ dev.off()
 # 7. opening prices - table
 Open_in_prev_HL <- function(fil, nm){
   df <- t(c('a','b'))
-  #browser()
   for(i in 1:length(fil)){
     Mkt <- read.csv(fil[i])
     Mkt$prevHigh <- c( NA, Mkt$High[ - length(Mkt$High) ] )
@@ -158,11 +157,8 @@ filname ='../Tables/chp_3_close_out_prev_HL.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
-#round(length(Dax$Close[Dax$Close > Dax$prevHigh | Dax$Close < Dax$prevLow]) / length(Dax$Close) *100)
-
 # -----------------------------------------
 # b. Op to Close min max
-
 
 
 # c. Open to Close quantiles ...
