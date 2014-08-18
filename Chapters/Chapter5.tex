@@ -250,7 +250,7 @@ Table \ref{tab:chp_ts:arima2} lists the results from passing the amended indice 
 % ---------------------------------------------------------------
 \section{Hybrid ARIMA Models}
 \label{sec:arima:chp5}
-A hybrid ARIMA model is one in which the moving averages of a stationary data set (possibly a non-stationary data set that has been differenced) are combined with data mining learners other than regression. A variety of combinations were tried, with a combination of the three previous closing prices and differences and the four previous moving averages providing good results. Possible learners include k nearest neighbour algorithms, artificial neural networks and support vector machines.  RapidMiner, an open source data mining tool is a powerful solution for building hybrid ARIMA models. Figure \ref{fig:chp_ts_rm_arima} shows the RapidMiner process used to generate hybrid ARIMA models. The Validation operator in the model below can hold a variety of learners depending upon the task and data types involved. The various components in Figure \ref{fig:chp_ts_rm_arima} are as follows:
+A hybrid ARIMA model is one in which the moving averages of a stationary data set (possibly a non-stationary data set that has been differenced) are combined with data mining learners other than regression. A variety of combinations were tried, with a combination of the three previous closing prices and differences and the four previous moving averages providing good results. Possible learners include k-Nearest Neighbour (k-NN) algorithms, Artificial Neural Networks (ANN) and Support Vector Machines (SVM).  RapidMiner, an open source data mining tool is a powerful solution for building hybrid ARIMA models. Figure \ref{fig:chp_ts_rm_arima} shows the RapidMiner process used to generate hybrid ARIMA models. The Validation operator in the model below can hold a variety of learners depending upon the task and data types involved. The various components in Figure \ref{fig:chp_ts_rm_arima} are as follows:
 
 \begin{itemize}
 \item Read CSV - reads in the appropriate data set.
@@ -280,8 +280,11 @@ Figure \ref{fig:chp_ts_rm_arima_validation} shows the cross-validation operator 
 \label{fig:chp_ts_rm_arima_validation}
 \end{figure}
 
+Using the hybrid ARIMA methods two types of predictions were carried out. Firstly, in section \ref{sec:pred:cp} the actual closing price of the following observation was predicted, which is a numeric label. This was done by combining ANN and k-NN with ARIMA, as these learners can output numeric class labels. Secondly, in section \ref{sec:pred:ud} the more general situation of whether the market increased or fell in value over the course of the day, was predicted. In this case there are two options, either the market moved up or down. For this second situation a combination of ARIMA with ANN, k-NN and SVM was used, as all three can forecast a binary label.
+
 % ------------------------------------------------------------------------------
 \section{Predicting Closing Price}
+\label{sec:pred:cp}
 As mentioned previously ARIMA and hybrid ARIMA models were used to predict either the value of the one-step ahead close price or the binary value of whether the market moved up or down. In this section the ability of hybrid ARIMA models to forecast the future price of financial markets (as opposed to the general direction up or down) is explored.
 
 \subsection{ARIMA/Artificial Neural Networks (ANN)}
@@ -305,7 +308,7 @@ Table \ref{tab:chp_ts:arima_ann_sys2} are the results of passing the output of t
 \subsection{ARIMA/k-Nearest Neighbour (k-NN)}
 An ARIMA/k-NN method was used to generate predictions for the closing price of the indice data sets. The k-Nearest Neighbour algorithm operates by comparing the current set of attributes to others in the data set and finding ones that are \textquotedblleft close" to it. Closeness is usually defined by a distance measure, such as Euclidean, after the attributes have been stored in a n-dimensional pattern space. The k closest neighbours are selected and the most common class of these used to classify the label. In a similar manner to the ANN modelling of section \ref{sec:cp_ann}, lag variables of the close price (label attribute to be forecast), moving average and differences of the close price were passed to a k-NN learner in Rapid Miner in order to predict the one-step ahead forecast. 
 
-Table \ref{tab:chp_ts:pred_close_arima_knn_sys1} shows the results of passing data sets containing forecasts generated with the hybrid ARIMA/k-NN to trading System 1. Table \ref{tab:chp_ts:pred_close_arima_knn_sys2} shows the results of passing data sets containing forecasts generated with the hybrid ARIMA/k-NN to trading System 2.
+The k-NN learner has only a small number of parameters such as k, the number of close neighbours to be considered and the types of measures to be used. Fifteen was found to be a good value for k and either euclidean or cosine similarity a good choice for the distance measure. Table \ref{tab:chp_ts:pred_close_arima_knn_sys1} shows the results of passing data sets containing forecasts generated with the hybrid ARIMA/k-NN to trading System 1. Table \ref{tab:chp_ts:pred_close_arima_knn_sys2} shows the results of passing data sets containing forecasts generated with the hybrid ARIMA/k-NN to trading System 2.
 
 %label - tab:chp_ts:pred_close_arima_knn_sys1
 \input{Tables/chp_ts_pred_close_arima_knn_sys1.tex}
@@ -315,10 +318,28 @@ Table \ref{tab:chp_ts:pred_close_arima_knn_sys1} shows the results of passing da
 
 % ----------------------------------------------------------------------------------
 \section{Predicting Up or Down - Categorical Label}
-In this section the ability of hybrid ARIMA models to forecast whether a financial market will rise or fall is investigated. A categorical attribute taking values \textquotedblleft U" and \textquotedblleft D", representing whether the market moved up (\textquotedblleft U") or down (\textquotedblleft D")  was introduced into the indice data sets depending upon which way the market moved that day. Hybrid ARIMA models, of the form already introduced, were used to forecast this categorical label.
+\label{sec:pred:ud}
+In this section the ability of hybrid ARIMA models to forecast whether a financial market will rise or fall is investigated. A categorical attribute taking values \textquotedblleft U" and \textquotedblleft D", representing whether the market moved up (\textquotedblleft U") or down (\textquotedblleft D")  was introduced into the indice data sets depending upon which way the market moved that day. the final six observations of the FTSE data sat with the binary label added can be seen in Table \ref{tab:chp_ts:ftse_100_fcast_ud}. Hybrid ARIMA models using ANN, k-NN and SVM learners, were used to generate one-step ahead forecasts for this categorical label.
 
+\begin{table}[ht]
+\centering
+\caption[FTSE 100 data set with \textquotedblleft U" and \textquotedblleft D" label]{FTSE 100 data set with \textquotedblleft U" and \textquotedblleft D" label introduced.} 
+\label{tab:chp_ts:ftse_100_fcast_ud}
+\begin{tabular}{lccccc}
+  \toprule Date & Open & High & Low & Close & U/D \\ 
+  \midrule 20/12/2013 & 6585 & 6617 & 6577 & 6607 & U \\ 
+  23/12/2013 & 6607 & 6679 & 6606 & 6679 & U \\ 
+  24/12/2013 & 6679 & 6712 & 6672 & 6694 & U \\ 
+  27/12/2013 & 6694 & 6754 & 6694 & 6751 & U \\ 
+  30/12/2013 & 6751 & 6768 & 6718 & 6731 & D \\ 
+  31/12/2013 & 6731 & 6757 & 6731 & 6749 & U \\ 
+   \bottomrule \end{tabular}
+\end{table}
+
+\newpage
 \subsection{ARIMA/Artificial Neural Networks (ANN)}
-The R code for a trading system using the forecasts from a hybrid model can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_4}. The algorithm simply uses the prediction from the hybrid ARIMA model (\textquotedblleft U" or \textquotedblleft D") to decide whether to trade long or short. Table \ref{tab:chp_ts:pUD_CAT_arima_ann_sys} lists the results from using this hybrid ARIMA/ANN model to make the forecasts.
+\label{sec:ann:ud}
+Lag values from the moving average of the closing price, the difference values between consecutive observations and the closing price were passed to an ANN learner to create one-step ahead forecasts of the \textquotedblleft U" and \textquotedblleft D" values. The R code for a trading system using the forecasts from a hybrid model can be seen in Appendix \ref{AppendixA} section \ref{appA:ts_4}. The algorithm simply uses the prediction from the hybrid ARIMA model to decide whether to trade long or short. Table \ref{tab:chp_ts:pUD_CAT_arima_ann_sys} lists the results from the trading system using the hybrid ARIMA/ANN forecasts.
 
 %Parameters:
 %Validation - train/test windows, horizon
@@ -333,7 +354,7 @@ The R code for a trading system using the forecasts from a hybrid model can be s
 %Parameters:
 %Validation - train/test windows, horizon
 %k-NN - k = 15
-An Arima/k-NN model was also employed in an attempt to predict the categorical label indicating whether the financial markets would move up or down. The forecasts produced from these hybrid models were also applied to the trading algorithms listed in \ref{AppendixA} section \ref{appA:ts_4}. Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} lists the results from this combination.
+In a similar manner to section \ref{sec:ann:ud}, an ARIMA/k-NN model was also employed in an attempt to predict the categorical label indicating whether the financial markets would move up or down. The forecasts produced from these hybrid models were also applied to the trading algorithms listed in \ref{AppendixA} section \ref{appA:ts_4}. Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} lists the trading results from this combination.
 
 %label - tab:chp_ts:pUD_CAT_arima_knn_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_knn_sys.tex}
@@ -346,11 +367,24 @@ As the results from Table \ref{tab:chp_ts:pUD_CAT_arima_knn_sys} were good, the 
 %\subsection{ARIMA / Reg}
 
 \subsection{ARIMA/Support Vector Machine (SVM)}
-ARIMA was also married with a SVM learner in order to predict the categorical value, \textquotedblleft U" or \textquotedblleft D". SVM is used in binary classification to assign data sets to one of two options, in this case \textquotedblleft U" or \textquotedblleft D". Given a data set labelled as belonging to one of two possible sets, a model is built that assigns new examples into one of the categories. Support vector machines operate by building a set of hyperplanes in a high dimensional space which can then be used for classification or regression. The algorithm works by choosing the hyperplanes that are furthest from the nearest data points, which intuitively would provide the best classification between two sets of data points.
+ARIMA was also married with a SVM learner in order to predict the categorical value, \textquotedblleft U" or \textquotedblleft D". SVMs are linear classifiers that can only operate with binary class labels and thus assign observations in a data set to one of two options, in this case \textquotedblleft U" or \textquotedblleft D". 
 
-Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using this combination to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}.
+\begin{figure}[tbph!]
+\centering
+\includegraphics[width=8cm]{SVM}
+%\caption{fs yrytrytr}
+\caption[SVM margins and slack variables]{SVM margins and slack variables.}
+\label{fig:SVM}
+\end{figure}
 
-%- predicting categorical U / D with ARIMA / ANN. CAC, Oz and 1 other create lopsided predictions ...
+Support vector machines operate by finding the straight line that dissects a data set such that the points close to the dividing line are as far away from it as possible. In high dimensional data sets the dividing lines can be considered as a set of hyperplanes in a high dimensional space. The algorithm works by choosing the hyperplanes that are furthest from the boundary data points, which are known as the support vectors. This intuitively would provide the best classification between two sets of data points. Observations that are classified into the wrong class are known as slack variables, the number of which increases as width of the dividing margin increases. 
+
+Figure \ref{fig:SVM} illustrates the margin calculated from a SVM between two classes of observations, and the presence of a wrongly classified slack variable. Therefore in SVMs there is a trade off between a narrow margin with a small number of slack margins, which could represent over-fitting, and a wider margin with more wrongly classified data points. In the Rapid Miner SVM operator, the parameter \textquotedblleft C" is a cost function, that applies a cost to slack variables. If this parameter is set to a high value there is a high cost applied to the creation of a slack variable and therefore the model produces tight margins and risks over-fitting the model. For low values of C, models with wider margins with more slack variables are produced.
+
+In order to allow for non-linear boundaries between classes non-linear kernel functions are used in SVM. These map the original data set into a data set with a larger number of dimensions which can then be split with a linear function.
+
+Table \ref{tab:chp_ts:pUD_CAT_arima_svm_sys} lists the results of passing forecasts made using hybrid ARIMA/SVM models to the trading algorithm listed in \ref{AppendixA} section \ref{appA:ts_4}. Typically small values were used for the cost parameter in Rapid Miner and a radial non-linear kernel function applied.
+
 
 %label - tab:chp_ts:pUD_CAT_arima_svm_sys
 \input{Tables/chp_ts_predUpDn_CAT_arima_svm_sys.tex}
