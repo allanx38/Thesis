@@ -52,7 +52,7 @@ In a similar way to the mean model of section \ref{sec:es:mean} the predictions 
 
 \subsection{Trading System Based on Exponential Smoothing Model}
 
-Using Rob J Hyndman's forecast package and the ets() function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality, both additive and multiplicative. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
+Using Rob J Hyndman's forecast package and the ets function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality, both additive and multiplicative. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
 
 \begin{table}[ht]
 \centering
@@ -75,7 +75,7 @@ Using Rob J Hyndman's forecast package and the ets() function, a variety of expo
 
 %Note - Hymndman: hard to beat the ets model, 37 mins.
 
-Using a sliding window approach, one step ahead forecasts were generated using the ets() function. Because a different sample of data was contained in each window, the exponential smoothing function selects the best model for each window of data independently of the data set as a whole. Thus the ets() function applies a variety of models to the windows of data including:
+Using a sliding window approach, one step ahead forecasts were generated using the ets function. Because a different sample of data was contained in each window, the exponential smoothing function selects the best model for each window of data independently of the data set as a whole. Thus the ets function applies a variety of models to the windows of data including:
 
 \begin{itemize}
 \item ETS(A,N,N)
@@ -112,7 +112,7 @@ The process of fitting an ARIMA model to a time series is quite challenging and 
 \end{enumerate}
 
 
-In recent years automatic forecasting algorithms have become available and are widely used \citep{Hyndman08automatictime}. These are necessary in a variety of circumstances, especially when organisations are faced with the need to repeatedly carry out a large number of forecasts and the human effort required renders manual means impractical. The auto.arima() function found in R's \textquotedblleft forecast" package is an example of an automatic algorithm for ARIMA models. This function automates steps 3, 4, and 5 of those outlined previously, in the general steps required for ARIMA modelling. In the following sections, the general steps are used to generate an ARIMA model manually, and then the automatic algorithm is utilised to build one.
+In recent years automatic forecasting algorithms have become available and are widely used \citep{Hyndman08automatictime}. These are necessary in a variety of circumstances, especially when organisations are faced with the need to repeatedly carry out a large number of forecasts and the human effort required renders manual means impractical. The auto.arima function found in R's \textquotedblleft forecast" package is an example of an automatic algorithm for ARIMA models. This function automates steps 3, 4, and 5 of those outlined previously, in the general steps required for ARIMA modelling. In the following sections, the general steps are used to generate an ARIMA model manually, and then the automatic algorithm is utilised to build one.
 
 \section{Manual Generation of ARIMA Models}
 \label{sec:man_arima}
@@ -223,9 +223,9 @@ Finally, after developing a model that meets the previous criteria a forecast ca
 \input{Tables/chp_ts_ftse_100_fcast.tex}
 
 \section{Automatic Generation of ARIMA Models}
-As explained previously the automatic ARIMA modelling algorithm in the R forecast package, auto.arima(), automates steps 3 to 5 in the general steps used in the modelling process as outlined in section \ref{arima_models}. The function uses a variation of the Hyndman and Khandakar algorithm which obtains an ARIMA model by the minimisation of the AICc and combination with unit root tests. KPSS tests are used to establish the number of differences, d, required to get a stationary time series. The p and q values are then obtained by choosing the model that minimises the AICc for the differenced data. 
+As explained previously the automatic ARIMA modelling algorithm in the R forecast package, auto.arima, automates steps 3 to 5 in the general steps used in the modelling process as outlined in section \ref{arima_models}. The function uses a variation of the Hyndman and Khandakar algorithm which obtains an ARIMA model by the minimisation of the AICc and combination with unit root tests. KPSS tests are used to establish the number of differences, d, required to get a stationary time series. The p and q values are then obtained by choosing the model that minimises the AICc for the differenced data. 
 
-The results of passing the indice data sets to the auto.arima() function can be seen in Table \ref{tab:chp_ts_arima_models}. For the FTSE data set the automatic procedure selects the ARIMA(2,1,3) as being the most appropriate, which matches the conclusion of the work from the manual model selection process described earlier in section \ref{sec:man_arima}.
+The results of passing the indice data sets to the auto.arima function can be seen in Table \ref{tab:chp_ts_arima_models}. For the FTSE data set the automatic procedure selects the ARIMA(2,1,3) as being the most appropriate, which matches the conclusion of the work from the manual model selection process described earlier in section \ref{sec:man_arima}.
 
 %label - tab:chp_ts_arima_models
 \input{Tables/chp_ts_arima_models.tex}
@@ -243,7 +243,7 @@ Using the ARIMA models listed in Table \ref{tab:chp_ts_arima_models} a series of
 \input{Tables/chp_ts_arima1.tex}
 
 \subsection{System 2 - Forecast vs Previous Forecast}
-Table \ref{tab:chp_ts:arima2} lists the results from passing the amended indice data sets with the forecasts generated from the auto.arima() function, described in the previous section, to the System 2 algorithm. The R code of this system can be seen in  Appendix \ref{AppendixA} section \ref{appA:ts_2}. System 2 uses the relative values of the forecasts themselves to decide which direction to trade. If the prediction is higher than the previous day's prediction a long trade is initiated the following day and in the opposite circumstances when the previous forecast is higher than the current forecast a short trade is made.
+Table \ref{tab:chp_ts:arima2} lists the results from passing the amended indice data sets with the forecasts generated from the auto.arima function, described in the previous section, to the System 2 algorithm. The R code of this system can be seen in  Appendix \ref{AppendixA} section \ref{appA:ts_2}. System 2 uses the relative values of the forecasts themselves to decide which direction to trade. If the prediction is higher than the previous day's prediction a long trade is initiated the following day and in the opposite circumstances when the previous forecast is higher than the current forecast a short trade is made.
 
 %label - tab:chp_ts:arima2
 \input{Tables/chp_ts_arima2.tex}

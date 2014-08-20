@@ -92,23 +92,21 @@ plot(rainseriesforecasts,
 dev.off()                   #end
 
 # --------- END
-
+?HoltWinters
 # ------------------------
 # Holt Winters smoothing - trend though no seasonality
 # \label{fig:HW2a}
 # -----------------------
+
 savepdf('chp2_HW2a')     #start
-#plot.ts(skirtsseries)
-skirtsseriesforecasts <- HoltWinters(skirtsseries,gamma=FALSE)
-plot(skirtsseriesforecasts,
-     main="Skirt Lenghts with Exponential Smoothing",
-     xlab="Year", 
-     ylab="Skirt Lenghts")
-legend("topright",lty=1,col=c(1,2),
+plot.ts(skirtsseries,
+        main="Skirt Lengths with Exponential Smoothing",
+        xlab="Year", 
+        ylab="Skirt Lengths")
+lines(fitted(skirtsseriesforecasts)[,1], col = 1,lty=2)
+legend("topright",lty=c(1,2),
        legend=c("Time Series","Exponential Smoothing"))
-
-dev.off()                   #end
-
+dev.off()
 # --------- END
 
 # ------------------------
@@ -118,11 +116,12 @@ dev.off()                   #end
 savepdf('chp2_HW3a')     #start
 #plot(souvenirtimeseries)
 souvenirtimeseriesforecasts <- HoltWinters(souvenirtimeseries)
-plot(souvenirtimeseriesforecasts,
+plot(souvenirtimeseries,
      main="Souvenir Sales with Exponential Smoothing",
      xlab="Year", 
      ylab="Souvenir Sales")
-legend("topleft",lty=1,col=c(1,2),
+lines(fitted(souvenirtimeseriesforecasts)[,1], col = 1,lty=2)
+legend("topleft",lty=c(1,2),
        legend=c("Time Series","Exponential Smoothing"))
 
 dev.off()                   #end
