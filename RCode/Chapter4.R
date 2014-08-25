@@ -515,9 +515,9 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -----------------------------------------------------------------
-# ------------- Break-out Systems ------------------------------
+# ------------- Breakout Systems ------------------------------
 
-# ------------  Daily Break Out ------------------------
+# ------------  Daily Breakout ------------------------
 run_BaseSystem2Bout <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
@@ -559,7 +559,7 @@ inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 #-----------------------------------------------------------------
-# ---------------- 90% Quantile Break-out ------------------------
+# ---------------- 90% Quantile Breakout ------------------------
 run_BaseSystem3Quant902 <- function(fil,SLoss,nm){
   df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
   for(i in 1:length(fil)){
