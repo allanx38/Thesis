@@ -106,7 +106,6 @@ morekeywords={}
 \fancyhead{} % Clears all page headers and footers
 \rhead{\thepage} % Sets the right side header to show the page number
 \lhead{} % Clears the left side page header
-
 \pagestyle{fancy} % Finally, use the "fancy" page style to implement the FancyHdr headers
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % New command to make the lines in the title page
@@ -153,10 +152,7 @@ morekeywords={}
 
 
 {\large \today}\\[4cm] % Date
-%\includegraphics{itb_logo} % University/department logo - uncomment to place it
-\includegraphics[width=8cm]{./Figures/itb_logo}
-
-
+\includegraphics[width=8cm]{./Figures/itb_logo}  % University/department logo - uncomment to place it
 
 \renewcommand{\today}{\ifnum\number\day<10 0\fi \number\day \space%
 \ifcase \month \or January\or February\or March\or April\or May%
@@ -194,27 +190,9 @@ Signed:\\
  
 Date:\\
 \rule[1em]{25em}{0.5pt} % This prints a line to write the date
-iate}
+}
 
 \clearpage % Start a new page
-
-%----------------------------------------------------------------------------------------
-%	QUOTATION PAGE
-%----------------------------------------------------------------------------------------
-
-%\pagestyle{empty} % No headers or footers for the following pages
-%
-%\null\vfill % Add some space to move the quote down the page a bit
-%
-%\textit{``Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism."}
-%
-%\begin{flushright}
-%Dave Barry
-%\end{flushright}
-%
-%\vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
-%
-%\clearpage % Start a new page
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -224,12 +202,11 @@ iate}
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-For hundreds of years speculators have tried to make a profit from the financial markets by predicting their future movements. To this end, many methods and techniques have been developed that purport to assist the market participant in generating profits. This study reports on the effectiveness of several such techniques to help predict the one step ahead forecasts of a range of national stock market indices (DAX, FTSE, CAC, Dow Jones, Nikkei and AORD) . A selection of technical analysis indicators as well as more traditional time series prediction models such as exponential smoothing, ARIMA and hybrid ARIMA techniques are explored. Results from the predictive models are passed to trading algorithms where purchasing decisions are directed by the forecasts. Profitable systems are developed based on predictions from technical analysis and hybrid ARIMA models using a k-NN learner.
-
- 
+For hundreds of years speculators have tried to make a profit from the financial markets by predicting their future movements. To this end, many methods and techniques have been developed that purport to assist the market participant in generating profits. This study reports on the effectiveness of several such techniques to help predict the one-step ahead forecasts of a range of national stock market indices (DAX, FTSE, CAC, Dow Jones, Nikkei and AORD). A selection of technical analysis indicators as well as more traditional time series prediction models such as exponential smoothing, ARIMA and hybrid ARIMA techniques are explored. Results from the predictive models are passed to trading algorithms where purchasing decisions are directed by the forecasts. In general the forecasts and models developed had limited predictive capabilities on the financial markets tested, however profitable systems were developed based on predictions from technical analysis and hybrid ARIMA models.
 }
 
 \clearpage % Start a new page
+
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
@@ -239,14 +216,11 @@ For hundreds of years speculators have tried to make a profit from the financial
 
 \acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-
-
 I wish to thank my supervisor Dr Geraldine Grey for her guidance, support and patience throughout the completion of this project. I would also like to acknowledge Dr Markus Hofmann and Laura Keyes, who along with Geraldine provided two years of stimulating and enjoyable lectures.
 
 This study made extensive use of open source software and I would like to thank and acknowledge all the people who provided their time, skill and expertise to make world class software freely available.
 
 Finally, I would like to thank my partner Ann for all her patience and help during the writing of this thesis.
-
 
 }
 \clearpage % Start a new page
@@ -341,11 +315,8 @@ Finally, I would like to thank my partner Ann for all her patience and help duri
 \input{Chapters/Chapter1}
 \input{Chapters/Chapter2} 
 \input{Chapters/Chapter3}
-
 \input{Chapters/Chapter4}
-
 \input{Chapters/Chapter5} 
-
 \input{Chapters/Chapter6} 
 %\input{Chapters/Chapter7}
  

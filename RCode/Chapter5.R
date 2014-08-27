@@ -413,7 +413,7 @@ colnames(Mkt_test_df) <- c('Date','Open','High','Low','Close','Forecast')
 # plot the results
 dat <- tail(Mkt_test_df)
 dig <- 0
-cap <- c("One step ahead forecast for FTSE 100 generated from ARIMA(2,1,3) model.",
+cap <- c("One-step ahead forecast for FTSE 100 generated from ARIMA(2,1,3) model.",
          "Forecast for FTSE 100 generated from the ARIMA model")
 lab = 'tab:chp_ts:ftse_100_fcast'
 filname ='../Tables/chp_ts_ftse_100_fcast.tex'
@@ -812,31 +812,6 @@ lab = 'tab:chp_ts:pUD_CAT_arima_svm_sys_ch6'
 filname ='../Tables/chp_ts_predUpDn_CAT_arima_svm_sys_chp6.tex'
 inclrnam=FALSE
 print_xt(dat,dig,cap,lab,al,filname,inclrnam)
-
-# -------------------------------------------------
-#  ------ Arima Ann Predicting Up/Dn - 01 ---------
-# 1. ARMA / ANN - (Predicting Up/Dn - 01)
-# fil <- c("../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dax.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_CAC.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_FTSE.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Dow.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_N225.csv",
-#          "../Data/ARIMA/PredUpDn_01/ar_334_01_ANN_Oz.csv")
-# 
-# #nm <- c("Dax","CAC","FTSE","Dow","Nikkei","AORD")
-# df10 <- as.data.frame(matrix(seq(11),nrow=1,ncol=11))
-# 
-# res10 <- ts_3a_fnc_ar(fil, nm)
-# 
-# # produce latex table from ts_1
-# dat <- res10[,c(1,3,4,5,7,8,10)]
-# dig <- 0
-# cap <- c("Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model.",
-#          "Results from a trading system using the forecast of a continous label from a hybrid ARIMA/ANN model")
-# lab = 'tab:chp_ts:pUD_01_arima_ann_sys'
-# filname ='../Tables/chp_ts_predUpDn_01_arima_ann_sys.tex'
-# inclrnam=FALSE
-# print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 
 # -- Generate Summary tables for Chp6
 # 1. Dax

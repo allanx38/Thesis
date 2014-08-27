@@ -1,5 +1,5 @@
 ts_4 <- function(Mkt, SLoss, MktName){
-  #   trading system based on prediction fron ANN working with categorical
+  #   trading system based on prediction from Hybrid/ARIMA models working with categorical
   #   label with valued U or D
   #
   #   Mkt: market data 

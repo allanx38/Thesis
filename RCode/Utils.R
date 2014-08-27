@@ -198,35 +198,3 @@ ts_4_fnc_ar <- function(fil,SLoss,nm){
   df10 <- df10[-c(1),]
   return(df10)
 }
-
-
-# -------------------------------------------------
-#  ------ Arima Ann Predicting Up/Dn - 01 ---------
-ts_3_fnc_ar <- function(fil,nm,ts1){
-  for(i in 1:length(fil)){
-    Mkt <- read.csv(fil[i],stringsAsFactors=F)
-    Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
-    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
-    a <- ts_3(Mkt_p, 0, nm[i])
-    df10 <- rbind(df10, a)
-  }
-  df.name <- names(a)
-  names(df10) <- df.name
-  df10 <- df10[-c(1),]
-  return(df10)
-}
-
-# bit of fiddling for ANN
-ts_3a_fnc_ar <- function(fil,nm,ts1){
-  for(i in 1:length(fil)){
-    Mkt <- read.csv(fil[i],stringsAsFactors=F)
-    Mkt_p <- Mkt[,c(1,2,3,4,5,18)]
-    colnames(Mkt_p) <- c("Date","Open", "High","Low","Close","p")
-    a <- ts_3a(Mkt_p, 0, nm[i])
-    df10 <- rbind(df10, a)
-  }
-  df.name <- names(a)
-  names(df10) <- df.name
-  df10 <- df10[-c(1),]
-  return(df10)
-}

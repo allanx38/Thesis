@@ -793,7 +793,7 @@ print_xt(dat,dig,cap,lab,al,filname,inclrnam)
 # -- Generate Summary tables for Appendic C -------------
 # 1. Dax
 colnames(total_res)[11] <- 'Methodology'
-Dx <- total_res[total_res$Mkt == 'Dax',]
+Dx <- total_res[total_res$Mkt == 'DAX',]
 Dx2 <- Dx[c(11,3,4,7,10)]
 
 # latex table

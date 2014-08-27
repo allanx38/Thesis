@@ -292,7 +292,11 @@
 \newenvironment{abstract}
 {
   \btypeout{Abstract Page}
-  \thispagestyle{empty}
+  %\thispagestyle{empty}
+  \thispagestyle{plain}
+  %\pagenumbering{roman}
+  %\thispagestyle{fancy}
+  %\pagestyle{fancy}
   \null\vfil
   \begin{center}
     \setlength{\parskip}{0pt}
