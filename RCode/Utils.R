@@ -21,7 +21,7 @@ createResultsVector <- function(MktName, SLossValue){
           "S Win %",      # 1. Name of Mkt
           "S Trades",    # 1. Name of Mkt
           "Av S PL",
-          "misc")      # 1. Name of Mkt
+          "SMA")      # 1. Name of Mkt
   names(results) <- nam
   results["Mkt"] <- MktName
   results["S Loss"] <- SLossValue

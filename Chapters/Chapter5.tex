@@ -52,7 +52,7 @@ In a similar way to the mean model of section \ref{sec:es:mean} the predictions 
 
 \subsection{Trading System Based on Exponential Smoothing Model}
 
-Using Rob J Hyndman's forecast package and the ets function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality, both additive and multiplicative. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
+Using Rob J Hyndman's forecast package for R and the ets function, a variety of exponential smoothing methods can be applied to sample data \citep{Hyndman08automatictime}. Table \ref{tab:tax_em} lists fifteen possibilities when one combines trend and seasonality, both additive and multiplicative. In fact Hyndman extends this further by allowing the error term to be either added or multiplied against the results. 
 
 \begin{table}[ht]
 \centering
@@ -75,19 +75,7 @@ Using Rob J Hyndman's forecast package and the ets function, a variety of expone
 
 %Note - Hymndman: hard to beat the ets model, 37 mins.
 
-Using a sliding window approach, one-step ahead forecasts were generated using the ets function. Because a different sample of data was contained in each window, the exponential smoothing function selects the best model for each window of data independently of the data set as a whole. Thus the ets function applies a variety of models to the windows of data including:
-
-\begin{itemize}
-\item ETS(A,N,N)
-\item ETS(M,N,N)
-\item ETS(M,A,N)
-\item ETS(A,A,N)
-\item ETS(A,Ad,N)
-\item ETS(M,Md,N)
-\item ETS(M,Ad,N)
-\item ETS(M,M,N)
-\end{itemize}
-
+Using a sliding window approach, one-step ahead forecasts were generated using the ets function. Because a different sample of data was contained in each window, the exponential smoothing function selects the best model for each window of data independently of the data set as a whole. Thus, the ets function applies a variety of models to the individual windows of data contained within a particular data set.
 
 The one-step ahead forecasts generated from these models were once again passed to the same trading algorithm listed in Appendix \ref{AppendixA} section \ref{appA:es_1} and the results can be seen in Table \ref{tab:es_sys}.
 

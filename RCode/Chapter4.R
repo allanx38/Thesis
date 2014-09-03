@@ -582,7 +582,7 @@ total_res <- rbind(total_res, res14)
 dat <- res14[,std6]
 dig <- 2
 cap =  c('Results from a system that breaks out from the 90\\% quantile level of the day\'s minor move.',
-         'Results from a break out system using the day\'s the minor move')
+         'Results from a breakout system using the day\'s the minor move')
 lab = 'tab:q_90_results'
 filname ='../Tables/chp_ta_90q.tex'
 inclrnam=FALSE
